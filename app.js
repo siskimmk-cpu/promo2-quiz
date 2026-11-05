@@ -75,7 +75,7 @@ function randomPaper(){
     ids.push(...shuffle(pick).map(q=>q.id));});
   return ids;
 }
-const PAPERS=[{id:'p1',name:'실전 제1회',desc:'고정 시험지',ic:'1',ids:()=>paper(0)},{id:'p2',name:'실전 제2회',desc:'고정 시험지',ic:'2',ids:()=>paper(1)},{id:'pr',name:'랜덤 실전',desc:'열 때마다 새로 출제',ic:'R',ids:randomPaper}];
+const PAPERS=[{id:'p1',name:'실전 제1회',desc:'매일 오전 9시 새 시험지',ic:'1',ids:()=>dailyPaper(0)},{id:'p2',name:'실전 제2회',desc:'매일 오전 9시 새 시험지',ic:'2',ids:()=>dailyPaper(1)},{id:'pr',name:'랜덤 실전',desc:'열 때마다 새로 출제',ic:'R',ids:randomPaper}];
 
 /* ── 세션 ── */
 function start(ids,title,mode,extra){
@@ -187,6 +187,7 @@ function study(){
   clearInterval(tick); showTabs('study');
   const st=stats();
   let h=`<header class="top-h"><div><span class="eyebrow">과목별 연습</span><h1 class="title">무엇을 풀어볼까요?</h1></div></header>`;
+  h+=searchBox();
   h+=flashEntry();
   h+=`<div class="list anim">`+SUBJECTS.map((sub,k)=>{
     const qs=QUESTIONS.filter(q=>sub.secs.includes(q.sec)), d=qs.filter(q=>store.ans[q.id]), o=d.filter(q=>store.ans[q.id].ok).length, nh=qs.filter(isHard).length;
@@ -200,6 +201,7 @@ function study(){
 function exam(){
   clearInterval(tick); showTabs('exam');
   let h=`<header class="top-h"><div><span class="eyebrow">실전 모의고사</span><h1 class="title">실제 시험처럼<br>${EXAM.n}문항 · ${EXAM.min}분</h1></div></header>`;
+  h+=paperInfo();
   h+=`<div class="papers anim">`+PAPERS.map(p=>`<button class="paper" data-act="paper" data-id="${p.id}"><span class="ic ${p.id==='pr'?'r':''}">${p.ic}</span><span class="tx"><b>${esc(p.name)}</b><span>${esc(p.desc)}</span></span><span class="best ${store.best[p.id]!=null?'':'no'}">${store.best[p.id]!=null?`최고 ${store.best[p.id]}점`:'미응시'}</span></button>`).join('')+`</div>`;
   const hs=(store.hist||[]).slice(-10);
   h+=`<div class="label">응시 기록</div>`;
@@ -281,7 +283,7 @@ function quiz(){
     const p=+b.dataset.pick;
     if(mock){ s.picks[s.i]=p; s._warn=0; save(); quiz(); return; }
     s.picks[s.i]=p; s.rev[s.i]=1; record(q,p); const good=isOk(q,p);
-    if(s.daily){ store.daily=store.daily||{}; store.daily[today()]={id:q.id,ok:good}; }
+    if(s.daily){ store.daily=store.daily||{}; store.daily[dayKey9()]={id:q.id,ok:good}; }
     if(good){ s.combo=(s.combo||0)+1; s.best=Math.max(s.best||0,s.combo); store.maxCombo=Math.max(store.maxCombo||0,s.combo); const ms=[5,10,20,30].includes(s.combo); sfx(ms?'combo':true); buzz(12); if(ms) setTimeout(()=>comboBurst(s.combo),220); }
     else { s.combo=0; sfx(false); buzz([30,40,30]); }
     if(s.loop&&!isOk(q,p)){ const base=q.opts.map((_,k)=>k); s.ids.push(q.id); s.perm.push(canShuffle(q)?shuffle(base):base); s.picks.push(null); s.again=(s.again||0)+1; }
@@ -293,7 +295,7 @@ function quiz(){
   bindStars(app);
   bindSwipe(dir=>{ if(mock){ if(dir<0&&!last){s.i++;save();quiz();top();} else if(dir>0&&s.i>0){s.i--;navDir=-1;save();quiz();top();} } else if(reveal&&dir<0){ if(last) finish(); else {s.i++;save();quiz();top();} } });
   $('#quit').onclick=()=>quitSheet(mock); if(0){ quitArmed=false; if(mock){store.sess=null;save();} view='home'; render(); top(); };
-  if(mock){ clearInterval(tick); tick=setInterval(()=>{ const c=$('#cnt'); if(!store.sess||store.sess.done){clearInterval(tick);return;} if(s.end-Date.now()<=0){finish();return;} if(c){c.textContent=fmtLeft(); c.classList.toggle('low',s.end-Date.now()<600000);} },1000); }
+  if(mock){ clearInterval(tick); tick=setInterval(()=>{ const c=$('#cnt'); if(!store.sess||store.sess.done){clearInterval(tick);return;} if(s.end-Date.now()<=0){finish();return;} if(c){c.textContent=fmtLeft(); c.classList.toggle('low',s.end-Date.now()<600000);} const left=s.end-Date.now(); if(left<600000&&!s._w10){s._w10=1;save();toast('⏰ 10분 남았어요. 빈 답부터 채우세요');buzz([20,60,20]);} if(left<60000&&!s._w1){s._w1=1;save();toast('⏰ 1분 남았어요!');buzz([30,60,30]);} },1000); }
 }
 function fmtLeft(){const s=store.sess; const t=Math.ceil(Math.max(0,s.end-Date.now())/1000); return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
 
@@ -309,7 +311,7 @@ function result(){
   let h=`<div class="result"><span class="grade g${grade}">${grade}</span>${mock?`<span class="stamp ${sc>=(store.pass||60)?'ok':'no'}">${sc>=(store.pass||60)?'합격권':'재도전'}</span>`:''}<div class="eyebrow">${esc(s.title)} 결과</div><div class="sc"><span id="scn">0</span><small>점</small></div><p>${s.loop?`${rs.length}문항 모두 정복! 첫 시도 정답 ${ok}문항 · 재출제 ${s.again||0}번`:`${rs.length}문항 중 ${ok}문항 정답`}</p>${mock?`<span class="pass ${sc>=(store.pass||60)?'ok':'no'}">${sc>=(store.pass||60)?'합격권':'합격 기준 미달'} · ${store.pass||60}점 기준</span>`:''}<div class="rmeta"><div><b>${tm}</b><span>소요 시간</span></div><div><b>${rs.length?Math.round(secs/rs.length):0}초</b><span>문항당</span></div><div><b>${mock?'–':(s.best||0)}</b><span>최대 콤보</span></div></div><button class="shr" id="shr">${ico('share')}결과 카드 저장·공유</button></div>`;
   if(!mock){ const by=SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));return r.length?{sub,o:r.filter(x=>x.ok).length,n:r.length}:null;}).filter(Boolean); if(by.length>1) h+=`<div class="label">과목별</div><div class="qcard bars stag">`+by.map(x=>`<div class="bar"><span class="bn">${esc(x.sub.name)}</span><span class="bt"><i style="width:${x.o/x.n*100}%" class="${x.o/x.n<.6?'lo':''}"></i></span><span class="bv">${x.o}/${x.n}</span></div>`).join('')+`</div>`; }
   if(mock) h+=`<div class="label">과목별 점수</div><div class="qcard bars stag">`+SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));if(!r.length)return'';const o=r.filter(x=>x.ok).length;return `<div class="bar"><span class="bn">${esc(sub.name)}</span><span class="bt"><i style="width:${o/r.length*100}%" class="${o/r.length<.6?'lo':''}"></i></span><span class="bv">${o*2}<small>/${r.length*2}점</small></span></div>`;}).join('')+`</div>`;
-  h+=`<div class="label">문항별 확인<small>눌러서 해설 보기</small></div><ul class="rlist">`+rs.map((r,i)=>`<li><details><summary><span class="mk ${r.ok?'o':'x'}">${r.ok?'○':'×'}</span><span class="qq"><small>${i+1}번 · ${esc(subjOfSec(r.q.sec).name)}${isHard(r.q)?' · 고난도':''}</small>${esc(r.q.q)}</span></summary><div class="inner"><div class="qcard">${card(r.q,{pick:r.pick,reveal:true,locked:true,perm:r.perm})}</div></div></details></li>`).join('')+`</ul>`;
+  h+=`<div class="label">문항별 확인<small>눌러서 해설 보기</small></div><div class="seg rf" style="margin-bottom:10px"><button data-rf="all" aria-pressed="true">전체 ${rs.length}</button><button data-rf="wrong" aria-pressed="false">틀린 문제 ${rs.length-ok}</button></div><ul class="rlist" id="rlist">`+rs.map((r,i)=>`<li><details><summary><span class="mk ${r.ok?'o':'x'}">${r.ok?'○':'×'}</span><span class="qq"><small>${i+1}번 · ${esc(subjOfSec(r.q.sec).name)}${isHard(r.q)?' · 고난도':''}</small>${esc(r.q.q)}</span></summary><div class="inner"><div class="qcard">${card(r.q,{pick:r.pick,reveal:true,locked:true,perm:r.perm})}</div></div></details></li>`).join('')+`</ul>`;
   app.innerHTML=h; bindStars(app);
   const cardData={title:s.title,sc,mock,ok,n:rs.length,grade,pass:store.pass||60,by:SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));return r.length?{name:sub.name,o:r.filter(x=>x.ok).length,n:r.length}:null;}).filter(Boolean)};
   $('#shr').onclick=()=>shareCard(cardData);
@@ -530,10 +532,10 @@ var navDir=1;
 function bindSwipe(fn){ let x0=null,y0=null; app.ontouchstart=e=>{ const t=e.touches[0]; x0=t.clientX; y0=t.clientY; }; app.ontouchend=e=>{ if(x0==null) return; const t=e.changedTouches[0], dx=t.clientX-x0, dy=t.clientY-y0; x0=null; if(Math.abs(dx)>70&&Math.abs(dy)<45) fn(dx<0?-1:1); }; }
 function hl(s){ return esc(s).replace(/(§\s?\d+(?:조)?(?:의\d+)?[①-⑩]?(?:\s?단서)?|\d[\d,.]*\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|원|개월|주|일|년|월|급|km|세|점|배|회|분|시간|명|건))/g,'<mark class="hl">$1</mark>'); }
 function daysLeft(){ return Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); }
-function dailyQ(){ const d=today(); let h=0; for(const c of d+'promo2') h=(h*31+c.charCodeAt(0))>>>0; const list=QUESTIONS.slice().sort((a,b)=>a.id<b.id?-1:1); return list[h%list.length]; }
+function dailyQ(){ const d=dayKey9(); let h=0; for(const c of d+'promo2') h=(h*31+c.charCodeAt(0))>>>0; const list=QUESTIONS.slice().sort((a,b)=>a.id<b.id?-1:1); return list[h%list.length]; }
 function dailyCard(){
-  const d=today(), q=dailyQ(), r=(store.daily||{})[d];
-  return `<div class="label">오늘의 한 문제<small>${d.slice(5).replace('-','.')} · 매일 바뀌어요</small></div><button class="dq anim" data-act="daily"><span class="dq-top"><span class="dq-tag">${esc(subjOfSec(q.sec).name)}${isHard(q)?' · 고난도':''}</span>${r?`<span class="dq-st ${r.ok?'ok':'no'}">${r.ok?'✓ 맞혔어요':'✕ 틀렸어요'}</span>`:''}</span><span class="dq-q">${esc(q.q)}</span><span class="dq-go">${r?'다시 풀어보기':'지금 풀기'} ›</span></button>`;
+  const d=dayKey9(), q=dailyQ(), r=(store.daily||{})[d];
+  return `<div class="label">오늘의 한 문제<small>${d.slice(5).replace('-','.')} · 매일 오전 9시에 바뀌어요</small></div><button class="dq anim" data-act="daily"><span class="dq-top"><span class="dq-tag">${esc(subjOfSec(q.sec).name)}${isHard(q)?' · 고난도':''}</span>${r?`<span class="dq-st ${r.ok?'ok':'no'}">${r.ok?'✓ 맞혔어요':'✕ 틀렸어요'}</span>`:''}</span><span class="dq-q">${esc(q.q)}</span><span class="dq-go">${r?'다시 풀어보기':'지금 풀기'} ›</span></button>`;
 }
 function lastCheckIds(){ const st=stats(); const seen=new Set(), out=[]; const add=a=>a.forEach(id=>{ if(byId[id]&&!seen.has(id)&&out.length<20){ seen.add(id); out.push(id);} });
   add(shuffle(st.wrongIds).slice(0,8)); add(shuffle(dueIds())); add(shuffle(starIds()).slice(0,4));
@@ -616,7 +618,7 @@ function quitSheet(mock){
 }
 function tabBadge(v){
   let n=0;
-  if(v==='home') n=dueIds().length+((store.daily||{})[today()]?0:1);
+  if(v==='home') n=dueIds().length+((store.daily||{})[dayKey9()]?0:1);
   if(v==='report'){ const seen=store.badgeSeen||{}; n=Object.keys(store.badges||{}).filter(k=>!seen[k]).length; }
   return n?`<em class="tb">${n>99?'99+':n}</em>`:'';
 }
@@ -768,6 +770,45 @@ document.addEventListener('keydown',e=>{
   if(k==='s'||k==='S'){ const st=document.querySelector('#qc [data-star]'); if(st){ e.preventDefault(); st.click(); } return; }
   if(k==='Escape'){ e.preventDefault(); quitSheet(store.sess.mode==='mock'); }
 });
+
+/* ── v19: 매일 오전 9시 새 시험지 · 문제 검색 ── */
+function dayKey9(){ return new Date().toISOString().slice(0,10); } /* 한국시간 오전 9시 = UTC 0시 */
+function msToSwitch(){ const n=new Date(); const t=Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate()+1); return t-n.getTime(); }
+function rng(seed){ let h=1779033703^seed.length; for(let i=0;i<seed.length;i++){h=Math.imul(h^seed.charCodeAt(i),3432918353);h=h<<13|h>>>19;} let a=h>>>0; return ()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}; }
+function seeded(arr,r){ const a=arr.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function dailyPaper(k){
+  const key=dayKey9();
+  if(!store.dp||store.dp.key!==key){
+    const P=[[],[]];
+    SUBJECTS.forEach(sub=>{
+      const r=rng(key+'|'+sub.id); const qs=QUESTIONS.filter(q=>sub.secs.includes(q.sec));
+      const fresh=q=>store.ans[q.id]?(store.ans[q.id].ok?2:1):0; /* 안 푼 문제 → 틀린 문제 → 맞힌 문제 순으로 먼저 */
+      const ord=list=>seeded(list,r).sort((a,b)=>fresh(a)-fresh(b));
+      const hard=ord(qs.filter(isHard)), norm=ord(qs.filter(q=>!isHard(q)));
+      const nh=Math.min(Math.ceil(sub.n*0.4),Math.floor(hard.length/2));
+      for(let p=0;p<2;p++){ const pick=hard.slice(p*nh,(p+1)*nh).concat(norm.slice(p*(sub.n-nh),(p+1)*(sub.n-nh))); P[p].push(...seeded(pick,r).map(q=>q.id)); }
+    });
+    store.dp={key,p:P}; if(store.best){ delete store.best.p1; delete store.best.p2; } save();
+  }
+  return store.dp.p[k].slice();
+}
+function paperInfo(){ const ms=msToSwitch(), h=Math.floor(ms/3600000), m=Math.floor(ms%3600000/60000);
+  return `<div class="pinfo anim"><span class="pi-ic">🗓️</span><div><b>제1회·제2회는 매일 오전 9시에 새 시험지로 바뀌어요</b><span>안 푼 문제부터 먼저 나와요 · 다음 교체까지 ${h}시간 ${m}분</span></div></div>`; }
+/* 문제 검색 */
+function searchBox(){ return `<div class="qsearch anim"><span class="qs-ic">⌕</span><input id="qsIn" type="search" placeholder="문제 검색 (예: 가불금, 고지의무, §652)" autocomplete="off" enterkeyhint="search"></div><div id="qsRes"></div>`; }
+const SNORM=s=>String(s).toLowerCase().replace(/\s+/g,'');
+function searchRun(v){
+  const box=$('#qsRes'); if(!box) return; const w=SNORM(v);
+  if(w.length<2){ box.innerHTML=''; return; }
+  const hits=QUESTIONS.filter(q=>SNORM(q.q+' '+q.opts.join(' ')+' '+q.exp+' '+(q.ref||'')+' '+(q.tags||[]).join(' ')).includes(w));
+  box.innerHTML=hits.length?`<div class="label">검색 결과<small>${hits.length}문제</small></div><div class="list">`+hits.slice(0,30).map(q=>`<button class="row" data-qs="${q.id}"><span class="tx"><span class="meta">${esc(subjOfSec(q.sec).name)}${isHard(q)?' · 고난도':''}${store.ans[q.id]?(store.ans[q.id].ok?' · 맞힘':' · 틀림'):''}</span><span class="nm qs-q">${esc(q.q)}</span></span>${ico('chev','chev')}</button>`).join('')+`</div><button class="cta" id="qsAll" style="margin-top:12px">검색된 ${hits.length}문제 풀기</button>`:`<div class="empty">"${esc(v)}" 관련 문제가 없어요.</div>`;
+  box.querySelectorAll('[data-qs]').forEach(b=>b.onclick=()=>start([b.dataset.qs],'검색 문제','practice',{mix:true}));
+  const all=$('#qsAll'); if(all) all.onclick=()=>start(shuffle(hits.map(q=>q.id)),`검색: ${v}`,'practice',{mix:true});
+}
+document.addEventListener('input',e=>{ if(e.target&&e.target.id==='qsIn') searchRun(e.target.value.trim()); });
+
+/* v19: 결과 화면 틀린 문제만 보기 */
+document.addEventListener("click",e=>{ const b=e.target.closest&&e.target.closest("[data-rf]"); if(!b) return; const l=document.getElementById("rlist"); if(!l) return; l.classList.toggle("wonly",b.dataset.rf==="wrong"); b.parentNode.querySelectorAll("[data-rf]").forEach(x=>x.setAttribute("aria-pressed",x===b)); });
 
 /* v15: 스플래시 D-Day */
 (function(){ const sd=document.getElementById("spDd"); if(sd) sd.textContent="시험까지 "+dday()+" · 12. 18.(금) 11:00"; })();
