@@ -600,6 +600,58 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 @keyframes shim{from{background-position:100% 0}to{background-position:-100% 0}}
 @media (prefers-reduced-motion:reduce){.sring,.ring,.bars .bt i,.combo,.stamp,.bd.on .be,.qcard.wr .opt.right,.skel i{animation:none!important}}
 </style>
+<style>
+/* ── v13: 토스·카카오톡 ── */
+/* 토스식 가로 카드 */
+.hscroll{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:2px 20px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hscroll::-webkit-scrollbar{display:none}
+.hcard{flex:0 0 132px;scroll-snap-align:start;border:0;border-radius:22px;padding:16px 14px 14px;text-align:left;display:grid;gap:2px;background:var(--card);box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 22px -12px rgba(16,24,40,.12);color:var(--ink)}
+.hcard .emo{font-size:34px;line-height:1;margin-bottom:12px;filter:drop-shadow(0 4px 6px rgba(0,0,0,.12))}
+.hcard b{font-size:15.5px;font-weight:800;letter-spacing:-.02em}
+.hcard span:last-child{font-size:12.5px;color:var(--muted);line-height:1.4}
+.hcard.c1{background:linear-gradient(160deg,color-mix(in srgb,#3182f6 10%,var(--card)),var(--card))}
+.hcard.c2{background:linear-gradient(160deg,color-mix(in srgb,#ffd43b 16%,var(--card)),var(--card))}
+.hcard.c3{background:linear-gradient(160deg,color-mix(in srgb,#a78bfa 14%,var(--card)),var(--card))}
+.hcard.c4{background:linear-gradient(160deg,color-mix(in srgb,#ff922b 12%,var(--card)),var(--card))}
+.hcard.c5{background:linear-gradient(160deg,color-mix(in srgb,#20c997 12%,var(--card)),var(--card))}
+.hcard:disabled{opacity:.55}
+.hcard:active:not(:disabled){transform:scale(.96)}
+.sring b{font-size:20px}
+/* 카톡 대화방 해설 */
+.talk{background:#b2c7d9;border-radius:20px;padding:14px 12px 14px;display:grid;gap:12px;margin-top:4px}
+.talk .me{display:flex;justify-content:flex-end;align-items:flex-end;gap:6px}
+.talk .mb{position:relative;background:#fee500;color:#191919;font-size:15px;font-weight:600;padding:9px 13px;border-radius:16px 4px 16px 16px;max-width:75%}
+.talk .mt{font-size:10.5px;color:rgba(25,25,25,.55);white-space:nowrap}
+.talk .chat{gap:8px}
+.talk .av{width:38px;height:38px;border-radius:15px;background:#fee500;color:#3c1e1e;font-size:12.5px}
+.talk .bub{background:#fff;color:#191919;border-radius:4px 16px 16px 16px}
+.talk .bub .who{color:#555}
+.talk .why li{color:#333}.talk .why li b{background:#f2f4f6}.talk .why li.a b{background:var(--ok);color:#fff}
+.talk .ref{color:#777}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .talk{background:#2b3a4a}:root:not([data-theme="light"]) .talk .bub{background:#3a4552;color:#eef1f4}:root:not([data-theme="light"]) .talk .why li{color:#d0d6dc}:root:not([data-theme="light"]) .talk .why li b{background:#2b3a4a}:root:not([data-theme="light"]) .talk .mt{color:rgba(255,255,255,.5)}:root:not([data-theme="light"]) .talk .bub .who,:root:not([data-theme="light"]) .talk .ref{color:#aab3bd}}
+:root[data-theme="dark"] .talk{background:#2b3a4a}:root[data-theme="dark"] .talk .bub{background:#3a4552;color:#eef1f4}:root[data-theme="dark"] .talk .why li{color:#d0d6dc}:root[data-theme="dark"] .talk .why li b{background:#2b3a4a}:root[data-theme="dark"] .talk .mt{color:rgba(255,255,255,.5)}:root[data-theme="dark"] .talk .bub .who,:root[data-theme="dark"] .talk .ref{color:#aab3bd}
+/* 바텀시트 두 버튼 */
+.btn2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cta.danger{background:var(--bad)}
+/* 탭 빨간 배지 (카톡) */
+.tabs button{position:relative}
+.tb{position:absolute;top:3px;left:calc(50% + 6px);min-width:18px;height:18px;padding:0 5px;box-sizing:border-box;border-radius:9px;background:#ff3b30;color:#fff;font:700 11px/18px var(--f);font-style:normal;text-align:center;box-shadow:0 0 0 2px var(--card);animation:pop .4s both}
+/* 카톡 채팅 폴더 칩 */
+.folders{display:flex;gap:6px;overflow-x:auto;margin:0 -20px 14px;padding:0 20px;scrollbar-width:none}
+.folders::-webkit-scrollbar{display:none}
+.folders button{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:999px;padding:7px 13px;font-size:13.5px;font-weight:600}
+.folders button i{font-style:normal;color:var(--muted);font-weight:500;margin-left:2px}
+.folders button[aria-pressed="true"]{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.folders button[aria-pressed="true"] i{color:inherit;opacity:.7}
+/* 스크롤 시 작은 제목 바 (토스) */
+.appbar{position:fixed;left:0;right:0;top:0;z-index:30;padding:calc(env(safe-area-inset-top,0px) + 13px) 60px 13px;text-align:center;font-size:16.5px;font-weight:700;letter-spacing:-.02em;color:var(--ink);background:color-mix(in srgb,var(--bg) 82%,transparent);backdrop-filter:saturate(1.6) blur(18px);-webkit-backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid transparent;transform:translateY(-100%);opacity:0;transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .2s,border-color .2s;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar.on{transform:none;opacity:1;border-bottom-color:var(--line)}
+/* 토스 토스트 */
+.toast{left:16px;right:16px;transform:none;max-width:480px;margin:0 auto;white-space:normal;text-align:left;padding:15px 18px;border-radius:18px;font-size:15px;background:rgba(25,31,40,.94);box-shadow:0 12px 32px -12px rgba(0,0,0,.4);bottom:calc(104px + env(safe-area-inset-bottom,0px));animation:toastUp .35s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes toastUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.toast{animation:none}}
+</style>
+
 
 
 </head><body>
@@ -612,7 +664,7 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611052027"</script>
-<script src="questions.js?v=202611052027"></script>
-<script src="app.js?v=202611052027"></script>
+<script>window.BUILD="202611052036"</script>
+<script src="questions.js?v=202611052036"></script>
+<script src="app.js?v=202611052036"></script>
 </body></html>

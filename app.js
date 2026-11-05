@@ -121,7 +121,7 @@ function go(v,after){ const f=()=>{ view=v; render(); top(); after&&after(); }; 
 const ico=(k,c='')=>`<svg class="i ${c}" viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
 const TABS=[['home','홈','home'],['study','연습','study'],['exam','모의고사','exam'],['report','리포트','chart']];
 const tabbar=document.getElementById('tabbar');
-function showTabs(cur){ tabbar.hidden=false; dock.hidden=true; tabbar.innerHTML=`<div class="wrap tabs">`+TABS.map(([v,l,i])=>`<button data-tab="${v}" aria-current="${cur===v}">${ico(i)}<span>${l}</span></button>`).join('')+`</div>`; tabbar.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{if(view!==b.dataset.tab) go(b.dataset.tab);}); }
+function showTabs(cur){ tabbar.hidden=false; dock.hidden=true; tabbar.innerHTML=`<div class="wrap tabs">`+TABS.map(([v,l,i])=>`<button data-tab="${v}" aria-current="${cur===v}">${ico(i)}${tabBadge(v)}<span>${l}</span></button>`).join('')+`</div>`; tabbar.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{if(view!==b.dataset.tab) go(b.dataset.tab);}); }
 function hideTabs(){ tabbar.hidden=true; }
 function dday(){ const d=Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); return d>0?`D-${d}`:d===0?'D-DAY':'시험 종료'; }
 function gauge(pct,ready){
@@ -156,12 +156,9 @@ const ACTS={
   settings:()=>go('settings')
 };
 function quickGrid(st){
-  return `<div class="quick">
-    <button class="qbtn" data-act="rand"><span class="qi">${ico('shuffle')}</span><b>랜덤 10문제</b><span>전 과목에서</span></button>
-    <button class="qbtn" data-act="hard"><span class="qi r">${ico('bolt')}</span><b>고난도만</b><span>${QUESTIONS.filter(isHard).length}문제</span></button>
-    <button class="qbtn" data-act="starq" ${starIds().length?'':'disabled'}><span class="qi g">${ico('star')}</span><b>별표 문제</b><span>${starIds().length}문제 · 다시 보기</span></button>
-    <button class="qbtn" data-act="wrong" ${st.wrongIds.length?'':'disabled'}><span class="qi y">${ico('repeat')}</span><b>오답 정복</b><span>${st.wrongIds.length}문제 · 맞힐 때까지</span></button>
-  </div>`;
+  const nh=QUESTIONS.filter(isHard).length, ns=starIds().length, nw=st.wrongIds.length, due=dueIds().length;
+  const c=(act,emo,t,sub,dis,cls)=>`<button class="hcard ${cls||''}" data-act="${act}" ${dis?'disabled':''}><span class="emo">${emo}</span><b>${t}</b><span>${sub}</span></button>`;
+  return `<div class="hscroll">`+c('rand','🎲','랜덤 10문제','전 과목 섞어서',0,'c1')+c('wrong','🔁','오답 정복',nw?`${nw}문제 · 맞힐 때까지`:'틀린 문제가 없어요',!nw,'c2')+c('hard','💎','고난도만',`${nh}문제`,0,'c3')+c('starq','⭐','별표 문제',ns?`${ns}문제`:'☆를 눌러 모아요',!ns,'c4')+c('review','📅','오늘의 복습',due?`${due}문제`:'복습할 문제 없음',!due,'c5')+`</div>`;
 }
 function home(){
   clearInterval(tick); showTabs('home');
@@ -191,7 +188,7 @@ function study(){
     const qs=QUESTIONS.filter(q=>sub.secs.includes(q.sec)), d=qs.filter(q=>store.ans[q.id]), o=d.filter(q=>store.ans[q.id].ok).length, nh=qs.filter(isHard).length;
     const pct=d.length?Math.round(o/d.length*100):null;
     const chips=sub.secs.length>1?`<span class="chips">${sub.secs.map(x=>`<button class="chip" data-act="chap" data-id="${x}">${esc(secOf[x].name)}</button>`).join('')}</span>`:'';
-    return `<div class="row subj" data-act="subj" data-id="${sub.id}" role="button" tabindex="0"><span class="sring n${k}" style="--p:${Math.round(d.length/qs.length*100)}" aria-label="진도 ${Math.round(d.length/qs.length*100)}%"><b>${k+1}</b></span><span class="tx"><span class="nm">${esc(sub.name)}</span><span class="meta">${qs.length}문항 · 고난도 ${nh} · 시험 ${sub.n}문항 예상</span>${chips}<span class="mini"><i class="o" style="width:${o/qs.length*100}%"></i><i class="x" style="width:${(d.length-o)/qs.length*100}%"></i></span></span><span class="pct ${pct==null?'':pct>=60?'hi':'lo'}">${pct==null?'':pct+'%'}</span></div>`;
+    return `<div class="row subj" data-act="subj" data-id="${sub.id}" role="button" tabindex="0"><span class="sring n${k}" style="--p:${Math.round(d.length/qs.length*100)}" aria-label="진도 ${Math.round(d.length/qs.length*100)}%"><b>${({F:'🚕',E:'🔍',D:'📜',Y:'📘',G:'📰'})[sub.id]||k+1}</b></span><span class="tx"><span class="nm">${esc(sub.name)}</span><span class="meta">${qs.length}문항 · 고난도 ${nh} · 시험 ${sub.n}문항 예상</span>${chips}<span class="mini"><i class="o" style="width:${o/qs.length*100}%"></i><i class="x" style="width:${(d.length-o)/qs.length*100}%"></i></span></span><span class="pct ${pct==null?'':pct>=60?'hi':'lo'}">${pct==null?'':pct+'%'}</span></div>`;
   }).join('')+`</div>`;
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
   app.innerHTML=h; bindActs();
@@ -239,7 +236,7 @@ function card(q,o,no){ // o:{pick,reveal,locked,perm}
   }).join('')+`</ol>`;
   if(o.reveal){
     const ok=isOk(q,o.pick), none=o.pick==null, ansPos=perm.indexOf(q.ans)+1;
-    h+=`<div class="fb"><div class="v ${none?'na':ok?'ok':'no'}">${none?'미응답':ok?'정답이에요!':'아쉬워요'} · 정답 ${ansPos}번</div><div class="chat"><span class="av">해설</span><div class="bub"><div class="who">해설 도우미</div><div class="body">${hl(q.exp)}</div>${q.why?`<ul class="why">${perm.map((oi,pos)=>`<li class="${oi===q.ans?'a':''}"><b>${pos+1}</b><span>${hl(q.why[oi])}</span></li>`).join('')}</ul>`:''}<div class="ref">근거 · ${esc(q.ref)}</div></div></div></div>`;
+    h+=`<div class="fb"><div class="v ${none?'na':ok?'ok':'no'}">${none?'미응답':ok?'정답이에요!':'아쉬워요'} · 정답 ${ansPos}번</div><div class="talk"><div class="me"><span class="mt">${kTime()}</span><span class="mb">${none?'잘 모르겠어요 🤔':`${perm.indexOf(o.pick)+1}번으로 할게요`}</span></div><div class="chat"><span class="av">해설</span><div class="bub"><div class="who">해설 도우미</div><div class="body">${hl(q.exp)}</div>${q.why?`<ul class="why">${perm.map((oi,pos)=>`<li class="${oi===q.ans?'a':''}"><b>${pos+1}</b><span>${hl(q.why[oi])}</span></li>`).join('')}</ul>`:''}<div class="ref">근거 · ${esc(q.ref)}</div></div></div></div></div>`;
     h+=`<button class="linkbtn rep" data-rep="${q.id}">이 문제 이상해요</button>`;
   }
   return h;
@@ -291,7 +288,7 @@ function quiz(){
   document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{s.i=+b.dataset.jump;save();quiz();top();});
   bindStars(app);
   bindSwipe(dir=>{ if(mock){ if(dir<0&&!last){s.i++;save();quiz();top();} else if(dir>0&&s.i>0){s.i--;navDir=-1;save();quiz();top();} } else if(reveal&&dir<0){ if(last) finish(); else {s.i++;save();quiz();top();} } });
-  $('#quit').onclick=()=>{ if(!quitArmed){quitArmed=true;quiz();return;} quitArmed=false; if(mock){store.sess=null;save();} view='home'; render(); top(); };
+  $('#quit').onclick=()=>quitSheet(mock); if(0){ quitArmed=false; if(mock){store.sess=null;save();} view='home'; render(); top(); };
   if(mock){ clearInterval(tick); tick=setInterval(()=>{ const c=$('#cnt'); if(!store.sess||store.sess.done){clearInterval(tick);return;} if(s.end-Date.now()<=0){finish();return;} if(c){c.textContent=fmtLeft(); c.classList.toggle('low',s.end-Date.now()<600000);} },1000); }
 }
 function fmtLeft(){const s=store.sess; const t=Math.ceil(Math.max(0,s.end-Date.now())/1000); return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
@@ -324,18 +321,21 @@ function confetti(){ if(matchMedia('(prefers-reduced-motion: reduce)').matches) 
 function note(){
   showTabs('report');
   const wrong=QUESTIONS.filter(q=>store.ans[q.id]&&!store.ans[q.id].ok), stars=QUESTIONS.filter(q=>isStar(q.id));
-  const list=noteTab==='wrong'?wrong:stars;
+  const list0=noteTab==='wrong'?wrong:stars; const list=noteSub?list0.filter(q=>subjOfSec(q.sec).id===noteSub):list0;
   let h=`<button class="back" id="back">‹ 리포트</button><h1 class="title">오답·별표 노트</h1><p class="sub">다시 맞히면 오답 목록에서 빠져요.</p>`;
   h+=`<div class="seg" style="margin-bottom:14px"><button data-t="wrong" aria-pressed="${noteTab==='wrong'}">오답 ${wrong.length}</button><button data-t="star" aria-pressed="${noteTab==='star'}">별표 ${stars.length}</button></div>`;
+  h+=noteChips(list0);
   if(!list.length) h+=`<div class="empty">${noteTab==='wrong'?'아직 틀린 문제가 없어요.':'별표한 문제가 없어요.<br>문제 오른쪽 위 ☆를 눌러 모아 보세요.'}</div>`;
   else h+=`<ul class="rlist">`+list.map(q=>{const a=store.ans[q.id];return `<li><details><summary><span class="mk ${a?(a.ok?'o':'x'):''}">${a?(a.ok?'○':'×'):'–'}</span><span class="qq"><small>${esc(subjOfSec(q.sec).name)}</small>${esc(q.q)}</span></summary><div class="inner"><div class="qcard">${card(q,{pick:a?a.pick:null,reveal:true,locked:true})}</div></div></details></li>`;}).join('')+`</ul>`;
   app.innerHTML=h; bindStars(app);
   if(list.length){ app.insertAdjacentHTML('beforeend',`<div style="margin-top:14px"><button class="cta" id="redo">이 ${list.length}문제 맞힐 때까지 풀기</button></div>`); $('#redo').onclick=()=>start(shuffle(list.map(q=>q.id)),noteTab==='wrong'?'오답 정복':'별표 문제','practice',{mix:true,loop:true}); }
   $('#back').onclick=()=>go('report');
-  document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{noteTab=b.dataset.t;note();});
+  document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{noteTab=b.dataset.t;noteSub='';note();});
+  document.querySelectorAll('[data-ns]').forEach(b=>b.onclick=()=>{noteSub=b.dataset.ns;note();});
 }
 
 function report(){
+  store.badgeSeen=Object.assign({},store.badges||{}); save();
   showTabs('report');
   const rate=qs=>{const d=qs.filter(q=>store.ans[q.id]);const o=d.filter(q=>store.ans[q.id].ok).length;return {d:d.length,o,r:d.length?Math.round(o/d.length*100):null,t:qs.length};};
   let h=`<header class="top-h"><div><span class="eyebrow">학습 리포트</span><h1 class="title">나의 실력 분석</h1></div></header>`;
@@ -596,6 +596,35 @@ function shareCard(d){
   });
 }
 checkBadges(true);
+
+
+/* ── v13: 토스·카카오톡 디테일 ── */
+var noteSub='';
+function kTime(){ const d=new Date(), h=d.getHours(); return (h<12?'오전 ':'오후 ')+((h%12)||12)+':'+String(d.getMinutes()).padStart(2,'0'); }
+function quitSheet(mock){
+  sheet(`<div class="upd"><span class="upd-ic">${ico(mock?'exam':'home')}</span><b>${mock?'시험을 그만둘까요?':'그만 풀까요?'}</b><p>${mock?'지금 나가면 채점 없이 종료돼요.':'푼 기록은 저장돼요. 홈에서 이어서 풀 수 있어요.'}</p></div><div class="btn2"><button class="cta ghost" id="qsStay">계속 풀기</button><button class="cta ${mock?'danger':''}" id="qsGo">${mock?'종료하기':'나가기'}</button></div>`,()=>{
+    $('#qsStay').onclick=closeOv;
+    $('#qsGo').onclick=()=>{ closeOv(); clearInterval(tick); if(mock){store.sess=null;save();} view='home'; render(); top(); };
+  });
+}
+function tabBadge(v){
+  let n=0;
+  if(v==='home') n=dueIds().length+((store.daily||{})[today()]?0:1);
+  if(v==='report'){ const seen=store.badgeSeen||{}; n=Object.keys(store.badges||{}).filter(k=>!seen[k]).length; }
+  return n?`<em class="tb">${n>99?'99+':n}</em>`:'';
+}
+function noteChips(list){
+  const SH={F:'자배법',E:'손해사정',D:'보험계약법',Y:'공제약관',G:'상식'};
+  const cnt=id=>list.filter(q=>subjOfSec(q.sec).id===id).length;
+  return `<div class="folders"><button data-ns="" aria-pressed="${!noteSub}">전체 <i>${list.length}</i></button>`+SUBJECTS.map(sub=>`<button data-ns="${sub.id}" aria-pressed="${noteSub===sub.id}">${SH[sub.id]||esc(sub.name)} <i>${cnt(sub.id)}</i></button>`).join('')+`</div>`;
+}
+/* 스크롤하면 작은 제목이 붙는 상단 바 */
+var appbar=document.createElement('div'); appbar.className='appbar'; appbar.setAttribute('aria-hidden','true'); document.body.appendChild(appbar);
+function updBar(){ const t=app.querySelector('h1.title'); const on=!!t&&!app.querySelector('.qbar')&&window.scrollY>t.offsetTop+t.offsetHeight-10; if(on){ const tx=t.textContent.replace(/\s+/g,' ').trim(); if(appbar.textContent!==tx) appbar.textContent=tx; } appbar.classList.toggle('on',on); }
+window.addEventListener('scroll',updBar,{passive:true});
+new MutationObserver(()=>{ appbar.classList.remove('on'); requestAnimationFrame(updBar); }).observe(app,{childList:true});
+/* 탭 배지 새로 반영 */
+if(!tabbar.hidden){ const cur=tabbar.querySelector('[aria-current="true"]'); if(cur) showTabs(cur.dataset.tab); }
 
 })();
 
