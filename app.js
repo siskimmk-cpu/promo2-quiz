@@ -530,7 +530,7 @@ function restore(){
 /* ── v12: 연출·오늘의 한 문제·D-Day·잔디·배지·결과 카드 ── */
 var navDir=1;
 function bindSwipe(fn){ let x0=null,y0=null; app.ontouchstart=e=>{ const t=e.touches[0]; x0=t.clientX; y0=t.clientY; }; app.ontouchend=e=>{ if(x0==null) return; const t=e.changedTouches[0], dx=t.clientX-x0, dy=t.clientY-y0; x0=null; if(Math.abs(dx)>70&&Math.abs(dy)<45) fn(dx<0?-1:1); }; }
-function hl(s){ return esc(s).replace(/(§\s?\d+(?:조)?(?:의\d+)?[①-⑩]?(?:\s?단서)?|\d[\d,.]*\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|원|개월|주|일|년|월|급|km|세|점|배|회|분|시간|명|건))/g,'<mark class="hl">$1</mark>'); }
+function hl(s){ return esc(s).replace(/(제\d+조(?:의\d+)?(?:\s?제\d+항)?(?:\s?제\d+호)?(?:\s?단서)?|\d[\d,.]*\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|원|개월|주|일|년|월|급|km|세|점|배|회|분|시간|명|건))/g,'<mark class="hl">$1</mark>'); }
 function daysLeft(){ return Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); }
 function dailyQ(){ const d=dayKey9(); let h=0; for(const c of d+'promo2') h=(h*31+c.charCodeAt(0))>>>0; const list=QUESTIONS.slice().sort((a,b)=>a.id<b.id?-1:1); return list[h%list.length]; }
 function dailyCard(){
@@ -795,7 +795,7 @@ function dailyPaper(k){
 function paperInfo(){ const ms=msToSwitch(), h=Math.floor(ms/3600000), m=Math.floor(ms%3600000/60000);
   return `<div class="pinfo anim"><span class="pi-ic">🗓️</span><div><b>제1회·제2회는 매일 오전 9시에 새 시험지로 바뀌어요</b><span>안 푼 문제부터 먼저 나와요 · 다음 교체까지 ${h}시간 ${m}분</span></div></div>`; }
 /* 문제 검색 */
-function searchBox(){ return `<div class="qsearch anim"><span class="qs-ic">⌕</span><input id="qsIn" type="search" placeholder="문제 검색 (예: 가불금, 고지의무, §652)" autocomplete="off" enterkeyhint="search"></div><div id="qsRes"></div>`; }
+function searchBox(){ return `<div class="qsearch anim"><span class="qs-ic">⌕</span><input id="qsIn" type="search" placeholder="문제 검색 (예: 가불금, 고지의무, 제652조)" autocomplete="off" enterkeyhint="search"></div><div id="qsRes"></div>`; }
 const SNORM=s=>String(s).toLowerCase().replace(/\s+/g,'');
 function searchRun(v){
   const box=$('#qsRes'); if(!box) return; const w=SNORM(v);
