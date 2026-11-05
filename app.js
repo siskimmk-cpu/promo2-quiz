@@ -450,6 +450,7 @@ function sheet(html,onBind){
   onBind&&onBind();
 }
 function maybeInstall(){
+  if(isStandalone()&&isIOS&&!meta.icon2&&meta.onb){ meta.icon2=true; saveMeta(); return iconNotice(); }
   if(isStandalone()||inFrame()||!isMobile) return maybeUpdate();
   if(meta.inst&&Date.now()-meta.inst<3*86400000) return maybeUpdate();
   const steps=isIOS?[['Safari 아래쪽 <b>공유 버튼</b>을 눌러요','share'],['<b>홈 화면에 추가</b>를 골라요','plus'],['오른쪽 위 <b>추가</b>를 누르면 끝!','check']]
@@ -673,6 +674,16 @@ function flashShow(){
   if(no) no.onclick=()=>{fc.again++;fc.ids.push(fc.ids[fc.i]);fc.i++;fc.flip=false;flashShow();};
 }
 
+
+/* v16: 아이폰 홈 화면 아이콘 교체 안내 (한 번만) */
+function iconNotice(){
+  sheet(`<div class="app-badge"><img src="icon-192.png" alt=""><div><b>새 아이콘이 나왔어요</b><span>아이폰은 홈 화면 아이콘을 자동으로 바꿔주지 않아서, 한 번만 다시 추가해 주세요.</span></div></div>
+    <ol class="steps"><li><span>1</span><p>먼저 아래 <b>백업 코드 복사</b> → 카톡 나에게 보내기에 붙여 두기 <b>(꼭!)</b> 아이폰은 앱을 지우면 기록도 같이 지워져요</p></li><li><span>2</span><p>지금 아이콘을 길게 눌러 <b>앱 제거</b></p></li><li><span>3</span><p>사파리에서 사이트를 열고 <b>공유 → 홈 화면에 추가</b></p></li><li><span>4</span><p>새 아이콘으로 열고 <b>설정 → 기록 복원하기</b>에 코드 붙여넣기</p></li></ol>
+    <button class="cta" id="icBk">백업 코드 복사</button><button class="linkbtn center" id="icLater">다음에 할게요</button>`,()=>{
+      $('#icBk').onclick=()=>{ const code='P2Q1.'+enc({v:1,t:Date.now(),store}); copyText(code).then(ok=>toast(ok?'백업 코드를 복사했어요. 카톡 나에게 보내기에 붙여 두세요':'설정 → 기록 백업하기에서 복사해 주세요')); };
+      $('#icLater').onclick=()=>{ closeOv(); setTimeout(maybeUpdate,300); };
+    });
+}
 
 /* v15: 스플래시 D-Day */
 (function(){ const sd=document.getElementById("spDd"); if(sd) sd.textContent="시험까지 "+dday()+" · 12. 18.(금) 11:00"; })();
