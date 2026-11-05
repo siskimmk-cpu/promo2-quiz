@@ -686,21 +686,55 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 .fc-done span{font-size:64px}.fc-done b{font-size:24px}.fc-done p{margin:0 0 10px;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.fc-in{transition:none}}
 </style>
+<style>
+/* ── v15: 새 스플래시 (토스 화이트 + 카톡 말풍선) ── */
+#splash.v2{background:#fff;color:#191f28;display:grid;place-items:center;filter:none;transform:none;transition:opacity .45s ease}
+#splash.v2::before{content:"";position:absolute;inset:-20%;background:radial-gradient(40% 32% at 50% 42%,rgba(49,130,246,.16),transparent 70%),radial-gradient(30% 24% at 62% 36%,rgba(106,92,255,.10),transparent 70%);animation:spGlow 1.6s ease-out both}
+#splash.v2 .s2-in{position:relative;display:grid;justify-items:center;gap:0;margin-top:-6vh}
+#splash.v2 .s2-mark{position:relative}
+#splash.v2 .s2-icon{position:relative;width:108px;height:108px;border-radius:32px;background:linear-gradient(145deg,#4c95ff 0%,#3182f6 45%,#5b5cf6 100%);box-shadow:0 24px 50px -18px rgba(49,130,246,.65),inset 0 1px 0 rgba(255,255,255,.35);display:grid;place-items:center;animation:spIcon .9s cubic-bezier(.2,1.5,.35,1) both;overflow:hidden}
+#splash.v2 .s2-icon svg{width:62px;height:62px}
+#splash.v2 .s2-icon .gl{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.45) 48%,transparent 62%);transform:translateX(-120%);animation:spGloss 1.1s .55s ease-out both}
+#splash.v2 .s2-chk{stroke-dasharray:60;stroke-dashoffset:60;animation:spDraw .55s .45s cubic-bezier(.6,0,.2,1) forwards}
+#splash.v2 .s2-bub{position:absolute;right:-14px;top:-12px;background:#fee500;color:#3c1e1e;font:900 15px/1 var(--f);padding:8px 10px 7px;border-radius:14px 14px 14px 4px;box-shadow:0 8px 18px -8px rgba(60,30,30,.45);animation:spBub .5s .6s cubic-bezier(.3,1.7,.4,1) both}
+#splash.v2 .s2-t{margin-top:26px;font-size:27px;font-weight:800;letter-spacing:-.035em;display:flex;gap:7px}
+#splash.v2 .s2-t span{display:inline-block;animation:spWord .6s cubic-bezier(.2,.8,.2,1) both}
+#splash.v2 .s2-t span:nth-child(1){animation-delay:.35s}#splash.v2 .s2-t span:nth-child(2){animation-delay:.43s}
+#splash.v2 .s2-s{margin-top:6px;font-size:16px;font-weight:700;color:#3182f6;letter-spacing:-.02em;animation:spWord .6s .52s cubic-bezier(.2,.8,.2,1) both}
+#splash.v2 .s2-dd{margin-top:16px;font-size:13px;font-weight:700;color:#4e5968;background:#f2f4f6;padding:7px 12px;border-radius:999px;animation:spWord .6s .62s cubic-bezier(.2,.8,.2,1) both;font-variant-numeric:tabular-nums}
+#splash.v2 .s2-bot{position:absolute;left:0;right:0;bottom:calc(30px + env(safe-area-inset-bottom,0px));display:grid;justify-items:center;gap:12px;animation:spWord .6s .7s ease both}
+#splash.v2 .dots{display:flex;gap:6px}
+#splash.v2 .dots i{width:7px;height:7px;border-radius:50%;background:#c4ccd6;animation:spDot 1s ease-in-out infinite}
+#splash.v2 .dots i:nth-child(2){animation-delay:.15s}#splash.v2 .dots i:nth-child(3){animation-delay:.3s}
+#splash.v2 .s2-org{font-size:12.5px;font-weight:700;color:#8b95a1;letter-spacing:-.01em}
+#splash.v2 .s2-org small{display:block;text-align:center;font-weight:500;font-size:11px;margin-top:3px;color:#b0b8c1}
+#splash.v2.out{opacity:0;pointer-events:none}
+#splash.v2.out .s2-icon{transform:scale(1.35) translateY(-30px);opacity:0;transition:transform .45s cubic-bezier(.5,0,.2,1),opacity .35s}
+#splash.v2.out .s2-t,#splash.v2.out .s2-s,#splash.v2.out .s2-dd{opacity:0;transform:translateY(-8px);transition:all .3s}
+@keyframes spIcon{0%{transform:scale(.5) rotate(-8deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes spGloss{to{transform:translateX(120%)}}
+@keyframes spDraw{to{stroke-dashoffset:0}}
+@keyframes spBub{0%{transform:scale(0) rotate(-20deg);opacity:0}100%{transform:none;opacity:1}}
+@keyframes spWord{from{opacity:0;transform:translateY(12px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+@keyframes spDot{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-6px);opacity:1;background:#3182f6}}
+@keyframes spGlow{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:none}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #splash.v2{background:#101317;color:#f2f4f6}:root:not([data-theme="light"]) #splash.v2 .s2-dd{background:#1f242b;color:#b0b8c1}:root:not([data-theme="light"]) #splash.v2 .dots i{background:#3a4049}}
+:root[data-theme="dark"] #splash.v2{background:#101317;color:#f2f4f6}:root[data-theme="dark"] #splash.v2 .s2-dd{background:#1f242b;color:#b0b8c1}:root[data-theme="dark"] #splash.v2 .dots i{background:#3a4049}
+@media (prefers-reduced-motion:reduce){#splash.v2 *,#splash.v2::before{animation:none!important}#splash.v2 .s2-chk{stroke-dashoffset:0}}
+</style>
+
 
 
 
 
 </head><body>
-<div id="splash" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i>
-<div class="sp-in"><div class="sp-mark"><svg class="sp-ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" class="tr"/><circle cx="60" cy="60" r="54" class="pg"/></svg><div class="sp-logo">2급<span class="shine"></span></div></div>
-<div class="sp-org">개인택시공제조합</div><div class="sp-t"><span>2급</span> <span>승진시험</span> <span>예상</span> <span>기출문제</span></div><div class="sp-s">자배법 · 손해사정이론 · 보험계약법 · 공제약관 · 상식</div></div>
-<div class="sp-note">직원 자율 학습용 · 비공식</div></div>
+<div id="splash" class="v2" aria-hidden="true"><div class="s2-in"><div class="s2-mark"><div class="s2-icon"><svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path class="s2-chk" d="M15 33l11 11 23-24"/></svg><span class="gl"></span></div><span class="s2-bub">2급</span></div><div class="s2-t"><span>승진시험</span><span>합격까지</span></div><div class="s2-s">예상 기출문제</div><div class="s2-dd" id="spDd">시험 2026. 12. 18.(금)</div></div><div class="s2-bot"><div class="dots"><i></i><i></i><i></i></div><div class="s2-org">개인택시공제조합<small>직원 자율 학습용 · 비공식</small></div></div></div>
 <div class="wrap" id="app"><div class="skel" aria-hidden="true"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i><i class="s4"></i></div></div>
 <div class="dock" id="dock" hidden><div class="wrap" id="dockIn"></div></div>
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611052043"</script>
-<script src="questions.js?v=202611052043"></script>
-<script src="app.js?v=202611052043"></script>
+<script>window.BUILD="202611052047"</script>
+<script src="questions.js?v=202611052047"></script>
+<script src="app.js?v=202611052047"></script>
 </body></html>

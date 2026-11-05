@@ -476,7 +476,7 @@ function maybeUpdate(){
 function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.classList.add('out'),1800); setTimeout(()=>t.remove(),2200); }
 document.addEventListener('pointerdown',e=>{ const el=e.target.closest('button,.row,.opt,.paper,.qbtn,.chip'); if(!el||el.disabled||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const r=el.getBoundingClientRect(), d=Math.max(r.width,r.height)*1.2; const sp=document.createElement('span'); sp.className='ripple'; sp.style.width=sp.style.height=d+'px'; sp.style.left=(e.clientX-r.left-d/2)+'px'; sp.style.top=(e.clientY-r.top-d/2)+'px'; el.appendChild(sp); setTimeout(()=>sp.remove(),600); },{passive:true});
 function launch(){
-  setTimeout(()=>{ hideSplash(); setTimeout(()=>{ if(!meta.onb && !(store.sess&&!store.sess.done)) onboarding(); else maybeInstall(); }, RM?0:300); }, RM?150:1600);
+  setTimeout(()=>{ hideSplash(); setTimeout(()=>{ if(!meta.onb && !(store.sess&&!store.sess.done)) onboarding(); else maybeInstall(); }, RM?0:300); }, RM?150:1900);
 }
 
 if(store.sess&&store.sess.mode==='mock'&&!store.sess.done&&store.sess.end<Date.now()) finish();
@@ -673,6 +673,9 @@ function flashShow(){
   if(no) no.onclick=()=>{fc.again++;fc.ids.push(fc.ids[fc.i]);fc.i++;fc.flip=false;flashShow();};
 }
 
+
+/* v15: 스플래시 D-Day */
+(function(){ const sd=document.getElementById("spDd"); if(sd) sd.textContent="시험까지 "+dday()+" · 12. 18.(금) 11:00"; })();
 })();
 
 /* 오프라인 지원 */
