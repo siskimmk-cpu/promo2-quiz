@@ -708,9 +708,10 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 #splash.v2 .dots i:nth-child(2){animation-delay:.15s}#splash.v2 .dots i:nth-child(3){animation-delay:.3s}
 #splash.v2 .s2-org{font-size:12.5px;font-weight:700;color:#8b95a1;letter-spacing:-.01em}
 #splash.v2 .s2-org small{display:block;text-align:center;font-weight:500;font-size:11px;margin-top:3px;color:#b0b8c1}
-#splash.v2.out{opacity:0;pointer-events:none}
-#splash.v2.out .s2-icon{transform:scale(1.35) translateY(-30px);opacity:0;transition:transform .45s cubic-bezier(.5,0,.2,1),opacity .35s}
-#splash.v2.out .s2-t,#splash.v2.out .s2-s,#splash.v2.out .s2-dd{opacity:0;transform:translateY(-8px);transition:all .3s}
+#splash.v2.out{opacity:1;pointer-events:none}
+#splash.v2.out .s2-in,#splash.v2.out .s2-bot{opacity:0;transform:scale(.96);transition:opacity .22s ease,transform .22s ease}
+#splash.v2.out::before{opacity:0;transition:opacity .22s}
+#splash.v2.gone{opacity:0;transition:opacity .3s ease}
 @keyframes spIcon{0%{transform:scale(.5) rotate(-8deg);opacity:0}100%{transform:none;opacity:1}}
 @keyframes spGloss{to{transform:translateX(120%)}}
 @keyframes spDraw{to{stroke-dashoffset:0}}
@@ -734,7 +735,7 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611052047"</script>
-<script src="questions.js?v=202611052047"></script>
-<script src="app.js?v=202611052047"></script>
+<script>window.BUILD="202611052053"</script>
+<script src="questions.js?v=202611052053"></script>
+<script src="app.js?v=202611052053"></script>
 </body></html>

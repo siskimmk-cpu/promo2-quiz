@@ -412,7 +412,7 @@ const inFrame=()=>{try{return window.self!==window.top;}catch(e){return true;}};
 const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 const isMobile=/android|iphone|ipad|ipod/i.test(navigator.userAgent)||isIOS;
 
-function hideSplash(){ const sp=document.getElementById('splash'); if(!sp) return; sp.classList.add('out'); setTimeout(()=>sp.remove(),RM?0:450); }
+function hideSplash(){ const sp=document.getElementById('splash'); if(!sp) return; if(RM){ sp.remove(); return; } sp.classList.add('out'); setTimeout(()=>sp.classList.add('gone'),230); setTimeout(()=>sp.remove(),560); }
 
 const SLIDES=[
  {k:'exam',t:'실제 시험처럼 연습해요',d:'공고와 같은 50문항 · 90분 실전 모의고사.\n과목별 점수와 보기별 해설까지 바로 확인해요.',
