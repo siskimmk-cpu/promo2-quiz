@@ -16,5 +16,5 @@ for(const q of QUESTIONS){
   if(!Array.isArray(q.why)||q.why.length!==q.opts.length) bad('why(보기별 해설) 누락 또는 개수 불일치');
 }
 const cnt={};QUESTIONS.forEach(q=>cnt[q.sec]=(cnt[q.sec]||0)+1);
-const pos=[0,0,0,0,0];QUESTIONS.forEach(q=>pos[q.ans]++);console.log('정답 위치 분포',pos.slice(0,4).join('/'));
+const pos=[0,0,0,0,0];QUESTIONS.forEach(q=>pos[q.ans]++);console.log('정답 위치 분포',pos.slice(0,4).join('/'),'· 5번',pos[4],'(5지선다 '+QUESTIONS.filter(q=>q.opts.length===5).length+'문항 중)');
 console.log('총',QUESTIONS.length,'문항',cnt,err?`오류 ${err}건`:'OK');process.exit(err?1:0);
