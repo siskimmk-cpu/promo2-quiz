@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#3182f6"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="진급시험"><style>:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#3182f6"><style>:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0}[hidden]{display:none!important}</style>
 <title>2급 진급시험 예상 기출문제</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
@@ -161,6 +161,8 @@ button:active:not(:disabled){transform:scale(.98)}
 .rlist .inner .qcard{padding:16px 8px 6px;border-radius:0}
 .empty{background:var(--card);border-radius:20px;padding:36px 20px;text-align:center;color:var(--muted);font-size:15px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}button:active{transform:none!important}}
+.sp-org{font:700 15px var(--f);letter-spacing:.02em;opacity:.92;margin-bottom:-8px;animation:fadeUp .5s .1s both}.sp-note{position:fixed;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-size:12px;opacity:.7}
+
 </style>
 
 <style>
@@ -344,15 +346,48 @@ button:active:not(:disabled){transform:scale(.98)}
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:45;background:rgba(25,31,40,.92);color:#fff;font-size:14.5px;font-weight:600;padding:12px 18px;border-radius:14px;animation:fadeUp .25s both;transition:opacity .3s;white-space:nowrap}
 .toast.out{opacity:0}
 @media (prefers-reduced-motion:reduce){.sheet,.toast,.sp-logo,.sp-t,.sp-s,.onb-art.in>*{animation:none!important}.sp-bar i{animation:none}}
-.sp-org{font:700 15px var(--f);letter-spacing:.02em;opacity:.92;margin-bottom:-8px;animation:fadeUp .5s .1s both}.sp-note{position:fixed;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-size:12px;opacity:.7}
 </style>
-</head><body>
+<style>
+.hr{display:flex;align-items:center;gap:8px}
+.gear{width:38px;height:38px;border-radius:50%;border:0;background:var(--card);display:grid;place-items:center;color:var(--ink2)}
+.combo{display:inline-flex;align-items:center;gap:4px;margin:-4px 2px 10px;padding:6px 12px;border-radius:999px;background:#fff1e6;color:#e8590c;font-size:13.5px;font-weight:700;animation:pop .3s both}
+.combo .i{width:16px;height:16px;stroke:#ff6b00;fill:#ffd8b0}.combo b{font-size:15px}
+.dock.fbd{background:none;padding-top:0}
+.dock.fbd .wrap{flex-direction:column;gap:12px;padding-top:16px;padding-bottom:4px;border-radius:24px 24px 0 0;animation:sheetUp .28s cubic-bezier(.2,.8,.2,1) both}
+.dock.fbd{padding-bottom:0}
+.dock.fbd .wrap{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.dock.ok .wrap{background:#e6f8f1}.dock.no .wrap{background:#ffeeee}
+.dock.ok .cta{background:var(--ok)}.dock.no .cta{background:var(--bad)}
+.fbbar{display:flex;align-items:center;gap:12px;width:100%}
+.fbi{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:20px;color:#fff;animation:pop .35s both}
+.dock.ok .fbi{background:var(--ok)}.dock.no .fbi{background:var(--bad)}
+.fbt{display:grid;gap:1px;min-width:0}
+.fbt b{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.dock.ok .fbt b{color:#087f5b}.dock.no .fbt b{color:#c92a2a}
+.fbt span{font-size:13px;color:var(--ink2)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .dock.ok .wrap{background:#123327}:root:not([data-theme="light"]) .dock.no .wrap{background:#3a1c20}:root:not([data-theme="light"]) .dock.ok .fbt b{color:#63e6be}:root:not([data-theme="light"]) .dock.no .fbt b{color:#ff8787}:root:not([data-theme="light"]) .combo{background:#3a2516}}
+:root[data-theme="dark"] .dock.ok .wrap{background:#123327}:root[data-theme="dark"] .dock.no .wrap{background:#3a1c20}:root[data-theme="dark"] .dock.ok .fbt b{color:#63e6be}:root[data-theme="dark"] .dock.no .fbt b{color:#ff8787}:root[data-theme="dark"] .combo{background:#3a2516}
+.result{position:relative}
+.grade{display:inline-grid;place-items:center;width:64px;height:64px;border-radius:20px;font:900 34px var(--f);color:#fff;margin-bottom:10px;animation:pop .45s .1s both;box-shadow:0 10px 24px rgba(0,0,0,.12)}
+.gS{background:linear-gradient(135deg,#7c4dff,#3182f6)}.gA{background:#3182f6}.gB{background:#0ca678}.gC{background:#f59f00}.gD{background:#adb5bd}
+.rmeta{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px;background:var(--soft);border-radius:16px;padding:12px 0}
+.rmeta div{display:grid;gap:1px}.rmeta div+div{border-left:1px solid var(--line)}
+.rmeta b{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}.rmeta span{font-size:12px;color:var(--muted)}
+.set{background:var(--card);border-radius:20px;overflow:hidden}
+.sr{display:grid;gap:8px;padding:16px 18px}.sr+.sr{border-top:1px solid var(--line)}
+.sr b{font-size:15.5px}.sr small{font-size:12.5px;color:var(--muted);margin-top:-6px}
+.sr .seg button{background:var(--soft)}
+.danger{color:var(--bad)!important}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="진급시험"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}.sr .seg button[aria-pressed="true"]{background:var(--ink);color:var(--card)}
+#app{padding-bottom:calc(190px + env(safe-area-inset-bottom,0px))}
+</style></head><body>
 <div id="splash" aria-hidden="true"><div class="sp-in"><div class="sp-logo">2급</div><div class="sp-org">개인택시공제조합</div><div class="sp-t">2급 승진시험 예상 기출문제</div><div class="sp-s">자배법 · 손해사정이론 · 보험계약법 · 공제약관 · 상식</div><div class="sp-bar"><i></i></div><div class="sp-note">직원 자율 학습용 · 비공식</div></div></div>
 <div class="wrap" id="app"></div>
 <div class="dock" id="dock" hidden><div class="wrap" id="dockIn"></div></div>
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script src="questions.js?v=202611051949"></script>
-<script src="app.js?v=202611051949"></script>
+<script src="questions.js?v=202611051952"></script>
+<script src="app.js?v=202611051952"></script>
 </body></html>
