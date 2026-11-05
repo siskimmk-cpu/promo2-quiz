@@ -2,7 +2,7 @@
 
 공개 주소: https://siskimmk-cpu.github.io/promo2-quiz/
 
-- `index.html` — 화면(스타일 포함). `questions.js`, `app.js`를 불러온다. 파일을 바꾸면 `?v=` 값을 새 날짜시각으로 올려 캐시를 갱신한다.
+- `index.html` — 화면(스타일 포함). `questions.js`, `app.js`를 불러온다. 파일을 바꾸면 `?v=` 값과 `window.BUILD` 값, 그리고 `version.json`의 v 값을 모두 같은 새 날짜시각(YYYYMMDDHHmm)으로 올린다. 그래야 예전 화면이 캐시된 기기도 자동으로 최신 버전으로 새로고침된다.
 - `questions.js` — 문제 데이터 (`SECTIONS`, `SUBJECTS`, `QUESTIONS`)
 - `app.js` — 퀴즈 로직
 - `tools/validate.js` — `node tools/validate.js` 로 데이터 검사

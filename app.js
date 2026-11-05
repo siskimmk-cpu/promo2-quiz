@@ -467,3 +467,10 @@ else if(hsub&&!busy){ start(QUESTIONS.filter(q=>hsub.secs.includes(q.sec)).map(q
 else render();
 launch();
 })();
+
+/* 새 버전 자동 감지: 캐시된 옛 화면이면 최신으로 새로고침 */
+(function(){ try{ if(!window.BUILD||location.protocol==='file:') return;
+  fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{ if(!j||!j.v||j.v===window.BUILD) return;
+    const k='promo2-reloaded-'+j.v; if(sessionStorage.getItem(k)) return; sessionStorage.setItem(k,'1');
+    location.replace(location.pathname+'?v='+j.v+location.hash); }).catch(()=>{});
+}catch(e){} })();
