@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#3182f6"><style>:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#2f6ff0"><style>:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0}[hidden]{display:none!important}</style>
 <title>2급 진급시험 예상 기출문제</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
@@ -161,8 +161,8 @@ button:active:not(:disabled){transform:scale(.98)}
 .rlist .inner .qcard{padding:16px 8px 6px;border-radius:0}
 .empty{background:var(--card);border-radius:20px;padding:36px 20px;text-align:center;color:var(--muted);font-size:15px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}button:active{transform:none!important}}
-.sp-org{font:700 15px var(--f);letter-spacing:.02em;opacity:.92;margin-bottom:-8px;animation:fadeUp .5s .1s both}.sp-note{position:fixed;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-size:12px;opacity:.7}
-
+.sr .seg button[aria-pressed="true"]{background:var(--ink);color:var(--card)}
+#app{padding-bottom:calc(190px + env(safe-area-inset-bottom,0px))}
 </style>
 
 <style>
@@ -379,15 +379,75 @@ button:active:not(:disabled){transform:scale(.98)}
 .sr .seg button{background:var(--soft)}
 .danger{color:var(--bad)!important}
 </style>
-<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="진급시험"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}.sr .seg button[aria-pressed="true"]{background:var(--ink);color:var(--card)}
-#app{padding-bottom:calc(190px + env(safe-area-inset-bottom,0px))}
-</style></head><body>
-<div id="splash" aria-hidden="true"><div class="sp-in"><div class="sp-logo">2급</div><div class="sp-org">개인택시공제조합</div><div class="sp-t">2급 승진시험 예상 기출문제</div><div class="sp-s">자배법 · 손해사정이론 · 보험계약법 · 공제약관 · 상식</div><div class="sp-bar"><i></i></div><div class="sp-note">직원 자율 학습용 · 비공식</div></div></div>
+<style>
+/* 스플래시 v2 */
+#splash{position:fixed;inset:0;z-index:50;overflow:hidden;background:linear-gradient(160deg,#0f3fae 0%,#2f6ff0 45%,#4f9bff 100%);display:grid;place-items:center;transition:opacity .5s ease,transform .5s ease,filter .5s ease}
+#splash.out{opacity:0;transform:scale(1.06);filter:blur(6px);pointer-events:none}
+#splash>i{position:absolute;border-radius:50%;filter:blur(50px);opacity:.55;animation:float 6s ease-in-out infinite alternate}
+#splash .b1{width:320px;height:320px;background:#7ab8ff;top:-80px;left:-90px}
+#splash .b2{width:260px;height:260px;background:#a78bfa;bottom:-60px;right:-70px;animation-delay:-2s}
+#splash .b3{width:200px;height:200px;background:#fee500;opacity:.25;top:55%;left:60%;animation-delay:-4s}
+@keyframes float{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,-24px) scale(1.12)}}
+.sp-in{position:relative;display:grid;justify-items:center;gap:12px;color:#fff;text-align:center;padding:0 24px}
+.sp-mark{position:relative;width:132px;height:132px;display:grid;place-items:center;margin-bottom:6px}
+.sp-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.sp-ring circle{fill:none;stroke-width:4}
+.sp-ring .tr{stroke:rgba(255,255,255,.18)}
+.sp-ring .pg{stroke:#fff;stroke-linecap:round;stroke-dasharray:340;stroke-dashoffset:340;animation:ringfill 1.4s .15s cubic-bezier(.6,.1,.2,1) forwards}
+@keyframes ringfill{to{stroke-dashoffset:0}}
+.sp-logo{position:relative;overflow:hidden;width:96px;height:96px;border-radius:28px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:grid;place-items:center;font:800 36px var(--f);letter-spacing:-.04em;color:#fff;box-shadow:0 20px 50px rgba(8,30,90,.35),inset 0 1px 0 rgba(255,255,255,.4);animation:spIn .7s cubic-bezier(.2,.9,.3,1.25) both}
+.sp-logo::after{content:"";position:absolute;left:30%;right:30%;bottom:17px;height:5px;border-radius:3px;background:#fee500}
+.shine{position:absolute;top:-40%;left:-60%;width:40%;height:180%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:rotate(20deg);animation:shine 1.6s .5s ease-in-out both}
+@keyframes shine{from{left:-60%}to{left:130%}}
+.sp-org{font:700 14px var(--f);letter-spacing:.12em;opacity:.85;animation:fadeUp .5s .25s both}
+.sp-t{font:800 24px var(--f);letter-spacing:-.03em;line-height:1.3}
+.sp-t span{display:inline-block;animation:wordUp .55s cubic-bezier(.2,.8,.2,1) both}
+.sp-t span:nth-child(1){animation-delay:.35s}.sp-t span:nth-child(2){animation-delay:.45s}.sp-t span:nth-child(3){animation-delay:.55s}.sp-t span:nth-child(4){animation-delay:.65s}
+@keyframes wordUp{from{opacity:0;transform:translateY(14px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.sp-s{font-size:13px;opacity:.75;animation:fadeUp .5s .8s both}
+#splash .sp-note{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-size:12px;color:#fff;opacity:.6}
+/* 홈 오로라 */
+.aurora{position:absolute;left:0;right:0;top:0;height:340px;z-index:0;pointer-events:none;background:radial-gradient(60% 70% at 15% 0%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 70%),radial-gradient(50% 60% at 95% 10%,color-mix(in srgb,#a78bfa 18%,transparent),transparent 70%)}
+#app{position:relative}
+#app>*{position:relative;z-index:1}
+#app>.aurora{position:absolute;z-index:0}
+/* 화면 전환 */
+.tabbar{view-transition-name:tabbar}
+::view-transition-old(root){animation:vtOut .18s ease-in both}
+::view-transition-new(root){animation:vtIn .32s cubic-bezier(.2,.8,.2,1) both}
+@keyframes vtOut{to{opacity:0;transform:scale(.985)}}
+@keyframes vtIn{from{opacity:0;transform:translateY(12px) scale(1.01)}to{opacity:1;transform:none}}
+/* 탭 활성 표시 */
+.tabs button{position:relative;transition:color .2s}
+.tabs button::before{content:"";position:absolute;top:0;left:50%;width:0;height:3px;border-radius:0 0 3px 3px;background:var(--accent);transform:translateX(-50%);transition:width .25s cubic-bezier(.2,.8,.2,1)}
+.tabs button[aria-current="true"]::before{width:28px}
+.tabs button[aria-current="true"]{color:var(--accent)}
+.tabs button[aria-current="true"] .i{transform:translateY(-1px) scale(1.08);transition:transform .25s}
+/* 터치 물결·스프링 */
+button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.14;transform:scale(0);pointer-events:none;animation:rip .55s ease-out forwards}
+@keyframes rip{to{transform:scale(1);opacity:0}}
+.row,.paper,.qbtn,.opt,.cta,.chip{transition:transform .18s cubic-bezier(.3,.7,.4,1.4),background .15s,border-color .15s}
+.row:active,.paper:active,.qbtn:active,.opt:active:not(:disabled),.cta:active:not(:disabled){transform:scale(.97)}
+.opt.sel{animation:selPop .3s cubic-bezier(.3,.7,.4,1.5)}
+@keyframes selPop{50%{transform:scale(1.02)}}
+/* 카드 깊이감 */
+.hero,.daily,.list,.qcard,.paper,.qbtn,.set{box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px -12px rgba(16,24,40,.10)}
+.hero{background:linear-gradient(180deg,var(--card),color-mix(in srgb,var(--card) 92%,var(--accent)))}
+.cta{box-shadow:0 8px 20px -8px color-mix(in srgb,var(--accent) 60%,transparent)}
+.cta.ghost{box-shadow:none}
+@media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
+</style>
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="진급시험"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style></head><body>
+<div id="splash" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i>
+<div class="sp-in"><div class="sp-mark"><svg class="sp-ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" class="tr"/><circle cx="60" cy="60" r="54" class="pg"/></svg><div class="sp-logo">2급<span class="shine"></span></div></div>
+<div class="sp-org">개인택시공제조합</div><div class="sp-t"><span>2급</span> <span>승진시험</span> <span>예상</span> <span>기출문제</span></div><div class="sp-s">자배법 · 손해사정이론 · 보험계약법 · 공제약관 · 상식</div></div>
+<div class="sp-note">직원 자율 학습용 · 비공식</div></div>
 <div class="wrap" id="app"></div>
 <div class="dock" id="dock" hidden><div class="wrap" id="dockIn"></div></div>
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script src="questions.js?v=202611051952"></script>
-<script src="app.js?v=202611051952"></script>
+<script src="questions.js?v=202611051957"></script>
+<script src="app.js?v=202611051957"></script>
 </body></html>
