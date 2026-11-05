@@ -144,6 +144,8 @@ const ACTS={
   hard:()=>start(shuffle(QUESTIONS.filter(isHard).map(q=>q.id)),'고난도','practice',{mix:true}),
   daily:()=>start([dailyQ().id],'오늘의 한 문제','practice',{daily:true}),
   lastcheck:()=>{ const ids=lastCheckIds(); if(ids.length) start(ids,'마지막 점검','practice',{mix:true}); },
+  flash:()=>flashPick(),
+  setgoal:()=>{ const p=planInfo(); store.goal=Math.min(50,Math.max(10,p.need)); save(); toast(`하루 목표를 ${store.goal}문제로 맞췄어요`); render(); },
   starq:()=>{const ids=starIds(); if(ids.length) start(shuffle(ids),'별표 문제','practice',{mix:true});},
   wrong:()=>start(shuffle(stats().wrongIds),'오답 정복','practice',{mix:true,loop:true}),
   subj:b=>{const sub=subjOf[b.dataset.id];start(QUESTIONS.filter(q=>sub.secs.includes(q.sec)).map(q=>q.id),sub.name,'practice',{mix:true});},
@@ -170,7 +172,7 @@ function home(){
     ${resumable?`<button class="cta" data-act="resume">이어서 풀기 · ${esc(s.title)} ${s.i+1}/${s.ids.length}</button>`
       :allDone?`<button class="cta warm" data-act="newround">다 풀었어요! 보기 섞어서 ${store.round+1}회독</button>`
       :`<button class="cta" data-act="go">안 푼 문제 풀기 · ${st.newIds.length}문제</button>`}</section>`;
-  h+=dailyCard();
+  h+=planCard()+dailyCard();
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
   h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀린 문제는 1·3·7일 뒤 다시 나와요</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
@@ -184,6 +186,7 @@ function study(){
   clearInterval(tick); showTabs('study');
   const st=stats();
   let h=`<header class="top-h"><div><span class="eyebrow">과목별 연습</span><h1 class="title">무엇을 풀어볼까요?</h1></div></header>`;
+  h+=flashEntry();
   h+=`<div class="list anim">`+SUBJECTS.map((sub,k)=>{
     const qs=QUESTIONS.filter(q=>sub.secs.includes(q.sec)), d=qs.filter(q=>store.ans[q.id]), o=d.filter(q=>store.ans[q.id].ok).length, nh=qs.filter(isHard).length;
     const pct=d.length?Math.round(o/d.length*100):null;
@@ -348,7 +351,7 @@ function report(){
   const secs=SECTIONS.map(s=>({s,...rate(QUESTIONS.filter(q=>q.sec===s.id))})).filter(x=>x.d>=3).sort((a,b)=>a.r-b.r).slice(0,3);
   h+=`<div class="label">취약 단원 TOP 3<small>3문항 이상 푼 단원</small></div>`;
   h+=secs.length?`<div class="list">`+secs.map((x,i)=>`<button class="row" data-weak="${x.s.id}"><span class="ic">${i+1}</span><span class="tx"><span class="nm">${esc(subjOfSec(x.s.id).name)}${subjOfSec(x.s.id).secs.length>1?' · '+esc(x.s.name):''}</span><span class="meta">정답률 ${x.r}% · ${x.o}/${x.d}</span></span><span class="chev">›</span></button>`).join('')+`</div>`:`<div class="empty">문제를 더 풀면 취약 단원을 알려 드려요.</div>`;
-  h+=heatmap()+badgeGrid();
+  h+=planCard()+heatmap()+badgeGrid();
   const days=[...Array(7)].map((_,i)=>{const t=new Date(Date.now()+9*3600000-(6-i)*DAY);const k=t.toISOString().slice(0,10);return {k,n:(store.log[k]||{n:0}).n,l:['일','월','화','수','목','금','토'][t.getUTCDay()]};});
   const mx=Math.max(store.goal,...days.map(d=>d.n));
   h+=`<div class="label">최근 7일 학습량<small>진한 막대 = 목표 ${store.goal}문제 달성</small></div><div class="qcard week"><div class="cols" style="--g:${store.goal/mx*100}%">`+days.map(d=>`<div class="col"><span class="cv">${d.n||''}</span><i style="height:${d.n/mx*100}%" class="${d.n>=store.goal?'hit':''}"></i><span class="cl">${d.l}</span></div>`).join('')+`</div></div>`;
@@ -625,6 +628,50 @@ window.addEventListener('scroll',updBar,{passive:true});
 new MutationObserver(()=>{ appbar.classList.remove('on'); requestAnimationFrame(updBar); }).observe(app,{childList:true});
 /* 탭 배지 새로 반영 */
 if(!tabbar.hidden){ const cur=tabbar.querySelector('[aria-current="true"]'); if(cur) showTabs(cur.dataset.tab); }
+
+
+/* ── v14: 합격 준비도·합격 플랜·암기 카드 ── */
+function isMastered(id){ const a=store.ans[id]; return !!(a&&a.ok&&!store.srs[id]); }
+function readiness(){ let w=0,t=0; const per=SUBJECTS.map(sub=>{ const qs=QUESTIONS.filter(q=>sub.secs.includes(q.sec)); const m=qs.filter(q=>isMastered(q.id)).length; const r=qs.length?m/qs.length:0; w+=r*sub.n; t+=sub.n; return {sub,m,n:qs.length,r}; }); return {pct:Math.round(w/t*100),per}; }
+function planInfo(){ const left=QUESTIONS.filter(q=>!isMastered(q.id)).length; const d=daysLeft(); const days=Math.max(1,d-7); return {left,d,days,need:Math.ceil(left/days)}; }
+function planCard(){
+  const rd=readiness(), p=planInfo(); if(p.d<0) return '';
+  const msg=p.left===0?'모든 문제를 숙달했어요! 이제 모의고사로 실전 감각만 유지해요.':p.d<=7?`시험 주간이에요. 오답·별표 위주로 하루 ${Math.min(p.left,40)}문제씩 정리해요.`:`하루 <b>${p.need}문제</b>씩 풀면 시험 1주 전까지 전 범위를 숙달할 수 있어요.`;
+  return `<div class="label">합격 플랜<small>숙달 = 맞히고 복습까지 끝낸 문제</small></div><section class="plan anim">
+    <div class="pl-top"><div class="pl-ring" style="--p:${rd.pct}"><b>${rd.pct}<small>%</small></b></div><div class="pl-tx"><span>합격 준비도</span><p>${msg}</p></div></div>
+    <div class="pl-bars">${rd.per.map(x=>`<div class="pl-b"><span>${({F:'자배법',E:'손해사정',D:'보험계약법',Y:'공제약관',G:'상식'})[x.sub.id]}</span><i><em style="width:${Math.round(x.r*100)}%"></em></i><b>${x.m}/${x.n}</b></div>`).join('')}</div>
+    ${p.left&&p.d>7&&store.goal!==Math.min(50,Math.max(10,p.need))?`<button class="cta ghost sm" data-act="setgoal">하루 목표를 ${Math.min(50,Math.max(10,p.need))}문제로 맞추기</button>`:''}
+  </section>`;
+}
+function flashEntry(){ const nk=QUESTIONS.filter(q=>(q.tags||[]).includes('핵심숫자')).length, nw=stats().wrongIds.length;
+  return `<div class="list anim" style="margin-bottom:14px"><button class="row" data-act="flash"><span class="ic y" style="font-size:22px">🃏</span><span class="tx"><span class="nm">암기 카드</span><span class="meta">핵심 숫자 ${nk}장 · 오답 ${nw}장 · 뒤집어서 외우기</span></span>${ico('chev','chev')}</button></div>`; }
+var fc=null;
+function flashStart(kind){
+  const ids=kind==='wrong'?stats().wrongIds:kind==='star'?starIds():QUESTIONS.filter(q=>(q.tags||[]).includes('핵심숫자')).map(q=>q.id);
+  if(!ids.length){ toast(kind==='wrong'?'틀린 문제가 없어요':'카드가 없어요'); return; }
+  fc={ids:shuffle(ids),i:0,flip:false,known:0,again:0}; flashShow();
+}
+function flashPick(){
+  sheet(`<div class="upd"><span class="upd-ic" style="font-size:26px">🃏</span><b>암기 카드</b><p>앞면은 문제, 뒤집으면 정답과 해설이 나와요. 모르는 카드는 뒤로 다시 와요.</p></div>
+   <div class="list"><button class="row" data-fk="key"><span class="tx"><span class="nm">핵심 숫자·기간</span><span class="meta">${QUESTIONS.filter(q=>(q.tags||[]).includes('핵심숫자')).length}장 · 한도·기간·비율</span></span>${ico('chev','chev')}</button><button class="row" data-fk="wrong"><span class="tx"><span class="nm">내 오답</span><span class="meta">${stats().wrongIds.length}장</span></span>${ico('chev','chev')}</button><button class="row" data-fk="star"><span class="tx"><span class="nm">별표</span><span class="meta">${starIds().length}장</span></span>${ico('chev','chev')}</button></div>`,()=>{
+    ov.querySelectorAll('[data-fk]').forEach(b=>b.onclick=()=>{ closeOv(); setTimeout(()=>flashStart(b.dataset.fk),260); });
+  });
+}
+function flashShow(){
+  if(!fc) return; const done=fc.i>=fc.ids.length;
+  ov.hidden=false; ov.className='ov fcv'; ov.onclick=null;
+  if(done){ ov.innerHTML=`<div class="fc-wrap"><div class="fc-done"><span>🎉</span><b>카드 ${fc.ids.length}장 완료!</b><p>바로 안 ${fc.known}장 · 다시 본 카드 ${fc.again}번</p><button class="cta" id="fcEnd">닫기</button></div></div>`; $('#fcEnd').onclick=()=>{fc=null;closeOv();}; return; }
+  const q=byId[fc.ids[fc.i]];
+  ov.innerHTML=`<div class="fc-wrap"><div class="fc-bar"><button class="x-btn" id="fcX" aria-label="닫기">✕</button><div class="track"><i style="width:${fc.i/fc.ids.length*100}%"></i></div><span class="count">${fc.i+1}/${fc.ids.length}</span></div>
+   <button class="fc ${fc.flip?'on':''}" id="fcCard"><span class="fc-in"><span class="fc-f"><small>${esc(subjOfSec(q.sec).name)}</small><b>${esc(q.q)}</b>${q.box?`<span class="fc-box">${q.box.map(esc).join('<br>')}</span>`:''}<em>탭해서 뒤집기</em></span><span class="fc-b"><small>정답</small><b>${esc(q.opts[q.ans])}</b><span class="fc-exp">${hl(q.exp)}</span></span></span></button>
+   <div class="fc-act">${fc.flip?`<button class="cta ghost" id="fcNo">아직 몰라요</button><button class="cta" id="fcOk">알아요</button>`:`<button class="cta" id="fcFlip">정답 보기</button>`}</div></div>`;
+  const flip=()=>{fc.flip=!fc.flip;flashShow();};
+  $('#fcCard').onclick=flip; const fl=$('#fcFlip'); if(fl) fl.onclick=flip;
+  $('#fcX').onclick=()=>{fc=null;closeOv();};
+  const ok=$('#fcOk'), no=$('#fcNo');
+  if(ok) ok.onclick=()=>{fc.known++;fc.i++;fc.flip=false;buzz(10);flashShow();};
+  if(no) no.onclick=()=>{fc.again++;fc.ids.push(fc.ids[fc.i]);fc.i++;fc.flip=false;flashShow();};
+}
 
 })();
 
