@@ -438,7 +438,7 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 .cta.ghost{box-shadow:none}
 @media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest?v=202611052117"><link rel="apple-touch-icon" href="icon-180.png?v=202611052117"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
+<link rel="manifest" href="manifest.webmanifest?v=202611052122"><link rel="apple-touch-icon" href="icon-180.png?v=202611052122"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
 <style>
 /* ── v10 프리미엄 레이어 ── */
 /* 1. 히어로: 토스풍 블루 그라데이션 카드 */
@@ -730,6 +730,54 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 .tbl th{white-space:nowrap}
 .tbl td,.tbl th{word-break:keep-all}
 </style>
+<style>
+/* ── v17: 홈 화면 추가 그림 안내 ── */
+.gd-top{display:flex;align-items:center;gap:12px}.gd-os{flex:1;margin:0}
+.gd-main{display:grid;justify-items:center;align-content:center;gap:22px}
+.pm{position:relative;width:216px;height:400px;flex:0 0 auto;border-radius:38px;background:#111;padding:9px;box-sizing:border-box;box-shadow:0 30px 60px -28px rgba(16,24,40,.55),inset 0 0 0 2px #2b2f36}
+.pm::before{content:"";position:absolute;top:15px;left:50%;width:62px;height:18px;border-radius:10px;background:#000;transform:translateX(-50%);z-index:3}
+.pm-scr{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:#f2f4f6;font-family:var(--f);color:#191f28;font-size:10.5px}
+.pm-scr.dim::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.28);z-index:1}
+.pm-page{padding:46px 14px 0;display:grid;gap:8px}
+.pm-page i{display:block;height:9px;border-radius:5px;background:#dfe3e8}.pm-page .w60{width:60%;background:#b6d3ff}.pm-page .w80{width:85%}.pm-page .big{height:16px;background:#c9ced6}.pm-page .card{height:110px;border-radius:14px;background:linear-gradient(150deg,#3182f6,#6a5cff)}.pm-page .w70{width:70%}.pm-page .w50{width:50%}
+.pm-bar{position:absolute;left:8px;right:8px;bottom:12px;height:34px;border-radius:17px;background:rgba(255,255,255,.92);box-shadow:0 4px 14px rgba(0,0,0,.12);display:flex;align-items:center;gap:6px;padding:0 8px;z-index:2}
+.pm-b{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;color:#191f28;position:relative}
+.pm-url{flex:1;text-align:center;font-size:10px;color:#4e5968;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pm-kbar{position:absolute;left:0;right:0;bottom:0;height:40px;background:#fff;border-top:1px solid #e5e8eb;display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:2;font-weight:700}
+.pm-kt{font-size:10.5px;color:#4e5968}
+.pm-cbar{position:absolute;left:0;right:0;top:0;padding:34px 8px 6px;background:#fff;display:flex;gap:6px;align-items:center;z-index:2;box-shadow:0 1px 0 #e5e8eb}
+.pm-cbar .pm-url{background:#f2f4f6;border-radius:14px;padding:6px 8px;text-align:left}
+.pm-menu{position:absolute;right:10px;bottom:52px;width:150px;background:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.22);display:grid;padding:4px 0;z-index:2;animation:pmUp .35s cubic-bezier(.2,.8,.2,1) both}
+.pm-menu.up{bottom:46px}.pm-menu.right{top:62px;bottom:auto}
+.pm-menu span{padding:8px 12px;display:flex;gap:8px;align-items:center;position:relative}.pm-menu span+span{border-top:1px solid #f2f4f6}
+.pm-menu em{font-style:normal;width:14px;text-align:center;color:#3182f6}
+.pm-sheet{position:absolute;left:0;right:0;bottom:0;background:#f2f4f6;border-radius:18px 18px 0 0;padding:12px 10px 14px;z-index:2;display:grid;gap:10px;animation:pmUp .4s cubic-bezier(.2,.8,.2,1) both}
+.pm-sheet.tall{top:70px}
+.pm-sh-h{display:flex;gap:8px;align-items:center;background:#fff;border-radius:12px;padding:8px}.pm-sh-h small{display:block;color:#8b95a1;font-size:9px}
+.pm-apps{display:flex;gap:10px;justify-content:center}.pm-apps i{width:30px;height:30px;border-radius:9px;display:block}.pm-apps .a1{background:#34c759}.pm-apps .a2{background:#fee500}.pm-apps .a3{background:#3182f6}.pm-apps .a4{background:#c4ccd6}
+.pm-list{background:#fff;border-radius:12px;display:grid}.pm-list span{padding:9px 12px;display:flex;justify-content:space-between;position:relative}.pm-list span+span{border-top:1px solid #f2f4f6}.pm-list em{font-style:normal;color:#8b95a1}
+.pm-ic{width:30px;height:30px;border-radius:8px;flex:0 0 auto}
+.pm-add{position:absolute;inset:0;background:#f2f4f6;padding-top:36px;animation:pmUp .4s both}
+.pm-nav{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:11px}.pm-nav span{color:#3182f6;position:relative;padding:3px 4px}.pm-nav b{font-size:11px}
+.pm-row{margin:10px;background:#fff;border-radius:12px;padding:10px;display:flex;gap:10px;align-items:center}.pm-row .pm-ic{width:44px;height:44px;border-radius:11px}.pm-row small{display:block;color:#8b95a1;font-size:8.5px;margin-top:2px}
+.pm-tg{margin:0 10px;background:#fff;border-radius:12px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center}.pm-tg i{width:30px;height:18px;border-radius:9px;background:#34c759;position:relative}.pm-tg i::after{content:"";position:absolute;right:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff}
+.pm-dlg{position:absolute;left:14px;right:14px;top:35%;background:#fff;border-radius:16px;padding:16px;display:grid;justify-items:center;gap:4px;z-index:2;animation:pmUp .35s both}.pm-dlg .pm-ic{width:40px;height:40px;border-radius:10px}.pm-dlg small{color:#8b95a1}.pm-dlg div{display:flex;gap:16px;margin-top:8px;color:#3182f6;font-weight:700}.pm-dlg div span{position:relative;padding:3px 6px}
+.pm-scr.home{background:linear-gradient(160deg,#2b3a67,#6a5cff 60%,#ff9a8b)}
+.pm-grid{padding:50px 14px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px 8px;justify-items:center}.pm-grid i{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.22);display:block}
+.pm-grid .me{display:grid;justify-items:center;gap:3px;color:#fff;font-size:8px;animation:pop .6s .2s both}.pm-grid .me .pm-ic{width:34px;height:34px;border-radius:9px;box-shadow:0 0 0 3px rgba(255,255,255,.7),0 8px 18px rgba(0,0,0,.3)}
+/* 강조 링 */
+.hl,.hl-dot{position:relative;color:#3182f6!important;font-weight:800}
+.hl::after,.hl-dot::after{content:"";position:absolute;inset:-3px;border-radius:12px;border:2.5px solid #ff6b00;animation:hlPulse 1.2s ease-in-out infinite;pointer-events:none}
+.pm-b.hl::after,.hl-dot::after{border-radius:50%;inset:-5px}
+@keyframes hlPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,107,0,.45)}50%{box-shadow:0 0 0 7px rgba(255,107,0,0)}}
+@keyframes pmUp{from{transform:translateY(16px);opacity:0}to{transform:none;opacity:1}}
+.gd-tx{text-align:center;max-width:340px}.gd-no{font-size:13px;font-weight:700;color:var(--accent)}
+.gd-tx h2{margin:4px 0 6px;font-size:22px;letter-spacing:-.03em}.gd-tx p{margin:0;font-size:15px;line-height:1.6;color:var(--ink2)}.gd-tx p small{display:block;margin-top:6px;font-size:12.5px;color:var(--muted)}
+.gd-foot{display:grid;gap:14px}.gd-foot .dots{justify-content:center}
+@media (max-height:760px){.pm{zoom:.82}}@media (max-height:680px){.pm{zoom:.62}.gd-tx h2{font-size:19px}.gd-tx p{font-size:14px}.gd-main{gap:14px}.fc-wrap.gd-wrap{gap:12px}}
+@media (prefers-reduced-motion:reduce){.hl::after,.hl-dot::after,.pm-menu,.pm-sheet,.pm-add,.pm-dlg{animation:none!important}}
+</style>
+
 
 
 
@@ -743,7 +791,7 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611052117"</script>
-<script src="questions.js?v=202611052117"></script>
-<script src="app.js?v=202611052117"></script>
+<script>window.BUILD="202611052122"</script>
+<script src="questions.js?v=202611052122"></script>
+<script src="app.js?v=202611052122"></script>
 </body></html>

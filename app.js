@@ -146,6 +146,7 @@ const ACTS={
   lastcheck:()=>{ const ids=lastCheckIds(); if(ids.length) start(ids,'마지막 점검','practice',{mix:true}); },
   flash:()=>flashPick(),
   setgoal:()=>{ const p=planInfo(); store.goal=Math.min(50,Math.max(10,p.need)); save(); toast(`하루 목표를 ${store.goal}문제로 맞췄어요`); render(); },
+  guide:()=>installGuide(),
   starq:()=>{const ids=starIds(); if(ids.length) start(shuffle(ids),'별표 문제','practice',{mix:true});},
   wrong:()=>start(shuffle(stats().wrongIds),'오답 정복','practice',{mix:true,loop:true}),
   subj:b=>{const sub=subjOf[b.dataset.id];start(QUESTIONS.filter(q=>sub.secs.includes(q.sec)).map(q=>q.id),sub.name,'practice',{mix:true});},
@@ -176,7 +177,7 @@ function home(){
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
   h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀린 문제는 1·3·7일 뒤 다시 나와요</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
-  h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="exam"><span class="ic b">${ico('exam')}</span><span class="tx"><span class="nm">실전 모의고사</span><span class="meta">${EXAM.n}문항 · ${EXAM.min}분 · 제1회·제2회·랜덤</span></span>${ico('chev','chev')}</button><button class="row" data-act="note"><span class="ic y">${ico('note')}</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제 ${st.wrongIds.length} · 별표 ${store.star.length}</span></span>${ico('chev','chev')}</button></div>`;
+  h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="exam"><span class="ic b">${ico('exam')}</span><span class="tx"><span class="nm">실전 모의고사</span><span class="meta">${EXAM.n}문항 · ${EXAM.min}분 · 제1회·제2회·랜덤</span></span>${ico('chev','chev')}</button><button class="row" data-act="note"><span class="ic y">${ico('note')}</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제 ${st.wrongIds.length} · 별표 ${store.star.length}</span></span>${ico('chev','chev')}</button>${isStandalone()?'':`<button class="row" data-act="guide"><span class="ic b">${ico('home')}</span><span class="tx"><span class="nm">홈 화면에 앱으로 추가하기</span><span class="meta">주소창 없이 앱처럼 · 그림으로 따라하기</span></span>${ico('chev','chev')}</button>`}</div>`;
   h+=`<p class="foot">${esc(EXAM.label)} 시험 · 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식) 기준 손해사정사 1차 수준 예상문제 ${st.N}문항. 풀이 기록은 이 기기에 저장돼요.</p>`;
   app.innerHTML=h; bindActs();
   const fg=app.querySelector('.hero .g-fg'), gv=app.querySelector('.hero .g-v');
@@ -377,13 +378,14 @@ function settings(){
     <div class="sr"><b>진동</b><small>아이폰은 iOS 18 이상</small>${seg('vib',[['true','켜기'],['false','끄기']])}</div>
     <div class="sr"><b>하루 목표</b><div class="seg">${[10,20,30,50].map(g=>`<button data-goal="${g}" aria-pressed="${store.goal===g}">${g}문제</button>`).join('')}</div></div>
     <div class="sr"><b>합격 기준</b><small>공고에 없어 직접 정해요</small><div class="seg">${[60,70,80].map(g=>`<button data-pass="${g}" aria-pressed="${(store.pass||60)===g}">${g}점</button>`).join('')}</div></div></div>`;
-  h+=`<div class="label">앱 정보</div><div class="list"><div class="row"><span class="tx"><span class="nm">문항 수</span><span class="meta">총 ${QUESTIONS.length}문항 · 고난도 ${QUESTIONS.filter(isHard).length} · 보기별 해설 ${QUESTIONS.filter(q=>q.why).length}</span></span></div><div class="row"><span class="tx"><span class="nm">업데이트</span><span class="meta">매주 월·목 새 문제가 자동으로 추가돼요</span></span></div><button class="row" id="bk"><span class="tx"><span class="nm">기록 백업하기</span><span class="meta">폰을 바꾸거나 사파리 기록을 지울 때 대비해요</span></span>${ico('chev','chev')}</button><button class="row" id="rs"><span class="tx"><span class="nm">기록 복원하기</span><span class="meta">백업 코드를 붙여넣어 그대로 되살려요</span></span>${ico('chev','chev')}</button><button class="row" id="replay"><span class="tx"><span class="nm">처음 안내 다시 보기</span></span>${ico('chev','chev')}</button><button class="row" id="wipe"><span class="tx"><span class="nm danger">풀이 기록 초기화</span><span class="meta">푼 기록·오답·별표·모의고사 기록이 모두 지워져요</span></span></button></div>`;
+  h+=`<div class="label">앱 정보</div><div class="list"><div class="row"><span class="tx"><span class="nm">문항 수</span><span class="meta">총 ${QUESTIONS.length}문항 · 고난도 ${QUESTIONS.filter(isHard).length} · 보기별 해설 ${QUESTIONS.filter(q=>q.why).length}</span></span></div><div class="row"><span class="tx"><span class="nm">업데이트</span><span class="meta">매주 월·목 새 문제가 자동으로 추가돼요</span></span></div><button class="row" id="gdOpen"><span class="tx"><span class="nm">홈 화면에 앱으로 추가하는 법</span><span class="meta">아이폰·갤럭시 그림으로 단계별 안내</span></span>${ico('chev','chev')}</button><button class="row" id="bk"><span class="tx"><span class="nm">기록 백업하기</span><span class="meta">폰을 바꾸거나 사파리 기록을 지울 때 대비해요</span></span>${ico('chev','chev')}</button><button class="row" id="rs"><span class="tx"><span class="nm">기록 복원하기</span><span class="meta">백업 코드를 붙여넣어 그대로 되살려요</span></span>${ico('chev','chev')}</button><button class="row" id="replay"><span class="tx"><span class="nm">처음 안내 다시 보기</span></span>${ico('chev','chev')}</button><button class="row" id="wipe"><span class="tx"><span class="nm danger">풀이 기록 초기화</span><span class="meta">푼 기록·오답·별표·모의고사 기록이 모두 지워져요</span></span></button></div>`;
   app.innerHTML=h;
   $('#back').onclick=()=>go('report');
   app.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{const k=b.dataset.k,v=b.dataset.v; c[k]=v==='true'?true:v==='false'?false:v; save(); applyTheme(); if(k==='sound'&&c.sound) sfx(true); settings();});
   app.querySelectorAll('[data-goal]').forEach(b=>b.onclick=()=>{store.goal=+b.dataset.goal;save();settings();});
   app.querySelectorAll('[data-pass]').forEach(b=>b.onclick=()=>{store.pass=+b.dataset.pass;save();settings();});
   $('#replay').onclick=()=>{slideI=0;onboarding();};
+  $('#gdOpen').onclick=()=>installGuide();
   $('#bk').onclick=backup; $('#rs').onclick=restore;
   let armed=false; $('#wipe').onclick=()=>{ if(!armed){armed=true;$('#wipe .nm').textContent='한 번 더 누르면 초기화돼요';return;} const cfg=store.cfg; store={ans:{},star:[],sess:null,best:{},round:1,log:{},srs:{},hist:[],goal:20,trk:{},pass:60,cfg}; save(); toast('기록을 초기화했어요'); view='home'; render(); };
 }
@@ -453,11 +455,12 @@ function maybeInstall(){
   if(isStandalone()&&isIOS&&!meta.icon2&&meta.onb){ meta.icon2=true; saveMeta(); return iconNotice(); }
   if(isStandalone()||inFrame()||!isMobile) return maybeUpdate();
   if(meta.inst&&Date.now()-meta.inst<3*86400000) return maybeUpdate();
-  const steps=isIOS?[['Safari 아래쪽 <b>공유 버튼</b>을 눌러요','share'],['<b>홈 화면에 추가</b>를 골라요','plus'],['오른쪽 위 <b>추가</b>를 누르면 끝!','check']]
+  const steps=isIOS?[['Safari 맨 아래 주소창 오른쪽 <b>⋯</b>를 눌러요','share'],['<b>공유</b> → <b>더 보기</b>를 눌러요','plus'],['<b>홈 화면에 추가</b> → 오른쪽 위 <b>추가</b>','check']]
                   :[['Chrome 오른쪽 위 <b>⋮ 메뉴</b>를 눌러요','menu'],['<b>홈 화면에 추가</b> 또는 <b>앱 설치</b>를 골라요','plus'],['<b>설치</b>를 누르면 끝!','check']];
   sheet(`<div class="app-badge"><img src="icon-192.png" alt="" onerror="this.style.display='none'"><div><b>앱으로 설치하기</b><span>홈 화면에서 바로 열리고, 주소창 없이 전체화면으로 풀 수 있어요.</span></div></div>
     <ol class="steps">${steps.map(([t],i)=>`<li><span>${i+1}</span><p>${t}</p></li>`).join('')}</ol>
-    <button class="cta" id="instOk">알겠어요</button><button class="linkbtn center" id="instLater">나중에 할게요</button>`,()=>{
+    <button class="cta" id="instGd">그림으로 따라하기</button><button class="cta ghost" id="instOk">알겠어요</button><button class="linkbtn center" id="instLater">나중에 할게요</button>`,()=>{
+      { const g=$('#instGd'); if(g) g.onclick=()=>{meta.inst=Date.now()+30*86400000;saveMeta();closeOv();setTimeout(()=>installGuide(),280);}; }
       $('#instOk').onclick=()=>{meta.inst=Date.now()+30*86400000;saveMeta();closeOv();setTimeout(maybeUpdate,300);};
       $('#instLater').onclick=()=>{meta.inst=Date.now();saveMeta();closeOv();setTimeout(maybeUpdate,300);};
     });
@@ -679,10 +682,61 @@ function flashShow(){
 function iconNotice(){
   sheet(`<div class="app-badge"><img src="icon-192.png" alt=""><div><b>새 아이콘이 나왔어요</b><span>아이폰은 홈 화면 아이콘을 자동으로 바꿔주지 않아서, 한 번만 다시 추가해 주세요.</span></div></div>
     <ol class="steps"><li><span>1</span><p>먼저 아래 <b>백업 코드 복사</b> → 카톡 나에게 보내기에 붙여 두기 <b>(꼭!)</b> 아이폰은 앱을 지우면 기록도 같이 지워져요</p></li><li><span>2</span><p>지금 아이콘을 길게 눌러 <b>앱 제거</b></p></li><li><span>3</span><p>사파리에서 사이트를 열고 <b>공유 → 홈 화면에 추가</b></p></li><li><span>4</span><p>새 아이콘으로 열고 <b>설정 → 기록 복원하기</b>에 코드 붙여넣기</p></li></ol>
-    <button class="cta" id="icBk">백업 코드 복사</button><button class="linkbtn center" id="icLater">다음에 할게요</button>`,()=>{
+    <button class="cta" id="icBk">백업 코드 복사</button><button class="cta ghost" id="icGd">3단계 그림으로 보기</button><button class="linkbtn center" id="icLater">다음에 할게요</button>`,()=>{
       $('#icBk').onclick=()=>{ const code='P2Q1.'+enc({v:1,t:Date.now(),store}); copyText(code).then(ok=>toast(ok?'백업 코드를 복사했어요. 카톡 나에게 보내기에 붙여 두세요':'설정 → 기록 백업하기에서 복사해 주세요')); };
+      $('#icGd').onclick=()=>{ closeOv(); setTimeout(()=>installGuide('ios'),280); };
       $('#icLater').onclick=()=>{ closeOv(); setTimeout(maybeUpdate,300); };
     });
+}
+
+/* ── v17: 홈 화면 추가 그림 안내 ── */
+var gd={os:'ios',i:0};
+function pmBar(hl){ return `<div class="pm-bar"><span class="pm-b">‹</span><span class="pm-url">siskimmk-cpu.github.io</span><span class="pm-b ${hl==='more'?'hl':''}">⋯</span></div>`; }
+function pmPage(){ return `<div class="pm-page"><i class="w60"></i><i class="w80 big"></i><i class="card"></i><i class="w70"></i><i class="w50"></i></div>`; }
+function pmIcon(){ return `<img class="pm-ic" src="icon-192.png" alt="" onerror="this.style.visibility='hidden'">`; }
+var GUIDE={
+ ios:[
+  {t:'사파리로 열어요',d:'카톡에서 링크를 열었다면 화면 아래쪽(또는 위쪽) <b>⋮</b> 메뉴 → <b>다른 브라우저로 열기</b>(또는 <b>Safari로 열기</b>)를 골라요. 카톡 안 화면에서는 홈 화면에 추가가 안 돼요.',
+   m:()=>`<div class="pm-scr">${pmPage()}<div class="pm-menu up"><span>새로고침</span><span>링크 복사</span><span class="hl">다른 브라우저로 열기</span></div><div class="pm-kbar"><span>✕</span><span class="pm-kt">2급 합격</span><span class="hl-dot">⋮</span></div></div>`},
+  {t:'아래 ⋯ 버튼을 눌러요',d:'사파리 화면 맨 아래 주소창 오른쪽의 <b>⋯</b>(더보기)를 눌러요.<br><small>예전 iOS는 아래 가운데 <b>공유 버튼</b>(네모에 화살표)을 바로 누르면 돼요 → 4단계로</small>',
+   m:()=>`<div class="pm-scr">${pmPage()}${pmBar('more')}</div>`},
+  {t:'공유를 눌러요',d:'올라온 메뉴에서 <b>공유</b>를 눌러요.',
+   m:()=>`<div class="pm-scr">${pmPage()}<div class="pm-menu"><span class="hl"><em>⬆︎</em>공유</span><span><em>☆</em>즐겨찾기에 추가</span><span><em>⌕</em>페이지에서 찾기</span><span><em>⧉</em>새 탭</span></div>${pmBar()}</div>`},
+  {t:'더 보기를 눌러요',d:'공유 창이 뜨면 아래쪽 목록에서 <b>더 보기</b>를 눌러 메뉴를 펼쳐요.',
+   m:()=>`<div class="pm-scr dim">${pmPage()}<div class="pm-sheet"><div class="pm-sh-h">${pmIcon()}<span><b>2급 합격</b><small>siskimmk-cpu.github.io</small></span></div><div class="pm-apps"><i class="a1"></i><i class="a2"></i><i class="a3"></i><i class="a4"></i></div><div class="pm-list"><span>복사</span><span>읽기 목록에 추가</span><span class="hl">더 보기 <em>⌄</em></span></div></div></div>`},
+  {t:'홈 화면에 추가를 눌러요',d:'펼쳐진 목록을 조금 내려서 <b>홈 화면에 추가</b>를 눌러요.',
+   m:()=>`<div class="pm-scr dim">${pmPage()}<div class="pm-sheet tall"><div class="pm-list"><span>복사</span><span>읽기 목록에 추가</span><span>즐겨찾기에 추가</span><span>페이지에서 찾기</span><span class="hl">홈 화면에 추가 <em>⊞</em></span><span>프린트</span></div></div></div>`},
+  {t:'오른쪽 위 추가를 눌러요',d:'이름이 <b>2급 합격</b>인지 보고, <b>웹 앱으로 열기</b>가 켜져 있는 상태로 오른쪽 위 <b>추가</b>를 눌러요.',
+   m:()=>`<div class="pm-scr"><div class="pm-add"><div class="pm-nav"><span>취소</span><b>홈 화면에 추가</b><span class="hl">추가</span></div><div class="pm-row">${pmIcon()}<span><b>2급 합격</b><small>https://siskimmk-cpu.github.io/…</small></span></div><div class="pm-tg"><span>웹 앱으로 열기</span><i class="on"></i></div></div></div>`},
+  {t:'끝! 홈 화면에서 열어요',d:'홈 화면에 생긴 <b>2급 합격</b> 아이콘을 누르면 주소창 없이 앱처럼 열려요.',
+   m:()=>`<div class="pm-scr home"><div class="pm-grid"><i></i><i></i><i></i><i></i><i></i><span class="me">${pmIcon()}<small>2급 합격</small></span><i></i><i></i></div></div>`}
+ ],
+ android:[
+  {t:'크롬으로 열어요',d:'카톡에서 열었다면 화면 위쪽(또는 아래쪽) <b>⋮</b> 메뉴 → <b>다른 브라우저로 열기</b>를 눌러 <b>Chrome</b>으로 열어요.',
+   m:()=>`<div class="pm-scr"><div class="pm-cbar"><span class="pm-b">✕</span><span class="pm-url" style="background:none;text-align:center">2급 합격</span><span class="pm-b hl">⋮</span></div>${pmPage()}<div class="pm-menu right"><span>새로고침</span><span>링크 복사</span><span class="hl">다른 브라우저로 열기</span></div></div>`},
+  {t:'오른쪽 위 ⋮ 을 눌러요',d:'크롬 주소창 오른쪽 끝의 <b>⋮</b>(점 세 개)를 눌러요.',
+   m:()=>`<div class="pm-scr"><div class="pm-cbar"><span class="pm-url">siskimmk-cpu.github.io</span><span class="pm-b hl">⋮</span></div>${pmPage()}</div>`},
+  {t:'홈 화면에 추가를 눌러요',d:'메뉴에서 <b>홈 화면에 추가</b>(또는 <b>앱 설치</b>)를 눌러요.',
+   m:()=>`<div class="pm-scr"><div class="pm-cbar"><span class="pm-url">siskimmk-cpu.github.io</span><span class="pm-b">⋮</span></div>${pmPage()}<div class="pm-menu right"><span>새 탭</span><span>방문 기록</span><span>다운로드</span><span class="hl">홈 화면에 추가</span><span>설정</span></div></div>`},
+  {t:'설치를 눌러요',d:'창이 뜨면 <b>설치</b>(또는 <b>추가</b>)를 눌러요.',
+   m:()=>`<div class="pm-scr dim">${pmPage()}<div class="pm-dlg">${pmIcon()}<b>앱을 설치할까요?</b><small>2급 합격</small><div><span>취소</span><span class="hl">설치</span></div></div></div>`},
+  {t:'끝! 홈 화면에서 열어요',d:'홈 화면이나 앱 목록의 <b>2급 합격</b> 아이콘으로 바로 열려요.',
+   m:()=>`<div class="pm-scr home"><div class="pm-grid"><i></i><i></i><i></i><i></i><i></i><span class="me">${pmIcon()}<small>2급 합격</small></span><i></i><i></i></div></div>`}
+ ]
+};
+function installGuide(os){ gd={os:os||(/android/i.test(navigator.userAgent)?'android':'ios'),i:0}; guideShow(); }
+function guideShow(){
+  const L=GUIDE[gd.os], s=L[gd.i], last=gd.i===L.length-1;
+  ov.hidden=false; ov.className='ov fcv gdv'; ov.onclick=null;
+  ov.innerHTML=`<div class="fc-wrap gd-wrap"><div class="gd-top"><button class="x-btn" id="gdX" aria-label="닫기">✕</button><div class="seg gd-os"><button data-os="ios" aria-pressed="${gd.os==='ios'}">아이폰</button><button data-os="android" aria-pressed="${gd.os==='android'}">갤럭시</button></div></div>
+    <div class="gd-main"><div class="pm">${s.m()}<span class="tap"></span></div>
+    <div class="gd-tx"><span class="gd-no">${gd.i+1} / ${L.length}</span><h2>${s.t}</h2><p>${s.d}</p></div></div>
+    <div class="gd-foot"><div class="dots">${L.map((_,k)=>`<i class="${k===gd.i?'on':''}"></i>`).join('')}</div><div class="fc-act"><button class="cta ghost" id="gdPrev" ${gd.i?'':'disabled'}>이전</button><button class="cta" id="gdNext">${last?'다 했어요':'다음'}</button></div></div></div>`;
+  $('#gdX').onclick=closeOv;
+  ov.querySelectorAll('[data-os]').forEach(b=>b.onclick=()=>{gd={os:b.dataset.os,i:0};guideShow();});
+  $('#gdPrev').onclick=()=>{ if(gd.i>0){gd.i--;guideShow();} };
+  $('#gdNext').onclick=()=>{ if(last){ closeOv(); toast('홈 화면의 "2급 합격" 아이콘으로 열어 보세요'); } else { gd.i++; guideShow(); } };
+  const w=ov.querySelector('.gd-wrap'); let x0=null; w.ontouchstart=e=>{x0=e.touches[0].clientX;}; w.ontouchend=e=>{ if(x0==null)return; const dx=e.changedTouches[0].clientX-x0; x0=null; if(dx<-60&&!last){gd.i++;guideShow();} else if(dx>60&&gd.i>0){gd.i--;guideShow();} };
 }
 
 /* v15: 스플래시 D-Day */
