@@ -12,6 +12,9 @@ for(const q of QUESTIONS){
   if(!Array.isArray(q.opts)||q.opts.length<4||q.opts.length>5) bad('opts는 4~5개');
   if(!(Number.isInteger(q.ans)&&q.ans>=0&&q.ans<q.opts.length)) bad('ans 범위 오류');
   if(q.type) bad('type 필드 금지(전부 객관식)');
+  if((q.tags||[]).includes('계산')) bad('계산 문제 금지');
+  if(!Array.isArray(q.why)||q.why.length!==q.opts.length) bad('why(보기별 해설) 누락 또는 개수 불일치');
 }
 const cnt={};QUESTIONS.forEach(q=>cnt[q.sec]=(cnt[q.sec]||0)+1);
+const pos=[0,0,0,0,0];QUESTIONS.forEach(q=>pos[q.ans]++);console.log('정답 위치 분포',pos.slice(0,4).join('/'));
 console.log('총',QUESTIONS.length,'문항',cnt,err?`오류 ${err}건`:'OK');process.exit(err?1:0);

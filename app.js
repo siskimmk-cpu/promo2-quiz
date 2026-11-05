@@ -138,7 +138,7 @@ const ACTS={
   review:()=>start(shuffle(dueIds()),'오늘의 복습','practice',{mix:true,loop:true}),
   rand:()=>start(shuffle(QUESTIONS.map(q=>q.id)).slice(0,10),'랜덤 10문제','practice',{mix:true}),
   hard:()=>start(shuffle(QUESTIONS.filter(isHard).map(q=>q.id)),'고난도','practice',{mix:true}),
-  calc:()=>start(QUESTIONS.filter(q=>(q.tags||[]).includes('계산')).map(q=>q.id),'계산 문제','practice'),
+  starq:()=>{const ids=starIds(); if(ids.length) start(shuffle(ids),'별표 문제','practice',{mix:true});},
   wrong:()=>start(shuffle(stats().wrongIds),'오답 정복','practice',{mix:true,loop:true}),
   subj:b=>{const sub=subjOf[b.dataset.id];start(QUESTIONS.filter(q=>sub.secs.includes(q.sec)).map(q=>q.id),sub.name,'practice',{mix:true});},
   chap:b=>{const x=b.dataset.id;start(QUESTIONS.filter(q=>q.sec===x).map(q=>q.id),'공제약관 · '+secOf[x].name,'practice',{mix:true});},
@@ -153,7 +153,7 @@ function quickGrid(st){
   return `<div class="quick">
     <button class="qbtn" data-act="rand"><span class="qi">${ico('shuffle')}</span><b>랜덤 10문제</b><span>전 과목에서</span></button>
     <button class="qbtn" data-act="hard"><span class="qi r">${ico('bolt')}</span><b>고난도만</b><span>${QUESTIONS.filter(isHard).length}문제</span></button>
-    <button class="qbtn" data-act="calc"><span class="qi g">${ico('calc')}</span><b>계산 문제</b><span>${QUESTIONS.filter(q=>(q.tags||[]).includes('계산')).length}문제</span></button>
+    <button class="qbtn" data-act="starq" ${starIds().length?'':'disabled'}><span class="qi g">${ico('star')}</span><b>별표 문제</b><span>${starIds().length}문제 · 다시 보기</span></button>
     <button class="qbtn" data-act="wrong" ${st.wrongIds.length?'':'disabled'}><span class="qi y">${ico('repeat')}</span><b>오답 정복</b><span>${st.wrongIds.length}문제 · 맞힐 때까지</span></button>
   </div>`;
 }
@@ -232,6 +232,7 @@ function card(q,o,no){ // o:{pick,reveal,locked,perm}
   if(o.reveal){
     const ok=isOk(q,o.pick), none=o.pick==null, ansPos=perm.indexOf(q.ans)+1;
     h+=`<div class="fb"><div class="v ${none?'na':ok?'ok':'no'}">${none?'미응답':ok?'정답이에요!':'아쉬워요'} · 정답 ${ansPos}번</div><div class="chat"><span class="av">해설</span><div class="bub"><div class="who">해설 도우미</div><div class="body">${esc(q.exp)}</div>${q.why?`<ul class="why">${perm.map((oi,pos)=>`<li class="${oi===q.ans?'a':''}"><b>${pos+1}</b><span>${esc(q.why[oi])}</span></li>`).join('')}</ul>`:''}<div class="ref">근거 · ${esc(q.ref)}</div></div></div></div>`;
+    h+=`<button class="linkbtn rep" data-rep="${q.id}">이 문제 이상해요</button>`;
   }
   return h;
 }
@@ -357,13 +358,14 @@ function settings(){
     <div class="sr"><b>진동</b><small>안드로이드에서 동작</small>${seg('vib',[['true','켜기'],['false','끄기']])}</div>
     <div class="sr"><b>하루 목표</b><div class="seg">${[10,20,30,50].map(g=>`<button data-goal="${g}" aria-pressed="${store.goal===g}">${g}문제</button>`).join('')}</div></div>
     <div class="sr"><b>합격 기준</b><small>공고에 없어 직접 정해요</small><div class="seg">${[60,70,80].map(g=>`<button data-pass="${g}" aria-pressed="${(store.pass||60)===g}">${g}점</button>`).join('')}</div></div></div>`;
-  h+=`<div class="label">앱 정보</div><div class="list"><div class="row"><span class="tx"><span class="nm">문항 수</span><span class="meta">총 ${QUESTIONS.length}문항 · 고난도 ${QUESTIONS.filter(isHard).length} · 보기별 해설 ${QUESTIONS.filter(q=>q.why).length}</span></span></div><div class="row"><span class="tx"><span class="nm">업데이트</span><span class="meta">매주 월·목 새 문제가 자동으로 추가돼요</span></span></div><button class="row" id="replay"><span class="tx"><span class="nm">처음 안내 다시 보기</span></span>${ico('chev','chev')}</button><button class="row" id="wipe"><span class="tx"><span class="nm danger">풀이 기록 초기화</span><span class="meta">푼 기록·오답·별표·모의고사 기록이 모두 지워져요</span></span></button></div>`;
+  h+=`<div class="label">앱 정보</div><div class="list"><div class="row"><span class="tx"><span class="nm">문항 수</span><span class="meta">총 ${QUESTIONS.length}문항 · 고난도 ${QUESTIONS.filter(isHard).length} · 보기별 해설 ${QUESTIONS.filter(q=>q.why).length}</span></span></div><div class="row"><span class="tx"><span class="nm">업데이트</span><span class="meta">매주 월·목 새 문제가 자동으로 추가돼요</span></span></div><button class="row" id="bk"><span class="tx"><span class="nm">기록 백업하기</span><span class="meta">폰을 바꾸거나 사파리 기록을 지울 때 대비해요</span></span>${ico('chev','chev')}</button><button class="row" id="rs"><span class="tx"><span class="nm">기록 복원하기</span><span class="meta">백업 코드를 붙여넣어 그대로 되살려요</span></span>${ico('chev','chev')}</button><button class="row" id="replay"><span class="tx"><span class="nm">처음 안내 다시 보기</span></span>${ico('chev','chev')}</button><button class="row" id="wipe"><span class="tx"><span class="nm danger">풀이 기록 초기화</span><span class="meta">푼 기록·오답·별표·모의고사 기록이 모두 지워져요</span></span></button></div>`;
   app.innerHTML=h;
   $('#back').onclick=()=>go('report');
   app.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>{const k=b.dataset.k,v=b.dataset.v; c[k]=v==='true'?true:v==='false'?false:v; save(); applyTheme(); if(k==='sound'&&c.sound) sfx(true); settings();});
   app.querySelectorAll('[data-goal]').forEach(b=>b.onclick=()=>{store.goal=+b.dataset.goal;save();settings();});
   app.querySelectorAll('[data-pass]').forEach(b=>b.onclick=()=>{store.pass=+b.dataset.pass;save();settings();});
   $('#replay').onclick=()=>{slideI=0;onboarding();};
+  $('#bk').onclick=backup; $('#rs').onclick=restore;
   let armed=false; $('#wipe').onclick=()=>{ if(!armed){armed=true;$('#wipe .nm').textContent='한 번 더 누르면 초기화돼요';return;} const cfg=store.cfg; store={ans:{},star:[],sess:null,best:{},round:1,log:{},srs:{},hist:[],goal:20,trk:{},pass:60,cfg}; save(); toast('기록을 초기화했어요'); view='home'; render(); };
 }
 function render(){
@@ -466,7 +468,42 @@ if(hpaper&&!busy){ view='intro'; introPaper=hpaper.id; render(); }
 else if(hsub&&!busy){ start(QUESTIONS.filter(q=>hsub.secs.includes(q.sec)).map(q=>q.id),hsub.name,'practice',{mix:true}); }
 else render();
 launch();
+
+/* ── v11: 별표·신고·백업 ── */
+function starIds(){ const ids=new Set(QUESTIONS.map(q=>q.id)); return (store.star||[]).filter(id=>ids.has(id)); }
+function copyText(t){ try{ if(navigator.clipboard&&window.isSecureContext) return navigator.clipboard.writeText(t).then(()=>true,()=>false); }catch(e){} try{ const ta=document.createElement('textarea'); ta.value=t; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); const ok=document.execCommand('copy'); ta.remove(); return Promise.resolve(ok);}catch(e){ return Promise.resolve(false);} }
+function reportQ(id){
+  const q=QUESTIONS.find(x=>x.id===id); if(!q) return;
+  sheet(`<div class="upd"><span class="upd-ic">${ico('note')}</span><b>이 문제 이상해요</b><p>문제 번호 ${esc(id)} · ${esc(subjOfSec(q.sec).name)}</p></div>
+    <div class="chips rep-chips">${['정답이 틀렸어요','해설이 이상해요','법령이 바뀌었어요','오타가 있어요'].map(t=>`<button class="chip" data-why="${t}">${t}</button>`).join('')}</div>
+    <textarea id="repTx" class="bk-ta" rows="3" placeholder="어떤 점이 이상한지 적어 주세요 (선택)"></textarea>
+    <button class="cta" id="repGo">신고 내용 복사하기</button><p class="bk-note">복사한 내용을 카카오톡으로 김민기 대리에게 보내 주시면 확인 후 고칠게요.</p>`,()=>{
+      let tag=''; ov.querySelectorAll('[data-why]').forEach(b=>b.onclick=()=>{tag=b.dataset.why; ov.querySelectorAll('[data-why]').forEach(x=>x.setAttribute('aria-pressed',x===b));});
+      $('#repGo').onclick=()=>{ const t=`[2급 진급시험 문제 신고]\n문제: ${id} (${subjOfSec(q.sec).name})\n${q.q.slice(0,60)}…\n유형: ${tag||'-'}\n내용: ${$('#repTx').value.trim()||'-'}`; copyText(t).then(ok=>{ closeOv(); toast(ok?'복사했어요. 카톡에 붙여넣어 보내 주세요':'복사가 안 되면 화면을 캡처해 보내 주세요'); }); };
+    });
+}
+document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('[data-rep]'); if(b){ e.preventDefault(); e.stopPropagation(); reportQ(b.dataset.rep); } },true);
+function enc(o){ return btoa(unescape(encodeURIComponent(JSON.stringify(o)))); }
+function dec(s){ return JSON.parse(decodeURIComponent(escape(atob(s.replace(/\s+/g,''))))); }
+function backup(){
+  const code='P2Q1.'+enc({v:1,t:Date.now(),store});
+  sheet(`<div class="upd"><span class="upd-ic">${ico('note')}</span><b>기록 백업 코드</b><p>푼 문제 ${Object.keys(store.ans).length}개 · 별표 ${(store.star||[]).length}개 · 모의고사 ${(store.hist||[]).length}회</p></div>
+    <textarea class="bk-ta" rows="4" readonly>${code}</textarea>
+    <button class="cta" id="bkCopy">코드 복사하기</button><p class="bk-note">카톡 나에게 보내기나 메모장에 붙여 두세요. 새 폰에서 설정 → 기록 복원하기에 붙여넣으면 돼요.</p>`,()=>{
+      $('#bkCopy').onclick=()=>copyText(code).then(ok=>{ toast(ok?'백업 코드를 복사했어요':'코드를 길게 눌러 직접 복사해 주세요'); if(ok) closeOv(); });
+    });
+}
+function restore(){
+  sheet(`<div class="upd"><span class="upd-ic">${ico('repeat')}</span><b>기록 복원하기</b><p>지금 기기의 기록은 백업 코드 내용으로 바뀌어요.</p></div>
+    <textarea id="rsTx" class="bk-ta" rows="4" placeholder="P2Q1.로 시작하는 백업 코드를 붙여넣으세요"></textarea>
+    <button class="cta" id="rsGo">복원하기</button>`,()=>{
+      $('#rsGo').onclick=()=>{ try{ const raw=$('#rsTx').value.trim(); if(!raw.startsWith('P2Q1.')) throw 0; const d=dec(raw.slice(5)); if(!d||!d.store||typeof d.store.ans!=='object') throw 0; const cfg=store.cfg; store=Object.assign({ans:{},star:[],sess:null,best:{},round:1,log:{},srs:{},hist:[],goal:20,trk:{},pass:60},d.store); store.cfg=store.cfg||cfg; store.sess=null; save(); closeOv(); toast('기록을 복원했어요'); view='home'; render(); }catch(e){ toast('코드가 올바르지 않아요. 다시 확인해 주세요'); } };
+    });
+}
 })();
+
+/* 오프라인 지원 */
+if('serviceWorker' in navigator && location.protocol==='https:' && !(function(){try{return window.self!==window.top;}catch(e){return true;}})()){ window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); }); }
 
 /* 새 버전 자동 감지: 캐시된 옛 화면이면 최신으로 새로고침 */
 (function(){ try{ if(!window.BUILD||location.protocol==='file:') return;
