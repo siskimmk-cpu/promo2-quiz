@@ -122,7 +122,7 @@ function hideTabs(){ tabbar.hidden=true; }
 function dday(){ const d=Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); return d>0?`D-${d}`:d===0?'D-DAY':'시험 종료'; }
 function gauge(pct,ready){
   const r=80, c=Math.PI*r, v=ready?Math.max(0,Math.min(100,pct)):0, cls=!ready?'na':v>=70?'hi':v>=40?'mid':'lo';
-  return `<svg class="gauge ${cls}" viewBox="0 0 200 112" role="img" aria-label="합격 가능성 ${ready?v+'%':'계산 전'}"><path d="M20 100 A80 80 0 0 1 180 100" class="g-bg"/><path d="M20 100 A80 80 0 0 1 180 100" class="g-fg" style="stroke-dasharray:${c};stroke-dashoffset:${c*(1-v/100)}"/><text x="100" y="86" class="g-v">${ready?v+'%':'–'}</text><text x="100" y="106" class="g-l">합격 가능성</text></svg>`;
+  return `<svg class="gauge ${cls}" viewBox="0 0 200 112" role="img" aria-label="합격 가능성 ${ready?v+'%':'계산 전'}"><defs><linearGradient id="ggrad" x1="0" x2="1"><stop offset="0" stop-color="#9fe7ff"/><stop offset=".55" stop-color="#ffffff"/><stop offset="1" stop-color="#ffe066"/></linearGradient></defs><path d="M20 100 A80 80 0 0 1 180 100" class="g-bg"/><path d="M20 100 A80 80 0 0 1 180 100" class="g-fg" style="stroke-dasharray:${c};stroke-dashoffset:${c*(1-v/100)}"/><text x="100" y="86" class="g-v">${ready?v+'%':'–'}</text><text x="100" y="106" class="g-l">합격 가능성</text></svg>`;
 }
 function stats(){
   const N=QUESTIONS.length, done=QUESTIONS.filter(q=>store.ans[q.id]), ok=done.filter(q=>store.ans[q.id].ok).length;
@@ -161,7 +161,7 @@ function home(){
   clearInterval(tick); showTabs('home');
   const st=stats(), s=store.sess, resumable=s&&!s.done&&s.mode!=='mock', allDone=!st.newIds.length, pr=predict();
   let h=`<div class="aurora"></div><header class="top-h"><div><span class="eyebrow">2급 승진자격시험</span><h1 class="title">예상 기출문제</h1></div><span class="hr"><span class="dday">${dday()}</span><button class="gear" data-act="settings" aria-label="설정">${ico('gear')}</button></span></header>`;
-  h+=`<section class="hero anim">${gauge(pr.prob,pr.ready)}<p class="hero-msg">${pr.ready?`지금 실력이면 <b>${pr.score}점</b> 예상이에요<small>${store.pass||60}점 기준 · 최근 풀이 누적</small>`:`문제를 <b>${20-pr.tot}개</b> 더 풀면<br>합격 가능성을 계산해 드려요`}</p>
+  h+=`<section class="hero hero-x anim"><span class="hero-orb a"></span><span class="hero-orb b"></span>${pr.ready?`<span class="h-pill ${pr.prob>=70?'hi':pr.prob>=40?'mid':'lo'}"><i></i>${pr.prob>=70?'합격권이에요':pr.prob>=40?'조금만 더 힘내요':'집중 학습이 필요해요'}</span>`:`<span class="h-pill"><i></i>실력 분석 중</span>`}${gauge(pr.prob,pr.ready)}<p class="hero-msg">${pr.ready?`지금 실력이면 <b>${pr.score}점</b> 예상이에요<small>${store.pass||60}점 기준 · 최근 풀이 누적</small>`:`문제를 <b>${20-pr.tot}개</b> 더 풀면<br>합격 가능성을 계산해 드려요`}</p>
     <div class="hero-stats"><div><b>${st.done}</b><span>푼 문제</span></div><div><b>${st.done?Math.round(st.ok/st.done*100):0}%</b><span>정답률</span></div><div><b>${st.wrongIds.length}</b><span>오답</span></div></div>
     ${resumable?`<button class="cta" data-act="resume">이어서 풀기 · ${esc(s.title)} ${s.i+1}/${s.ids.length}</button>`
       :allDone?`<button class="cta warm" data-act="newround">다 풀었어요! 보기 섞어서 ${store.round+1}회독</button>`
@@ -183,7 +183,7 @@ function study(){
     const qs=QUESTIONS.filter(q=>sub.secs.includes(q.sec)), d=qs.filter(q=>store.ans[q.id]), o=d.filter(q=>store.ans[q.id].ok).length, nh=qs.filter(isHard).length;
     const pct=d.length?Math.round(o/d.length*100):null;
     const chips=sub.secs.length>1?`<span class="chips">${sub.secs.map(x=>`<button class="chip" data-act="chap" data-id="${x}">${esc(secOf[x].name)}</button>`).join('')}</span>`:'';
-    return `<div class="row subj" data-act="subj" data-id="${sub.id}" role="button" tabindex="0"><span class="ic n${k}">${k+1}</span><span class="tx"><span class="nm">${esc(sub.name)}</span><span class="meta">${qs.length}문항 · 고난도 ${nh} · 시험 ${sub.n}문항 예상</span>${chips}<span class="mini"><i class="o" style="width:${o/qs.length*100}%"></i><i class="x" style="width:${(d.length-o)/qs.length*100}%"></i></span></span><span class="pct ${pct==null?'':pct>=60?'hi':'lo'}">${pct==null?'':pct+'%'}</span></div>`;
+    return `<div class="row subj" data-act="subj" data-id="${sub.id}" role="button" tabindex="0"><span class="sring n${k}" style="--p:${Math.round(d.length/qs.length*100)}" aria-label="진도 ${Math.round(d.length/qs.length*100)}%"><b>${k+1}</b></span><span class="tx"><span class="nm">${esc(sub.name)}</span><span class="meta">${qs.length}문항 · 고난도 ${nh} · 시험 ${sub.n}문항 예상</span>${chips}<span class="mini"><i class="o" style="width:${o/qs.length*100}%"></i><i class="x" style="width:${(d.length-o)/qs.length*100}%"></i></span></span><span class="pct ${pct==null?'':pct>=60?'hi':'lo'}">${pct==null?'':pct+'%'}</span></div>`;
   }).join('')+`</div>`;
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
   app.innerHTML=h; bindActs();

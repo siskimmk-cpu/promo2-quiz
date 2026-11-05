@@ -438,7 +438,76 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 .cta.ghost{box-shadow:none}
 @media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="진급시험"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style></head><body>
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="진급시험"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
+<style>
+/* ── v10 프리미엄 레이어 ── */
+/* 1. 히어로: 토스풍 블루 그라데이션 카드 */
+.hero.hero-x{position:relative;overflow:hidden;isolation:isolate;color:#fff;
+  background:linear-gradient(150deg,#1b64da 0%,#3182f6 48%,#6a5cff 100%);
+  box-shadow:0 18px 40px -18px rgba(49,130,246,.65),0 2px 6px rgba(27,100,218,.18)}
+.hero-x .hero-orb{position:absolute;border-radius:50%;filter:blur(36px);z-index:-1;pointer-events:none;opacity:.55}
+.hero-x .hero-orb.a{width:220px;height:220px;left:-60px;top:-70px;background:#7fd1ff;animation:float 9s ease-in-out infinite alternate}
+.hero-x .hero-orb.b{width:200px;height:200px;right:-70px;bottom:-60px;background:#b197fc;animation:float 11s ease-in-out infinite alternate-reverse}
+.hero-x::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(120% 60% at 50% -10%,rgba(255,255,255,.22),transparent 60%)}
+.hero-x .g-bg{stroke:rgba(255,255,255,.18)}
+.hero-x .gauge .g-fg{stroke:url(#ggrad);filter:drop-shadow(0 0 8px rgba(255,255,255,.55))}
+.hero-x .gauge.na .g-fg{stroke:transparent;filter:none}
+.hero-x .g-v,.hero-x .gauge.hi .g-v,.hero-x .gauge.mid .g-v,.hero-x .gauge.lo .g-v{fill:#fff}
+.hero-x .gauge.na .g-v{fill:rgba(255,255,255,.6)}
+.hero-x .g-l{fill:rgba(255,255,255,.75)}
+.hero-x .hero-msg{color:rgba(255,255,255,.88)}
+.hero-x .hero-msg b{color:#fff}
+.hero-x .hero-msg small{color:rgba(255,255,255,.62)}
+.hero-x .hero-stats{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.hero-x .hero-stats div+div{border-left-color:rgba(255,255,255,.18)}
+.hero-x .hero-stats b{color:#fff}
+.hero-x .hero-stats span{color:rgba(255,255,255,.7)}
+.hero-x .cta{background:#fff;color:#1b64da;box-shadow:0 10px 24px -10px rgba(0,0,0,.35)}
+.hero-x .cta.warm{color:#e8590c}
+.hero-x .cta:active:not(:disabled){background:#eef4ff}
+.h-pill{justify-self:center;display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;padding:6px 12px 6px 10px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);color:#fff;margin-bottom:-6px}
+.h-pill i{width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.25)}
+.h-pill.hi i{background:#63e6be;box-shadow:0 0 0 3px rgba(99,230,190,.3)}
+.h-pill.mid i{background:#ffd43b;box-shadow:0 0 0 3px rgba(255,212,59,.3)}
+.h-pill.lo i{background:#ff8787;box-shadow:0 0 0 3px rgba(255,135,135,.3)}
+.h-pill.hi i,.h-pill.mid i,.h-pill.lo i{animation:blink 2s ease-in-out infinite}
+@keyframes blink{50%{opacity:.45}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero.hero-x{background:linear-gradient(150deg,#0f3d91 0%,#1f5fd1 50%,#4b3fc2 100%)}}
+:root[data-theme="dark"] .hero.hero-x{background:linear-gradient(150deg,#0f3d91 0%,#1f5fd1 50%,#4b3fc2 100%)}
+
+/* 2. 떠 있는 유리 탭바 */
+.tabbar{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));padding-bottom:0;border:1px solid color-mix(in srgb,var(--line) 70%,transparent);border-radius:26px;
+  background:color-mix(in srgb,var(--card) 78%,transparent);box-shadow:0 12px 32px -12px rgba(16,24,40,.28),0 2px 6px rgba(16,24,40,.06);max-width:520px;margin:0 auto}
+.tabbar .tabs{padding:6px}
+.tabs button{border-radius:20px;padding:8px 0 7px;z-index:0}
+.tabs button::before{top:auto;bottom:auto;inset:0;width:auto!important;height:auto;border-radius:20px;background:var(--accent-soft);transform:scale(.6);opacity:0;z-index:-1;transition:transform .3s cubic-bezier(.3,.7,.4,1.3),opacity .2s}
+.tabs button[aria-current="true"]::before{transform:none;opacity:1}
+.tabs button[aria-current="true"] .i{animation:tabBounce .45s cubic-bezier(.3,.7,.4,1.6)}
+@keyframes tabBounce{40%{transform:translateY(-3px) scale(1.15)}100%{transform:translateY(-1px) scale(1.08)}}
+
+/* 3. 과목 링 아이콘 */
+.row.subj{align-items:flex-start}
+.row.subj .pct{align-self:center}
+.sring{--p:0;--c:#3182f6;flex:0 0 auto;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;margin-top:2px;
+  background:conic-gradient(var(--c) calc(var(--p)*1%),color-mix(in srgb,var(--c) 14%,var(--soft)) 0);position:relative}
+.sring::before{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--card)}
+.sring b{position:relative;font-size:15px;font-weight:800;color:var(--c)}
+.sring.n1{--c:#7c4dff}.sring.n2{--c:#0ca678}.sring.n3{--c:#e8590c}.sring.n4{--c:#e64980}
+.row.subj .chips{margin-top:8px}
+
+/* 4. 정답·오답 모션 */
+.opt.right{animation:okPop .45s cubic-bezier(.3,.7,.4,1.5)}
+.opt.wrong{animation:noShake .42s cubic-bezier(.36,.07,.19,.97)}
+@keyframes okPop{40%{transform:scale(1.025)}}
+@keyframes noShake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.dock.ok .fbt .i,.dock.ok .badge{animation:pop .4s cubic-bezier(.3,.7,.4,1.6)}
+
+/* 5. 숫자·라벨 다듬기 */
+.label{letter-spacing:-.02em}
+.hero-stats b{letter-spacing:-.02em}
+@media (prefers-reduced-motion:reduce){.hero-x .hero-orb,.h-pill i,.opt.right,.opt.wrong,.tabs button .i{animation:none!important}}
+</style>
+</head><body>
 <div id="splash" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i>
 <div class="sp-in"><div class="sp-mark"><svg class="sp-ring" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" class="tr"/><circle cx="60" cy="60" r="54" class="pg"/></svg><div class="sp-logo">2급<span class="shine"></span></div></div>
 <div class="sp-org">개인택시공제조합</div><div class="sp-t"><span>2급</span> <span>승진시험</span> <span>예상</span> <span>기출문제</span></div><div class="sp-s">자배법 · 손해사정이론 · 보험계약법 · 공제약관 · 상식</div></div>
@@ -448,7 +517,7 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611051958"</script>
-<script src="questions.js?v=202611051958"></script>
-<script src="app.js?v=202611051958"></script>
+<script>window.BUILD="202611052006"</script>
+<script src="questions.js?v=202611052006"></script>
+<script src="app.js?v=202611052006"></script>
 </body></html>
