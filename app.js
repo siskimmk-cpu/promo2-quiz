@@ -224,7 +224,7 @@ function card(q,o,no){ // o:{pick,reveal,locked,perm}
   }
   return h;
 }
-function bindStars(root){root.querySelectorAll('[data-star]').forEach(b=>b.onclick=e=>{e.stopPropagation();e.preventDefault();toggleStar(b.dataset.star);const on=isStar(b.dataset.star);b.setAttribute('aria-pressed',on);b.textContent=on?'★':'☆';});}
+function bindStars(root){root.querySelectorAll('[data-star]').forEach(b=>b.onclick=e=>{e.stopPropagation();e.preventDefault();toggleStar(b.dataset.star);const on=isStar(b.dataset.star);toast(on?'별표에 담았어요':'별표에서 뺐어요');b.setAttribute('aria-pressed',on);b.textContent=on?'★':'☆';});}
 
 /* ── 풀이 ── */
 function quiz(){
@@ -337,6 +337,84 @@ function render(){
   if(view==='intro') return intro();
   return home();
 }
+/* ── 첫 실행 경험: 스플래시 → 온보딩 → 설치 안내 → 업데이트 알림 ── */
+const ov=document.getElementById('ov');
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const META_KEY='promo2-meta-v1';
+let meta={onb:false,inst:0,seen:0,seenIds:[]};
+try{ const m=JSON.parse(localStorage.getItem(META_KEY)||'null'); if(m) meta=Object.assign(meta,m); }catch(e){}
+const saveMeta=()=>{try{localStorage.setItem(META_KEY,JSON.stringify(meta));}catch(e){}};
+const isStandalone=()=>{try{return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;}catch(e){return false;}};
+const inFrame=()=>{try{return window.self!==window.top;}catch(e){return true;}};
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+const isMobile=/android|iphone|ipad|ipod/i.test(navigator.userAgent)||isIOS;
+
+function hideSplash(){ const sp=document.getElementById('splash'); if(!sp) return; sp.classList.add('out'); setTimeout(()=>sp.remove(),RM?0:450); }
+
+const SLIDES=[
+ {k:'exam',t:'실제 시험처럼 연습해요',d:'공고와 같은 50문항 · 90분 실전 모의고사.\n과목별 점수와 보기별 해설까지 바로 확인해요.',
+  art:`<div class="art-paper"><div class="ap-top"><span>실전 제1회</span><b>87:42</b></div><div class="ap-q"><i></i><i></i><i class="s"></i></div><div class="ap-o sel"><b>1</b><i></i></div><div class="ap-o"><b>2</b><i></i></div><div class="ap-o"><b>3</b><i></i></div></div>`},
+ {k:'repeat',t:'틀린 문제는 맞힐 때까지',d:'오답 정복 모드는 틀리면 보기를 섞어 다시 나와요.\n1일·3일·7일 뒤 자동 복습으로 확실히 기억해요.',
+  art:`<div class="art-cards"><div class="ac c3">7일</div><div class="ac c2">3일</div><div class="ac c1"><span class="x">✕</span> → <span class="o">○</span><small>1일 뒤 복습</small></div></div>`},
+ {k:'chart',t:'합격 가능성을 실시간으로',d:'푼 기록을 계속 누적해 예상 점수와\n합격 가능성을 계산하고, 취약 단원을 짚어줘요.',
+  art:`<div class="art-gauge"><svg viewBox="0 0 200 112"><path d="M20 100 A80 80 0 0 1 180 100" class="g-bg"/><path d="M20 100 A80 80 0 0 1 180 100" class="g-fg dash"/></svg><b>78%</b><span>합격 가능성</span></div>`},
+ {k:'target',t:'매일 조금씩, 꾸준히',d:'월·목마다 새 문제가 자동으로 추가돼요.\n하루 목표를 정하고 시작해 볼까요?',goal:true,
+  art:`<div class="art-ring"><div class="ring big" style="--p:72"><b>14</b><span>/20</span></div><span class="fl">🔥 5일 연속</span></div>`}
+];
+let slideI=0;
+function onboarding(){
+  ov.hidden=false; ov.className='ov onb';
+  const s=SLIDES[slideI], last=slideI===SLIDES.length-1;
+  ov.innerHTML=`<div class="onb-wrap"><button class="onb-skip" id="skip">${last?'':'건너뛰기'}</button>
+    <div class="onb-art" id="art">${s.art}</div>
+    <div class="onb-tx"><h2>${s.t}</h2><p>${esc(s.d)}</p>${s.goal?`<div class="seg onb-goal">${[10,20,30,50].map(g=>`<button data-g="${g}" aria-pressed="${store.goal===g}">하루 ${g}문제</button>`).join('')}</div>`:''}</div>
+    <div class="dots">${SLIDES.map((_,i)=>`<i class="${i===slideI?'on':''}"></i>`).join('')}</div>
+    <button class="cta" id="onext">${last?'시작하기':'다음'}</button></div>`;
+  const art=$('#art'); if(!RM) art.classList.add('in');
+  ov.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{store.goal=+b.dataset.g;save();onboarding();});
+  const next=()=>{ if(last){ meta.onb=true; meta.seen=QUESTIONS.length; meta.seenIds=QUESTIONS.map(q=>q.id); saveMeta(); closeOv(); setTimeout(maybeInstall,350); } else { slideI++; onboarding(); } };
+  const prev=()=>{ if(slideI>0){ slideI--; onboarding(); } };
+  $('#onext').onclick=next;
+  const sk=$('#skip'); if(sk&&!last) sk.onclick=()=>{ slideI=SLIDES.length-1; onboarding(); };
+  let x0=null; const w=ov.querySelector('.onb-wrap');
+  w.ontouchstart=e=>{x0=e.touches[0].clientX;}; w.ontouchend=e=>{ if(x0==null) return; const dx=e.changedTouches[0].clientX-x0; if(dx<-50) next(); else if(dx>50) prev(); x0=null; };
+}
+function closeOv(){ ov.classList.add('out'); setTimeout(()=>{ov.hidden=true; ov.className='ov'; ov.innerHTML='';},RM?0:250); }
+function sheet(html,onBind){
+  ov.hidden=false; ov.className='ov dim';
+  ov.innerHTML=`<div class="sheet" role="dialog" aria-modal="true"><span class="grab"></span>${html}</div>`;
+  ov.onclick=e=>{ if(e.target===ov) closeOv(); };
+  onBind&&onBind();
+}
+function maybeInstall(){
+  if(isStandalone()||inFrame()||!isMobile) return maybeUpdate();
+  if(meta.inst&&Date.now()-meta.inst<3*86400000) return maybeUpdate();
+  const steps=isIOS?[['Safari 아래쪽 <b>공유 버튼</b>을 눌러요','share'],['<b>홈 화면에 추가</b>를 골라요','plus'],['오른쪽 위 <b>추가</b>를 누르면 끝!','check']]
+                  :[['Chrome 오른쪽 위 <b>⋮ 메뉴</b>를 눌러요','menu'],['<b>홈 화면에 추가</b> 또는 <b>앱 설치</b>를 골라요','plus'],['<b>설치</b>를 누르면 끝!','check']];
+  sheet(`<div class="app-badge"><img src="icon-192.png" alt="" onerror="this.style.display='none'"><div><b>앱으로 설치하기</b><span>홈 화면에서 바로 열리고, 주소창 없이 전체화면으로 풀 수 있어요.</span></div></div>
+    <ol class="steps">${steps.map(([t],i)=>`<li><span>${i+1}</span><p>${t}</p></li>`).join('')}</ol>
+    <button class="cta" id="instOk">알겠어요</button><button class="linkbtn center" id="instLater">나중에 할게요</button>`,()=>{
+      $('#instOk').onclick=()=>{meta.inst=Date.now()+30*86400000;saveMeta();closeOv();setTimeout(maybeUpdate,300);};
+      $('#instLater').onclick=()=>{meta.inst=Date.now();saveMeta();closeOv();setTimeout(maybeUpdate,300);};
+    });
+}
+function maybeUpdate(){
+  const seen=new Set(meta.seenIds||[]);
+  const fresh=QUESTIONS.filter(q=>!seen.has(q.id));
+  if(!meta.onb||!fresh.length||!(meta.seenIds||[]).length){ meta.seenIds=QUESTIONS.map(q=>q.id); saveMeta(); return; }
+  const by={}; fresh.forEach(q=>{const n=subjOfSec(q.sec).name; by[n]=(by[n]||0)+1;});
+  sheet(`<div class="upd"><span class="upd-ic">${ico('bolt')}</span><b>새 문제 ${fresh.length}개가 추가됐어요</b><p>${Object.entries(by).map(([k,v])=>`${esc(k)} ${v}`).join(' · ')}</p></div>
+    <button class="cta" id="updGo">새 문제 바로 풀기</button><button class="linkbtn center" id="updLater">나중에</button>`,()=>{
+      const done=()=>{meta.seenIds=QUESTIONS.map(q=>q.id);saveMeta();};
+      $('#updGo').onclick=()=>{done();closeOv();start(fresh.map(q=>q.id),'새로 추가된 문제','practice',{mix:true});};
+      $('#updLater').onclick=()=>{done();closeOv();};
+    });
+}
+function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.classList.add('out'),1800); setTimeout(()=>t.remove(),2200); }
+function launch(){
+  setTimeout(()=>{ hideSplash(); setTimeout(()=>{ if(!meta.onb && !(store.sess&&!store.sess.done)) onboarding(); else maybeInstall(); }, RM?0:300); }, RM?150:1100);
+}
+
 if(store.sess&&store.sess.mode==='mock'&&!store.sess.done&&store.sess.end<Date.now()) finish();
 const hs=(location.hash||'').slice(1);
 const hsub=SUBJECTS.find(x=>x.id===hs.toUpperCase())||SUBJECTS.find(x=>x.secs.includes(hs.toUpperCase()));
@@ -345,4 +423,5 @@ const busy=store.sess&&!store.sess.done;
 if(hpaper&&!busy){ view='intro'; introPaper=hpaper.id; render(); }
 else if(hsub&&!busy){ start(QUESTIONS.filter(q=>hsub.secs.includes(q.sec)).map(q=>q.id),hsub.name,'practice',{mix:true}); }
 else render();
+launch();
 })();
