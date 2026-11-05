@@ -177,7 +177,7 @@ function home(){
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
   h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀린 문제는 1·3·7일 뒤 다시 나와요</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
-  h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="exam"><span class="ic b">${ico('exam')}</span><span class="tx"><span class="nm">실전 모의고사</span><span class="meta">${EXAM.n}문항 · ${EXAM.min}분 · 제1회·제2회·랜덤</span></span>${ico('chev','chev')}</button><button class="row" data-act="note"><span class="ic y">${ico('note')}</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제 ${st.wrongIds.length} · 별표 ${store.star.length}</span></span>${ico('chev','chev')}</button>${isStandalone()?'':`<button class="row" data-act="guide"><span class="ic b">${ico('home')}</span><span class="tx"><span class="nm">홈 화면에 앱으로 추가하기</span><span class="meta">주소창 없이 앱처럼 · 그림으로 따라하기</span></span>${ico('chev','chev')}</button>`}</div>`;
+  h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="exam"><span class="ic b">${ico('exam')}</span><span class="tx"><span class="nm">실전 모의고사</span><span class="meta">${EXAM.n}문항 · ${EXAM.min}분 · 제1회·제2회·랜덤</span></span>${ico('chev','chev')}</button><button class="row" data-act="note"><span class="ic y">${ico('note')}</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제 ${st.wrongIds.length} · 별표 ${store.star.length}</span></span>${ico('chev','chev')}</button>${isStandalone()||!isMobile?'':`<button class="row" data-act="guide"><span class="ic b">${ico('home')}</span><span class="tx"><span class="nm">홈 화면에 앱으로 추가하기</span><span class="meta">주소창 없이 앱처럼 · 그림으로 따라하기</span></span>${ico('chev','chev')}</button>`}</div>`;
   h+=`<p class="foot">${esc(EXAM.label)} 시험 · 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식) 기준 손해사정사 1차 수준 예상문제 ${st.N}문항. 풀이 기록은 이 기기에 저장돼요.</p>`;
   app.innerHTML=h; bindActs();
   const fg=app.querySelector('.hero .g-fg'), gv=app.querySelector('.hero .g-v');
@@ -738,6 +738,36 @@ function guideShow(){
   $('#gdNext').onclick=()=>{ if(last){ closeOv(); toast('홈 화면의 "2급 합격" 아이콘으로 열어 보세요'); } else { gd.i++; guideShow(); } };
   const w=ov.querySelector('.gd-wrap'); let x0=null; w.ontouchstart=e=>{x0=e.touches[0].clientX;}; w.ontouchend=e=>{ if(x0==null)return; const dx=e.changedTouches[0].clientX-x0; x0=null; if(dx<-60&&!last){gd.i++;guideShow();} else if(dx>60&&gd.i>0){gd.i--;guideShow();} };
 }
+
+/* ── v18: PC 키보드 단축키 ── */
+var kbdEl=null;
+function kbdHint(on){ const pc=matchMedia('(min-width:1024px) and (hover:hover)').matches; if(!pc){ if(kbdEl){kbdEl.remove();kbdEl=null;} return; }
+  if(on&&!kbdEl){ kbdEl=document.createElement('div'); kbdEl.className='kbd-hint'; kbdEl.innerHTML='<span><kbd>1</kbd>~<kbd>4</kbd> 보기 선택</span><span><kbd>Enter</kbd> 다음</span><span><kbd>←</kbd><kbd>→</kbd> 이동</span><span><kbd>S</kbd> 별표</span><span><kbd>Esc</kbd> 나가기</span>'; document.body.appendChild(kbdEl); }
+  else if(!on&&kbdEl){ kbdEl.remove(); kbdEl=null; } }
+new MutationObserver(()=>kbdHint(view==='quiz'&&!!store.sess&&!store.sess.done)).observe(app,{childList:true});
+document.addEventListener('keydown',e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey) return;
+  const tg=e.target; if(tg&&(tg.tagName==='INPUT'||tg.tagName==='TEXTAREA'||tg.isContentEditable)) return;
+  const k=e.key;
+  if(!ov.hidden){
+    if(k==='Escape'){ e.preventDefault(); const x=ov.querySelector('#fcX,#gdX'); if(x) x.click(); else closeOv(); return; }
+    if(ov.classList.contains('fcv')){
+      const pick=s=>{const b=ov.querySelector(s); if(b&&!b.disabled){e.preventDefault(); b.click(); return true;} return false;};
+      if(k===' '||k==='Enter'){ if(pick('#fcFlip')||pick('#gdNext')) return; }
+      if(k==='ArrowRight'){ if(pick('#fcOk')||pick('#gdNext')) return; }
+      if(k==='ArrowLeft'){ if(pick('#fcNo')||pick('#gdPrev')) return; }
+    }
+    return;
+  }
+  if(view!=='quiz'||!store.sess||store.sess.done) return;
+  const opts=[...document.querySelectorAll('#qc .opt')];
+  if(/^[1-5]$/.test(k)){ const b=opts[+k-1]; if(b&&!b.disabled){ e.preventDefault(); b.click(); } return; }
+  const nx=$('#next'), pv=$('#prev');
+  if((k==='Enter'||k==='ArrowRight')&&nx&&!nx.disabled){ e.preventDefault(); nx.click(); return; }
+  if(k==='ArrowLeft'&&pv&&!pv.disabled){ e.preventDefault(); pv.click(); return; }
+  if(k==='s'||k==='S'){ const st=document.querySelector('#qc [data-star]'); if(st){ e.preventDefault(); st.click(); } return; }
+  if(k==='Escape'){ e.preventDefault(); quitSheet(store.sess.mode==='mock'); }
+});
 
 /* v15: 스플래시 D-Day */
 (function(){ const sd=document.getElementById("spDd"); if(sd) sd.textContent="시험까지 "+dday()+" · 12. 18.(금) 11:00"; })();
