@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f2f4f6"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}</style>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f2f4f6" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#101012" media="(prefers-color-scheme: dark)"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><link rel="icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="진급시험"><style>:root{padding-top:env(safe-area-inset-top,0px)}body{margin:0}[hidden]{display:none!important}</style>
 <title>2급 진급시험 예상 기출문제</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <style>
@@ -210,10 +210,75 @@ button:active:not(:disabled){transform:scale(.98)}
 .psub{margin:4px 0 0;color:var(--ink2);font-size:15px}
 .predbox .tbl th,.predbox .tbl td{padding:10px 4px}
 </style>
+<style>
+/* 앱 셸: 하단 탭바, 아이콘, 히어로 게이지, 모션 */
+#app{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))}
+.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:7;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:saturate(1.6) blur(16px);-webkit-backdrop-filter:saturate(1.6) blur(16px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr)}
+.tabs button{border:0;background:none;display:grid;justify-items:center;gap:3px;padding:9px 0 8px;font-size:11.5px;font-weight:600;color:var(--muted)}
+.tabs button[aria-current="true"]{color:var(--ink)}
+.tabs button[aria-current="true"] .i{stroke-width:2.3}
+.top-h{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:6px 2px 18px}
+.top-h .title{margin:2px 0 0}
+.eyebrow{font-size:14px;color:var(--accent);font-weight:700}
+.dday{flex:0 0 auto;font-size:15px;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:7px 13px;border-radius:999px;font-variant-numeric:tabular-nums}
+.hero{background:var(--card);border-radius:28px;padding:22px 20px 20px;display:grid;gap:14px;justify-items:center;text-align:center}
+.gauge{width:min(240px,72%);height:auto;overflow:visible}
+.gauge path{fill:none;stroke-width:16;stroke-linecap:round}
+.g-bg{stroke:var(--soft)}
+.g-fg{stroke:var(--accent);transition:stroke-dashoffset 1s cubic-bezier(.2,.8,.2,1)}
+.gauge.hi .g-fg{stroke:var(--ok)}.gauge.mid .g-fg{stroke:#f59f00}.gauge.lo .g-fg{stroke:var(--bad)}.gauge.na .g-fg{stroke:transparent}
+.g-v{font:800 38px var(--f);letter-spacing:-.04em;fill:var(--ink);text-anchor:middle}
+.gauge.hi .g-v{fill:var(--ok)}.gauge.mid .g-v{fill:#f59f00}.gauge.lo .g-v{fill:var(--bad)}.gauge.na .g-v{fill:var(--muted)}
+.g-l{font:600 12.5px var(--f);fill:var(--muted);text-anchor:middle}
+.hero-msg{margin:-4px 0 0;font-size:16px;line-height:1.5;color:var(--ink2)}
+.hero-msg b{color:var(--ink)}
+.hero-msg small{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+.hero-stats{width:100%;display:grid;grid-template-columns:repeat(3,1fr);background:var(--soft);border-radius:16px;padding:12px 0}
+.hero-stats div{display:grid;gap:1px}.hero-stats div+div{border-left:1px solid var(--line)}
+.hero-stats b{font-size:19px;font-weight:800;font-variant-numeric:tabular-nums}
+.hero-stats span{font-size:12px;color:var(--muted)}
+.streak{display:inline-flex;align-items:center;gap:3px;color:#ff6b00!important;font-weight:700!important}
+.streak .i{width:16px;height:16px;stroke:#ff6b00;fill:#ffd8b0}
+.qbtn{position:relative}
+.qi{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-bottom:8px}
+.qi.r{background:var(--bad-soft);color:var(--bad)}.qi.g{background:var(--ok-soft);color:var(--ok)}.qi.y{background:#fff6cc;color:#b98900}
+.row .ic.b{background:var(--accent-soft);color:var(--accent)}.row .ic.y{background:#fff6cc;color:#b98900}
+.row .chev{width:18px;height:18px;color:var(--muted);stroke-width:2.2}
+.row .ic.n0{background:#e8f3ff;color:#3182f6}.row .ic.n1{background:#f3eefe;color:#7c4dff}.row .ic.n2{background:#e6f8f1;color:#0ca678}.row .ic.n3{background:#fff4e5;color:#e8590c}.row .ic.n4{background:#fdeef3;color:#d6336c}
+.row .pct{flex:0 0 auto;font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+.row.subj{cursor:pointer}
+.chip{cursor:pointer}
+.chartcard{padding:16px 12px 8px}
+.line{width:100%;height:auto;overflow:visible}
+.line .ln{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round}
+.line circle{fill:var(--card);stroke:var(--accent);stroke-width:2.5}.line circle.last{fill:var(--accent)}
+.line .pass{stroke:var(--line);stroke-width:1.5;stroke-dasharray:4 4}
+.line .pl{font:600 10px var(--f);fill:var(--muted);text-anchor:end}
+.line .lv{font:800 12px var(--f);fill:var(--accent);text-anchor:middle}
+.tbl b.hi{color:var(--ok)}.tbl b.lo{color:var(--bad)}
+.confetti{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:20}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .qi.y,:root:not([data-theme="light"]) .row .ic.y{background:#3a3214;color:#ffd43b}:root:not([data-theme="light"]) .row .ic[class*=" n"]{background:var(--soft)}}
+:root[data-theme="dark"] .qi.y,:root[data-theme="dark"] .row .ic.y{background:#3a3214;color:#ffd43b}
+:root[data-theme="dark"] .row .ic[class*=" n"]{background:var(--soft)}
+/* 모션 */
+@keyframes fadeUp{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes slideIn{from{opacity:.001;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6);opacity:.001}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+@keyframes bubble{from{opacity:.001;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.anim{animation:fadeUp .35s ease-out both}
+.qcard.slide{animation:slideIn .28s cubic-bezier(.2,.8,.2,1) both}
+.fb .v{animation:pop .35s cubic-bezier(.2,.8,.2,1) both}
+.fb .chat{animation:bubble .35s .08s ease-out both}
+.opt.right .n,.opt.wrong .n{animation:pop .3s ease-out both}
+@media (prefers-reduced-motion:reduce){.anim,.qcard.slide,.fb .v,.fb .chat,.opt .n{animation:none!important}.g-fg{transition:none}}
+</style>
 </head><body>
 <div class="wrap" id="app"></div>
 <div class="dock" id="dock" hidden><div class="wrap" id="dockIn"></div></div>
+<nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script src="questions.js?v=202611051935"></script>
-<script src="app.js?v=202611051935"></script>
+<script src="questions.js?v=202611051943"></script>
+<script src="app.js?v=202611051943"></script>
 </body></html>
