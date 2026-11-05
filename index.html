@@ -438,7 +438,7 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 .cta.ghost{box-shadow:none}
 @media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest?v=202611052158"><link rel="apple-touch-icon" href="icon-180.png?v=202611052158"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
+<link rel="manifest" href="manifest.webmanifest?v=202611052223"><link rel="apple-touch-icon" href="icon-180.png?v=202611052223"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
 <style>
 /* ── v10 프리미엄 레이어 ── */
 /* 1. 히어로: 토스풍 블루 그라데이션 카드 */
@@ -835,6 +835,20 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 #qsRes{margin-bottom:14px}
 .rlist.wonly li:has(.mk.o){display:none}
 </style>
+<style>
+/* ── v20: 마지막 다듬기 ── */
+.dq::before{right:-40px;top:-60px;width:180px;height:180px;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 16%,transparent),transparent 68%)}
+.dq::after{content:"";position:absolute;left:0;top:18px;bottom:18px;width:4px;border-radius:0 4px 4px 0;background:linear-gradient(var(--accent),#7c5cff)}
+.grade{position:relative;overflow:hidden}
+.grade::after{content:"";position:absolute;inset:-40% auto -40% -60%;width:40%;transform:skewX(-20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:gShine 2.6s .8s ease-in-out infinite}
+@keyframes gShine{0%{left:-60%}35%,100%{left:140%}}
+.result .sc{text-shadow:0 10px 30px color-mix(in srgb,var(--accent) 22%,transparent)}
+.rmeta b{font-variant-numeric:tabular-nums}
+body:has(#dock.fbd:not([hidden])) .kbd-hint{opacity:0;pointer-events:none}
+.kbd-hint{transition:opacity .2s}
+.bar .bn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (prefers-reduced-motion:reduce){.grade::after{animation:none;display:none}}
+</style>
 
 
 
@@ -851,7 +865,7 @@ html[data-fs="xl"] .qtext{font-size:23px}html[data-fs="xl"] .opt{font-size:19px}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611052158"</script>
-<script src="questions.js?v=202611052158"></script>
-<script src="app.js?v=202611052158"></script>
+<script>window.BUILD="202611052223"</script>
+<script src="questions.js?v=202611052223"></script>
+<script src="app.js?v=202611052223"></script>
 </body></html>

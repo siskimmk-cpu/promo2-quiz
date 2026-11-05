@@ -40,7 +40,7 @@ function erf(x){const t=1/(1+0.3275911*Math.abs(x));const y=1-(((((1.061405429*t
 const Phi=z=>0.5*(1+erf(z/Math.SQRT2));
 function predict(){
   const trk=store.trk||{}; let tot=0, mu=0, v=0; const per=[];
-  SUBJECTS.forEach(sub=>{const h=trk[sub.id]||''; const n=h.length, o=(h.match(/1/g)||[]).length; tot+=n;
+  SUBJECTS.forEach(sub=>{let h=trk[sub.id]||''; if(h.length<10){ const a=QUESTIONS.filter(q=>sub.secs.includes(q.sec)&&store.ans[q.id]).map(q=>store.ans[q.id]).sort((x,y)=>(x.t||0)-(y.t||0)); if(a.length>h.length) h=a.map(x=>x.ok?'1':'0').join('').slice(-80); } const n=h.length, o=(h.match(/1/g)||[]).length; tot+=n;
     const a=1+o, b=1+n-o, p=a/(a+b), vp=a*b/((a+b)**2*(a+b+1));
     mu+=sub.n*p; v+=sub.n*p*(1-p)+sub.n*sub.n*vp; per.push({sub,n,p});});
   const need=(store.pass||60)/2; // 정답 문항 수 기준
@@ -300,6 +300,7 @@ function quiz(){
 function fmtLeft(){const s=store.sess; const t=Math.ceil(Math.max(0,s.end-Date.now())/1000); return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
 
 /* ── 결과 ── */
+const sname=n=>n.replace('자동차손해배상보장법','자배법');
 function result(){
   const s=store.sess; hideTabs(); dock.hidden=false; dock.classList.remove('fbd','ok','no');
   let rs=s.ids.map((id,i)=>({q:byId[id],pick:s.picks[i],perm:s.perm[i],ok:isOk(byId[id],s.picks[i])}));
@@ -307,10 +308,10 @@ function result(){
   const ok=rs.filter(r=>r.ok).length, wrong=rs.filter(r=>!r.ok).map(r=>r.q.id), mock=s.mode==='mock';
   const sc=mock?ok*2:Math.round(ok/rs.length*100);
   const grade=sc>=90?'S':sc>=80?'A':sc>=70?'B':sc>=60?'C':'D', secs=Math.round(((s.tEnd||Date.now())-(s.t0||Date.now()))/1000);
-  const tm=secs>=3600?`${Math.floor(secs/3600)}시간 ${Math.floor(secs%3600/60)}분`:`${Math.floor(secs/60)}분 ${secs%60}초`;
-  let h=`<div class="result"><span class="grade g${grade}">${grade}</span>${mock?`<span class="stamp ${sc>=(store.pass||60)?'ok':'no'}">${sc>=(store.pass||60)?'합격권':'재도전'}</span>`:''}<div class="eyebrow">${esc(s.title)} 결과</div><div class="sc"><span id="scn">0</span><small>점</small></div><p>${s.loop?`${rs.length}문항 모두 정복! 첫 시도 정답 ${ok}문항 · 재출제 ${s.again||0}번`:`${rs.length}문항 중 ${ok}문항 정답`}</p>${mock?`<span class="pass ${sc>=(store.pass||60)?'ok':'no'}">${sc>=(store.pass||60)?'합격권':'합격 기준 미달'} · ${store.pass||60}점 기준</span>`:''}<div class="rmeta"><div><b>${tm}</b><span>소요 시간</span></div><div><b>${rs.length?Math.round(secs/rs.length):0}초</b><span>문항당</span></div><div><b>${mock?'–':(s.best||0)}</b><span>최대 콤보</span></div></div><button class="shr" id="shr">${ico('share')}결과 카드 저장·공유</button></div>`;
-  if(!mock){ const by=SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));return r.length?{sub,o:r.filter(x=>x.ok).length,n:r.length}:null;}).filter(Boolean); if(by.length>1) h+=`<div class="label">과목별</div><div class="qcard bars stag">`+by.map(x=>`<div class="bar"><span class="bn">${esc(x.sub.name)}</span><span class="bt"><i style="width:${x.o/x.n*100}%" class="${x.o/x.n<.6?'lo':''}"></i></span><span class="bv">${x.o}/${x.n}</span></div>`).join('')+`</div>`; }
-  if(mock) h+=`<div class="label">과목별 점수</div><div class="qcard bars stag">`+SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));if(!r.length)return'';const o=r.filter(x=>x.ok).length;return `<div class="bar"><span class="bn">${esc(sub.name)}</span><span class="bt"><i style="width:${o/r.length*100}%" class="${o/r.length<.6?'lo':''}"></i></span><span class="bv">${o*2}<small>/${r.length*2}점</small></span></div>`;}).join('')+`</div>`;
+  const tm=secs>=3600?`${Math.floor(secs/3600)}시간 ${Math.floor(secs%3600/60)}분`:secs>=60?`${Math.floor(secs/60)}분 ${secs%60}초`:`${secs}초`; const per=rs.length?secs/rs.length:0, perT=per<1?'1초 미만':per>=60?`${Math.floor(per/60)}분 ${Math.round(per%60)}초`:`${Math.round(per)}초`;
+  let h=`<div class="result"><span class="grade g${grade}">${grade}</span>${mock?`<span class="stamp ${sc>=(store.pass||60)?'ok':'no'}">${sc>=(store.pass||60)?'합격권':'재도전'}</span>`:''}<div class="eyebrow">${esc(s.title)} 결과</div><div class="sc"><span id="scn">0</span><small>점</small></div><p>${s.loop?`${rs.length}문항 모두 정복! 첫 시도 정답 ${ok}문항 · 재출제 ${s.again||0}번`:`${rs.length}문항 중 ${ok}문항 정답`}</p>${mock?`<span class="pass ${sc>=(store.pass||60)?'ok':'no'}">${sc>=(store.pass||60)?'합격권':'합격 기준 미달'} · ${store.pass||60}점 기준</span>`:''}<div class="rmeta"><div><b>${tm}</b><span>소요 시간</span></div><div><b>${perT}</b><span>문항당</span></div>${mock?`<div><b>${rs.length-ok}</b><span>틀린 문제</span></div>`:`<div><b>${s.best||0}</b><span>최대 콤보</span></div>`}</div><button class="shr" id="shr">${ico('share')}결과 카드 저장·공유</button></div>`;
+  if(!mock){ const by=SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));return r.length?{sub,o:r.filter(x=>x.ok).length,n:r.length}:null;}).filter(Boolean); if(by.length>1) h+=`<div class="label">과목별</div><div class="qcard bars stag">`+by.map(x=>`<div class="bar"><span class="bn">${esc(sname(x.sub.name))}</span><span class="bt"><i style="width:${x.o/x.n*100}%" class="${x.o/x.n<.6?'lo':''}"></i></span><span class="bv">${x.o}/${x.n}</span></div>`).join('')+`</div>`; }
+  if(mock) h+=`<div class="label">과목별 점수</div><div class="qcard bars stag">`+SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));if(!r.length)return'';const o=r.filter(x=>x.ok).length;return `<div class="bar"><span class="bn">${esc(sname(sub.name))}</span><span class="bt"><i style="width:${o/r.length*100}%" class="${o/r.length<.6?'lo':''}"></i></span><span class="bv">${o*2}<small>/${r.length*2}점</small></span></div>`;}).join('')+`</div>`;
   h+=`<div class="label">문항별 확인<small>눌러서 해설 보기</small></div><div class="seg rf" style="margin-bottom:10px"><button data-rf="all" aria-pressed="true">전체 ${rs.length}</button><button data-rf="wrong" aria-pressed="false">틀린 문제 ${rs.length-ok}</button></div><ul class="rlist" id="rlist">`+rs.map((r,i)=>`<li><details><summary><span class="mk ${r.ok?'o':'x'}">${r.ok?'○':'×'}</span><span class="qq"><small>${i+1}번 · ${esc(subjOfSec(r.q.sec).name)}${isHard(r.q)?' · 고난도':''}</small>${esc(r.q.q)}</span></summary><div class="inner"><div class="qcard">${card(r.q,{pick:r.pick,reveal:true,locked:true,perm:r.perm})}</div></div></details></li>`).join('')+`</ul>`;
   app.innerHTML=h; bindStars(app);
   const cardData={title:s.title,sc,mock,ok,n:rs.length,grade,pass:store.pass||60,by:SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));return r.length?{name:sub.name,o:r.filter(x=>x.ok).length,n:r.length}:null;}).filter(Boolean)};
@@ -744,7 +745,7 @@ function guideShow(){
 /* ── v18: PC 키보드 단축키 ── */
 var kbdEl=null;
 function kbdHint(on){ const pc=matchMedia('(min-width:1024px) and (hover:hover)').matches; if(!pc){ if(kbdEl){kbdEl.remove();kbdEl=null;} return; }
-  if(on&&!kbdEl){ kbdEl=document.createElement('div'); kbdEl.className='kbd-hint'; kbdEl.innerHTML='<span><kbd>1</kbd>~<kbd>4</kbd> 보기 선택</span><span><kbd>Enter</kbd> 다음</span><span><kbd>←</kbd><kbd>→</kbd> 이동</span><span><kbd>S</kbd> 별표</span><span><kbd>Esc</kbd> 나가기</span>'; document.body.appendChild(kbdEl); }
+  if(on&&!kbdEl){ kbdEl=document.createElement('div'); kbdEl.className='kbd-hint'; kbdEl.innerHTML='<span><kbd>1</kbd>~<kbd>5</kbd> 보기 선택</span><span><kbd>Enter</kbd> 다음</span><span><kbd>←</kbd><kbd>→</kbd> 이동</span><span><kbd>S</kbd> 별표</span><span><kbd>Esc</kbd> 나가기</span>'; document.body.appendChild(kbdEl); }
   else if(!on&&kbdEl){ kbdEl.remove(); kbdEl=null; } }
 new MutationObserver(()=>kbdHint(view==='quiz'&&!!store.sess&&!store.sess.done)).observe(app,{childList:true});
 document.addEventListener('keydown',e=>{
