@@ -438,7 +438,7 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 .cta.ghost{box-shadow:none}
 @media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest?v=202611052228"><link rel="apple-touch-icon" href="icon-180.png?v=202611052228"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
+<link rel="manifest" href="manifest.webmanifest?v=202611060808"><link rel="apple-touch-icon" href="icon-180.png?v=202611060808"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
 <style>
 /* ── v10 프리미엄 레이어 ── */
 /* 1. 히어로: 토스풍 블루 그라데이션 카드 */
@@ -849,6 +849,76 @@ body:has(#dock.fbd:not([hidden])) .kbd-hint{opacity:0;pointer-events:none}
 .bar .bn{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media (prefers-reduced-motion:reduce){.grade::after{animation:none;display:none}}
 </style>
+<style>
+/* ── v21: PC 대시보드 레이아웃(1200px 이상) ── */
+@media (min-width:1200px){
+  :root{--side:264px}
+  body:has(#tabbar:not([hidden])) #app.dsk{margin-left:calc(var(--side) + 64px);margin-right:auto;max-width:min(1200px,calc(100vw - var(--side) - 112px));width:100%}
+  #app.dsk{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:22px 24px;align-items:start;grid-auto-flow:row dense;padding-bottom:56px}
+  #app.dsk>header.top-h{grid-column:1/-1;margin:0 0 4px}
+  #app.dsk>.dblk{min-width:0;display:flex;flex-direction:column}
+  #app.dsk>.dblk>.label{margin-top:0}
+  #app.dsk>.dblk>*{margin-left:0!important;margin-right:0!important}
+  #app.dsk .dblk>section,#app.dsk .dblk>.qcard,#app.dsk .dblk>.daily,#app.dsk .dblk>.dq,#app.dsk .dblk>.list,#app.dsk .dblk>.papers{width:auto}
+  /* 홈 */
+  #app.dsk [data-k=hero]{grid-column:1/8;grid-row:span 2;align-self:stretch}
+  #app.dsk [data-k=hero]>.hero{flex:1;display:flex;flex-direction:column;justify-content:center;padding-top:40px;padding-bottom:30px}
+  #app.dsk [data-k=hero] .hero svg{transform:scale(1.18);transform-origin:50% 40%;margin-bottom:18px}
+  #app.dsk [data-k=plan]{grid-column:8/13}
+  #app.dsk [data-k=dq]{grid-column:8/13}
+  #app.dsk [data-k=daily]{grid-column:1/6}
+  #app.dsk [data-k=list]{grid-column:6/13}
+  #app.dsk [data-k=quick]{grid-column:1/-1}
+  #app.dsk [data-k=foot]{grid-column:1/-1}
+  #app.dsk [data-k=daily]>.daily,#app.dsk [data-k=list]>.list{flex:1}
+  /* 연습 */
+  #app.dsk [data-k=search]{grid-column:1/9}
+  body[data-view=study] #app.dsk [data-k=quick]{grid-column:9/13;position:sticky;top:28px}
+  body[data-view=study] #app.dsk [data-k=quick] .hscroll{grid-template-columns:1fr 1fr}
+  /* 모의고사 */
+  #app.dsk [data-k=pinfo]{grid-column:1/-1}
+  #app.dsk [data-k=papers]{grid-column:1/8}
+  #app.dsk [data-k=chart]{grid-column:8/13}
+  #app.dsk [data-k=papers] .papers{display:grid;grid-template-columns:1fr;gap:12px}
+  /* 리포트 */
+  #app.dsk [data-k=stat]{grid-column:1/-1}
+  #app.dsk [data-k=pred]{grid-column:1/6;grid-row:span 2}
+  #app.dsk [data-k=bars]{grid-column:6/13}
+  #app.dsk [data-k=weak]{grid-column:6/13}
+  #app.dsk [data-k=plan]~[data-k]{}
+  body[data-view=report] #app.dsk [data-k=plan]{grid-column:1/6}
+  #app.dsk [data-k=heat]{grid-column:6/13}
+  #app.dsk [data-k=badges]{grid-column:1/8}
+  #app.dsk [data-k=week]{grid-column:8/13}
+  #app.dsk [data-k=mock]{grid-column:8/13}
+  #app.dsk [data-k=goal]{grid-column:1/-1}
+  #app.dsk [data-k=x]{grid-column:1/-1}
+  #app.dsk .badges{grid-template-columns:repeat(4,1fr)}
+  #app.dsk>.dblk>.qcard,#app.dsk>.dblk>.list,#app.dsk>.dblk>section,#app.dsk>.dblk>.daily,#app.dsk>.dblk>.dq,#app.dsk>.dblk>.papers,#app.dsk>.dblk>.badges{margin-top:0;margin-bottom:0}
+  /* 카드 공통: 데스크톱 느낌의 얇은 테두리와 여백 */
+  #app.dsk .qcard,#app.dsk .list,#app.dsk .daily,#app.dsk .plan,#app.dsk .dq{border:1px solid color-mix(in srgb,var(--line) 70%,transparent);box-shadow:0 1px 2px rgba(16,24,40,.04),0 12px 32px -22px rgba(16,24,40,.22)}
+  #app.dsk>header.top-h .title{font-size:36px}
+  /* 문제 풀이: 왼쪽 문제 · 오른쪽 해설 */
+  body[data-view=quiz] #app.wrap{max-width:1180px}
+  body[data-view=quiz] .dock .wrap{max-width:1180px}
+  body[data-view=quiz] #qc{position:relative;padding-right:calc(420px + 48px)!important;min-height:min(640px,calc(100vh - 220px))}
+  body[data-view=quiz] #qc::before{content:"";position:absolute;top:24px;bottom:24px;right:calc(420px + 24px);width:1px;background:var(--line)}
+  body[data-view=quiz] #qc .fb{position:absolute;top:24px;right:24px;width:420px;max-height:calc(100% - 48px);overflow:auto;margin:0;animation:pcFb .35s cubic-bezier(.2,.9,.3,1.1) both}
+  body[data-view=quiz] #qc:not(:has(.fb))::after{content:"보기를 고르면\A 해설이 여기에 나와요";white-space:pre;position:absolute;top:24px;right:24px;width:420px;height:min(300px,calc(100% - 48px));display:grid;place-items:center;text-align:center;font-size:15px;font-weight:600;line-height:1.6;color:var(--muted);border:1.5px dashed var(--line);border-radius:22px;box-sizing:border-box}
+  body[data-view=quiz] .qtext{font-size:21px;line-height:1.55}
+  @keyframes pcFb{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+  #app.dsk [data-k=badges]{grid-row:span 2}
+  /* 문제 풀이 하단 버튼: 오른쪽 해설 칸 아래에 카드처럼 */
+  body[data-view=quiz] .dock{left:auto;right:max(24px,calc(50vw - 590px + 24px));width:420px;bottom:24px;padding:0;background:none}
+  body[data-view=quiz] .dock .wrap{max-width:none;padding:14px;border-radius:22px;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);box-shadow:0 24px 48px -24px rgba(16,24,40,.35)}
+  body[data-view=quiz] .dock.fbd .wrap{border-radius:22px;padding:16px;animation:pcFb .3s cubic-bezier(.2,.9,.3,1.1) both}
+  body[data-view=quiz] #qc{padding-bottom:28px}
+  body[data-view=quiz] #qc .fb{max-height:calc(100vh - 330px)}
+  body[data-view=quiz] #qc .rep{position:static;margin:18px 0 0}
+  body[data-view=quiz] .kbd-hint{right:max(24px,calc(50vw - 590px + 24px));bottom:126px;width:420px;box-sizing:border-box;justify-content:center;flex-wrap:wrap}
+  body[data-view=result] #app.wrap,body[data-view=result] .dock .wrap{max-width:860px}
+}
+</style>
 
 
 
@@ -865,7 +935,7 @@ body:has(#dock.fbd:not([hidden])) .kbd-hint{opacity:0;pointer-events:none}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611052228"</script>
-<script src="questions.js?v=202611052228"></script>
-<script src="app.js?v=202611052228"></script>
+<script>window.BUILD="202611060808"</script>
+<script src="questions.js?v=202611060808"></script>
+<script src="app.js?v=202611060808"></script>
 </body></html>

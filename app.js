@@ -288,7 +288,7 @@ function quiz(){
     else { s.combo=0; sfx(false); buzz([30,40,30]); }
     if(s.loop&&!isOk(q,p)){ const base=q.opts.map((_,k)=>k); s.ids.push(q.id); s.perm.push(canShuffle(q)?shuffle(base):base); s.picks.push(null); s.again=(s.again||0)+1; }
     save(); quiz();
-    const tgt=good?document.querySelector('.fb'):document.querySelector('#qc .opt.right'); if(tgt) setTimeout(()=>tgt.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:good?'nearest':'center'}),good?0:380);
+    const tgt=good?document.querySelector('.fb'):document.querySelector('#qc .opt.right'); if(tgt&&!(typeof DSK!=='undefined'&&DSK.matches)) setTimeout(()=>tgt.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:good?'nearest':'center'}),good?0:380);
     checkBadges();
   });
   document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{s.i=+b.dataset.jump;save();quiz();top();});
@@ -351,7 +351,7 @@ function report(){
   const pr=predict();
   h+=`<div class="label">합격 예측<small>최근 풀이 누적 · ${store.pass||60}점 이상 합격 가정</small></div><div class="qcard predbox">`+(pr.ready?`<div class="pbig ${pr.prob>=70?'hi':pr.prob>=40?'mid':'lo'}">${pr.prob}%</div><p class="psub">지금 실력으로 시험을 보면 예상 점수는 <b>${pr.score}점</b>이에요.</p><table class="tbl" style="margin-top:8px"><thead><tr><th>과목</th><th>최근 정답률</th><th>예상 점수</th></tr></thead><tbody>`+pr.per.map(x=>`<tr><td>${esc(x.sub.name)}</td><td>${x.n?Math.round(x.p*100)+'%':'–'}<small style="color:var(--muted)"> (${x.n}회)</small></td><td>${Math.round(x.sub.n*x.p*2)}/${x.sub.n*2}</td></tr>`).join('')+`</tbody></table><p class="foot" style="margin:12px 0 0">과목별 최근 80회 풀이로 정답률을 추정하고, 시험 배점대로 합산해 계산해요. 적게 푼 과목은 50% 쪽으로 보수적으로 잡혀요. 공고에 합격 기준이 없어 아래에서 기준 점수를 고를 수 있어요.</p>`:`<p class="psub">문제를 ${20-pr.tot}개 더 풀면 합격 가능성을 계산해 드려요.</p>`)+`<div class="seg" style="margin-top:12px">${[60,70,80].map(g=>`<button data-pass="${g}" aria-pressed="${(store.pass||60)===g}">${g}점 기준</button>`).join('')}</div></div>`;
   h+=`<div class="list" style="margin-top:12px"><button class="row" id="gonote"><span class="ic y">${ico('note')}</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제와 보기별 해설 모아보기</span></span>${ico('chev','chev')}</button><button class="row" id="goset"><span class="ic">${ico('gear')}</span><span class="tx"><span class="nm">설정</span><span class="meta">테마·효과음·진동·목표·합격 기준</span></span>${ico('chev','chev')}</button></div>`;
-  h+=`<div class="label">과목별 정답률</div><div class="qcard bars">`+SUBJECTS.map(sub=>{const r=rate(QUESTIONS.filter(q=>sub.secs.includes(q.sec)));return `<div class="bar"><span class="bn">${esc(sub.name)}</span><span class="bt"><i style="width:${r.r||0}%" class="${r.r!=null&&r.r<60?'lo':''}"></i></span><span class="bv">${r.r==null?'–':r.r+'%'}<small>${r.d}/${r.t}</small></span></div>`;}).join('')+`</div>`;
+  h+=`<div class="label">과목별 정답률</div><div class="qcard bars">`+SUBJECTS.map(sub=>{const r=rate(QUESTIONS.filter(q=>sub.secs.includes(q.sec)));return `<div class="bar"><span class="bn">${esc(sname(sub.name))}</span><span class="bt"><i style="width:${r.r||0}%" class="${r.r!=null&&r.r<60?'lo':''}"></i></span><span class="bv">${r.r==null?'–':r.r+'%'}<small>${r.d}/${r.t}</small></span></div>`;}).join('')+`</div>`;
   const secs=SECTIONS.map(s=>({s,...rate(QUESTIONS.filter(q=>q.sec===s.id))})).filter(x=>x.d>=3).sort((a,b)=>a.r-b.r).slice(0,3);
   h+=`<div class="label">취약 단원 TOP 3<small>3문항 이상 푼 단원</small></div>`;
   h+=secs.length?`<div class="list">`+secs.map((x,i)=>`<button class="row" data-weak="${x.s.id}"><span class="ic">${i+1}</span><span class="tx"><span class="nm">${esc(subjOfSec(x.s.id).name)}${subjOfSec(x.s.id).secs.length>1?' · '+esc(x.s.name):''}</span><span class="meta">정답률 ${x.r}% · ${x.o}/${x.d}</span></span><span class="chev">›</span></button>`).join('')+`</div>`:`<div class="empty">문제를 더 풀면 취약 단원을 알려 드려요.</div>`;
@@ -810,6 +810,44 @@ document.addEventListener('input',e=>{ if(e.target&&e.target.id==='qsIn') search
 
 /* v19: 결과 화면 틀린 문제만 보기 */
 document.addEventListener("click",e=>{ const b=e.target.closest&&e.target.closest("[data-rf]"); if(!b) return; const l=document.getElementById("rlist"); if(!l) return; l.classList.toggle("wonly",b.dataset.rf==="wrong"); b.parentNode.querySelectorAll("[data-rf]").forEach(x=>x.setAttribute("aria-pressed",x===b)); });
+
+/* ── v21: PC 대시보드 레이아웃 ── */
+var DSK=matchMedia('(min-width:1200px)');
+var _render0=render;
+function dskKey(el){
+  const c=el.classList, q=s=>el.querySelector(s);
+  if(el.matches('header.top-h')) return 'head';
+  const b=el.matches('.dblk')?el:null; const f=b?b.querySelector(':scope > :not(.label)'):el;
+  if(!f) return 'x';
+  const m=(sel,k)=>f.matches(sel)?k:null;
+  return m('.hero','hero')||m('.plan','plan')||m('.dq','dq')||m('.daily','daily')||m('.hscroll','quick')||m('.qsearch','search')||m('.pinfo','pinfo')||m('.papers','papers')||m('.chartcard','chart')||m('.predbox','pred')||m('.bars','bars')||m('.heat','heat')||m('.badges','badges')||m('.week','week')||m('.seg','goal')||m('.stat3','stat')||m('.foot','foot')||(f.matches('.list')?((b&&b.querySelector('.label')?.innerText||'').includes('취약')?'weak':(b&&b.querySelector('.label')?.innerText||'').includes('모의고사')?'mock':'list'):'x');
+}
+function dskLayout(){
+  const v=document.body.dataset.view;
+  app.classList.remove('dsk');
+  if(!DSK.matches||!['home','study','exam','report'].includes(v)) return;
+  const kids=[...app.children].filter(e=>!e.matches('.aurora'));
+  let cur=null, prevLabel=false; const out=[];
+  kids.forEach(e=>{
+    if(e.matches('header.top-h')){ out.push(e); cur=null; prevLabel=false; return; }
+    if(e.matches('.label')){ cur=document.createElement('div'); cur.className='dblk'; cur.appendChild(e); out.push(cur); prevLabel=true; return; }
+    if(prevLabel&&cur){ cur.appendChild(e); prevLabel=false; return; }
+    if(cur&&(e.matches('.list')||(e.matches('div')&&!e.className&&!e.children.length))){ cur.appendChild(e); return; }
+    cur=document.createElement('div'); cur.className='dblk'; cur.appendChild(e); out.push(cur); prevLabel=false;
+  });
+  out.forEach(e=>{ app.appendChild(e); e.dataset.k=dskKey(e); });
+  app.classList.add('dsk');
+}
+render=function(){
+  const r=_render0.apply(this,arguments);
+  try{
+    const s=store.sess, v=(s&&s.done)?'result':document.getElementById('qc')?'quiz':view||'home';
+    document.body.dataset.view=v; dskLayout();
+  }catch(e){}
+  return r;
+};
+try{ DSK.addEventListener('change',()=>render()); }catch(e){}
+try{ const s0=store.sess; document.body.dataset.view=(s0&&s0.done)?'result':document.getElementById('qc')?'quiz':view||'home'; dskLayout(); }catch(e){}
 
 /* v15: 스플래시 D-Day */
 (function(){ const sd=document.getElementById("spDd"); if(sd) sd.textContent="시험까지 "+dday()+" · 12. 18.(금) 11:00"; })();
