@@ -849,6 +849,123 @@ render=function(){
 try{ DSK.addEventListener('change',()=>render()); }catch(e){}
 try{ const s0=store.sess; document.body.dataset.view=(s0&&s0.done)?'result':document.getElementById('qc')?'quiz':view||'home'; dskLayout(); }catch(e){}
 
+/* ── v22: PC 전용 기능 — 문제은행 · 실전 시험지(OMR) · 인쇄 ── */
+IC.bank='<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/>';
+var bankF={sub:'',st:'',lv:'',q:'',sel:null,show:false};
+var CIR='①②③④⑤';
+function bankRows(){
+  const t=(bankF.q||'').trim().toLowerCase();
+  return QUESTIONS.filter(q=>{
+    const a=store.ans[q.id];
+    if(bankF.sub&&subjOfSec(q.sec).id!==bankF.sub) return false;
+    if(bankF.lv==='hard'&&!isHard(q)) return false;
+    if(bankF.st==='new'&&a) return false;
+    if(bankF.st==='wrong'&&!(a&&!a.ok)) return false;
+    if(bankF.st==='right'&&!(a&&a.ok)) return false;
+    if(bankF.st==='star'&&!isStar(q.id)) return false;
+    if(t){ const hay=[q.q,q.case||'',(q.box||[]).join(' '),q.opts.join(' '),q.exp,q.ref||'',(q.tags||[]).join(' ')].join(' ').toLowerCase(); if(!hay.includes(t)) return false; }
+    return true;
+  });
+}
+function bankTable(rows){
+  if(!rows.length) return `<div class="bk-empty">조건에 맞는 문제가 없어요</div>`;
+  return `<table class="bk-t"><thead><tr><th class="c-no">#</th><th class="c-sub">과목</th><th>문제</th><th class="c-lv">난이도</th><th class="c-me">내 기록</th><th class="c-st">★</th></tr></thead><tbody>`+
+    rows.map((q,k)=>{const a=store.ans[q.id];return `<tr data-id="${q.id}" class="${bankF.sel===q.id?'on':''}"><td class="c-no">${k+1}</td><td class="c-sub"><span class="bk-sub s-${subjOfSec(q.sec).id}">${esc(sname(subjOfSec(q.sec).name))}</span></td><td class="c-q">${esc(q.q)}${q.case?'<em>사례</em>':''}</td><td class="c-lv">${isHard(q)?'<span class="bk-hd">고난도</span>':'<span class="bk-nm">기본</span>'}</td><td class="c-me">${a?(a.ok?'<span class="mk o">○</span>':'<span class="mk x">×</span>'):'<span class="mk n">–</span>'}</td><td class="c-st">${isStar(q.id)?'<b class="bk-star">★</b>':''}</td></tr>`;}).join('')+`</tbody></table>`;
+}
+function bankDetail(){
+  const q=bankF.sel&&byId[bankF.sel];
+  if(!q) return `<div class="bk-ph"><b>문제를 고르세요</b><span>표에서 문제를 누르면 여기에 문제와 해설이 나와요<br><kbd>↑</kbd><kbd>↓</kbd> 이동 · <kbd>Space</kbd> 정답 보기</span></div>`;
+  const a=store.ans[q.id];
+  return `<div class="bk-dt"><div class="qcard">${card(q,{pick:bankF.show&&a?a.pick:null,reveal:bankF.show,locked:true})}</div><div class="bk-act"><button class="cta ghost" id="bkShow">${bankF.show?'해설 접기':'정답·해설 보기'}</button><button class="cta" id="bkSolve">이 문제 풀기</button></div></div>`;
+}
+function bankView(){
+  showTabs('bank');
+  const rows=bankRows();
+  const chip=(k,v,l)=>`<button class="chip" data-f="${k}" data-v="${v}" aria-pressed="${bankF[k]===v}">${l}</button>`;
+  let h=`<header class="top-h"><div><span class="eyebrow">PC 전용</span><h1 class="title">문제은행</h1></div><span class="hr"><button class="cta ghost sm" id="bkPrint">인쇄·PDF</button></span></header>`;
+  h+=`<div class="bk"><div class="bk-l"><div class="bk-bar"><div class="qsearch"><span>⌕</span><input id="bkQ" type="search" placeholder="문제·보기·해설·조문 검색" value="${esc(bankF.q)}" autocomplete="off"></div>
+    <div class="bk-f">${chip('sub','','전체')}${SUBJECTS.map(s=>chip('sub',s.id,esc(sname(s.name)))).join('')}<i></i>${chip('st','','모든 기록')}${chip('st','new','안 푼')}${chip('st','wrong','틀린')}${chip('st','right','맞힌')}${chip('st','star','별표')}<i></i>${chip('lv','','모든 난이도')}${chip('lv','hard','고난도')}</div></div>
+    <div class="bk-cnt"><b id="bkN">${rows.length}</b>문제<button class="cta sm" id="bkRun" ${rows.length?'':'disabled'}>검색된 문제 풀기</button></div>
+    <div class="bk-tw" id="bkT">${bankTable(rows)}</div></div>
+    <aside class="bk-r" id="bkD">${bankDetail()}</aside></div>`;
+  app.innerHTML=h;
+  app.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{bankF[b.dataset.f]=b.dataset.v;bankView();});
+  const inp=$('#bkQ'); inp.oninput=()=>{bankF.q=inp.value;const r=bankRows();$('#bkT').innerHTML=bankTable(r);$('#bkN').textContent=r.length;$('#bkRun').disabled=!r.length;bindBankRows();};
+  $('#bkRun').onclick=()=>{const ids=bankRows().map(q=>q.id);start(ids,'문제은행 선택','practice',{mix:true});};
+  $('#bkPrint').onclick=()=>printQs(bankRows(),'문제은행'+(bankF.q?` · "${bankF.q}"`:''));
+  bindBankRows(); bindBankDetail();
+}
+function bindBankRows(){ app.querySelectorAll('.bk-t tr[data-id]').forEach(tr=>tr.onclick=()=>bankPick(tr.dataset.id)); }
+function bankPick(id){ bankF.sel=id; bankF.show=false; app.querySelectorAll('.bk-t tr').forEach(t=>t.classList.toggle('on',t.dataset.id===id)); $('#bkD').innerHTML=bankDetail(); bindBankDetail(); const tr=app.querySelector(`.bk-t tr[data-id="${id}"]`); if(tr) tr.scrollIntoView({block:'nearest'}); }
+function bindBankDetail(){ const s=$('#bkShow'); if(s) s.onclick=()=>{bankF.show=!bankF.show;$('#bkD').innerHTML=bankDetail();bindBankDetail();}; const v=$('#bkSolve'); if(v) v.onclick=()=>start([bankF.sel],'문제은행','practice',{}); bindStars($('#bkD')); }
+document.addEventListener('keydown',e=>{
+  if(view!=='bank'||!DSK.matches||(store.sess&&!store.sess.done&&document.getElementById('qc'))) return;
+  if(e.target&&/input|textarea/i.test(e.target.tagName)) return;
+  const rows=[...app.querySelectorAll('.bk-t tr[data-id]')].map(t=>t.dataset.id); if(!rows.length) return;
+  const i=rows.indexOf(bankF.sel);
+  if(e.key==='ArrowDown'){ e.preventDefault(); bankPick(rows[Math.min(rows.length-1,i+1)]); }
+  else if(e.key==='ArrowUp'){ e.preventDefault(); bankPick(rows[Math.max(0,i-1)]); }
+  else if(e.key===' '&&bankF.sel){ e.preventDefault(); bankF.show=!bankF.show; $('#bkD').innerHTML=bankDetail(); bindBankDetail(); }
+});
+
+/* 인쇄·PDF */
+function printQs(list,title){
+  if(!list.length){ toast('인쇄할 문제가 없어요'); return; }
+  let el=document.getElementById('printArea'); if(!el){ el=document.createElement('div'); el.id='printArea'; document.body.appendChild(el); }
+  const d=new Date(); const ds=`${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}.`;
+  el.innerHTML=`<div class="pa-h"><b>${esc(title)}</b><span>2급 승진자격시험 예상 기출문제 · ${list.length}문제 · ${ds}</span></div>`+list.map((q,k)=>{const a=store.ans[q.id];
+    return `<section class="pa-q"><div class="pa-m">${k+1}. <span>${esc(sname(subjOfSec(q.sec).name))}${isHard(q)?' · 고난도':''}${a?(a.ok?' · 맞힘':' · 틀림 (내 답 '+CIR[a.pick]+')'):''}</span></div><p class="pa-t">${esc(q.q)}</p>${q.case?`<div class="pa-c">${esc(q.case)}</div>`:''}${q.box?`<div class="pa-b">${q.box.map(b=>`<p>${esc(b)}</p>`).join('')}</div>`:''}<ol class="pa-o">${q.opts.map((o,i)=>`<li class="${i===q.ans?'a':''}"><b>${CIR[i]}</b> ${esc(o)}</li>`).join('')}</ol><div class="pa-e"><b>정답 ${CIR[q.ans]}</b> ${esc(q.exp)}${q.why?`<ul>${q.why.map((w,i)=>`<li>${CIR[i]} ${esc(w)}</li>`).join('')}</ul>`:''}<small>근거 · ${esc(q.ref||'')}</small></div></section>`;}).join('');
+  document.body.classList.add('printing');
+  const done=()=>{ document.body.classList.remove('printing'); window.removeEventListener('afterprint',done); };
+  window.addEventListener('afterprint',done); setTimeout(()=>window.print(),60); setTimeout(done,60000);
+}
+
+/* 실전 시험지(OMR) */
+var _quiz0=quiz;
+function paperQuiz(){
+  const s=store.sess, n=s.ids.length; hideTabs(); dock.hidden=true;
+  const filled=()=>s.picks.filter(p=>p!=null).length;
+  let h=`<div class="xp"><div class="xp-paper"><div class="xp-head"><div><span class="eyebrow">실전 시험지</span><h1>${esc(s.title)}</h1><p>${n}문항 · ${EXAM.min}분 · 문항당 2점 · 보기를 누르거나 오른쪽 답안지에 표기해요</p></div></div>`;
+  let lastSub='';
+  s.ids.forEach((id,i)=>{ const q=byId[id], sub=subjOfSec(q.sec); if(sub.id!==lastSub){ lastSub=sub.id; h+=`<div class="xp-sec">${esc(sub.name)}</div>`; } h+=`<article class="qcard xq" id="xq${i}" data-i="${i}">${card(q,{pick:s.picks[i],perm:s.perm[i]},i+1)}</article>`; });
+  h+=`<div class="xp-end">마지막 문항이에요 · 답안지를 확인하고 제출하세요</div></div>`;
+  h+=`<aside class="xp-side"><div class="xp-timer"><span>남은 시간</span><b id="cnt">${fmtLeft()}</b><div class="xp-prog"><i id="xpBar" style="width:${filled()/n*100}%"></i></div><small id="xpFill">${filled()} / ${n} 표기</small></div><div class="xp-omr">`;
+  lastSub='';
+  s.ids.forEach((id,i)=>{ const q=byId[id], sub=subjOfSec(q.sec); if(sub.id!==lastSub){ lastSub=sub.id; h+=`<div class="omr-h">${esc(sname(sub.name))}</div>`; } const pk=s.picks[i]; h+=`<div class="omr-r" data-r="${i}"><button class="omr-n" data-go="${i}">${i+1}</button>${s.perm[i].map((oi,pos)=>`<button class="bub ${pk===oi?'on':''}" data-b="${i}:${oi}" aria-label="${i+1}번 ${pos+1}">${pos+1}</button>`).join('')}</div>`; });
+  h+=`</div><div class="xp-act"><button class="cta ghost" id="xpQuit">나가기</button><button class="cta" id="xpSub">제출하기</button></div></aside></div>`;
+  app.innerHTML=h; bindStars(app);
+  const mark=(i,oi)=>{ s.picks[i]=oi; s._warn=0; save();
+    const art=$('#xq'+i); if(art) art.querySelectorAll('.opt').forEach(b=>b.classList.toggle('sel',+b.dataset.pick===oi));
+    const row=app.querySelector(`.omr-r[data-r="${i}"]`); if(row) row.querySelectorAll('.bub').forEach(b=>b.classList.toggle('on',+b.dataset.b.split(':')[1]===oi));
+    $('#xpFill').textContent=`${filled()} / ${n} 표기`; $('#xpBar').style.width=filled()/n*100+'%'; $('#xpSub').textContent='제출하기'; };
+  app.querySelectorAll('.xq .opt').forEach(b=>b.onclick=()=>{ const i=+b.closest('.xq').dataset.i; mark(i,+b.dataset.pick); });
+  app.querySelectorAll('.bub').forEach(b=>b.onclick=()=>{ const [i,oi]=b.dataset.b.split(':').map(Number); mark(i,oi); const art=$('#xq'+i); if(art) art.scrollIntoView({block:'center',behavior:'smooth'}); });
+  app.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{ const art=$('#xq'+b.dataset.go); if(art) art.scrollIntoView({block:'start',behavior:'smooth'}); });
+  $('#xpQuit').onclick=()=>quitSheet(true);
+  $('#xpSub').onclick=()=>{ const blank=n-filled(); if(blank&&!s._warn){ s._warn=1; $('#xpSub').textContent=`빈 답 ${blank}개 · 그래도 제출`; const k=s.picks.findIndex(p=>p==null); const art=$('#xq'+k); if(art) art.scrollIntoView({block:'center',behavior:'smooth'}); return; } finish(); };
+  const io=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ const i=+en.target.dataset.i; s.i=i; app.querySelectorAll('.omr-r').forEach(r=>r.classList.toggle('cur',+r.dataset.r===i)); } }),{rootMargin:'-45% 0px -50% 0px'});
+  app.querySelectorAll('.xq').forEach(a=>io.observe(a));
+  clearInterval(tick); tick=setInterval(()=>{ const c=$('#cnt'); if(!store.sess||store.sess.done){clearInterval(tick);return;} if(s.end-Date.now()<=0){finish();return;} if(c){c.textContent=fmtLeft(); c.classList.toggle('low',s.end-Date.now()<600000);} const left=s.end-Date.now(); if(left<600000&&!s._w10){s._w10=1;save();toast('⏰ 10분 남았어요. 빈 답부터 채우세요');} if(left<60000&&!s._w1){s._w1=1;save();toast('⏰ 1분 남았어요!');} },1000);
+  if(s.i){ const art=$('#xq'+s.i); if(art) setTimeout(()=>art.scrollIntoView({block:'start'}),30); }
+}
+quiz=function(){ const s=store.sess; if(s&&s.mode==='mock'&&!s.done&&DSK.matches){ document.body.dataset.view='paper'; return paperQuiz(); } return _quiz0.apply(this,arguments); };
+
+/* 메뉴·화면 연결 */
+var _showTabs0=showTabs;
+showTabs=function(cur){ _showTabs0(cur); if(!DSK.matches) return; const t=tabbar.querySelector('.tabs'); if(!t) return; const b=document.createElement('button'); b.dataset.tab='bank'; b.setAttribute('aria-current',cur==='bank'); b.innerHTML=`${ico('bank')}<span>문제은행</span><em class="pc-only">PC</em>`; b.onclick=()=>{ if(view!=='bank') go('bank'); }; const ref=t.querySelector('[data-tab="exam"]'); t.insertBefore(b,ref); };
+document.addEventListener('keydown',e=>{ if(document.body.dataset.view!=='paper'||!ov.hidden) return; const tg=e.target; if(tg&&/input|textarea/i.test(tg.tagName)) return; if(e.key==='Escape'){ e.preventDefault(); e.stopImmediatePropagation(); quitSheet(true); return; } if(/^[1-5]$|^Enter$|^Arrow(Left|Right)$|^[sS]$/.test(e.key)) e.stopImmediatePropagation(); },true);
+var _render1=render;
+render=function(){
+  const s=store.sess;
+  if(view==='bank'&&!(s&&s.done)&&!(s&&!s.done&&s.mode==='mock')){ if(DSK.matches){ app.ontouchstart=app.ontouchend=null; document.body.dataset.view='bank'; app.classList.remove('dsk'); return bankView(); } view='home'; }
+  const r=_render1.apply(this,arguments);
+  if(s&&s.mode==='mock'&&!s.done&&DSK.matches) document.body.dataset.view='paper';
+  return r;
+};
+var _note0=note;
+note=function(){ const r=_note0.apply(this,arguments); if(DSK.matches){ const sub=app.querySelector('.sub'); if(sub){ const b=document.createElement('button'); b.className='cta ghost sm pc-print'; b.textContent='지금 목록 인쇄·PDF'; b.onclick=()=>{ const ids=[...app.querySelectorAll('.rlist [data-star]')].map(x=>x.dataset.star); printQs(ids.map(id=>byId[id]).filter(Boolean),noteTab==='wrong'?'오답 노트':'별표 노트'); }; sub.after(b); } } return r; };
+try{ const s1=store.sess; if(DSK.matches&&(!tabbar.hidden||(s1&&s1.mode==='mock'&&!s1.done))) render(); }catch(e){}
+
 /* v15: 스플래시 D-Day */
 (function(){ const sd=document.getElementById("spDd"); if(sd) sd.textContent="시험까지 "+dday()+" · 12. 18.(금) 11:00"; })();
 })();
