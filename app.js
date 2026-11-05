@@ -117,7 +117,7 @@ function home(){
     <button class="qbtn" id="rand"><b>랜덤 10문제</b><span>전 과목</span></button>
     <button class="qbtn" id="hard"><b>고난도만</b><span>${QUESTIONS.filter(isHard).length}문제</span></button>
     <button class="qbtn" id="calc"><b>계산 문제</b><span>${QUESTIONS.filter(q=>(q.tags||[]).includes('계산')).length}문제</span></button>
-    <button class="qbtn" id="wrong" ${wrongIds.length?'':'disabled'}><b>오답 다시</b><span>${wrongIds.length}문제</span></button>
+    <button class="qbtn" id="wrong" ${wrongIds.length?'':'disabled'}><b>오답 정복</b><span>${wrongIds.length}문제 · 맞힐 때까지</span></button>
   </div>`;
   h+=`<div class="label">복습·분석</div><div class="list"><button class="row" id="report"><span class="ic">📊</span><span class="tx"><span class="nm">학습 리포트</span><span class="meta">과목·단원별 정답률, 취약 단원, 모의고사 추이</span></span><span class="chev">›</span></button><button class="row" id="note"><span class="ic">✓</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제 ${wrongIds.length} · 별표 ${store.star.length}</span></span><span class="chev">›</span></button></div>`;
   h+=`<p class="foot">2급 승진자격시험 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식)에 맞춘 손해사정사 1차 수준 예상문제예요. 과목별 문항 비중은 공고에 없어 임의로 정했어요. 풀이 기록은 이 기기에 저장돼요. <button class="linkbtn" id="reset">기록 초기화</button></p>`;
@@ -131,11 +131,11 @@ function home(){
   $('#rand').onclick=()=>start(shuffle(QUESTIONS.map(q=>q.id)).slice(0,10),'랜덤 10문제','practice',{mix:true});
   $('#hard').onclick=()=>start(shuffle(QUESTIONS.filter(isHard).map(q=>q.id)),'고난도','practice',{mix:true});
   $('#calc').onclick=()=>start(QUESTIONS.filter(q=>(q.tags||[]).includes('계산')).map(q=>q.id),'계산 문제','practice');
-  $('#wrong').onclick=()=>start(wrongIds,'오답 다시 풀기','practice',{mix:true});
+  $('#wrong').onclick=()=>start(shuffle(wrongIds),'오답 정복','practice',{mix:true,loop:true});
   $('#note').onclick=()=>{view='note';render();top();};
   $('#report').onclick=()=>{view='report';render();top();};
   $('#pred').onclick=()=>{view='report';render();top();};
-  const rv=$('#review'); if(rv&&due) rv.onclick=()=>start(shuffle(dueIds()),'오늘의 복습','practice',{mix:true});
+  const rv=$('#review'); if(rv&&due) rv.onclick=()=>start(shuffle(dueIds()),'오늘의 복습','practice',{mix:true,loop:true});
   let armed=false;
   $('#reset').onclick=()=>{ if(!armed){armed=true;$('#reset').textContent='한 번 더 누르면 모든 기록이 지워져요';return;} store={ans:{},star:[],sess:null,best:{},round:1,log:{},srs:{},hist:[],goal:20,trk:{},pass:60};save();home(); };
 }
@@ -180,6 +180,7 @@ function quiz(){
   const reveal=!mock&&!!s.rev[s.i];
   const filled=s.picks.filter(p=>p!=null).length;
   let h=`<div class="qbar"><button class="x-btn" id="quit" aria-label="나가기">✕</button><div class="track"><i style="width:${(mock?filled:(s.i+(reveal?1:0)))/n*100}%"></i></div><span class="count ${mock?'timer':''}" id="cnt">${mock?fmtLeft():`${s.i+1}/${n}`}</span></div>`;
+  if(s.loop) h+=`<div class="secline"><b>오답 정복 모드</b><span>틀리면 맨 뒤에 다시 나와요${s.again?` · 재출제 ${s.again}`:''}</span></div>`;
   if(quitArmed) h+=`<p class="quitmsg">${mock?'한 번 더 누르면 채점 없이 종료돼요':'한 번 더 누르면 홈으로 나가요 · 이어서 풀 수 있어요'}</p>`;
   if(mock) h+=`<div class="secline"><b>${esc(subjOfSec(q.sec).name)}</b><span>${s.i+1} / ${n}번</span></div>`;
   h+=`<article class="qcard" id="qc">${card(q,{pick:s.picks[s.i],reveal,locked:reveal,perm:s.perm[s.i]},mock?s.i+1:null)}</article>`;
@@ -199,7 +200,9 @@ function quiz(){
   document.querySelectorAll('#qc .opt').forEach(b=>b.onclick=()=>{
     const p=+b.dataset.pick;
     if(mock){ s.picks[s.i]=p; s._warn=0; save(); quiz(); return; }
-    s.picks[s.i]=p; s.rev[s.i]=1; record(q,p); save(); quiz();
+    s.picks[s.i]=p; s.rev[s.i]=1; record(q,p);
+    if(s.loop&&!isOk(q,p)){ const base=q.opts.map((_,k)=>k); s.ids.push(q.id); s.perm.push(canShuffle(q)?shuffle(base):base); s.picks.push(null); s.again=(s.again||0)+1; }
+    save(); quiz();
     const fb=document.querySelector('.fb'); if(fb) fb.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});
   });
   document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{s.i=+b.dataset.jump;save();quiz();top();});
@@ -212,16 +215,17 @@ function fmtLeft(){const s=store.sess; const t=Math.ceil(Math.max(0,s.end-Date.n
 /* ── 결과 ── */
 function result(){
   const s=store.sess; dock.hidden=false;
-  const rs=s.ids.map((id,i)=>({q:byId[id],pick:s.picks[i],perm:s.perm[i],ok:isOk(byId[id],s.picks[i])}));
+  let rs=s.ids.map((id,i)=>({q:byId[id],pick:s.picks[i],perm:s.perm[i],ok:isOk(byId[id],s.picks[i])}));
+  if(s.loop){ const first={}; rs.forEach(r=>{ if(!(r.q.id in first)) first[r.q.id]=r; }); rs=Object.values(first); }
   const ok=rs.filter(r=>r.ok).length, wrong=rs.filter(r=>!r.ok).map(r=>r.q.id), mock=s.mode==='mock';
   const sc=mock?ok*2:Math.round(ok/rs.length*100);
-  let h=`<div class="result"><div class="eyebrow">${esc(s.title)} 결과</div><div class="sc">${sc}<small>점</small></div><p>${rs.length}문항 중 ${ok}문항 정답</p>${mock?`<span class="pass ${sc>=60?'ok':'no'}">${sc>=60?'60점 이상':'60점 미만'}</span>`:''}</div>`;
+  let h=`<div class="result"><div class="eyebrow">${esc(s.title)} 결과</div><div class="sc">${sc}<small>점</small></div><p>${s.loop?`${rs.length}문항 모두 정복! 첫 시도 정답 ${ok}문항 · 재출제 ${s.again||0}번`:`${rs.length}문항 중 ${ok}문항 정답`}</p>${mock?`<span class="pass ${sc>=60?'ok':'no'}">${sc>=60?'60점 이상':'60점 미만'}</span>`:''}</div>`;
   if(mock) h+=`<div class="label">과목별 점수</div><div class="list"><table class="tbl"><thead><tr><th>과목</th><th>정답</th><th>점수</th></tr></thead><tbody>`+SUBJECTS.map(sub=>{const r=rs.filter(x=>sub.secs.includes(x.q.sec));if(!r.length)return'';const o=r.filter(x=>x.ok).length;return `<tr><td>${esc(sub.name)}</td><td>${o}/${r.length}</td><td>${o*2}</td></tr>`;}).join('')+`</tbody></table></div>`;
   h+=`<div class="label">문항별 확인<small>눌러서 해설 보기</small></div><ul class="rlist">`+rs.map((r,i)=>`<li><details><summary><span class="mk ${r.ok?'o':'x'}">${r.ok?'○':'×'}</span><span class="qq"><small>${i+1}번 · ${esc(subjOfSec(r.q.sec).name)}${isHard(r.q)?' · 고난도':''}</small>${esc(r.q.q)}</span></summary><div class="inner"><div class="qcard">${card(r.q,{pick:r.pick,reveal:true,locked:true,perm:r.perm})}</div></div></details></li>`).join('')+`</ul>`;
   app.innerHTML=h; bindStars(app);
-  dockIn.innerHTML=`<button class="cta ghost side" id="home">홈</button><button class="cta" id="retry" ${wrong.length?'':'disabled'}>${wrong.length?`틀린 ${wrong.length}문제 다시 풀기`:'모두 맞혔어요'}</button>`;
+  dockIn.innerHTML=`<button class="cta ghost side" id="home">홈</button><button class="cta" id="retry" ${wrong.length?'':'disabled'}>${wrong.length?(s.loop?`처음 틀린 ${wrong.length}문제 한 번 더`:`틀린 ${wrong.length}문제 맞힐 때까지 풀기`):'모두 맞혔어요'}</button>`;
   $('#home').onclick=()=>{store.sess=null;save();view='home';render();top();};
-  if(wrong.length) $('#retry').onclick=()=>start(wrong,'틀린 문제 다시','practice',{mix:true});
+  if(wrong.length) $('#retry').onclick=()=>start(wrong,'오답 정복','practice',{mix:true,loop:true});
 }
 
 /* ── 노트 ── */
@@ -234,7 +238,7 @@ function note(){
   if(!list.length) h+=`<div class="empty">${noteTab==='wrong'?'아직 틀린 문제가 없어요.':'별표한 문제가 없어요.<br>문제 오른쪽 위 ☆를 눌러 모아 보세요.'}</div>`;
   else h+=`<ul class="rlist">`+list.map(q=>{const a=store.ans[q.id];return `<li><details><summary><span class="mk ${a?(a.ok?'o':'x'):''}">${a?(a.ok?'○':'×'):'–'}</span><span class="qq"><small>${esc(subjOfSec(q.sec).name)}</small>${esc(q.q)}</span></summary><div class="inner"><div class="qcard">${card(q,{pick:a?a.pick:null,reveal:true,locked:true})}</div></div></details></li>`;}).join('')+`</ul>`;
   app.innerHTML=h; bindStars(app);
-  if(list.length){ dock.hidden=false; dockIn.innerHTML=`<button class="cta" id="redo">이 ${list.length}문제 다시 풀기</button>`; $('#redo').onclick=()=>start(list.map(q=>q.id),noteTab==='wrong'?'오답 다시 풀기':'별표 문제','practice',{mix:true}); }
+  if(list.length){ dock.hidden=false; dockIn.innerHTML=`<button class="cta" id="redo">이 ${list.length}문제 다시 풀기</button>`; $('#redo').onclick=()=>start(shuffle(list.map(q=>q.id)),noteTab==='wrong'?'오답 정복':'별표 문제','practice',{mix:true,loop:true}); }
   $('#back').onclick=()=>{view='home';render();top();};
   document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{noteTab=b.dataset.t;note();});
 }
