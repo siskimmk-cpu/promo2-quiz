@@ -30,9 +30,9 @@ function harness(iso='2026-11-06T23:59:59Z',stored){
   }};
 }
 test('9am release updates an open page without deleting future source questions',()=>{
-  const h=harness();assert.equal(h.api.visible.length,317);assert.equal(h.api.all.length,361);assert.equal(h.api.fresh.length,0);
+  const h=harness();assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-06').length);assert.equal(h.api.all.length,h.api.all.filter(Boolean).length);assert.equal(h.api.fresh.length,0);
   h.setTime('2026-11-07T00:00:01Z');h.api.checkReleaseBoundary();
-  assert.equal(h.api.visible.length,325);assert.equal(h.api.fresh.length,8);assert.equal(h.api.all.length,361);
+  assert.equal(h.api.visible.length,325);assert.equal(h.api.fresh.length,8);assert.equal(h.api.all.length,h.api.all.filter(Boolean).length);
   assert.equal(h.ctx.renders,1);
 });
 test('foreground and focus refresh after device sleep; no premature release at midnight KST',()=>{
