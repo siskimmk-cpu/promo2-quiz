@@ -438,7 +438,7 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 .cta.ghost{box-shadow:none}
 @media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest?v=202611061253"><link rel="apple-touch-icon" href="icon-180.png?v=202611061253"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
+<link rel="manifest" href="manifest.webmanifest?v=202611061308"><link rel="apple-touch-icon" href="icon-180.png?v=202611061308"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
 <style>
 /* ── v10 프리미엄 레이어 ── */
 /* 1. 히어로: 토스풍 블루 그라데이션 카드 */
@@ -1151,6 +1151,44 @@ body:has(#dock.fbd:not([hidden])) .kbd-hint{opacity:0;pointer-events:none}
 .p2a-load{padding:30px 0;text-align:center;color:var(--muted)}
 @media (min-width:700px){.p2s-ov{align-items:center}.p2s{border-radius:24px;max-height:84vh}.p2s.wide{max-width:720px}}
 </style>
+<style>
+/* v30: 첫 화면 안내문 */
+.p2g-intro{background:var(--card);border-radius:22px;padding:20px 18px;margin-bottom:22px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 16px 32px -26px rgba(16,24,40,.35)}
+.p2g-intro h2{font-size:18px;letter-spacing:-.02em;margin:0 0 6px;color:var(--ink)}
+.p2g-lead{font-size:13.5px;line-height:1.6;color:var(--ink2);margin:0 0 14px}
+.p2g-feat{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.p2g-feat li{display:flex;gap:10px;align-items:flex-start}
+.p2g-feat li>b{flex:none;width:34px;height:34px;border-radius:11px;background:var(--soft);display:grid;place-items:center;font-size:17px}
+.p2g-feat span{font-size:12.5px;color:var(--muted);line-height:1.45}.p2g-feat span b{display:block;font-size:14px;color:var(--ink);margin-bottom:1px}
+.p2g-steps{margin-top:16px;background:var(--accent-soft);border-radius:16px;padding:14px 16px}
+.p2g-steps>b{font-size:14px;color:var(--accent)}
+.p2g-steps ol{margin:8px 0 6px;padding-left:20px;display:grid;gap:4px;font-size:13.5px;color:var(--ink2);line-height:1.5}
+.p2g-steps ol b{color:var(--ink)}
+.p2g-steps p{margin:0;font-size:12.5px;line-height:1.55;color:var(--ink2)}
+@media (min-width:900px){
+  .p2g-in:has(.p2g-grid){max-width:920px}
+  .p2g-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start}
+  .p2g-intro{margin-bottom:0;padding:26px 24px}
+  .p2g-intro h2{font-size:21px}
+}
+</style>
+<style>
+/* v30b: 휴대폰 첫 화면 — 안내는 짧게, 로그인 칸이 바로 보이게 */
+@media (max-width:899px){
+  .p2g-in{margin-top:0}
+  .p2g-brand{margin-bottom:16px}
+  .p2g-intro{padding:16px;margin-bottom:18px}
+  .p2g-intro h2{font-size:16.5px}
+  .p2g-lead{font-size:13px;margin-bottom:10px}
+  .p2g-feat{display:flex;flex-wrap:wrap;gap:6px}
+  .p2g-feat li{gap:4px;align-items:center;background:var(--soft);border-radius:999px;padding:5px 10px 5px 6px}
+  .p2g-feat li>b{width:auto;height:auto;background:none;font-size:13px}
+  .p2g-feat span{font-size:0}.p2g-feat span b{font-size:12.5px;margin:0}
+  .p2g-steps{margin-top:12px;padding:12px 14px}
+  .p2g-steps ol{font-size:13px}
+  #p2gate h1{font-size:23px}
+}
+</style>
 
 
 
@@ -1167,8 +1205,8 @@ body:has(#dock.fbd:not([hidden])) .kbd-hint{opacity:0;pointer-events:none}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611061253"</script>
-<script src="questions.js?v=202611061253"></script>
-<script src="vendor/supabase.js?v=202611061253"></script>
-<script src="auth.js?v=202611061253"></script>
+<script>window.BUILD="202611061308"</script>
+<script src="questions.js?v=202611061308"></script>
+<script src="vendor/supabase.js?v=202611061308"></script>
+<script src="auth.js?v=202611061308"></script>
 </body></html>

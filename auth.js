@@ -38,7 +38,10 @@
         '<label>비밀번호 확인<input id="p2P2" type="password" autocomplete="new-password" minlength="10" required></label>' +
         '<button class="p2g-btn pri" type="submit">계정 만들기 (승인 요청)</button></form>' +
         '<p class="p2g-small">만들면 <b>승인 대기</b>가 돼요. 관리자가 승인하면 바로 쓸 수 있어요.</p>';
-    var w = screen('<h1>' + (tab === 'in' ? '로그인' : '계정 만들기') + '</h1>' + tabs + body + '<div class="p2g-msg" id="p2M"></div>');
+    var intro = '<section class="p2g-intro"><h2>2급 승진자격시험 대비 예상 기출문제</h2><p class="p2g-lead">2026. 12. 18.(금) 시험 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식)에 맞춘 객관식 문제은행이에요.</p>' +
+      '<ul class="p2g-feat"><li><b>📅</b><span><b>매일 오전 9시 새 문제</b>시험 과목 안에서만 꾸준히 추가돼요</span></li><li><b>🔥</b><span><b>기출 빈출 쟁점</b>손해사정사 기출 10년 분석으로 자주 나온 쟁점부터</span></li><li><b>⏱️</b><span><b>실전 모의고사</b>50문항·90분, 과목별 점수와 합격 예측</span></li><li><b>📝</b><span><b>오답노트·보기별 해설</b>틀린 문제는 1·3·7일 뒤 다시 나와요</span></li><li><b>🔄</b><span><b>PC·휴대폰 기록 연동</b>같은 계정이면 어디서든 이어서</span></li></ul>' +
+      '<div class="p2g-steps"><b>처음 오셨나요?</b><ol><li><b>계정 만들기</b> — 이름·이메일·비밀번호(10자 이상)</li><li><b>승인 기다리기</b> — 관리자(김민기)가 확인 후 승인</li><li><b>다시 확인</b> 누르면 바로 시작</li></ol><p>송무온 계정이 있으면 그 계정으로 로그인하면 돼요. 휴대폰은 공유 → 「홈 화면에 추가」로 앱처럼 쓸 수 있어요.</p></div></section>';
+    var w = screen('<div class="p2g-grid">' + intro + '<div class="p2g-form"><h1>' + (tab === 'in' ? '로그인' : '계정 만들기') + '</h1>' + tabs + body + '<div class="p2g-msg" id="p2M"></div></div></div>');
     if (note) msg(w, note, /만들었|보냈|바꿨/.test(note));
     w.querySelectorAll('[data-t]').forEach(function (b) { b.onclick = function () { showLogin('', b.dataset.t); }; });
     if (tab === 'in') $('#p2F', w).onsubmit = async function (e) {
