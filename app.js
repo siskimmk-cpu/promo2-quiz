@@ -274,7 +274,7 @@ function quiz(){
   if(quitArmed) h+=`<p class="quitmsg">${mock?'한 번 더 누르면 채점 없이 종료돼요':'한 번 더 누르면 홈으로 나가요 · 이어서 풀 수 있어요'}</p>`;
   if(mock) h+=`<div class="secline"><b>${esc(subjOfSec(q.sec).name)}</b><span>${s.i+1} / ${n}번</span></div>`;
   h+=`<article class="qcard" id="qc">${card(q,{pick:s.picks[s.i],reveal,locked:reveal,perm:s.perm[s.i]},mock?s.i+1:null)}</article>`;
-  if(mock&&sheetOpen) h+=`<div class="label">답안지<small>${filled}/${n} 표기</small></div><div class="qcard" style="padding:18px">`+SUBJECTS.map(sub=>{const idx=s.ids.map((id,i)=>i).filter(i=>sub.secs.includes(byId[s.ids[i]].sec)); if(!idx.length) return ''; return `<div class="omr-sub">${esc(sub.name)}</div><div class="sheetgrid">${idx.map(i=>{const p=s.picks[i];return `<button class="${p!=null?'m':''} ${i===s.i?'cur':''}" data-jump="${i}">${i+1}${p!=null?'·'+(s.perm[i].indexOf(p)+1):''}</button>`;}).join('')}</div>`;}).join('')+`</div>`;
+  if(mock&&sheetOpen) h+=`<div class="label">답안지<small>${filled}/${n} 표기</small></div><div class="qcard" style="padding:18px">`+SUBJECTS.map(sub=>{const idx=s.ids.map((id,i)=>i).filter(i=>sub.secs.includes(byId[s.ids[i]].sec)); if(!idx.length) return ''; return `<div class="omr-sub">${esc(sub.name)}</div><div class="momr">${idx.map(i=>{const p=s.picks[i];return `<div class="mo-r ${i===s.i?'cur':''} ${p!=null?'m':''}"><button class="mo-n" data-jump="${i}">${i+1}</button>${s.perm[i].map((oi,pos)=>`<button class="mo-b ${p===oi?'on':''}" data-mb="${i}:${oi}" aria-label="${i+1}번 ${pos+1}">${pos+1}</button>`).join('')}</div>`;}).join('')}</div>`;}).join('')+`</div>`;
   const fresh=lastShown!==s.ids[s.i]+':'+s.i; lastShown=s.ids[s.i]+':'+s.i;
   app.innerHTML=h; hideTabs();
   if(fresh){ const qc=$('#qc'); if(qc) qc.classList.add(navDir<0?'slide-back':'slide'); } navDir=1;
@@ -306,6 +306,7 @@ function quiz(){
     checkBadges();
   });
   document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{s.i=+b.dataset.jump;save();quiz();top();});
+  document.querySelectorAll('[data-mb]').forEach(b=>b.onclick=()=>{const [qi,oi]=b.dataset.mb.split(':').map(Number); s.picks[qi]=(s.picks[qi]===oi?null:oi); buzz(8); save(); quiz();});
   bindStars(app);
   bindSwipe(dir=>{ if(mock){ if(dir<0&&!last){s.i++;save();quiz();top();} else if(dir>0&&s.i>0){s.i--;navDir=-1;save();quiz();top();} } else if(reveal&&dir<0){ if(last) finish(); else {s.i++;save();quiz();top();} } });
   $('#quit').onclick=()=>quitSheet(mock);
@@ -679,34 +680,52 @@ function planCard(){
     ${p.left&&p.d>7&&store.goal!==Math.min(50,Math.max(10,p.need))?`<button class="cta ghost sm" data-act="setgoal">하루 목표를 ${Math.min(50,Math.max(10,p.need))}문제로 맞추기</button>`:''}
   </section>`;
 }
-function flashEntry(){ const nk=QUESTIONS.filter(q=>(q.tags||[]).includes('핵심숫자')).length, nw=stats().wrongIds.length;
-  return `<div class="list anim" style="margin-bottom:14px"><button class="row" data-act="flash"><span class="ic y" style="font-size:22px">🃏</span><span class="tx"><span class="nm">암기 카드</span><span class="meta">핵심 숫자 ${nk}장 · 오답 ${nw}장 · 뒤집어서 외우기</span></span>${ico('chev','chev')}</button></div>`; }
+const FL=(typeof FLASH!=='undefined'?FLASH:[]);
+const flKnown=()=>store.fk||(store.fk={});
+function flashEntry(){ const nw=stats().wrongIds.length, kn=FL.filter(c=>flKnown()[c.id]).length;
+  return `<div class="list anim" style="margin-bottom:14px"><button class="row" data-act="flash"><span class="ic y" style="font-size:22px">🃏</span><span class="tx"><span class="nm">암기 카드</span><span class="meta">핵심 개념 ${FL.length}장 · 외운 카드 ${kn}장 · 오답 ${nw}장</span></span>${ico('chev','chev')}</button></div>`; }
 var fc=null;
 function flashStart(kind){
-  const ids=kind==='wrong'?stats().wrongIds:kind==='star'?starIds():QUESTIONS.filter(q=>(q.tags||[]).includes('핵심숫자')).map(q=>q.id);
-  if(!ids.length){ toast(kind==='wrong'?'틀린 문제가 없어요':'카드가 없어요'); return; }
-  fc={ids:shuffle(ids),i:0,flip:false,known:0,again:0}; flashShow();
+  let cards;
+  if(kind==='wrong'||kind==='star'){ const ids=kind==='wrong'?stats().wrongIds:starIds(); cards=ids.map(id=>({q:id})); }
+  else { const pool=kind==='all'||kind==='left'?FL:FL.filter(c=>subjOfSec(c.sec).id===kind); cards=(kind==='left'?pool.filter(c=>!flKnown()[c.id]):pool).map(c=>({c:c.id})); }
+  if(!cards.length){ toast(kind==='wrong'?'틀린 문제가 없어요':kind==='left'?'모든 카드를 외웠어요!':'카드가 없어요'); return; }
+  fc={cards:shuffle(cards),i:0,flip:false,known:0,again:0,kind}; flashShow();
 }
 function flashPick(){
-  sheet(`<div class="upd"><span class="upd-ic" style="font-size:26px">🃏</span><b>암기 카드</b><p>앞면은 문제, 뒤집으면 정답과 해설이 나와요. 모르는 카드는 뒤로 다시 와요.</p></div>
-   <div class="list"><button class="row" data-fk="key"><span class="tx"><span class="nm">핵심 숫자·기간</span><span class="meta">${QUESTIONS.filter(q=>(q.tags||[]).includes('핵심숫자')).length}장 · 한도·기간·비율</span></span>${ico('chev','chev')}</button><button class="row" data-fk="wrong"><span class="tx"><span class="nm">내 오답</span><span class="meta">${stats().wrongIds.length}장</span></span>${ico('chev','chev')}</button><button class="row" data-fk="star"><span class="tx"><span class="nm">별표</span><span class="meta">${starIds().length}장</span></span>${ico('chev','chev')}</button></div>`,()=>{
+  const kn=flKnown(), by=SUBJECTS.map(sub=>{const all=FL.filter(c=>subjOfSec(c.sec).id===sub.id); return {sub,n:all.length,k:all.filter(c=>kn[c.id]).length};}).filter(x=>x.n);
+  const tot=FL.length, done=FL.filter(c=>kn[c.id]).length;
+  sheet(`<div class="upd"><span class="upd-ic" style="font-size:26px">🃏</span><b>암기 카드</b><p>앞면 질문 → 뒤집으면 핵심 답·설명·함정 포인트·근거 조문. "알아요"를 누른 카드는 외운 카드로 기록돼요.</p></div>
+   <div class="fk-prog"><div><b>${done}</b>/${tot}장 외움</div><span><i style="width:${tot?done/tot*100:0}%"></i></span></div>
+   <div class="list"><button class="row" data-fk="left"><span class="tx"><span class="nm">아직 못 외운 카드</span><span class="meta">${tot-done}장 · 추천</span></span>${ico('chev','chev')}</button><button class="row" data-fk="all"><span class="tx"><span class="nm">전체 핵심 카드</span><span class="meta">${tot}장 · 숫자·기간·요건·빈출 쟁점</span></span>${ico('chev','chev')}</button></div>
+   <div class="label" style="margin-top:14px">과목별</div><div class="fk-subs">${by.map(x=>`<button data-fk="${x.sub.id}"><b>${esc(sname(x.sub.name))}</b><small>${x.k}/${x.n}장</small></button>`).join('')}</div>
+   <div class="label" style="margin-top:14px">내 문제로</div><div class="list"><button class="row" data-fk="wrong"><span class="tx"><span class="nm">내 오답</span><span class="meta">${stats().wrongIds.length}장 · 보기별 해설까지</span></span>${ico('chev','chev')}</button><button class="row" data-fk="star"><span class="tx"><span class="nm">별표</span><span class="meta">${starIds().length}장</span></span>${ico('chev','chev')}</button></div>`,()=>{
     ov.querySelectorAll('[data-fk]').forEach(b=>b.onclick=()=>{ closeOv(); setTimeout(()=>flashStart(b.dataset.fk),260); });
   });
 }
+const FLMAP=Object.fromEntries(FL.map(c=>[c.id,c]));
+function flashFace(card){
+  if(card.c){ const c=FLMAP[card.c], k=flKnown()[c.id];
+    return {front:`<small>${esc(sname(subjOfSec(c.sec).name))} · ${esc(c.tp)}${k?' · <i class="fk-k">외움</i>':''}</small><b>${esc(c.f)}</b>`,
+      back:`<small>정답</small><b class="fk-a">${esc(c.a)}</b><span class="fc-exp">${hl(c.d)}</span>${c.t?`<span class="fk-t"><em>⚠️ 자주 틀려요</em>${esc(c.t)}</span>`:''}<span class="fk-r">근거 · ${esc(c.r)}</span>`}; }
+  const q=byId[card.q], neg=/옳지 않은|아닌 것|해당하지 않는|틀린|거리가 먼|없는 것/.test(q.q);
+  return {front:`<small>${esc(sname(subjOfSec(q.sec).name))} · ${card.q}</small><b>${esc(q.q)}</b>${q.case?`<span class="fc-box">${esc(q.case)}</span>`:''}${q.box?`<span class="fc-box">${q.box.map(esc).join('<br>')}</span>`:''}<ol class="fk-opts">${q.opts.map(o=>`<li>${esc(o)}</li>`).join('')}</ol>`,
+    back:`<small>정답 ${q.ans+1}번${neg?' (옳지 않은 것)':''}</small><b class="fk-a">${esc(q.opts[q.ans])}</b><span class="fc-exp">${hl(q.exp)}</span>${q.why?`<ul class="fk-why">${q.why.map((w,i)=>`<li class="${i===q.ans?'a':''}"><b>${i+1}</b><span>${esc(w)}</span></li>`).join('')}</ul>`:''}<span class="fk-r">근거 · ${esc(q.ref||'')}</span>`};
+}
 function flashShow(){
-  if(!fc) return; const done=fc.i>=fc.ids.length;
+  if(!fc) return; const done=fc.i>=fc.cards.length;
   ov.hidden=false; ov.className='ov fcv'; ov.onclick=null;
-  if(done){ ov.innerHTML=`<div class="fc-wrap"><div class="fc-done"><span>🎉</span><b>카드 ${fc.ids.length}장 완료!</b><p>바로 안 ${fc.known}장 · 다시 본 카드 ${fc.again}번</p><button class="cta" id="fcEnd">닫기</button></div></div>`; $('#fcEnd').onclick=()=>{fc=null;closeOv();}; return; }
-  const q=byId[fc.ids[fc.i]];
-  ov.innerHTML=`<div class="fc-wrap"><div class="fc-bar"><button class="x-btn" id="fcX" aria-label="닫기">✕</button><div class="track"><i style="width:${fc.i/fc.ids.length*100}%"></i></div><span class="count">${fc.i+1}/${fc.ids.length}</span></div>
-   <button class="fc ${fc.flip?'on':''}" id="fcCard"><span class="fc-in"><span class="fc-f"><small>${esc(subjOfSec(q.sec).name)}</small><b>${esc(q.q)}</b>${q.box?`<span class="fc-box">${q.box.map(esc).join('<br>')}</span>`:''}<em>탭해서 뒤집기</em></span><span class="fc-b"><small>정답</small><b>${esc(q.opts[q.ans])}</b><span class="fc-exp">${hl(q.exp)}</span></span></span></button>
+  if(done){ const kn=FL.filter(c=>flKnown()[c.id]).length; ov.innerHTML=`<div class="fc-wrap"><div class="fc-done"><span>🎉</span><b>카드 ${fc.cards.length}장 완료!</b><p>바로 안 카드 ${fc.known}장 · 다시 본 카드 ${fc.again}번${FL.length?`<br>전체 핵심 카드 ${kn}/${FL.length}장 외움`:''}</p><button class="cta" id="fcEnd">닫기</button><button class="cta ghost" id="fcMore">다른 카드 고르기</button></div></div>`; $('#fcEnd').onclick=()=>{fc=null;closeOv();}; $('#fcMore').onclick=()=>{fc=null;closeOv();setTimeout(flashPick,260);}; return; }
+  const card=fc.cards[fc.i], f=flashFace(card);
+  ov.innerHTML=`<div class="fc-wrap"><div class="fc-bar"><button class="x-btn" id="fcX" aria-label="닫기">✕</button><div class="track"><i style="width:${fc.i/fc.cards.length*100}%"></i></div><span class="count">${fc.i+1}/${fc.cards.length}</span></div>
+   <button class="fc ${fc.flip?'on':''}" id="fcCard"><span class="fc-in"><span class="fc-f">${f.front}<em>탭해서 뒤집기</em></span><span class="fc-b">${f.back}</span></span></button>
    <div class="fc-act">${fc.flip?`<button class="cta ghost" id="fcNo">아직 몰라요</button><button class="cta" id="fcOk">알아요</button>`:`<button class="cta" id="fcFlip">정답 보기</button>`}</div></div>`;
   const flip=()=>{fc.flip=!fc.flip;flashShow();};
   $('#fcCard').onclick=flip; const fl=$('#fcFlip'); if(fl) fl.onclick=flip;
   $('#fcX').onclick=()=>{fc=null;closeOv();};
   const ok=$('#fcOk'), no=$('#fcNo');
-  if(ok) ok.onclick=()=>{fc.known++;fc.i++;fc.flip=false;buzz(10);flashShow();};
-  if(no) no.onclick=()=>{fc.again++;fc.ids.push(fc.ids[fc.i]);fc.i++;fc.flip=false;flashShow();};
+  if(ok) ok.onclick=()=>{ if(card.c){ flKnown()[card.c]=Date.now(); save(); } fc.known++;fc.i++;fc.flip=false;buzz(10);flashShow();};
+  if(no) no.onclick=()=>{ if(card.c&&flKnown()[card.c]){ delete flKnown()[card.c]; save(); } fc.again++;fc.cards.push(card);fc.i++;fc.flip=false;flashShow();};
 }
 
 

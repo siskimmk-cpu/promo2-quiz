@@ -103,6 +103,8 @@
     closeGate(); window.P2A.me = st.me;
     var s = document.createElement('script'); s.src = 'app.js?v=' + (window.BUILD || ''); document.body.appendChild(s);
     hookSave();
+    setTimeout(function () { var ov = document.getElementById('ov'); if (ov && !ov.hidden) { setTimeout(function () { guide(); }, 4000); } else guide(); }, 1400);
+    startWatch();
   }
 
   /* ── 기록 동기화 ── */
@@ -116,7 +118,7 @@
     var log = Object.assign({}, a.log || {}); Object.keys(b.log || {}).forEach(function (d) { var x = log[d] || { n: 0, o: 0 }, y = b.log[d]; log[d] = { n: Math.max(x.n || 0, y.n || 0), o: Math.max(x.o || 0, y.o || 0) }; }); out.log = log;
     var best = Object.assign({}, a.best || {}); Object.keys(b.best || {}).forEach(function (k) { best[k] = Math.max(best[k] == null ? -1 : best[k], b.best[k]); }); out.best = best;
     var seen = {}, hist = []; [].concat(a.hist || [], b.hist || []).forEach(function (h) { var k = h.d + '|' + h.name + '|' + h.sc; if (!seen[k]) { seen[k] = 1; hist.push(h); } }); hist.sort(function (x, y) { return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; }); out.hist = hist.slice(-50);
-    ['badges', 'badgeSeen', 'daily'].forEach(function (k) { if (a[k] || b[k]) out[k] = Object.assign({}, O[k] || {}, N[k] || {}); });
+    ['badges', 'badgeSeen', 'daily', 'fk'].forEach(function (k) { if (a[k] || b[k]) out[k] = Object.assign({}, O[k] || {}, N[k] || {}); });
     return out;
   }
   function stats(d) {
@@ -167,12 +169,14 @@
     return '<div class="label">내 계정</div><div class="list">' +
       '<div class="row"><span class="tx"><span class="nm">' + esc(me.name || '이름 없음') + (me.is_admin ? ' <em class="p2-adm">관리자</em>' : '') + '</span><span class="meta">' + esc(me.email || '') + ' · ' + (st.err ? '동기화 오류 — 인터넷 연결을 확인하세요' : t ? '학습 기록 서버 저장 ' + t : '학습 기록이 서버에 저장돼요') + '</span></span></div>' +
       (me.is_admin ? '<button class="row" id="p2Adm"><span class="tx"><span class="nm">사용자 관리</span><span class="meta">가입 승인 · 해제 · 임시 비밀번호 · 학습 현황</span></span><span class="p2-pend" id="p2Pend"></span></button>' : '') +
+      '<button class="row" id="p2Gd"><span class="tx"><span class="nm">사용설명서</span><span class="meta">업데이트 일정·쓰는 법·주의사항</span></span></button>' +
       '<button class="row" id="p2Pw"><span class="tx"><span class="nm">비밀번호 바꾸기</span></span></button>' +
       '<button class="row" id="p2Out"><span class="tx"><span class="nm">로그아웃</span><span class="meta">공용 PC면 꼭 로그아웃하세요 · 이 기기의 기록은 지워지고 서버에 남아요</span></span></button></div>';
   }
   function bindSettings(root) {
     var a = $('#p2Adm', root); if (a) { a.onclick = adminPanel; pendingCount().then(function (n) { var p = $('#p2Pend', root); if (p && n) p.textContent = '대기 ' + n; }); }
     var pw = $('#p2Pw', root); if (pw) pw.onclick = changePw;
+    var gd = $('#p2Gd', root); if (gd) gd.onclick = function () { guide(true); };
     var o = $('#p2Out', root); if (o) o.onclick = logout;
   }
   async function logout() {
@@ -242,6 +246,73 @@
   }
 
   function legacy() { entered = true; var s = document.createElement('script'); s.src = 'app.js?v=' + (window.BUILD || ''); document.body.appendChild(s); }
+  /* ── 관리자 전용: 새 가입 알림 ── */
+  var SEEN = 'promo2-seen-pend', pill = null;
+  function seenSet() { try { return JSON.parse(rd(SEEN, '[]')); } catch (e) { return []; } }
+  async function watchPending(first) {
+    if (!st.me || !st.me.is_admin || document.visibilityState === 'hidden' || document.querySelector('.p2s-ov')) return;
+    var r; try { r = await st.sb.rpc('quiz_admin_users'); } catch (e) { return; } if (!r || r.error) return;
+    var P = (r.data || []).filter(function (x) { return x.status === 'pending'; });
+    var seen = seenSet(), fresh = P.filter(function (x) { return seen.indexOf(x.email) < 0; });
+    setPill(P.length);
+    if (fresh.length) {
+      wr(SEEN, JSON.stringify(seen.concat(fresh.map(function (x) { return x.email; })).slice(-200)));
+      try { if (navigator.vibrate) navigator.vibrate([20, 40, 20]); } catch (e) { }
+      var o = sheet('<div class="p2n-hd"><span>🔔</span><div><h2>새 가입 요청 ' + fresh.length + '명</h2><p class="p2g-p">승인하면 바로 쓸 수 있어요.</p></div></div>' +
+        fresh.map(function (x) { return '<div class="p2a-r"><div class="p2a-h"><div><b>' + esc(x.name || '(이름 없음)') + '</b><small>' + esc(x.email) + ' · ' + ago(x.created_at) + '</small></div><div class="p2a-act"><button class="p2a-b ok" data-ap="' + esc(x.email) + '">승인</button><button class="p2a-b" data-rj="' + esc(x.email) + '">거절</button></div></div></div>'; }).join('') +
+        '<div class="p2g-msg" id="p2M"></div><button class="p2g-btn" id="p2All">사용자 관리 전체 보기</button>');
+      o.querySelectorAll('[data-ap],[data-rj]').forEach(function (b) {
+        b.onclick = async function () {
+          if (b.dataset.rj && b.dataset.arm !== '1') { b.dataset.arm = '1'; b.textContent = '한 번 더'; return; }
+          var rr = b.dataset.ap ? await st.sb.rpc('quiz_admin_set', { p_email: b.dataset.ap, p_status: 'approved' }) : await st.sb.rpc('quiz_admin_reject', { p_email: b.dataset.rj });
+          msg(o, rr.error ? '실패: ' + rr.error.message : (b.dataset.ap ? b.dataset.ap + ' 승인했어요.' : b.dataset.rj + ' 가입을 거절했어요.'), !rr.error);
+          if (!rr.error) { var row = b.closest('.p2a-r'); if (row) row.remove(); setPill(Math.max(0, (pill && +pill.dataset.n || 1) - 1)); }
+        };
+      });
+      $('#p2All', o).onclick = function () { o.close(); setTimeout(adminPanel, 240); };
+    }
+  }
+  function setPill(n) {
+    if (!pill) { pill = document.createElement('button'); pill.className = 'p2-pill'; pill.onclick = adminPanel; document.body.appendChild(pill); }
+    pill.dataset.n = n; pill.hidden = !n; pill.innerHTML = '🔔 승인 대기 <b>' + n + '</b>';
+  }
+  function startWatch() {
+    if (!st.me || !st.me.is_admin) return;
+    setTimeout(function () { watchPending(true); }, 2500);
+    setInterval(watchPending, 60000);
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') watchPending(); });
+  }
+
+  /* ── 로그인 후 사용설명서 (내용이 바뀔 때마다 한 번) ── */
+  var GUIDE_V = '2026-11-06', GUIDE_K = 'promo2-guide';
+  function guide(force) {
+    if (!force && rd(GUIDE_K, '') === GUIDE_V) return false;
+    var o = sheet('<div class="p2n-hd"><span style="background:var(--accent-soft)">📘</span><div><h2>사용설명서</h2><p class="p2g-p">' + esc((st.me && st.me.name) ? st.me.name + '님, ' : '') + '처음 한 번만 읽어 주세요.</p></div></div>' +
+      '<div class="p2u"><h3>🗓️ 업데이트 일정</h3><ul>' +
+      '<li><b>매일 오전 9시</b> 새 문제가 열려요. 홈의 「오늘 공개된 새 문제」에서 모아 풀 수 있어요.</li>' +
+      '<li><b>오늘의 한 문제·실전 제1회·제2회</b>도 매일 오전 9시에 바뀌어요.</li>' +
+      '<li>앱이 새 버전이면 다시 열 때 <b>자동으로 최신</b>으로 바뀌어요.</li></ul>' +
+      '<h3>🧭 이렇게 쓰세요</h3><ul>' +
+      '<li><b>홈</b> — 안 푼 문제 이어 풀기, 오늘의 복습, 기출 빈출 쟁점</li>' +
+      '<li><b>연습</b> — 과목별 풀이, 문제 검색, <b>암기 카드</b>(핵심 숫자·기간·요건)</li>' +
+      '<li><b>오답노트</b> — 틀린 문제·별표 문제. 틀린 문제는 1·3·7일 뒤 다시 나와요</li>' +
+      '<li><b>모의고사</b> — 50문항·90분 실전, 답안지(OMR)로 빈 문항 확인</li>' +
+      '<li><b>리포트</b> — 과목별 정답률·합격 예측·설정</li>' +
+      '<li>PC에서는 <b>문제은행·인쇄(PDF)</b>와 키보드(1~5 선택, Enter 다음)를 쓸 수 있어요</li></ul>' +
+      '<h3>⚠️ 주의사항</h3><ul>' +
+      '<li>시험 공고 과목 기준으로 만든 <b>비공식 학습용 예상문제</b>예요. 실제 출제와 다를 수 있어요.</li>' +
+      '<li>문제나 해설이 이상하면 문제 아래 <b>「이 문제 이상해요」</b>로 알려 주세요. 바로 고쳐요.</li>' +
+      '<li>풀이 기록은 내 계정에 저장되고, <b>관리자는 학습 현황(푼 문제 수·정답률·모의고사 점수)</b>을 볼 수 있어요.</li>' +
+      '<li>계정은 본인만 쓰고, 공용 PC에서는 설정 → <b>로그아웃</b> 해 주세요.</li>' +
+      '<li>휴대폰은 공유 → 「홈 화면에 추가」로 앱처럼 쓰면 편해요.</li></ul>' +
+      '<p class="p2u-c">문의 · 관리자 김민기 &nbsp;|&nbsp; 이 설명서는 설정 → 「사용설명서」에서 다시 볼 수 있어요.</p></div>' +
+      '<button class="p2g-btn pri" id="p2GOk">확인했어요</button>');
+    var done = function () { wr(GUIDE_K, GUIDE_V); };
+    $('#p2GOk', o).onclick = function () { done(); o.close(); setTimeout(function () { watchPending(); }, 400); };
+    $('.p2s-x', o).addEventListener('click', done);
+    return true;
+  }
+
   window.P2A = { settingsHTML: settingsHTML, bindSettings: bindSettings, me: null, sync: function () { return push(); } };
 
   /* ── 시작 ── */
