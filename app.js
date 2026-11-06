@@ -4,6 +4,7 @@ const EXAM={date:'2026-12-18', label:'2026. 12. 18.(금) 11:00', min:90, n:50};
 /* 매일 오전 9시(KST) 공개: rel 날짜가 오늘(UTC 기준 = KST 9시 경계)보다 뒤면 숨김 */
 const REL_DAY=new Date().toISOString().slice(0,10);
 for(let i=QUESTIONS.length-1;i>=0;i--){ const r=QUESTIONS[i].rel; if(r&&r>REL_DAY) QUESTIONS.splice(i,1); }
+const HOT_IDS=QUESTIONS.filter(q=>q.hot&&q.hot.y/q.hot.of>=0.6).sort((a,b)=>b.hot.y/b.hot.of-a.hot.y/a.hot.of).map(q=>q.id);
 const FRESH_IDS=QUESTIONS.filter(q=>q.rel===REL_DAY).map(q=>q.id);
 const byId=Object.fromEntries(QUESTIONS.map(q=>[q.id,q]));
 const secOf=Object.fromEntries(SECTIONS.map(s=>[s.id,s]));
@@ -147,6 +148,7 @@ const ACTS={
   rand:()=>start(shuffle(QUESTIONS.map(q=>q.id)).slice(0,10),'랜덤 10문제','practice',{mix:true}),
   hard:()=>start(shuffle(QUESTIONS.filter(isHard).map(q=>q.id)),'고난도','practice',{mix:true}),
   daily:()=>start([dailyQ().id],'오늘의 한 문제','practice',{daily:true}),
+  hot:()=>{ const wr=HOT_IDS.filter(id=>store.ans[id]&&!store.ans[id].ok), nx=HOT_IDS.filter(id=>!store.ans[id]); const ids=wr.concat(nx); start(ids.length?ids.slice(0,20):shuffle(HOT_IDS).slice(0,20),'기출 빈출 쟁점','practice',{mix:true}); },
   fresh:()=>{ const nx=FRESH_IDS.filter(id=>!store.ans[id]); start(shuffle(nx.length?nx:FRESH_IDS),'오늘의 새 문제','practice',{mix:true}); },
   lastcheck:()=>{ const ids=lastCheckIds(); if(ids.length) start(ids,'마지막 점검','practice',{mix:true}); },
   flash:()=>flashPick(),
@@ -178,7 +180,7 @@ function home(){
     ${resumable?`<button class="cta" data-act="resume">이어서 풀기 · ${esc(s.title)} ${s.i+1}/${s.ids.length}</button>`
       :allDone?`<button class="cta warm" data-act="newround">다 풀었어요! 보기 섞어서 ${store.round+1}회독</button>`
       :`<button class="cta" data-act="go">안 푼 문제 풀기 · ${st.newIds.length}문제</button>`}</section>`;
-  h+=planCard()+freshCard()+dailyCard();
+  h+=planCard()+freshCard()+hotCard()+dailyCard();
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
   h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀린 문제는 1·3·7일 뒤 다시 나와요</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
@@ -235,7 +237,7 @@ function intro(){
 /* ── 문제 카드 ── */
 function card(q,o,no){ // o:{pick,reveal,locked,perm}
   const sub=subjOfSec(q.sec), perm=o.perm||q.opts.map((_,i)=>i);
-  let h=`<div class="qmeta"><span class="tag">${esc(sub.name)}${sub.secs.length>1?' · '+esc(secOf[q.sec].name):''}</span>${isHard(q)?'<span class="tag hd">고난도</span>':''}${q.style==='수능형'?'<span class="tag su">보기형</span>':''}<button class="star" data-star="${q.id}" aria-pressed="${isStar(q.id)}" aria-label="별표">${isStar(q.id)?'★':'☆'}</button></div>`;
+  let h=`<div class="qmeta"><span class="tag">${esc(sub.name)}${sub.secs.length>1?' · '+esc(secOf[q.sec].name):''}</span>${isHard(q)?'<span class="tag hd">고난도</span>':''}${q.hot&&q.hot.y/q.hot.of>=0.6?'<span class="tag ht">기출 빈출</span>':''}${q.style==='수능형'?'<span class="tag su">보기형</span>':''}<button class="star" data-star="${q.id}" aria-pressed="${isStar(q.id)}" aria-label="별표">${isStar(q.id)?'★':'☆'}</button></div>`;
   h+=`<p class="qtext">${no?`<span class="qno">${no}.</span>`:''}${esc(q.q)}</p>`;
   if(q.case) h+=`<div class="case">${esc(q.case)}</div>`;
   if(q.box){const l=q.boxTitle===undefined?'보기':(q.boxTitle?esc(q.boxTitle):''); h+=`<div class="box">${l?`<span class="lbl">${l}</span>`:''}${q.box.map(b=>`<p>${esc(b)}</p>`).join('')}</div>`;}
@@ -247,7 +249,7 @@ function card(q,o,no){ // o:{pick,reveal,locked,perm}
   }).join('')+`</ol>`;
   if(o.reveal){
     const ok=isOk(q,o.pick), none=o.pick==null, ansPos=perm.indexOf(q.ans)+1;
-    h+=`<div class="fb"><div class="v ${none?'na':ok?'ok':'no'}">${none?'미응답':ok?'정답이에요!':'아쉬워요'} · 정답 ${ansPos}번</div><div class="talk"><div class="me"><span class="mt">${kTime()}</span><span class="mb">${none?'잘 모르겠어요 🤔':`${perm.indexOf(o.pick)+1}번으로 할게요`}</span></div><div class="chat"><span class="av">해설</span><div class="bub"><div class="who">해설 도우미</div><div class="body">${hl(q.exp)}</div>${q.why?`<ul class="why">${perm.map((oi,pos)=>`<li class="${oi===q.ans?'a':''}"><b>${pos+1}</b><span>${hl(q.why[oi])}</span></li>`).join('')}</ul>`:''}<div class="ref">근거 · ${esc(q.ref)}</div></div></div></div></div>`;
+    h+=`<div class="fb"><div class="v ${none?'na':ok?'ok':'no'}">${none?'미응답':ok?'정답이에요!':'아쉬워요'} · 정답 ${ansPos}번</div><div class="talk"><div class="me"><span class="mt">${kTime()}</span><span class="mb">${none?'잘 모르겠어요 🤔':`${perm.indexOf(o.pick)+1}번으로 할게요`}</span></div><div class="chat"><span class="av">해설</span><div class="bub"><div class="who">해설 도우미</div><div class="body">${hl(q.exp)}</div>${q.why?`<ul class="why">${perm.map((oi,pos)=>`<li class="${oi===q.ans?'a':''}"><b>${pos+1}</b><span>${hl(q.why[oi])}</span></li>`).join('')}</ul>`:''}${q.hot?`<div class="hotln">📌 ${HOTSRC(q)} · <b>${esc(q.hot.t)}</b></div>`:''}<div class="ref">근거 · ${esc(q.ref)}</div></div></div></div></div>`;
     h+=`<button class="linkbtn rep" data-rep="${q.id}">이 문제 이상해요</button>`;
   }
   return h;
@@ -539,6 +541,13 @@ function bindSwipe(fn){ let x0=null,y0=null; app.ontouchstart=e=>{ const t=e.tou
 function hl(s){ return esc(s).replace(/(제\d+조(?:의\d+)?(?:\s?제\d+항)?(?:\s?제\d+호)?(?:\s?단서)?|\d[\d,.]*\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|원|개월|주|일|년|월|급|km|세|점|배|회|분|시간|명|건))/g,'<mark class="hl">$1</mark>'); }
 function daysLeft(){ return Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); }
 function dailyQ(){ const d=dayKey9(); let h=0; for(const c of d+'promo2') h=(h*31+c.charCodeAt(0))>>>0; const list=QUESTIONS.slice().sort((a,b)=>a.id<b.id?-1:1); return list[h%list.length]; }
+function HOTSRC(q){ return q.hot.of===17?`손해사정사 2차 자동차보험 기출 ${q.hot.of}회 중 ${q.hot.y}회 출제 쟁점`:`손해사정사 1차 기출 최근 ${q.hot.of}회 중 ${q.hot.y}회 출제 쟁점`; }
+function hotCard(){
+  if(!HOT_IDS.length) return '';
+  const done=HOT_IDS.filter(id=>store.ans[id]).length, ok=HOT_IDS.filter(id=>store.ans[id]&&store.ans[id].ok).length;
+  const pct=Math.round(done/HOT_IDS.length*100);
+  return `<div class="label">기출 빈출 쟁점<small>손해사정사 기출 분석</small></div><button class="hotc anim" data-act="hot"><span class="hc-top"><span class="hc-ic">🔥</span><span class="hc-tx"><b>빈출 ${HOT_IDS.length}문제</b><small>${done?`${done}문제 풀었어요 · 정답 ${ok}개`:'시험마다 나오는 쟁점부터 잡아요'}</small></span><span class="hc-go">${done>=HOT_IDS.length?'다시':'풀기'} ›</span></span><span class="hc-bar"><i style="width:${pct}%"></i></span></button>`;
+}
 function freshCard(){
   if(!FRESH_IDS.length) return '';
   const done=FRESH_IDS.filter(id=>store.ans[id]).length, all=done>=FRESH_IDS.length;
@@ -830,7 +839,7 @@ function dskKey(el){
   const b=el.matches('.dblk')?el:null; const f=b?b.querySelector(':scope > :not(.label)'):el;
   if(!f) return 'x';
   const m=(sel,k)=>f.matches(sel)?k:null;
-  return m('.hero','hero')||m('.plan','plan')||m('.dq','dq')||m('.fresh','fresh')||m('.daily','daily')||m('.hscroll','quick')||m('.qsearch','search')||m('.pinfo','pinfo')||m('.papers','papers')||m('.chartcard','chart')||m('.predbox','pred')||m('.bars','bars')||m('.heat','heat')||m('.badges','badges')||m('.week','week')||m('.seg','goal')||m('.stat3','stat')||m('.foot','foot')||(f.matches('.list')?((b&&b.querySelector('.label')?.innerText||'').includes('취약')?'weak':(b&&b.querySelector('.label')?.innerText||'').includes('모의고사')?'mock':'list'):'x');
+  return m('.hero','hero')||m('.plan','plan')||m('.dq','dq')||m('.fresh','fresh')||m('.hotc','hot')||m('.daily','daily')||m('.hscroll','quick')||m('.qsearch','search')||m('.pinfo','pinfo')||m('.papers','papers')||m('.chartcard','chart')||m('.predbox','pred')||m('.bars','bars')||m('.heat','heat')||m('.badges','badges')||m('.week','week')||m('.seg','goal')||m('.stat3','stat')||m('.foot','foot')||(f.matches('.list')?((b&&b.querySelector('.label')?.innerText||'').includes('취약')?'weak':(b&&b.querySelector('.label')?.innerText||'').includes('모의고사')?'mock':'list'):'x');
 }
 function dskLayout(){
   const v=document.body.dataset.view;
