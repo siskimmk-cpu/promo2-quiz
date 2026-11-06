@@ -126,7 +126,7 @@ function go(v,after){ const f=()=>{ view=v; render(); top(); after&&after(); }; 
 const ico=(k,c='')=>`<svg class="i ${c}" viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
 const TABS=[['home','홈','home'],['study','연습','study'],['exam','모의고사','exam'],['report','리포트','chart']];
 const tabbar=document.getElementById('tabbar');
-function showTabs(cur){ tabbar.hidden=false; dock.hidden=true; tabbar.innerHTML=`<div class="wrap tabs">`+TABS.map(([v,l,i])=>`<button data-tab="${v}" aria-current="${cur===v}">${ico(i)}${tabBadge(v)}<span>${l}</span></button>`).join('')+`</div>`; tabbar.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{if(view!==b.dataset.tab) go(b.dataset.tab);}); }
+function showTabs(cur){ tabbar.hidden=false; dock.hidden=true; tabbar.innerHTML=`<div class="wrap tabs">`+TABS.map(([v,l,i])=>`<button data-tab="${v}" aria-current="${cur===v}">${ico(i)}${tabBadge(v)}<span>${l}</span></button>`).join('')+`</div>`; tabbar.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{ if(view!==b.dataset.tab) go(b.dataset.tab); else window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}); }); }
 function hideTabs(){ tabbar.hidden=true; }
 function dday(){ const d=Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); return d>0?`D-${d}`:d===0?'D-DAY':'시험 종료'; }
 function gauge(pct,ready){
@@ -229,12 +229,13 @@ function exam(){
 function intro(){
   hideTabs(); dock.hidden=false; dock.classList.remove('fbd','ok','no');
   const p=PAPERS.find(x=>x.id===introPaper);
-  let h=`<button class="back" id="back">‹ 모의고사</button><h1 class="title">${esc(p.name)}</h1><p class="sub">객관식 ${EXAM.n}문항 · ${EXAM.min}분 · 문항당 2점</p>`;
+  let h=`<div class="bk-row"><button class="back" id="back">‹ 모의고사</button><button class="back hm" id="ihome">${ico('home')}<span>홈</span></button></div><h1 class="title">${esc(p.name)}</h1><p class="sub">객관식 ${EXAM.n}문항 · ${EXAM.min}분 · 문항당 2점</p>`;
   h+=`<div class="list"><table class="tbl"><thead><tr><th>과목</th><th>문항</th><th>배점</th></tr></thead><tbody>`+SUBJECTS.map(s=>`<tr><td>${esc(s.name)}</td><td>${s.n}</td><td>${s.n*2}</td></tr>`).join('')+`<tr class="sum"><td>합계</td><td>${EXAM.n}</td><td>100</td></tr></tbody></table></div>`;
   h+=`<div class="label">응시 안내</div><div class="qcard notes"><p>시작하면 ${EXAM.min}분 타이머가 돌고, 시간이 끝나면 자동으로 제출돼요.</p><p>문항을 오가며 답을 바꿀 수 있어요. 아래 <b>답안지</b>에서 빈 문항을 확인하세요.</p><p>과목마다 손해사정사 1차 수준의 고난도 문항이 포함돼요.</p><p>제출하면 과목별 점수와 해설을 보여줘요.</p></div>`;
   app.innerHTML=h;
   dockIn.innerHTML=`<button class="cta" id="begin">시험 시작하기</button>`;
   $('#back').onclick=()=>go('exam');
+  { const ih=$('#ihome'); if(ih) ih.onclick=()=>go('home'); }
   $('#begin').onclick=()=>start(p.ids(),p.name,'mock',{paper:p.id,mix:p.id==='pr'});
 }
 
@@ -265,7 +266,7 @@ function quiz(){
   const s=store.sess, n=s.ids.length, q=byId[s.ids[s.i]], mock=s.mode==='mock';
   const reveal=!mock&&!!s.rev[s.i];
   const filled=s.picks.filter(p=>p!=null).length;
-  let h=`<div class="qbar"><button class="x-btn" id="quit" aria-label="나가기">✕</button><div class="track"><i style="width:${(mock?filled:(s.i+(reveal?1:0)))/n*100}%"></i></div><span class="count ${mock?'timer':''}" id="cnt">${mock?fmtLeft():`${s.i+1}/${n}`}</span></div>`;
+  let h=`<div class="qbar"><button class="x-btn" id="quit" aria-label="나가기">✕</button><div class="track"><i style="width:${(mock?filled:(s.i+(reveal?1:0)))/n*100}%"></i></div><span class="count ${mock?'timer':''}" id="cnt">${mock?fmtLeft():`${s.i+1}/${n}`}</span><button class="x-btn hm-btn" id="qhome" aria-label="홈으로">${ico('home')}</button></div>`;
   if(!mock&&s.combo>=2) h+=`<div class="combo" id="combo">${ico('flame')}<b>${s.combo}</b>연속 정답</div>`;
   if(s.loop) h+=`<div class="secline"><b>오답 정복 모드</b><span>틀리면 맨 뒤에 다시 나와요${s.again?` · 재출제 ${s.again}`:''}</span></div>`;
   if(quitArmed) h+=`<p class="quitmsg">${mock?'한 번 더 누르면 채점 없이 종료돼요':'한 번 더 누르면 홈으로 나가요 · 이어서 풀 수 있어요'}</p>`;
@@ -305,7 +306,8 @@ function quiz(){
   document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>{s.i=+b.dataset.jump;save();quiz();top();});
   bindStars(app);
   bindSwipe(dir=>{ if(mock){ if(dir<0&&!last){s.i++;save();quiz();top();} else if(dir>0&&s.i>0){s.i--;navDir=-1;save();quiz();top();} } else if(reveal&&dir<0){ if(last) finish(); else {s.i++;save();quiz();top();} } });
-  $('#quit').onclick=()=>quitSheet(mock); if(0){ quitArmed=false; if(mock){store.sess=null;save();} view='home'; render(); top(); };
+  $('#quit').onclick=()=>quitSheet(mock);
+  { const hb=$('#qhome'); if(hb) hb.onclick=()=>{ if(mock) return quitSheet(true); clearInterval(tick); quitArmed=false; go('home'); }; } if(0){ quitArmed=false; if(mock){store.sess=null;save();} view='home'; render(); top(); };
   if(mock){ clearInterval(tick); tick=setInterval(()=>{ const c=$('#cnt'); if(!store.sess||store.sess.done){clearInterval(tick);return;} if(s.end-Date.now()<=0){finish();return;} if(c){c.textContent=fmtLeft(); c.classList.toggle('low',s.end-Date.now()<600000);} const left=s.end-Date.now(); if(left<600000&&!s._w10){s._w10=1;save();toast('⏰ 10분 남았어요. 빈 답부터 채우세요');buzz([20,60,20]);} if(left<60000&&!s._w1){s._w1=1;save();toast('⏰ 1분 남았어요!');buzz([30,60,30]);} },1000); }
 }
 function fmtLeft(){const s=store.sess; const t=Math.ceil(Math.max(0,s.end-Date.now())/1000); return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');}
