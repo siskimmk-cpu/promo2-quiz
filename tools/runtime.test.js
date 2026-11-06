@@ -30,16 +30,16 @@ function harness(iso='2026-11-06T23:59:59Z',stored){
   }};
 }
 test('9am release updates an open page without deleting future source questions',()=>{
-  const h=harness();assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-06').length);assert.equal(h.api.all.length,h.api.all.filter(Boolean).length);assert.equal(h.api.fresh.length,0);
+  const h=harness();assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-06').length);assert.equal(h.api.all.length,h.api.all.filter(Boolean).length);assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-06').length);
   h.setTime('2026-11-07T00:00:01Z');h.api.checkReleaseBoundary();
-  assert.equal(h.api.visible.length,325);assert.equal(h.api.fresh.length,8);assert.equal(h.api.all.length,h.api.all.filter(Boolean).length);
+  assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-07').length);assert.equal(h.api.fresh.length,8);assert.equal(h.api.all.length,h.api.all.filter(Boolean).length);
   assert.equal(h.ctx.renders,1);
 });
 test('foreground and focus refresh after device sleep; no premature release at midnight KST',()=>{
-  const h=harness('2026-11-06T15:00:00Z');assert.equal(h.api.fresh.length,0);
+  const h=harness('2026-11-06T15:00:00Z');assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-06').length);
   h.setTime('2026-11-08T00:01:00Z');h.listeners.visibilitychange();
-  assert.equal(h.api.visible.length,334);assert.equal(h.api.fresh.length,9);
-  h.setTime('2026-11-09T00:01:00Z');h.listeners.focus();assert.equal(h.api.visible.length,343);
+  assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-08').length);assert.equal(h.api.fresh.length,9);
+  h.setTime('2026-11-09T00:01:00Z');h.listeners.focus();assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-09').length);
 });
 test('boundary timer is armed for the next 9am',()=>{
   const h=harness();assert([...h.timers.values()].some(t=>t.ms===1100));
