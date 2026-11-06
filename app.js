@@ -1,6 +1,10 @@
 (function(){
 const KEY='promo2-quiz-v3';
 const EXAM={date:'2026-12-18', label:'2026. 12. 18.(금) 11:00', min:90, n:50};
+/* 매일 오전 9시(KST) 공개: rel 날짜가 오늘(UTC 기준 = KST 9시 경계)보다 뒤면 숨김 */
+const REL_DAY=new Date().toISOString().slice(0,10);
+for(let i=QUESTIONS.length-1;i>=0;i--){ const r=QUESTIONS[i].rel; if(r&&r>REL_DAY) QUESTIONS.splice(i,1); }
+const FRESH_IDS=QUESTIONS.filter(q=>q.rel===REL_DAY).map(q=>q.id);
 const byId=Object.fromEntries(QUESTIONS.map(q=>[q.id,q]));
 const secOf=Object.fromEntries(SECTIONS.map(s=>[s.id,s]));
 const subjOf=Object.fromEntries(SUBJECTS.map(s=>[s.id,s]));
@@ -143,6 +147,7 @@ const ACTS={
   rand:()=>start(shuffle(QUESTIONS.map(q=>q.id)).slice(0,10),'랜덤 10문제','practice',{mix:true}),
   hard:()=>start(shuffle(QUESTIONS.filter(isHard).map(q=>q.id)),'고난도','practice',{mix:true}),
   daily:()=>start([dailyQ().id],'오늘의 한 문제','practice',{daily:true}),
+  fresh:()=>{ const nx=FRESH_IDS.filter(id=>!store.ans[id]); start(shuffle(nx.length?nx:FRESH_IDS),'오늘의 새 문제','practice',{mix:true}); },
   lastcheck:()=>{ const ids=lastCheckIds(); if(ids.length) start(ids,'마지막 점검','practice',{mix:true}); },
   flash:()=>flashPick(),
   setgoal:()=>{ const p=planInfo(); store.goal=Math.min(50,Math.max(10,p.need)); save(); toast(`하루 목표를 ${store.goal}문제로 맞췄어요`); render(); },
@@ -173,7 +178,7 @@ function home(){
     ${resumable?`<button class="cta" data-act="resume">이어서 풀기 · ${esc(s.title)} ${s.i+1}/${s.ids.length}</button>`
       :allDone?`<button class="cta warm" data-act="newround">다 풀었어요! 보기 섞어서 ${store.round+1}회독</button>`
       :`<button class="cta" data-act="go">안 푼 문제 풀기 · ${st.newIds.length}문제</button>`}</section>`;
-  h+=planCard()+dailyCard();
+  h+=planCard()+freshCard()+dailyCard();
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
   h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀린 문제는 1·3·7일 뒤 다시 나와요</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
@@ -534,6 +539,11 @@ function bindSwipe(fn){ let x0=null,y0=null; app.ontouchstart=e=>{ const t=e.tou
 function hl(s){ return esc(s).replace(/(제\d+조(?:의\d+)?(?:\s?제\d+항)?(?:\s?제\d+호)?(?:\s?단서)?|\d[\d,.]*\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|원|개월|주|일|년|월|급|km|세|점|배|회|분|시간|명|건))/g,'<mark class="hl">$1</mark>'); }
 function daysLeft(){ return Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); }
 function dailyQ(){ const d=dayKey9(); let h=0; for(const c of d+'promo2') h=(h*31+c.charCodeAt(0))>>>0; const list=QUESTIONS.slice().sort((a,b)=>a.id<b.id?-1:1); return list[h%list.length]; }
+function freshCard(){
+  if(!FRESH_IDS.length) return '';
+  const done=FRESH_IDS.filter(id=>store.ans[id]).length, all=done>=FRESH_IDS.length;
+  return `<div class="label">오늘 공개된 새 문제<small>매일 오전 9시 · 교재·수료시험 반영</small></div><button class="fresh anim" data-act="fresh"><span class="fr-ic">✨</span><span class="fr-tx"><b>새 문제 ${FRESH_IDS.length}개</b><small>${all?'오늘 새 문제를 다 풀었어요 · 다시 풀기':done?`${done}개 풀었어요 · 이어서 풀기`:'오늘 처음 나온 문제부터 풀어 보세요'}</small></span><span class="fr-go">${all?'다시':'풀기'} ›</span></button>`;
+}
 function dailyCard(){
   const d=dayKey9(), q=dailyQ(), r=(store.daily||{})[d];
   return `<div class="label">오늘의 한 문제<small>${d.slice(5).replace('-','.')} · 매일 오전 9시에 바뀌어요</small></div><button class="dq anim" data-act="daily"><span class="dq-top"><span class="dq-tag">${esc(subjOfSec(q.sec).name)}${isHard(q)?' · 고난도':''}</span>${r?`<span class="dq-st ${r.ok?'ok':'no'}">${r.ok?'✓ 맞혔어요':'✕ 틀렸어요'}</span>`:''}</span><span class="dq-q">${esc(q.q)}</span><span class="dq-go">${r?'다시 풀어보기':'지금 풀기'} ›</span></button>`;
@@ -820,7 +830,7 @@ function dskKey(el){
   const b=el.matches('.dblk')?el:null; const f=b?b.querySelector(':scope > :not(.label)'):el;
   if(!f) return 'x';
   const m=(sel,k)=>f.matches(sel)?k:null;
-  return m('.hero','hero')||m('.plan','plan')||m('.dq','dq')||m('.daily','daily')||m('.hscroll','quick')||m('.qsearch','search')||m('.pinfo','pinfo')||m('.papers','papers')||m('.chartcard','chart')||m('.predbox','pred')||m('.bars','bars')||m('.heat','heat')||m('.badges','badges')||m('.week','week')||m('.seg','goal')||m('.stat3','stat')||m('.foot','foot')||(f.matches('.list')?((b&&b.querySelector('.label')?.innerText||'').includes('취약')?'weak':(b&&b.querySelector('.label')?.innerText||'').includes('모의고사')?'mock':'list'):'x');
+  return m('.hero','hero')||m('.plan','plan')||m('.dq','dq')||m('.fresh','fresh')||m('.daily','daily')||m('.hscroll','quick')||m('.qsearch','search')||m('.pinfo','pinfo')||m('.papers','papers')||m('.chartcard','chart')||m('.predbox','pred')||m('.bars','bars')||m('.heat','heat')||m('.badges','badges')||m('.week','week')||m('.seg','goal')||m('.stat3','stat')||m('.foot','foot')||(f.matches('.list')?((b&&b.querySelector('.label')?.innerText||'').includes('취약')?'weak':(b&&b.querySelector('.label')?.innerText||'').includes('모의고사')?'mock':'list'):'x');
 }
 function dskLayout(){
   const v=document.body.dataset.view;
