@@ -39,7 +39,7 @@
         '<button class="p2g-btn pri" type="submit">계정 만들기 (승인 요청)</button></form>' +
         '<p class="p2g-small">만들면 <b>승인 대기</b>가 돼요. 관리자가 승인하면 바로 쓸 수 있어요.</p>';
     var intro = '<section class="p2g-intro"><h2>2급 승진자격시험 대비 예상 기출문제</h2><p class="p2g-lead">2026. 12. 18.(금) 시험 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식)에 맞춘 객관식 문제은행이에요.</p>' +
-      '<ul class="p2g-feat"><li><b>📅</b><span><b>매일 오전 9시 새 문제</b>시험 과목 안에서만 꾸준히 추가돼요</span></li><li><b>🔥</b><span><b>기출 빈출 쟁점</b>손해사정사 기출 10년 분석으로 자주 나온 쟁점부터</span></li><li><b>⏱️</b><span><b>실전 모의고사</b>50문항·90분, 과목별 점수와 합격 예측</span></li><li><b>📝</b><span><b>오답노트·보기별 해설</b>틀린 문제는 1·3·7일 뒤 다시 나와요</span></li><li><b>🔄</b><span><b>PC·휴대폰 기록 연동</b>같은 계정이면 어디서든 이어서</span></li></ul>' +
+      '<ul class="p2g-feat"><li><b>📅</b><span><b>매일 오전 9시 새 문제</b>시험 과목 안에서만 꾸준히 추가돼요</span></li><li><b>🔥</b><span><b>기출 빈출 쟁점</b>손해사정사 기출 10년 분석으로 자주 나온 쟁점부터</span></li><li><b>⏱️</b><span><b>실전 모의고사</b>50문항·90분, 과목별 점수와 목표 달성 예측</span></li><li><b>📝</b><span><b>오답노트·보기별 해설</b>틀린 문제는 1·3·7일 뒤 다시 나와요</span></li><li><b>🔄</b><span><b>PC·휴대폰 기록 연동</b>같은 계정이면 어디서든 이어서</span></li></ul>' +
       '<div class="p2g-steps"><b>처음 오셨나요?</b><ol><li><b>계정 만들기</b> — 이름·이메일·비밀번호(10자 이상)</li><li><b>승인 기다리기</b> — 관리자(김민기)가 확인 후 승인</li><li><b>다시 확인</b> 누르면 바로 시작</li></ol><p>송무온 계정이 있으면 그 계정으로 로그인하면 돼요. 휴대폰은 공유 → 「홈 화면에 추가」로 앱처럼 쓸 수 있어요.</p></div></section>';
     if (returning) intro = '<section class="p2g-intro p2g-ret"><h2>이제 계정으로 써요 🙌</h2><p class="p2g-lead">기존에 이 기기에서 푼 기록은 그대로 있어요. <b>계정을 만들면 그 기록이 내 계정으로 옮겨져</b> PC·휴대폰 어디서든 이어서 볼 수 있어요.</p><div class="p2g-steps"><b>3단계면 끝나요</b><ol><li><b>계정 만들기</b> — 이름·이메일·비밀번호(10자 이상)</li><li><b>승인 기다리기</b> — 관리자(김민기)가 확인 후 승인</li><li><b>다시 확인</b> 누르면 기존 기록 그대로 시작</li></ol><p>이미 계정이 있으면 위 「로그인」을 누르세요.</p></div></section>';
     var w = screen('<div class="p2g-grid">' + intro + '<div class="p2g-form"><h1>' + (tab === 'in' ? '로그인' : '계정 만들기') + '</h1>' + tabs + body + '<div class="p2g-msg" id="p2M"></div></div></div>');
@@ -114,8 +114,16 @@
     if (!a) return b; if (!b) return a;
     var N = aNewer ? a : b, O = aNewer ? b : a, out = Object.assign({}, O, N);
     var ans = Object.assign({}, a.ans || {}); Object.keys(b.ans || {}).forEach(function (id) { var x = ans[id], y = b.ans[id]; if (!x || (y.t || 0) > (x.t || 0)) ans[id] = y; }); out.ans = ans;
-    var srs = {}; Object.keys(ans).forEach(function (id) { var from = (b.ans || {})[id] === ans[id] ? b : a; if (from.srs && from.srs[id]) srs[id] = from.srs[id]; else if ((a.srs || {})[id]) srs[id] = a.srs[id]; else if ((b.srs || {})[id]) srs[id] = b.srs[id]; }); out.srs = srs;
-    out.star = Array.from(new Set([].concat(a.star || [], b.star || [])));
+    // 복습(srs)은 그 문제의 최신 답안을 가진 쪽의 상태를 그대로 따른다(없으면 복습 완료로 보고 되살리지 않음)
+    var srs = {}; Object.keys(ans).forEach(function (id) { var from = (b.ans || {})[id] === ans[id] ? b : a; if (from.srs && from.srs[id]) srs[id] = from.srs[id]; }); out.srs = srs;
+    // 별표: 문제별 마지막 변경 시각(starT)이 더 늦은 쪽을 따른다 → 해제도 다른 기기에 전달. 시각 기록이 없는 옛 데이터만 합집합
+    var sa = a.star || [], sb = b.star || [], ta = a.starT || {}, tb = b.starT || {}, starT = {}, star = [];
+    [].concat(sa, sb, Object.keys(ta), Object.keys(tb)).forEach(function (id) {
+      if (id in starT) return; var x = ta[id] || 0, y = tb[id] || 0; starT[id] = Math.max(x, y);
+      var on = (x || y) ? (y > x ? sb.indexOf(id) >= 0 : x > y ? sa.indexOf(id) >= 0 : (sa.indexOf(id) >= 0 && sb.indexOf(id) >= 0) || (aNewer ? sa : sb).indexOf(id) >= 0) : (sa.indexOf(id) >= 0 || sb.indexOf(id) >= 0);
+      if (on) star.push(id);
+    });
+    out.star = star; out.starT = starT;
     var log = Object.assign({}, a.log || {}); Object.keys(b.log || {}).forEach(function (d) { var x = log[d] || { n: 0, o: 0 }, y = b.log[d]; log[d] = { n: Math.max(x.n || 0, y.n || 0), o: Math.max(x.o || 0, y.o || 0) }; }); out.log = log;
     var best = Object.assign({}, a.best || {}); Object.keys(b.best || {}).forEach(function (k) { best[k] = Math.max(best[k] == null ? -1 : best[k], b.best[k]); }); out.best = best;
     var seen = {}, hist = []; [].concat(a.hist || [], b.hist || []).forEach(function (h) { var k = h.d + '|' + h.name + '|' + h.sc; if (!seen[k]) { seen[k] = 1; hist.push(h); } }); hist.sort(function (x, y) { return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; }); out.hist = hist.slice(-50);
@@ -230,7 +238,7 @@
         var live = x.synced_at && Date.now() - Date.parse(x.synced_at) < 5 * 60000;
         var prog = s.total ? Math.min(100, Math.round((s.done || 0) / s.total * 100)) : 0;
         var subj = s.subj ? '<div class="p2a-sj">' + ['F', 'E', 'D', 'Y', 'G'].map(function (k) { var v = s.subj[k]; var r = v && v[1] ? Math.round(v[0] / v[1] * 100) : null; return '<span><em>' + SN[k] + '</em><i><b style="width:' + (r || 0) + '%" class="' + (r != null && r < 60 ? 'lo' : '') + '"></b></i><small>' + (r == null ? '–' : r + '%') + '</small></span>'; }).join('') + '</div>' : '';
-        var stat = x.status === 'approved' ? (live ? '<div class="p2a-live"><i></i>' + (s.live ? (s.live.mock ? '모의고사 응시 중 · ' : '공부 중 · ') + esc(s.live.t) + ' ' + s.live.i + '/' + s.live.n + '번' : '지금 공부 중') + '</div>' : '') +
+        var stat = x.status === 'approved' ? (live ? '<div class="p2a-live"><i></i>최근 5분 내 활동' + (s.live ? ' · 마지막 기록: ' + (s.live.mock ? '모의고사 ' : '') + esc(s.live.t) + ' ' + s.live.i + '/' + s.live.n + '번' : '') + '</div>' : '') +
           '<div class="p2a-pg"><span>진도 ' + prog + '%</span><i><b style="width:' + prog + '%"></b></i><small>' + (s.done || 0) + '/' + (s.total || '–') + '</small></div>' +
           '<div class="p2a-st"><span><b>' + (s.today || 0) + '</b>오늘 푼 문제</span><span><b>' + (s.pct || 0) + '%</b>정답률</span><span><b>' + (s.days7 || 0) + '일</b>최근 7일</span><span><b>' + (s.lastMock ? s.lastMock.sc + '점' : '–') + '</b>최근 모의고사' + (s.bestMock ? ' (최고 ' + s.bestMock + ')' : '') + '</span></div>' + subj : '';
         return '<div class="p2a-r"><div class="p2a-h"><div><b>' + esc(x.name || '(이름 없음)') + '</b><small>' + esc(x.email) + '</small></div><div class="p2a-act">' + act + '</div></div>' + stat +
@@ -300,7 +308,7 @@
   }
 
   /* ── 로그인 후 사용설명서 (내용이 바뀔 때마다 한 번) ── */
-  var GUIDE_V = '2026-11-06b', GUIDE_K = 'promo2-guide';
+  var GUIDE_V = '2026-11-06c', GUIDE_K = 'promo2-guide';
   function guide(force) {
     if (!force && rd(GUIDE_K, '') === GUIDE_V) return false;
     var o = sheet('<div class="p2n-hd"><span style="background:var(--accent-soft)">📘</span><div><h2>사용설명서</h2><p class="p2g-p">' + esc((st.me && st.me.name) ? st.me.name + '님, ' : '') + '처음 한 번만 읽어 주세요.</p></div></div>' +
@@ -314,8 +322,8 @@
       '<li><b>오답노트</b> — 틀린 문제·별표 문제. 틀린 문제는 1·3·7일 뒤 다시 나와요</li>' +
       '<li><b>모의고사</b> — 실제와 같은 50문항(자배법·손해사정·보험계약법·공제약관 각 12, 상식 2)·90분, 답안지(OMR)로 빈 문항 확인</li>' +
       '<li><b>중간 점수</b> — 풀다가 1/4·절반·3/4 지점에서 지금까지 점수가 떠요. 위쪽 문항 번호(모의고사는 남은 시간)를 누르면 언제든 볼 수 있어요</li>' +
-      '<li><b>합격선</b> — 42명 중 상위 30%, 보통 <b>4개 이하로 틀려야</b> 해요. 리포트의 합격 예측도 이 기준이에요</li>' +
-      '<li><b>리포트</b> — 과목별 정답률·합격 예측·설정</li>' +
+      '<li><b>목표 점수</b> — 실제 합격은 42명 중 상위 30% 상대평가예요. 앱의 「목표 달성 확률」은 예년 기준선인 <b>오답 4개 이하</b>를 맞힐 확률을 추정한 값이고, 다른 응시자 점수는 반영하지 않아요</li>' +
+      '<li><b>리포트</b> — 과목별 정답률·목표 달성 예측·설정</li>' +
       '<li>PC에서는 <b>문제은행·인쇄(PDF)</b>와 키보드(1~5 선택, Enter 다음)를 쓸 수 있어요</li></ul>' +
       '<h3>⚠️ 주의사항</h3><ul>' +
       '<li>시험 공고 과목 기준으로 만든 <b>비공식 학습용 예상문제</b>예요. 실제 출제와 다를 수 있어요.</li>' +

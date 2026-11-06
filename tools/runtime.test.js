@@ -6,7 +6,15 @@ const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
 const root=path.join(__dirname,'..');
 const questions=fs.readFileSync(path.join(root,'questions.js'),'utf8');
 const app=fs.readFileSync(path.join(root,'app.js'),'utf8');
-function harness(iso='2026-11-06T23:59:59Z',stored){
+const auth=fs.readFileSync(path.join(root,'auth.js'),'utf8');
+const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
+// 앱과 별도로 원본 문제 파일을 직접 읽어 기대값을 만든다(고정 숫자 금지)
+const SRC=new Function(questions+';return QUESTIONS;')();
+const SRC_IDS=SRC.map(q=>q.id);
+const upto=d=>SRC.filter(q=>!q.rel||q.rel<=d);
+const onDay=d=>SRC.filter(q=>q.rel===d);
+const ids=list=>list.map(q=>q.id);
+function harness(iso='2026-11-06T23:59:59Z',stored,qsrc=questions){
   let time=Date.parse(iso),timerId=0;const timers=new Map(),listeners={},storage=new Map();
   if(stored)storage.set('promo2-quiz-v3',JSON.stringify(stored));
   class Clock extends Date{constructor(...args){super(...(args.length?args:[time]));}static now(){return time;}}
@@ -16,12 +24,12 @@ function harness(iso='2026-11-06T23:59:59Z',stored){
     sessionStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},
     location:{pathname:'/promo2-quiz/',hash:'',replace:u=>ctx.reloads.push(u)},reloads:[],renders:0,
     setTimeout:(f,ms)=>{timers.set(++timerId,{f,ms});return timerId;},clearTimeout:i=>timers.delete(i),clearInterval:()=>{},navigator:{},console};
-  vm.createContext(ctx);vm.runInContext(questions,ctx);
+  vm.createContext(ctx);vm.runInContext(qsrc,ctx);
   const head=app.slice(0,app.indexOf('/* ── 홈·탭 ── */'));
   const daily=app.slice(app.indexOf('function dayKey9()'),app.indexOf('function paperInfo()'));
   const boundary=app.slice(app.indexOf('var releaseTimer=null'),app.indexOf('\n})();',app.indexOf('var releaseTimer=null')));
   vm.runInContext(head+'\n'+daily+`\nconst ov={hidden:true};function render(){globalThis.renders++;}function checkBadges(){}\n`+boundary+`
-    globalThis.api={refreshRelease,checkReleaseBoundary,dailyPaper,record,predict,finish,start,
+    globalThis.api={refreshRelease,checkReleaseBoundary,dailyPaper,record,predict,finish,start,toggleStar,
       get state(){return store;},get visible(){return activeQuestions;},get all(){return ALL_QUESTIONS;},
       get fresh(){return FRESH_IDS;},get day(){return REL_DAY;},get subjects(){return SUBJECTS;},
       get byId(){return byId;},setView:v=>view=v};})();`,ctx);
@@ -30,16 +38,21 @@ function harness(iso='2026-11-06T23:59:59Z',stored){
   }};
 }
 test('9am release updates an open page without deleting future source questions',()=>{
-  const h=harness();assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-06').length);assert.equal(h.api.all.length,h.api.all.filter(Boolean).length);assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-06').length);
+  const h=harness();
+  assert.deepEqual([...ids(h.api.all)],SRC_IDS,'원본 문제 ID 목록과 순서가 그대로여야 함');
+  assert.deepEqual([...ids(h.api.visible)],ids(upto('2026-11-06')));assert.deepEqual([...h.api.fresh],ids(onDay('2026-11-06')));
   h.setTime('2026-11-07T00:00:01Z');h.api.checkReleaseBoundary();
-  assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-07').length);assert.equal(h.api.fresh.length,8);assert.equal(h.api.all.length,h.api.all.filter(Boolean).length);
+  assert.deepEqual([...ids(h.api.visible)],ids(upto('2026-11-07')));assert.deepEqual([...h.api.fresh],ids(onDay('2026-11-07')));
+  assert.deepEqual([...ids(h.api.all)],SRC_IDS,'공개 후에도 원본이 지워지지 않아야 함');
   assert.equal(h.ctx.renders,1);
 });
 test('foreground and focus refresh after device sleep; no premature release at midnight KST',()=>{
-  const h=harness('2026-11-06T15:00:00Z');assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-06').length);
+  const h=harness('2026-11-06T15:00:00Z');assert.deepEqual([...h.api.fresh],ids(onDay('2026-11-06')));
+  h.setTime('2026-11-07T15:00:01Z');h.listeners.visibilitychange();
+  assert.deepEqual([...ids(h.api.visible)],ids(upto('2026-11-07')),'KST 자정(11/8 00:00)에는 11/8 문제가 아직 열리면 안 됨');
   h.setTime('2026-11-08T00:01:00Z');h.listeners.visibilitychange();
-  assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-08').length);assert.equal(h.api.fresh.length,9);
-  h.setTime('2026-11-09T00:01:00Z');h.listeners.focus();assert.equal(h.api.visible.length,h.api.all.filter(q=>!q.rel||q.rel<='2026-11-09').length);
+  assert.deepEqual([...ids(h.api.visible)],ids(upto('2026-11-08')));assert.deepEqual([...h.api.fresh],ids(onDay('2026-11-08')));
+  h.setTime('2026-11-09T00:01:00Z');h.listeners.focus();assert.deepEqual([...ids(h.api.visible)],ids(upto('2026-11-09')));
 });
 test('boundary timer is armed for the next 9am',()=>{
   const h=harness();assert([...h.timers.values()].some(t=>t.ms===1100));
@@ -105,4 +118,54 @@ test('question repairs retain IDs and answer indexes, remove misleading claims',
 test('exam blueprint is 12·12·12·12·2 and pass line is 4 wrong answers',()=>{
   const h=harness();assert.equal(h.api.subjects.map(s=>s.n).join(','),'12,12,12,12,2');
   const p=h.api.predict();assert(p.prob>=0&&p.prob<=100);
+});
+
+// 예약 작업이 새 문제를 덧붙인 상황을 흉내 낸다(원본 파일은 건드리지 않음)
+function withAdded(extra){ const i=questions.lastIndexOf('\n];'); return questions.slice(0,i)+',\n'+extra.map(q=>JSON.stringify(q)).join(',\n')+questions.slice(i); }
+const NEWQ=(id,rel)=>({id,sec:'D',style:'개념형',tags:['개념'],q:'테스트 '+id,opts:['a','b','c','d'],ans:0,exp:'e',ref:'상법',why:['○','×','×','×'],rel});
+test('newly appended scheduled questions stay hidden until 9am KST of their day, then appear without losing originals',()=>{
+  const src=withAdded([NEWQ('DT1','2026-11-12'),NEWQ('DT2','2026-11-12'),NEWQ('DT3','2026-11-13')]);
+  const h=harness('2026-11-11T23:59:59Z',null,src);
+  assert.deepEqual([...ids(h.api.all)],SRC_IDS.concat(['DT1','DT2','DT3']));
+  assert(!ids(h.api.visible).includes('DT1'),'11/12 08:59 KST에는 숨김');
+  h.setTime('2026-11-12T00:00:01Z');h.api.checkReleaseBoundary();
+  assert(ids(h.api.visible).includes('DT1')&&ids(h.api.visible).includes('DT2'));assert(!ids(h.api.visible).includes('DT3'));
+  assert.deepEqual([...h.api.fresh].filter(id=>id.startsWith('DT')),['DT1','DT2']);
+  for(const id of SRC_IDS) assert(ids(h.api.all).includes(id));
+  h.setTime('2026-11-13T00:00:01Z');h.api.checkReleaseBoundary();assert(ids(h.api.visible).includes('DT3'));
+});
+test('service worker cleans up only this app\'s caches (other apps on the same domain are kept)',async()=>{
+  const store=new Set(['promo2-v1','promo2-202611061200','promo2-202611061400','other-app-v3','songmu-cache','workbox-precache-v2']);
+  const handlers={};let navigated=0;const cur=(sw.match(/const C='(promo2-\d+)'/)||[])[1];store.add(cur);
+  const self={addEventListener:(n,f)=>handlers[n]=f,skipWaiting:()=>{},clients:{claim:async()=>{},matchAll:async()=>[{url:'https://x/promo2-quiz/?v=1',navigate:()=>{navigated++;}}]}};
+  const caches={keys:async()=>[...store],delete:async k=>store.delete(k),open:async()=>({addAll:async()=>{},put:async()=>{}}),match:async()=>null};
+  vm.runInNewContext(sw,{self,caches,fetch:async()=>({}),location:{origin:'https://x'},URL,console});
+  let p;handlers.activate({waitUntil:x=>p=x});await p;
+  assert.deepEqual([...store].sort(),[cur,'other-app-v3','songmu-cache','workbox-precache-v2'].sort());
+  assert.equal(navigated,1,'로그인 이전 캐시가 있던 기기는 새로 불러온다');
+  // 로그인 이후 버전끼리 업데이트할 때는 화면을 강제로 새로고침하지 않는다
+  store.clear();['promo2-202611061400',cur,'other-app-v3'].forEach(k=>store.add(k));navigated=0;handlers.activate({waitUntil:x=>p=x});await p;
+  assert.equal(navigated,0);assert(store.has('other-app-v3'));
+});
+const merge=new Function(auth.slice(auth.indexOf('function merge('),auth.indexOf('  function stats('))+';return merge;')();
+test('sync merge: completed review and removed stars are not revived; new items from the other device are kept',()=>{
+  const T=1e12;
+  // 서버(a): 예전 상태 — D1 틀림(복습 대기), 별표 D1·D2
+  const server={ans:{D1:{pick:1,ok:false,t:T}},srs:{D1:{step:0,due:T+1}},star:['D1','D2'],starT:{D1:T,D2:T}};
+  // 이 기기(b): 나중에 D1을 맞혀 복습 완료(srs 없음), D2 별표 해제, D3 새 별표
+  const local={ans:{D1:{pick:0,ok:true,t:T+500}},srs:{},star:['D1','D3'],starT:{D1:T,D2:T+400,D3:T+450}};
+  for(const aNewer of [true,false]){
+    const m=merge(server,local,aNewer);
+    assert.equal(m.ans.D1.ok,true);assert.equal(m.srs.D1,undefined,'완료한 복습이 되살아나면 안 됨');
+    assert(!m.star.includes('D2'),'해제한 별표가 되살아나면 안 됨');assert(m.star.includes('D3'));assert(m.star.includes('D1'));
+  }
+  // 반대로 다른 기기(서버)에서 새로 틀린 문제와 새 별표는 이 기기에 들어와야 함
+  const server2={ans:{D1:{pick:0,ok:true,t:T+500},D9:{pick:2,ok:false,t:T+900}},srs:{D9:{step:0,due:T+2}},star:['D1','D3','D9'],starT:{D1:T,D2:T+400,D3:T+450,D9:T+910}};
+  const m2=merge(server2,local,false);assert(m2.srs.D9&&m2.star.includes('D9')&&!m2.star.includes('D2'));
+  // 시각 기록이 없는 옛 데이터는 합집합으로 보존
+  const m3=merge({star:['A1']},{star:['A2']},false);assert.deepEqual(m3.star.sort(),['A1','A2']);
+});
+test('toggleStar records the change time so removals can sync',()=>{
+  const h=harness();h.api.toggleStar('D50');h.api.toggleStar('D50');
+  assert(!h.api.state.star.includes('D50'));assert(h.api.state.starT&&h.api.state.starT.D50>0);
 });
