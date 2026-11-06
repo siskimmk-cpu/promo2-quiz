@@ -112,6 +112,10 @@
   function parse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
   function merge(a, b, aNewer) { // a=서버, b=이 기기
     if (!a) return b; if (!b) return a;
+    // 크게 고친 문항(q.rev)의 옛 풀이 기록은 어느 기기에서 와도 되살리지 않는다
+    var REV = {}; try { QUESTIONS.forEach(function (q) { if (q.rev) REV[q.id] = q.rev; }); } catch (e) { }
+    var fresh = function (x) { var y = Object.assign({}, x), k, c = 0; y.ans = {}; for (k in (x.ans || {})) { if (REV[k] && (x.ans[k].rv || 0) < REV[k]) { c++; continue; } y.ans[k] = x.ans[k]; } if (!c) return x; y.srs = {}; for (k in (x.srs || {})) if (y.ans[k]) y.srs[k] = x.srs[k]; return y; };
+    a = fresh(a); b = fresh(b);
     // '풀이 기록 초기화'(resetAt)가 더 늦은 쪽이 있으면, 그 시각 이전 기록은 다른 기기에서 되살리지 않는다
     var R = Math.max(a.resetAt || 0, b.resetAt || 0);
     if (R) { var cut = function (x) { if ((x.resetAt || 0) >= R) return x; var d0 = new Date(R + 9 * 36e5).toISOString().slice(0, 10), y = Object.assign({}, x), k;
@@ -142,6 +146,8 @@
     return out;
   }
   function stats(d) {
+    var REV = {}; try { QUESTIONS.forEach(function (q) { if (q.rev) REV[q.id] = q.rev; }); } catch (e) { }
+    d = Object.assign({}, d, { ans: Object.keys(d.ans || {}).reduce(function (o, k) { if (!(REV[k] && (d.ans[k].rv || 0) < REV[k])) o[k] = d.ans[k]; return o; }, {}) });
     var ids = Object.keys(d.ans || {}), ok = ids.filter(function (i) { return d.ans[i].ok; }).length;
     var fi = ids.filter(function (i) { var a = d.ans[i]; return a.f === true || a.f === false || a.n === 1; }), fok = fi.filter(function (i) { var a = d.ans[i]; return a.f === true || (a.f === undefined && a.n === 1 && a.ok); }).length;
     var days = Object.keys(d.log || {}).sort(), last7 = days.filter(function (x) { return x >= new Date(Date.now() - 6 * 864e5 + 9 * 36e5).toISOString().slice(0, 10); });

@@ -40,8 +40,11 @@ let hapt=null;
 function iosHaptic(){ try{ if(!hapt){ hapt=document.createElement('label'); hapt.setAttribute('aria-hidden','true'); hapt.style.cssText='position:fixed;left:-200px;top:0;opacity:0;pointer-events:none'; hapt.innerHTML='<input type="checkbox" switch tabindex="-1">'; document.body.appendChild(hapt);} hapt.click(); }catch(e){} }
 function buzz(ms){ if(!store.cfg.vib) return; if(navigator.vibrate){ try{navigator.vibrate(ms);}catch(e){} } else { iosHaptic(); if(Array.isArray(ms)) setTimeout(iosHaptic,130); } }
 try{const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s) store=Object.assign(store,s);}catch(e){}
+// 문제를 크게 고치면 q.rev를 올린다 → 옛 문제로 남은 풀이·복습 기록은 지워 '안 푼 문제'로 되돌린다(별표는 유지)
+function purgeStale(){let n=0;const by={};(typeof ALL_QUESTIONS!=='undefined'?ALL_QUESTIONS:QUESTIONS).forEach(q=>{if(q.rev)by[q.id]=q.rev;});for(const id of Object.keys(store.ans||{})){if(by[id]&&(store.ans[id].rv||0)<by[id]){delete store.ans[id];if(store.srs)delete store.srs[id];n++;}}return n;}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
-function record(q,pick){const p=store.ans[q.id]||{n:0}; const ok=isOk(q,pick); store.ans[q.id]={pick,ok,n:p.n+1,t:Date.now(),f:p.n?(p.f!==undefined?p.f:null):ok}; // f: 처음 풀었을 때 정답 여부(반복 풀이로 정답률이 부풀려지는 것과 구분)
+if(purgeStale()) save();
+function record(q,pick){const p=store.ans[q.id]||{n:0}; const ok=isOk(q,pick); store.ans[q.id]=Object.assign({pick,ok,n:p.n+1,t:Date.now(),f:p.n?(p.f!==undefined?p.f:null):ok},q.rev?{rv:q.rev}:{}); // f: 처음 풀었을 때 정답 여부(반복 풀이로 정답률이 부풀려지는 것과 구분)
   const sj=subjOfSec(q.sec).id; store.trk=store.trk||{}; store.trk[sj]=((store.trk[sj]||'')+(ok?'1':'0')).slice(-80);
   const d=today(); store.log[d]=store.log[d]||{n:0,o:0}; store.log[d].n++; if(ok) store.log[d].o++;
   const r=store.srs[q.id];
@@ -588,7 +591,7 @@ function restore(){
   sheet(`<div class="upd"><span class="upd-ic">${ico('repeat')}</span><b>기록 복원하기</b><p>지금 기기의 기록은 백업 코드 내용으로 바뀌어요.</p></div>
     <textarea id="rsTx" class="bk-ta" rows="4" placeholder="P2Q1.로 시작하는 백업 코드를 붙여넣으세요"></textarea>
     <button class="cta" id="rsGo">복원하기</button>`,()=>{
-      $('#rsGo').onclick=()=>{ try{ const raw=$('#rsTx').value.trim(); if(!raw.startsWith('P2Q1.')) throw 0; const d=dec(raw.slice(5)); if(!d||!d.store||typeof d.store.ans!=='object') throw 0; const cfg=store.cfg; store=Object.assign({ans:{},star:[],sess:null,best:{},round:1,log:{},srs:{},hist:[],goal:20,trk:{},pass:60},d.store); store.cfg=store.cfg||cfg; store.sess=null; save(); closeOv(); toast('기록을 복원했어요'); view='home'; render(); }catch(e){ toast('코드가 올바르지 않아요. 다시 확인해 주세요'); } };
+      $('#rsGo').onclick=()=>{ try{ const raw=$('#rsTx').value.trim(); if(!raw.startsWith('P2Q1.')) throw 0; const d=dec(raw.slice(5)); if(!d||!d.store||typeof d.store.ans!=='object') throw 0; const cfg=store.cfg; store=Object.assign({ans:{},star:[],sess:null,best:{},round:1,log:{},srs:{},hist:[],goal:20,trk:{},pass:60},d.store); store.cfg=store.cfg||cfg; store.sess=null; purgeStale(); save(); closeOv(); toast('기록을 복원했어요'); view='home'; render(); }catch(e){ toast('코드가 올바르지 않아요. 다시 확인해 주세요'); } };
     });
 }
 
