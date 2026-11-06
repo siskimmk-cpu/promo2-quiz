@@ -438,7 +438,7 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 .cta.ghost{box-shadow:none}
 @media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest?v=202611061356"><link rel="apple-touch-icon" href="icon-180.png?v=202611061356"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
+<link rel="manifest" href="manifest.webmanifest?v=202611061553"><link rel="apple-touch-icon" href="icon-180.png?v=202611061553"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
 <style>
 /* ── v10 프리미엄 레이어 ── */
 /* 1. 히어로: 토스풍 블루 그라데이션 카드 */
@@ -1253,6 +1253,40 @@ body:has(#ov:not([hidden])) .p2-pill,body[data-view=quiz] .p2-pill,body[data-vie
 .p2u li b{color:var(--ink)}
 .p2u-c{margin:16px 0 4px;font-size:12.5px;color:var(--muted);line-height:1.6}
 </style>
+<style>/* v35 중간 점수 */
+button.count{background:none;border:0;font:inherit;color:inherit;cursor:pointer;padding:4px 6px;border-radius:8px}
+button.count:active{background:var(--soft)}
+.cp-big{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 10px}
+.cp-big>div{background:var(--soft);border-radius:14px;padding:14px 6px;text-align:center}
+.cp-big b{display:block;font-size:28px;font-weight:800;line-height:1.1}
+.cp-big b small{font-size:15px;margin-left:1px}
+.cp-big span{font-size:13px;color:var(--muted)}
+.cp-big.ok>div:first-child b{color:var(--ok)}.cp-big.no>div:nth-child(2) b,.cp-big.mid>div:nth-child(2) b{color:var(--bad)}
+.cp-msg{font-size:15px;font-weight:600;line-height:1.5;margin:4px 2px 6px}
+.cp-msg.ok{color:var(--ok)}.cp-msg.mid{color:#e8590c}.cp-msg.no{color:var(--bad)}
+.cp-tm{font-size:13.5px;color:var(--muted);margin:0 2px 12px;line-height:1.5}
+.sheet .linkbtn#cpOff{display:block;margin:10px auto 0}
+.xp-cp{margin-top:12px;width:100%;padding:9px;border-radius:12px;border:0;background:rgba(255,255,255,.18);color:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.xp-cp:hover{background:rgba(255,255,255,.28)}
+</style>
+<style>/* v36 관리자 학습 현황 */
+.p2a-rt{font-size:12px;color:var(--muted);margin:0 0 10px}
+.p2a-live{display:inline-flex;align-items:center;gap:6px;margin:10px 0 0;padding:5px 10px;border-radius:999px;background:color-mix(in srgb,var(--ok) 14%,transparent);color:var(--ok);font-size:12.5px;font-weight:700}
+.p2a-live i{width:7px;height:7px;border-radius:50%;background:var(--ok);animation:p2lv 1.4s infinite}
+@keyframes p2lv{50%{opacity:.25}}
+.p2a-pg{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px;margin:10px 0 8px;font-size:12.5px;font-weight:700}
+.p2a-pg small{color:var(--muted);font-weight:600}
+.p2a-pg i,.p2a-sj i{display:block;height:8px;border-radius:99px;background:var(--soft);overflow:hidden}
+.p2a-pg b,.p2a-sj b{display:block;height:100%;background:var(--accent);border-radius:99px}
+.p2a-sj b.lo{background:var(--bad)}
+.p2a-st{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.p2a-st span{padding:10px 4px}
+.p2a-sj{display:grid;gap:5px;margin-top:10px}
+.p2a-sj span{display:grid;grid-template-columns:62px 1fr 34px;align-items:center;gap:8px;font-size:12px}
+.p2a-sj em{font-style:normal;color:var(--muted)}
+.p2a-sj small{text-align:right;font-weight:700}
+@media (prefers-reduced-motion:reduce){.p2a-live i{animation:none}}
+</style>
 
 
 
@@ -1269,9 +1303,9 @@ body:has(#ov:not([hidden])) .p2-pill,body[data-view=quiz] .p2-pill,body[data-vie
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611061356"</script>
-<script src="questions.js?v=202611061356"></script>
-<script src="flash.js?v=202611061356"></script>
-<script src="vendor/supabase.js?v=202611061356"></script>
-<script src="auth.js?v=202611061356"></script>
+<script>window.BUILD="202611061553"</script>
+<script src="questions.js?v=202611061553"></script>
+<script src="flash.js?v=202611061553"></script>
+<script src="vendor/supabase.js?v=202611061553"></script>
+<script src="auth.js?v=202611061553"></script>
 </body></html>

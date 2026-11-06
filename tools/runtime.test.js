@@ -10,7 +10,7 @@ function harness(iso='2026-11-06T23:59:59Z',stored){
   let time=Date.parse(iso),timerId=0;const timers=new Map(),listeners={},storage=new Map();
   if(stored)storage.set('promo2-quiz-v3',JSON.stringify(stored));
   class Clock extends Date{constructor(...args){super(...(args.length?args:[time]));}static now(){return time;}}
-  const window={BUILD:'202611061356',scrollTo:()=>{},addEventListener:(n,f)=>listeners[n]=f};
+  const window={BUILD:'202611061553',scrollTo:()=>{},addEventListener:(n,f)=>listeners[n]=f};
   const ctx={Date:Clock,window,document:{documentElement:{dataset:{}},querySelector:()=>({}),visibilityState:'visible',addEventListener:(n,f)=>listeners[n]=f},
     localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},
     sessionStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)},
@@ -77,7 +77,7 @@ test('unanswered mock questions enter wrong answers and spaced review; score rem
 test('accuracy uses unique visible questions rather than counting repeated memorized answers',()=>{
   const h=harness(),q=h.api.byId.D50;for(let i=0;i<30;i++)h.api.record(q,q.ans);
   assert.equal(h.api.predict().tot,1);assert.equal(h.api.predict().ready,false);
-  assert.equal(h.api.predict().prob,100);
+  assert.equal(h.api.predict().rate,100);
 });
 test('pending build waits until study completes and stores records before reload',()=>{
   const h=harness();h.api.start(['D50'],'practice','practice',{});h.ctx.window.P2RequestVersion('202611061400');h.runShortTimers();
@@ -101,4 +101,8 @@ test('question repairs retain IDs and answer indexes, remove misleading claims',
   assert(!q.CS3.q.includes('후유장애'));assert.equal(q.CS3.ans,1);assert.equal(q.D50.ans,0);
   assert(!q.D50.exp.includes('지급제시를 할 수 없'));assert(q.D34.opts[1].includes('예외'));
   assert(!q.E46.opts.join('').includes('위임'));assert(!q.E63.q.includes('산업재해'));
+});
+test('exam blueprint is 12·12·12·12·2 and pass line is 4 wrong answers',()=>{
+  const h=harness();assert.equal(h.api.subjects.map(s=>s.n).join(','),'12,12,12,12,2');
+  const p=h.api.predict();assert(p.prob>=0&&p.prob<=100);
 });

@@ -126,7 +126,15 @@
     var ids = Object.keys(d.ans || {}), ok = ids.filter(function (i) { return d.ans[i].ok; }).length;
     var days = Object.keys(d.log || {}).sort(), last7 = days.filter(function (x) { return x >= new Date(Date.now() - 6 * 864e5 + 9 * 36e5).toISOString().slice(0, 10); });
     var h = d.hist || [], lastMock = h.length ? h[h.length - 1] : null, bestMock = h.reduce(function (m, x) { return Math.max(m, x.sc || 0); }, 0);
-    return { done: ids.length, ok: ok, pct: ids.length ? Math.round(ok / ids.length * 100) : 0, days7: last7.length, today: ((d.log || {})[new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10)] || { n: 0 }).n, mocks: h.length, lastMock: lastMock ? { sc: lastMock.sc, d: lastMock.d, name: lastMock.name } : null, bestMock: bestMock || null, wrong: ids.length - ok, stars: (d.star || []).length };
+    return { done: ids.length, ok: ok, pct: ids.length ? Math.round(ok / ids.length * 100) : 0, days7: last7.length, today: ((d.log || {})[new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10)] || { n: 0 }).n, mocks: h.length, lastMock: lastMock ? { sc: lastMock.sc, d: lastMock.d, name: lastMock.name } : null, bestMock: bestMock || null, wrong: ids.length - ok, stars: (d.star || []).length, total: relN(), subj: subjStats(d), live: d.sess && !d.sess.done ? { t: String(d.sess.title || '').slice(0, 30), i: (d.sess.i || 0) + 1, n: (d.sess.ids || []).length, mock: d.sess.mode === 'mock' } : null, pass: d.pass || 92 };
+  }
+  function relN() { try { var day = new Date().toISOString().slice(0, 10); return QUESTIONS.filter(function (q) { return !q.rel || q.rel <= day; }).length; } catch (e) { return 0; } }
+  function subjStats(d) {
+    try {
+      var map = {}; SUBJECTS.forEach(function (s) { s.secs.forEach(function (x) { map[x] = s.id; }); });
+      var out = {}; QUESTIONS.forEach(function (q) { var a = (d.ans || {})[q.id]; if (!a) return; var k = map[q.sec]; out[k] = out[k] || [0, 0]; out[k][1]++; if (a.ok) out[k][0]++; });
+      return out;
+    } catch (e) { return {}; }
   }
   async function pull() {
     var owner = rd(OWNER, '');
@@ -211,24 +219,31 @@
       var r = await st.sb.rpc('quiz_admin_users');
       if (r.error) { L.textContent = '불러오지 못했어요: ' + r.error.message; return; }
       var rows = r.data || [], me = (st.user.email || '').toLowerCase();
-      var P = rows.filter(function (x) { return x.status === 'pending'; }), A = rows.filter(function (x) { return x.status === 'approved'; }), R = rows.filter(function (x) { return x.status === 'revoked'; });
+      var P = rows.filter(function (x) { return x.status === 'pending'; }), A = rows.filter(function (x) { return x.status === 'approved'; }).sort(function (a, b) { return Date.parse(b.synced_at || 0) - Date.parse(a.synced_at || 0); }), R = rows.filter(function (x) { return x.status === 'revoked'; });
       var tot = A.reduce(function (s, x) { return s + ((x.stats || {}).done || 0); }, 0);
       var card = function (x) {
         var s = x.stats || {}, self = x.email === me;
         var act = x.status === 'pending' ? '<button class="p2a-b ok" data-ap="' + esc(x.email) + '">승인</button><button class="p2a-b" data-rj="' + esc(x.email) + '">거절</button>'
           : x.status === 'revoked' ? '<button class="p2a-b ok" data-ap="' + esc(x.email) + '">다시 승인</button>'
           : self ? '<span class="p2a-tag">나</span>' : '<button class="p2a-b" data-tp="' + esc(x.email) + '">임시 비밀번호</button><button class="p2a-b warn" data-rv="' + esc(x.email) + '">해제</button>';
-        var stat = x.status === 'approved' ? '<div class="p2a-st"><span><b>' + (s.done || 0) + '</b>푼 문제</span><span><b>' + (s.pct || 0) + '%</b>정답률</span><span><b>' + (s.days7 || 0) + '일</b>최근 7일</span><span><b>' + (s.lastMock ? s.lastMock.sc + '점' : '–') + '</b>최근 모의고사</span></div>' : '';
+        var SN = { F: '자배법', E: '손해사정', D: '보험계약법', Y: '공제약관', G: '상식' };
+        var live = x.synced_at && Date.now() - Date.parse(x.synced_at) < 5 * 60000;
+        var prog = s.total ? Math.min(100, Math.round((s.done || 0) / s.total * 100)) : 0;
+        var subj = s.subj ? '<div class="p2a-sj">' + ['F', 'E', 'D', 'Y', 'G'].map(function (k) { var v = s.subj[k]; var r = v && v[1] ? Math.round(v[0] / v[1] * 100) : null; return '<span><em>' + SN[k] + '</em><i><b style="width:' + (r || 0) + '%" class="' + (r != null && r < 60 ? 'lo' : '') + '"></b></i><small>' + (r == null ? '–' : r + '%') + '</small></span>'; }).join('') + '</div>' : '';
+        var stat = x.status === 'approved' ? (live ? '<div class="p2a-live"><i></i>' + (s.live ? (s.live.mock ? '모의고사 응시 중 · ' : '공부 중 · ') + esc(s.live.t) + ' ' + s.live.i + '/' + s.live.n + '번' : '지금 공부 중') + '</div>' : '') +
+          '<div class="p2a-pg"><span>진도 ' + prog + '%</span><i><b style="width:' + prog + '%"></b></i><small>' + (s.done || 0) + '/' + (s.total || '–') + '</small></div>' +
+          '<div class="p2a-st"><span><b>' + (s.today || 0) + '</b>오늘 푼 문제</span><span><b>' + (s.pct || 0) + '%</b>정답률</span><span><b>' + (s.days7 || 0) + '일</b>최근 7일</span><span><b>' + (s.lastMock ? s.lastMock.sc + '점' : '–') + '</b>최근 모의고사' + (s.bestMock ? ' (최고 ' + s.bestMock + ')' : '') + '</span></div>' + subj : '';
         return '<div class="p2a-r"><div class="p2a-h"><div><b>' + esc(x.name || '(이름 없음)') + '</b><small>' + esc(x.email) + '</small></div><div class="p2a-act">' + act + '</div></div>' + stat +
           '<div class="p2a-m">' + (x.status === 'pending' ? '가입 ' + ago(x.created_at) : '마지막 학습 ' + ago(x.synced_at) + ' · 접속 ' + ago(x.last_seen || x.last_sign_in)) + '</div></div>';
       };
       L.className = '';
-      L.innerHTML = '<div class="p2a-sum"><span><b>' + A.length + '</b>사용 중</span><span><b>' + P.length + '</b>승인 대기</span><span><b>' + tot.toLocaleString() + '</b>전체 풀이</span></div>' +
+      L.innerHTML = '<p class="p2a-rt">15초마다 자동 새로고침 · ' + new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' 기준</p><div class="p2a-sum"><span><b>' + A.length + '</b>사용 중</span><span><b>' + P.length + '</b>승인 대기</span><span><b>' + tot.toLocaleString() + '</b>전체 풀이</span></div>' +
         (P.length ? '<h3>승인 대기 ' + P.length + '</h3>' + P.map(card).join('') : '') +
         '<h3>사용 중 ' + A.length + '</h3>' + (A.length ? A.map(card).join('') : '<p class="p2a-e">아직 없어요.</p>') +
         (R.length ? '<h3>해제됨 ' + R.length + '</h3>' + R.map(card).join('') : '');
       L.querySelectorAll('button').forEach(function (b) { b.onclick = function () { act(b); }; });
     }
+    var rt = setInterval(function () { if (!document.body.contains(o)) { clearInterval(rt); return; } if (L.querySelector('[data-arm="1"]') || document.activeElement && o.contains(document.activeElement) && document.activeElement.tagName === 'INPUT') return; load(); }, 15000);
     async function act(b) {
       var r, M = function (t, ok) { msg(o, t, ok); };
       if (b.dataset.ap) { r = await st.sb.rpc('quiz_admin_set', { p_email: b.dataset.ap, p_status: 'approved' }); M(r.error ? '승인 실패: ' + r.error.message : b.dataset.ap + ' 승인했어요.', !r.error); }
@@ -285,7 +300,7 @@
   }
 
   /* ── 로그인 후 사용설명서 (내용이 바뀔 때마다 한 번) ── */
-  var GUIDE_V = '2026-11-06', GUIDE_K = 'promo2-guide';
+  var GUIDE_V = '2026-11-06b', GUIDE_K = 'promo2-guide';
   function guide(force) {
     if (!force && rd(GUIDE_K, '') === GUIDE_V) return false;
     var o = sheet('<div class="p2n-hd"><span style="background:var(--accent-soft)">📘</span><div><h2>사용설명서</h2><p class="p2g-p">' + esc((st.me && st.me.name) ? st.me.name + '님, ' : '') + '처음 한 번만 읽어 주세요.</p></div></div>' +
@@ -297,7 +312,9 @@
       '<li><b>홈</b> — 안 푼 문제 이어 풀기, 오늘의 복습, 기출 빈출 쟁점</li>' +
       '<li><b>연습</b> — 과목별 풀이, 문제 검색, <b>암기 카드</b>(핵심 숫자·기간·요건)</li>' +
       '<li><b>오답노트</b> — 틀린 문제·별표 문제. 틀린 문제는 1·3·7일 뒤 다시 나와요</li>' +
-      '<li><b>모의고사</b> — 50문항·90분 실전, 답안지(OMR)로 빈 문항 확인</li>' +
+      '<li><b>모의고사</b> — 실제와 같은 50문항(자배법·손해사정·보험계약법·공제약관 각 12, 상식 2)·90분, 답안지(OMR)로 빈 문항 확인</li>' +
+      '<li><b>중간 점수</b> — 풀다가 1/4·절반·3/4 지점에서 지금까지 점수가 떠요. 위쪽 문항 번호(모의고사는 남은 시간)를 누르면 언제든 볼 수 있어요</li>' +
+      '<li><b>합격선</b> — 42명 중 상위 30%, 보통 <b>4개 이하로 틀려야</b> 해요. 리포트의 합격 예측도 이 기준이에요</li>' +
       '<li><b>리포트</b> — 과목별 정답률·합격 예측·설정</li>' +
       '<li>PC에서는 <b>문제은행·인쇄(PDF)</b>와 키보드(1~5 선택, Enter 다음)를 쓸 수 있어요</li></ul>' +
       '<h3>⚠️ 주의사항</h3><ul>' +
