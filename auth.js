@@ -269,5 +269,18 @@
     afterLogin(session);
     st.sb.auth.onAuthStateChange(function (ev) { if (ev === 'SIGNED_OUT' && entered) location.reload(); });
   }
+  /* 새 버전 확인: 앱을 백그라운드에서 다시 열 때도 확인해서 최신으로 */
+  var lastChk = 0;
+  function checkVer() {
+    if (!window.BUILD || location.protocol === 'file:' || Date.now() - lastChk < 60000) return; lastChk = Date.now();
+    fetch('version.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      if (!j || !j.v || j.v === window.BUILD) return;
+      var k = 'promo2-reloaded-' + j.v; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { }
+      if (st.timer) { clearTimeout(st.timer); push(); }
+      setTimeout(function () { location.replace(location.pathname + '?v=' + j.v + location.hash); }, 300);
+    }).catch(function () { });
+  }
+  document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') checkVer(); });
+  if ('serviceWorker' in navigator && location.protocol === 'https:') { try { navigator.serviceWorker.register('sw.js').catch(function () { }); } catch (e) { } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();
