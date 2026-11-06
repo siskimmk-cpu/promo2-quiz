@@ -24,7 +24,7 @@
   function closeGate() { if (gate) { gate.classList.add('out'); var g = gate; gate = null; setTimeout(function () { g.remove(); }, 260); } }
   function msg(w, t, ok) { var m = $('#p2M', w); if (m) { m.textContent = t || ''; m.className = 'p2g-msg' + (ok ? ' ok' : ''); } }
 
-  function showLogin(note, tab) {
+  function showLogin(note, tab, returning) {
     tab = tab || 'in';
     var tabs = '<div class="p2g-tabs"><button type="button" data-t="in" class="' + (tab === 'in' ? 'on' : '') + '">로그인</button><button type="button" data-t="up" class="' + (tab === 'up' ? 'on' : '') + '">계정 만들기</button></div>';
     var body = tab === 'in'
@@ -41,9 +41,10 @@
     var intro = '<section class="p2g-intro"><h2>2급 승진자격시험 대비 예상 기출문제</h2><p class="p2g-lead">2026. 12. 18.(금) 시험 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식)에 맞춘 객관식 문제은행이에요.</p>' +
       '<ul class="p2g-feat"><li><b>📅</b><span><b>매일 오전 9시 새 문제</b>시험 과목 안에서만 꾸준히 추가돼요</span></li><li><b>🔥</b><span><b>기출 빈출 쟁점</b>손해사정사 기출 10년 분석으로 자주 나온 쟁점부터</span></li><li><b>⏱️</b><span><b>실전 모의고사</b>50문항·90분, 과목별 점수와 합격 예측</span></li><li><b>📝</b><span><b>오답노트·보기별 해설</b>틀린 문제는 1·3·7일 뒤 다시 나와요</span></li><li><b>🔄</b><span><b>PC·휴대폰 기록 연동</b>같은 계정이면 어디서든 이어서</span></li></ul>' +
       '<div class="p2g-steps"><b>처음 오셨나요?</b><ol><li><b>계정 만들기</b> — 이름·이메일·비밀번호(10자 이상)</li><li><b>승인 기다리기</b> — 관리자(김민기)가 확인 후 승인</li><li><b>다시 확인</b> 누르면 바로 시작</li></ol><p>송무온 계정이 있으면 그 계정으로 로그인하면 돼요. 휴대폰은 공유 → 「홈 화면에 추가」로 앱처럼 쓸 수 있어요.</p></div></section>';
+    if (returning) intro = '<section class="p2g-intro p2g-ret"><h2>이제 계정으로 써요 🙌</h2><p class="p2g-lead">기존에 이 기기에서 푼 기록은 그대로 있어요. <b>계정을 만들면 그 기록이 내 계정으로 옮겨져</b> PC·휴대폰 어디서든 이어서 볼 수 있어요.</p><div class="p2g-steps"><b>3단계면 끝나요</b><ol><li><b>계정 만들기</b> — 이름·이메일·비밀번호(10자 이상)</li><li><b>승인 기다리기</b> — 관리자(김민기)가 확인 후 승인</li><li><b>다시 확인</b> 누르면 기존 기록 그대로 시작</li></ol><p>이미 계정이 있으면 위 「로그인」을 누르세요.</p></div></section>';
     var w = screen('<div class="p2g-grid">' + intro + '<div class="p2g-form"><h1>' + (tab === 'in' ? '로그인' : '계정 만들기') + '</h1>' + tabs + body + '<div class="p2g-msg" id="p2M"></div></div></div>');
     if (note) msg(w, note, /만들었|보냈|바꿨/.test(note));
-    w.querySelectorAll('[data-t]').forEach(function (b) { b.onclick = function () { showLogin('', b.dataset.t); }; });
+    w.querySelectorAll('[data-t]').forEach(function (b) { b.onclick = function () { showLogin('', b.dataset.t, returning); }; });
     if (tab === 'in') $('#p2F', w).onsubmit = async function (e) {
       e.preventDefault(); msg(w, '확인 중…');
       var email = $('#p2E', w).value.trim().toLowerCase(), pw = $('#p2P', w).value;
@@ -324,6 +325,7 @@
     if (!session) {
       // 서버 준비 전(진급시험용 SQL 미적용)이면 예전처럼 로그인 없이 열기
       try { var pr = await st.sb.rpc('quiz_me'); var er = pr.error; if (er && (er.code === 'PGRST202' || /Could not find the function/i.test(er.message || ''))) { window.P2A = null; legacy(); return; } } catch (e) { }
+      var had = rd(KEY, ''); if (had && !rd(LASTEMAIL, '')) { showLogin('', 'up', true); return; }
       showLogin(); return;
     }
     if (c && c.uid === session.user.id && c.status === 'approved') { // 빠른 시작: 지난번 승인 상태로 바로 열고 뒤에서 확인
