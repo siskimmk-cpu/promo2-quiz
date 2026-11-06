@@ -81,7 +81,7 @@ test('daily papers keep the blueprint, have no duplicates, and change each day',
     for(const sub of h.api.subjects)for(const p of [p0,p1])assert.equal(p.filter(id=>sub.secs.includes(h.api.byId[id].sec)).length,sub.n);
     if(previous)assert.notEqual(JSON.stringify(p0),previous);previous=JSON.stringify(p0);
   }
-  assert.equal(h.api.fresh.length,0);
+  assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-12').length);
 });
 test('unanswered mock questions enter wrong answers and spaced review; score remains correct',()=>{
   const h=harness();h.api.start(['D50','CS3'],'test','mock',{});h.api.state.sess.picks[0]=0;h.api.finish();
