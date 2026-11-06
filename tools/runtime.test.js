@@ -112,7 +112,7 @@ test('leaving practice permits a queued version update without deleting its resu
 });
 test('question repairs retain IDs and answer indexes, remove misleading claims',()=>{
   const h=harness(),q=h.api.byId;
-  assert(q.CS3.why[q.CS3.ans].startsWith('○'));assert.equal(q.D50.ans,0);
+  assert(q.CS3.why[q.CS3.ans].startsWith(q.CS3.q.includes('옳지 않은')?'×':'○'));assert.equal(q.D50.ans,0);
   assert(!q.D50.exp.includes('지급제시를 할 수 없'));assert(q.D34.opts[1].includes('예외'));
   assert(!q.E46.opts.join('').includes('위임'));assert(!q.E63.q.includes('산업재해'));
 });
@@ -263,4 +263,10 @@ test('rewritten questions (rev) lose their old answers on load and in sync merge
   const m=a.api.merge({ans:{D50:{ok:true,t:5},D51:{ok:true,t:5}},srs:{D50:{step:1}}},{ans:{D52:{ok:false,t:6}}},true);
   assert(!m.ans.D50&&!m.srs.D50,'서버의 옛 기록도 되살리지 않음'); assert(m.ans.D51&&m.ans.D52);
   const m2=a.api.merge({ans:{D50:{ok:true,t:5}}},{ans:{D50:{ok:false,t:9,rv:2}}},true); assert.equal(m2.ans.D50.rv,2);
+});
+test('every question has a single answer whose explanation matches the stem (옳은 → ○, 옳지 않은 → ×)',()=>{
+  const bad=SRC.filter(q=>q.why&&q.why[q.ans]&&/옳지 않은 것은\?|아닌 것은\?|해당하지 않는 것은\?/.test(q.q)&&!/모두|몇 개/.test(q.q)&&!q.why[q.ans].startsWith('×')).map(q=>q.id);
+  assert.deepEqual(bad,[]);
+  const box=SRC.filter(q=>/있는 대로 고른|모두 고른|몇 개인가/.test(q.q)).map(q=>q.id);
+  assert.deepEqual(box,[],'실제 시험에 없는 보기형·개수형 금지');
 });
