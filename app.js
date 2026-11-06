@@ -249,7 +249,7 @@ function card(q,o,no){ // o:{pick,reveal,locked,perm}
   }).join('')+`</ol>`;
   if(o.reveal){
     const ok=isOk(q,o.pick), none=o.pick==null, ansPos=perm.indexOf(q.ans)+1;
-    h+=`<div class="fb"><div class="v ${none?'na':ok?'ok':'no'}">${none?'미응답':ok?'정답이에요!':'아쉬워요'} · 정답 ${ansPos}번</div><div class="talk"><div class="me"><span class="mt">${kTime()}</span><span class="mb">${none?'잘 모르겠어요 🤔':`${perm.indexOf(o.pick)+1}번으로 할게요`}</span></div><div class="chat"><span class="av">해설</span><div class="bub"><div class="who">해설 도우미</div><div class="body">${hl(q.exp)}</div>${q.why?`<ul class="why">${perm.map((oi,pos)=>`<li class="${oi===q.ans?'a':''}"><b>${pos+1}</b><span>${hl(q.why[oi])}</span></li>`).join('')}</ul>`:''}${q.hot?`<div class="hotln">📌 ${HOTSRC(q)} · <b>${esc(q.hot.t)}</b></div>`:''}<div class="ref">근거 · ${esc(q.ref)}</div></div></div></div></div>`;
+    h+=`<div class="fb"><div class="v ${none?'na':ok?'ok':'no'}">${none?'미응답':ok?'정답이에요!':'아쉬워요'} · 정답 ${ansPos}번</div><div class="talk"><div class="me"><span class="mt">${kTime()}</span><span class="mb">${none?'잘 모르겠어요 🤔':`${perm.indexOf(o.pick)+1}번으로 할게요`}</span></div><div class="chat"><span class="av">해설</span><div class="bub"><div class="who">해설 도우미</div><div class="pch">해설</div><div class="body">${hl(q.exp)}</div>${q.why?`<ul class="why">${perm.map((oi,pos)=>`<li class="${oi===q.ans?'a':(!none&&oi===o.pick?'p':'')}"><b>${pos+1}</b><span>${hl(q.why[oi])}</span></li>`).join('')}</ul>`:''}${q.hot?`<div class="hotln">📌 ${HOTSRC(q)} · <b>${esc(q.hot.t)}</b></div>`:''}<div class="ref">근거 · ${esc(q.ref)}</div></div></div></div></div>`;
     h+=`<button class="linkbtn rep" data-rep="${q.id}">이 문제 이상해요</button>`;
   }
   return h;

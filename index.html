@@ -438,7 +438,7 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 .cta.ghost{box-shadow:none}
 @media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest?v=202611061028"><link rel="apple-touch-icon" href="icon-180.png?v=202611061028"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
+<link rel="manifest" href="manifest.webmanifest?v=202611061123"><link rel="apple-touch-icon" href="icon-180.png?v=202611061123"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
 <style>
 /* ── v10 프리미엄 레이어 ── */
 /* 1. 히어로: 토스풍 블루 그라데이션 카드 */
@@ -984,9 +984,9 @@ body:has(#dock.fbd:not([hidden])) .kbd-hint{opacity:0;pointer-events:none}
   .omr-r{display:flex;align-items:center;gap:5px;padding:3px 4px;border-radius:10px}
   .omr-r.cur{background:color-mix(in srgb,var(--accent) 9%,transparent)}
   .omr-n{width:30px;border:0;background:none;font:700 12.5px/1 var(--f);color:var(--ink);text-align:right;padding:0 6px 0 0;cursor:pointer;font-variant-numeric:tabular-nums}
-  .bub{width:24px;height:24px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--muted) 55%,transparent);background:none;font:700 10.5px/1 var(--f);color:var(--muted);cursor:pointer;padding:0;transition:transform .12s,background .12s}
-  .bub:hover{border-color:var(--accent);color:var(--accent)}
-  .bub.on{background:var(--ink);border-color:var(--ink);color:var(--card);transform:scale(1.05)}
+  .omr-r .bub{width:24px;height:24px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--muted) 55%,transparent);background:none;font:700 10.5px/1 var(--f);color:var(--muted);cursor:pointer;padding:0;transition:transform .12s,background .12s}
+  .omr-r .bub:hover{border-color:var(--accent);color:var(--accent)}
+  .omr-r .bub.on{background:var(--ink);border-color:var(--ink);color:var(--card);transform:scale(1.05)}
   .xp-act{display:flex;gap:8px}
   .xp-act .cta{margin:0;min-height:52px}
   .xp-act .ghost{flex:0 0 96px}
@@ -1041,6 +1041,31 @@ body:has(#dock.fbd:not([hidden])) .kbd-hint{opacity:0;pointer-events:none}
 :root[data-theme="dark"] .qmeta .tag.ht{background:#3b2216;color:#ffa94d}:root[data-theme="dark"] .hotln{background:#2b1d14;color:#fdba74}:root[data-theme="dark"] .hotln b{color:#ffa94d}
 @media (min-width:1200px){#app.dsk [data-k=hot]{grid-column:1/8}}
 </style>
+<style>
+/* v25: PC 해설 패널 — 읽기 좋은 해설 카드 */
+.fb .pch{display:none}
+@media (min-width:1200px){
+  body[data-view=quiz] #qc .fb{gap:12px;scrollbar-width:thin}
+  body[data-view=quiz] #qc .fb .v{justify-self:start;font-size:17px;padding:8px 16px}
+  body[data-view=quiz] #qc .fb .talk{background:none;padding:0;border-radius:0;margin:0}
+  body[data-view=quiz] #qc .fb .talk .me{display:none}
+  body[data-view=quiz] #qc .fb .talk .av{display:none}
+  body[data-view=quiz] #qc .fb .talk .bub{background:var(--soft);color:var(--ink);border-radius:18px;padding:18px 20px 16px;border:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+  body[data-view=quiz] #qc .fb .who{display:none}
+  body[data-view=quiz] #qc .fb .pch{display:block;font-size:12.5px;font-weight:800;letter-spacing:.04em;color:var(--accent);margin-bottom:8px}
+  body[data-view=quiz] #qc .fb .body{font-size:15.5px;line-height:1.8;color:var(--ink)}
+  body[data-view=quiz] #qc .fb .why{margin-top:14px;padding-top:14px;gap:8px}
+  body[data-view=quiz] #qc .fb .why li{font-size:14.5px;line-height:1.65;color:var(--ink2);background:var(--card);border:1px solid color-mix(in srgb,var(--line) 70%,transparent);border-radius:12px;padding:10px 12px;gap:10px}
+  body[data-view=quiz] #qc .fb .why li b{width:22px;height:22px;background:var(--soft);font-size:12px;margin-top:1px}
+  body[data-view=quiz] #qc .fb .why li.a{border-color:color-mix(in srgb,var(--ok) 45%,transparent);background:color-mix(in srgb,var(--ok) 8%,var(--card));color:var(--ink)}
+  body[data-view=quiz] #qc .fb .why li.a b{background:var(--ok);color:#fff}
+  body[data-view=quiz] #qc .fb .why li.p{border-color:color-mix(in srgb,var(--bad) 40%,transparent);background:color-mix(in srgb,var(--bad) 6%,var(--card))}
+  body[data-view=quiz] #qc .fb .why li.p b{background:var(--bad);color:#fff}
+  body[data-view=quiz] #qc .fb .hotln{margin-top:12px}
+  body[data-view=quiz] #qc .fb .ref{margin-top:10px;font-size:12.5px;color:var(--muted)}
+  body[data-view=quiz]:has(#qc .fb) .kbd-hint{display:none}
+}
+</style>
 
 
 
@@ -1057,7 +1082,7 @@ body:has(#dock.fbd:not([hidden])) .kbd-hint{opacity:0;pointer-events:none}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611061028"</script>
-<script src="questions.js?v=202611061028"></script>
-<script src="app.js?v=202611061028"></script>
+<script>window.BUILD="202611061123"</script>
+<script src="questions.js?v=202611061123"></script>
+<script src="app.js?v=202611061123"></script>
 </body></html>
