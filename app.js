@@ -124,7 +124,7 @@ const IC={
 };
 function go(v,after){ const f=()=>{ view=v; render(); top(); after&&after(); }; if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches){ try{ document.startViewTransition(f); return; }catch(e){} } f(); }
 const ico=(k,c='')=>`<svg class="i ${c}" viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
-const TABS=[['home','홈','home'],['study','연습','study'],['exam','모의고사','exam'],['report','리포트','chart']];
+const TABS=[['home','홈','home'],['study','연습','study'],['note','오답노트','note'],['exam','모의고사','exam'],['report','리포트','chart']];
 const tabbar=document.getElementById('tabbar');
 function showTabs(cur){ tabbar.hidden=false; dock.hidden=true; tabbar.innerHTML=`<div class="wrap tabs">`+TABS.map(([v,l,i])=>`<button data-tab="${v}" aria-current="${cur===v}">${ico(i)}${tabBadge(v)}<span>${l}</span></button>`).join('')+`</div>`; tabbar.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{ if(view!==b.dataset.tab) go(b.dataset.tab); else window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}); }); }
 function hideTabs(){ tabbar.hidden=true; }
@@ -180,10 +180,12 @@ function home(){
     ${resumable?`<button class="cta" data-act="resume">이어서 풀기 · ${esc(s.title)} ${s.i+1}/${s.ids.length}</button>`
       :allDone?`<button class="cta warm" data-act="newround">다 풀었어요! 보기 섞어서 ${store.round+1}회독</button>`
       :`<button class="cta" data-act="go">안 푼 문제 풀기 · ${st.newIds.length}문제</button>`}</section>`;
-  h+=planCard()+freshCard()+hotCard()+dailyCard();
+  h+=freshCard();
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
   h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀린 문제는 1·3·7일 뒤 다시 나와요</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
+  h+=hotCard();
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
+  h+=dailyCard()+planCard();
   h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="exam"><span class="ic b">${ico('exam')}</span><span class="tx"><span class="nm">실전 모의고사</span><span class="meta">${EXAM.n}문항 · ${EXAM.min}분 · 제1회·제2회·랜덤</span></span>${ico('chev','chev')}</button><button class="row" data-act="note"><span class="ic y">${ico('note')}</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제 ${st.wrongIds.length} · 별표 ${store.star.length}</span></span>${ico('chev','chev')}</button>${isStandalone()||!isMobile?'':`<button class="row" data-act="guide"><span class="ic b">${ico('home')}</span><span class="tx"><span class="nm">홈 화면에 앱으로 추가하기</span><span class="meta">주소창 없이 앱처럼 · 그림으로 따라하기</span></span>${ico('chev','chev')}</button>`}</div>`;
   h+=`<p class="foot">${esc(EXAM.label)} 시험 · 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식) 기준 손해사정사 1차 수준 예상문제 ${st.N}문항. 풀이 기록은 이 기기에 저장돼요.</p>`;
   app.innerHTML=h; bindActs();
@@ -339,17 +341,17 @@ function countUp(el,to){ if(!el) return; if(matchMedia('(prefers-reduced-motion:
 function confetti(){ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return; const c=document.createElement('canvas'); c.className='confetti'; document.body.appendChild(c); const x=c.getContext('2d'); const W=c.width=innerWidth*2, H=c.height=innerHeight*2; const cols=['#3182f6','#fee500','#0ca678','#f04452','#a78bfa']; const ps=[...Array(110)].map(()=>({x:W/2+(Math.random()-.5)*W*.3,y:H*.35,vx:(Math.random()-.5)*26,vy:-Math.random()*28-8,r:Math.random()*10+6,c:cols[Math.floor(Math.random()*cols.length)],a:Math.random()*6})); let n=0; const step=()=>{ x.clearRect(0,0,W,H); ps.forEach(p=>{p.vy+=1.1;p.x+=p.vx;p.y+=p.vy;p.a+=.2;x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);x.restore();}); if(++n<110) requestAnimationFrame(step); else c.remove(); }; requestAnimationFrame(step); }
 /* ── 노트 ── */
 function note(){
-  showTabs('report');
+  showTabs('note');
   const wrong=QUESTIONS.filter(q=>store.ans[q.id]&&!store.ans[q.id].ok), stars=QUESTIONS.filter(q=>isStar(q.id));
   const list0=noteTab==='wrong'?wrong:stars; const list=noteSub?list0.filter(q=>subjOfSec(q.sec).id===noteSub):list0;
-  let h=`<button class="back" id="back">‹ 리포트</button><h1 class="title">오답·별표 노트</h1><p class="sub">다시 맞히면 오답 목록에서 빠져요.</p>`;
+  let h=`<header class="top-h"><div><span class="eyebrow">오답노트</span><h1 class="title">오답·별표 노트</h1></div></header><p class="sub">다시 맞히면 오답 목록에서 빠져요.</p>`;
   h+=`<div class="seg" style="margin-bottom:14px"><button data-t="wrong" aria-pressed="${noteTab==='wrong'}">오답 ${wrong.length}</button><button data-t="star" aria-pressed="${noteTab==='star'}">별표 ${stars.length}</button></div>`;
   h+=noteChips(list0);
   if(!list.length) h+=`<div class="empty">${noteTab==='wrong'?'아직 틀린 문제가 없어요.':'별표한 문제가 없어요.<br>문제 오른쪽 위 ☆를 눌러 모아 보세요.'}</div>`;
   else h+=`<ul class="rlist">`+list.map(q=>{const a=store.ans[q.id];return `<li><details><summary><span class="mk ${a?(a.ok?'o':'x'):''}">${a?(a.ok?'○':'×'):'–'}</span><span class="qq"><small>${esc(subjOfSec(q.sec).name)}</small>${esc(q.q)}</span></summary><div class="inner"><div class="qcard">${card(q,{pick:a?a.pick:null,reveal:true,locked:true})}</div></div></details></li>`;}).join('')+`</ul>`;
   app.innerHTML=h; bindStars(app);
   if(list.length){ app.insertAdjacentHTML('beforeend',`<div style="margin-top:14px"><button class="cta" id="redo">이 ${list.length}문제 맞힐 때까지 풀기</button></div>`); $('#redo').onclick=()=>start(shuffle(list.map(q=>q.id)),noteTab==='wrong'?'오답 정복':'별표 문제','practice',{mix:true,loop:true}); }
-  $('#back').onclick=()=>go('report');
+  {const bk=$('#back'); if(bk) bk.onclick=()=>go('report');}
   document.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{noteTab=b.dataset.t;noteSub='';note();});
   document.querySelectorAll('[data-ns]').forEach(b=>b.onclick=()=>{noteSub=b.dataset.ns;note();});
 }
