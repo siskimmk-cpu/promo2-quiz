@@ -17,7 +17,8 @@ for(const q of QUESTIONS){
   if(/§/.test(q.q+q.exp+q.ref+(q.opts||[]).join('')+(q.why||[]).join(''))) bad('§ 금지(제N조 제N항 한글 표기)');
   { const REF={A:/약관/,B:/약관/,C:/약관|자배법|자동차손해배상/,D:/상법|대법|판례|약관|보험계약법/,F:/자배법|자동차손해배상|민법|대법|판례/,E:/손해사정|상법|민법|판례|약관|보험/};
     const r=REF[q.sec]; if(r&&!r.test(q.ref)) bad('ref가 과목 근거와 맞지 않음(시험과목 범위 확인)');
-    const OUT=/보험업법|개인정보 보호법|여객자동차|공제규정|민법 제1000조|친권|형사소송|행정소송|세법|소득세|부가가치세|역사|문학|스포츠|연예|드라마|영화/; if(OUT.test(q.q+(q.case||'')+q.ref)) bad('시험과목 밖 소재'); }
+    const FAM=/민법 제100[0-9]조|친권/; if(FAM.test(q.q+(q.case||'')+q.ref)&&!/공제약관 26 지급기준/.test(q.ref)) bad('민법 상속·가족법은 공제약관 지급기준(사망 위자료 청구권자) 문항에서만');
+    const OUT=/보험업법|개인정보 보호법|여객자동차|공제규정|형사소송|행정소송|세법|소득세|부가가치세|역사|문학|스포츠|연예|드라마|영화/; if(OUT.test(q.q+(q.case||'')+q.ref)) bad('시험과목 밖 소재'); }
   if(!Array.isArray(q.why)||q.why.length!==q.opts.length) bad('why(보기별 해설) 누락 또는 개수 불일치');
 }
 const cnt={};QUESTIONS.forEach(q=>cnt[q.sec]=(cnt[q.sec]||0)+1);
