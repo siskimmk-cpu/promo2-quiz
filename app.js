@@ -213,9 +213,13 @@ function exam(){
   const hs=(store.hist||[]).slice(-10);
   h+=`<div class="label">응시 기록</div>`;
   if(hs.length){
-    const W=300,H=120,pad=16, xs=i=>pad+(hs.length===1?(W-2*pad)/2:i*(W-2*pad)/(hs.length-1)), ys=v=>H-pad-(v/100)*(H-2*pad);
+    const W=320,H=150,pl=30,pr=18,pt=22,pb=26, PS=store.pass||60, sc=hs.map(x=>x.sc);
+    const lo=Math.max(0,Math.floor((Math.min(PS,...sc)-10)/10)*10), hi=Math.min(100,Math.ceil((Math.max(PS,...sc)+5)/10)*10);
+    const xs=i=>pl+(hs.length===1?(W-pl-pr)/2:i*(W-pl-pr)/(hs.length-1)), ys=v=>pt+(hi-v)/(hi-lo||1)*(H-pt-pb);
     const pts=hs.map((x,i)=>`${xs(i)},${ys(x.sc)}`).join(' ');
-    h+=`<div class="qcard chartcard"><svg viewBox="0 0 ${W} ${H}" class="line" role="img" aria-label="모의고사 점수 추이"><line x1="${pad}" x2="${W-pad}" y1="${ys(store.pass||60)}" y2="${ys(store.pass||60)}" class="pass"/><text x="${W-pad}" y="${ys(store.pass||60)-5}" class="pl">${store.pass||60}점</text><polyline points="${pts}" class="ln"/>${hs.map((x,i)=>`<circle cx="${xs(i)}" cy="${ys(x.sc)}" r="${i===hs.length-1?5:3.5}" class="${i===hs.length-1?'last':''}"/>`).join('')}<text x="${xs(hs.length-1)}" y="${ys(hs[hs.length-1].sc)-10}" class="lv">${hs[hs.length-1].sc}</text></svg></div>`;
+    const grid=[lo,(lo+hi)/2,hi].map(v=>`<line x1="${pl}" x2="${W-pr}" y1="${ys(v)}" y2="${ys(v)}" class="gl"/><text x="${pl-6}" y="${ys(v)+3.5}" class="ax">${Math.round(v)}</text>`).join('');
+    const area=`${xs(0)},${H-pb} ${pts} ${xs(hs.length-1)},${H-pb}`;
+    h+=`<div class="qcard chartcard"><svg viewBox="0 0 ${W} ${H}" class="line" role="img" aria-label="모의고사 점수 추이">${grid}<line x1="${pl}" x2="${W-pr}" y1="${ys(PS)}" y2="${ys(PS)}" class="pass"/><text x="${W-pr}" y="${sc[sc.length-1]>=PS?ys(PS)+13:ys(PS)-6}" class="pl">합격 ${PS}점</text><polygon points="${area}" class="ar"/><polyline points="${pts}" class="ln"/>${hs.map((x,i)=>`<circle cx="${xs(i)}" cy="${ys(x.sc)}" r="${i===hs.length-1?5:3.5}" class="${i===hs.length-1?'last':''}"/><text x="${xs(i)}" y="${ys(x.sc)-10}" class="lv ${i===hs.length-1?'':'sm'} ${x.sc>=PS?'':'lo'}">${x.sc}</text><text x="${xs(i)}" y="${H-8}" class="dx">${x.d.slice(5).replace('-','.')}</text>`).join('')}</svg></div>`;
     h+=`<div class="list" style="margin-top:10px"><table class="tbl"><thead><tr><th>날짜</th><th>시험</th><th>점수</th></tr></thead><tbody>`+hs.slice().reverse().map(x=>`<tr><td>${x.d.slice(5).replace('-','.')}</td><td>${esc(x.name)}</td><td><b class="${x.sc>=(store.pass||60)?'hi':'lo'}">${x.sc}</b></td></tr>`).join('')+`</tbody></table></div>`;
   } else h+=`<div class="empty">아직 응시한 모의고사가 없어요.<br>제1회부터 시작해 보세요.</div>`;
   app.innerHTML=h; bindActs();
