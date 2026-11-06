@@ -62,7 +62,7 @@ test('release preserves in-progress mock IDs, answers, order, and deadline witho
   h.api.state.sess.picks[0]=2;h.api.state.sess.i=3;
   const snapshot=JSON.stringify(h.api.state.sess),renders=h.ctx.renders;
   h.setTime('2026-11-07T00:00:01Z');h.api.checkReleaseBoundary();
-  assert.equal(JSON.stringify(h.api.state.sess),snapshot);assert.equal(h.ctx.renders,renders);assert.equal(h.api.fresh.length,8);
+  assert.equal(JSON.stringify(h.api.state.sess),snapshot);assert.equal(h.ctx.renders,renders);assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-07').length);
 });
 test('practice answer and revealed explanation stay on screen at boundary',()=>{
   const h=harness();h.api.start(['D50'],'practice','practice',{});h.api.state.sess.picks[0]=0;h.api.state.sess.rev[0]=true;
@@ -168,4 +168,88 @@ test('sync merge: completed review and removed stars are not revived; new items 
 test('toggleStar records the change time so removals can sync',()=>{
   const h=harness();h.api.toggleStar('D50');h.api.toggleStar('D50');
   assert(!h.api.state.star.includes('D50'));assert(h.api.state.starT&&h.api.state.starT.D50>0);
+});
+
+// ── 동기화 저장(push)·로그아웃·간격 복습 재발 방지 ──
+function authHarness(server, hooks={}){
+  const store=new Map();const ls={getItem:k=>store.has(k)?store.get(k):null,setItem:(k,v)=>store.set(k,String(v)),removeItem:k=>store.delete(k)};
+  let seq=0;
+  const sb={auth:{signOut:async()=>{hooks.signedOut=true;return {};}},from:()=>{
+    const q={_f:{},select(){return q;},eq(k,v){q._f[k]=v;return q;},
+      async maybeSingle(){ if(hooks.failRead) return {error:{message:'offline'}}; const row=server.row; if(hooks.onRead) await hooks.onRead(); return {data:row?{data:JSON.parse(JSON.stringify(row.data)),updated_at:row.updated_at}:null,error:null}; },
+      update(v){ q._u=v; return q; },
+      insert:async(v)=>{ if(hooks.failWrite) return {error:{message:'offline'}}; if(server.row) return {error:{code:'23505'}}; server.row={data:v.data,updated_at:v.updated_at}; return {error:null}; },
+      then(res){ // update(...).eq().eq().select() 결과
+        if(hooks.failWrite) return res({error:{message:'offline'}});
+        if(!server.row||server.row.updated_at!==q._f.updated_at) return res({data:[],error:null});
+        server.row={data:q._u.data,updated_at:q._u.updated_at+'#'+(++seq)}; return res({data:[{updated_at:server.row.updated_at}],error:null}); }};
+    return q;}};
+  const src=auth.slice(auth.indexOf('  function parse('),auth.indexOf('  /* ── 설정 화면'))+auth.slice(auth.indexOf('  async function logout()'),auth.indexOf('  /* ── 시트'));
+  const ctx={localStorage:ls,Storage:function(){},QUESTIONS:[],SUBJECTS:[],document:{addEventListener(){}},window:{addEventListener(){}},setTimeout:()=>0,clearTimeout(){},location:{reload(){hooks.reloaded=true;}},console};
+  ctx.Storage.prototype={setItem(){}};
+  vm.createContext(ctx);
+  vm.runInContext(`var KEY='promo2-quiz-v3',OWNER='promo2-owner',AUTHC='promo2-auth',CHG='promo2-chg';
+    var st={sb:null,user:{id:'u1'},me:{},timer:0,syncing:null,lastSync:0,err:''};
+    var rd=function(k,d){var v=localStorage.getItem(k);return v==null?d:v;},wr=function(k,v){localStorage.setItem(k,v);},rm=function(k){localStorage.removeItem(k);};
+    var esc=function(s){return String(s);},$=function(){return {dataset:{arm:'1'},textContent:'',onclick:null};},msg=function(){},entered=true;
+    var sheet=function(){globalThis.sheetShown=true;return {close(){}};};
+    ${src}
+    globalThis.api={push,merge,unsynced,logout,setSb:function(x){st.sb=x;},st:st};`,ctx);
+  ctx.api.setSb(sb);
+  const save=d=>{ls.setItem('promo2-quiz-v3',JSON.stringify(d));ls.setItem('promo2-chg',String(Date.now()+Math.random()));};
+  return {api:ctx.api,ls,save,ctx,hooks};
+}
+test('push keeps both devices\' answers when PC and phone save at the same time (conditional write + retry)',async()=>{
+  const server={row:{data:{ans:{A1:{ok:true,t:1}}},updated_at:'t0'}};
+  const pc=authHarness(server), phone=authHarness(server);
+  pc.save({ans:{A1:{ok:true,t:1},B1:{ok:false,t:10}},srs:{B1:{step:0,due:99}}});
+  phone.save({ans:{A1:{ok:true,t:1},C1:{ok:true,t:11}}});
+  // PC가 읽은 직후 휴대폰이 먼저 저장 → PC의 조건부 저장은 실패하고 다시 읽어 합쳐야 함
+  let once=true; pc.hooks.onRead=async()=>{ if(once){ once=false; await phone.api.push(); } };
+  assert.equal(await pc.api.push(),true);
+  const d=server.row.data; assert(d.ans.A1&&d.ans.B1&&d.ans.C1,'양쪽 답안 보존'); assert(d.srs.B1);
+  assert.equal(pc.api.unsynced(),false);
+});
+test('push merges by question: newer answer on the server is not overwritten by an older local answer',async()=>{
+  const server={row:{data:{ans:{A1:{ok:true,t:50}},srs:{},star:[],starT:{A1:50}},updated_at:'t0'}};
+  const h=authHarness(server); h.save({ans:{A1:{ok:false,t:20}},srs:{A1:{step:0,due:1}},star:['A1'],starT:{A1:20}});
+  await h.api.push(); const d=server.row.data; assert.equal(d.ans.A1.ok,true); assert(!d.srs.A1); assert(!d.star.includes('A1'));
+});
+test('logout keeps local records when the server save fails, and clears them only after a confirmed save',async()=>{
+  const server={row:{data:{},updated_at:'t0'}};
+  const h=authHarness(server,{failWrite:true}); h.save({ans:{X1:{ok:true,t:5}}});
+  await h.api.logout();
+  assert(h.ls.getItem('promo2-quiz-v3'),'실패 시 기록 보존'); assert(h.ctx.sheetShown,'재시도·백업 안내'); assert(!h.hooks.signedOut);
+  h.hooks.failWrite=false; await h.api.logout();
+  assert.equal(h.ls.getItem('promo2-quiz-v3'),null); assert(h.hooks.signedOut); assert(server.row.data.ans.X1);
+});
+test('logout waits for an in-flight save before signing out',async()=>{
+  const server={row:{data:{},updated_at:'t0'}}; let release;
+  const h=authHarness(server); h.save({ans:{Y1:{ok:true,t:5}}});
+  h.hooks.onRead=()=>new Promise(r=>release=r);
+  const p=h.api.push(); const lo=h.api.logout(); await new Promise(r=>setImmediate(r));
+  assert(!h.hooks.signedOut,'저장 중에는 로그아웃 안 함'); h.hooks.onRead=null; release(); await p; await lo;
+  assert(h.hooks.signedOut); assert(server.row.data.ans.Y1);
+});
+test('reset (resetAt) on one device is not undone by older records from another device',()=>{
+  const h=authHarness({row:null}); const m=h.api.merge({ans:{A1:{ok:true,t:5}},star:['A1'],starT:{A1:5}},{ans:{},star:[],resetAt:10},false);
+  assert(!m.ans.A1); assert(!m.star.includes('A1')); assert.equal(m.resetAt,10);
+});
+test('spaced review: early correct re-solves do not advance; due reviews advance 1→3→7 days from the last review',()=>{
+  const h=harness('2026-11-06T01:00:00Z'),q=h.api.byId.D50,wrong=(q.ans+1)%q.opts.length,DAY=864e5;
+  h.api.record(q,wrong); const t0=Date.parse('2026-11-06T01:00:00Z');
+  assert.equal(h.api.state.srs.D50.step,0); assert.equal(h.api.state.srs.D50.due,t0+DAY);
+  for(let i=0;i<3;i++) h.api.record(q,q.ans);            // 같은 날 바로 세 번 맞힘
+  assert(h.api.state.srs.D50,'예정 전 재풀이로 복습 완료되면 안 됨'); assert.equal(h.api.state.srs.D50.step,0);
+  h.setTime('2026-11-07T02:00:00Z'); h.api.record(q,q.ans); assert.equal(h.api.state.srs.D50.step,1);
+  assert.equal(h.api.state.srs.D50.due,Date.parse('2026-11-07T02:00:00Z')+3*DAY);
+  h.setTime('2026-11-10T03:00:00Z'); h.api.record(q,q.ans); assert.equal(h.api.state.srs.D50.step,2);
+  h.setTime('2026-11-17T03:00:00Z'); h.api.record(q,q.ans); assert(!h.api.state.srs.D50,'7일 복습 후 완료');
+  h.setTime('2026-11-18T03:00:00Z'); h.api.record(q,wrong); assert.equal(h.api.state.srs.D50.step,0);
+});
+test('first-try result is kept even after the question is re-solved correctly',()=>{
+  const h=harness(),q=h.api.byId.D50,wrong=(q.ans+1)%q.opts.length;
+  h.api.record(q,wrong); h.api.record(q,q.ans); h.api.record(q,q.ans);
+  const a=h.api.state.ans.D50; assert.equal(a.ok,true); assert.equal(a.f,false); assert.equal(a.n,3);
+  const q2=h.api.byId.D51; h.api.record(q2,q2.ans); h.api.record(q2,(q2.ans+1)%4); assert.equal(h.api.state.ans.D51.f,true);
 });

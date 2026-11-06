@@ -41,12 +41,14 @@ function iosHaptic(){ try{ if(!hapt){ hapt=document.createElement('label'); hapt
 function buzz(ms){ if(!store.cfg.vib) return; if(navigator.vibrate){ try{navigator.vibrate(ms);}catch(e){} } else { iosHaptic(); if(Array.isArray(ms)) setTimeout(iosHaptic,130); } }
 try{const s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s) store=Object.assign(store,s);}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
-function record(q,pick){const p=store.ans[q.id]||{n:0}; const ok=isOk(q,pick); store.ans[q.id]={pick,ok,n:p.n+1,t:Date.now()};
+function record(q,pick){const p=store.ans[q.id]||{n:0}; const ok=isOk(q,pick); store.ans[q.id]={pick,ok,n:p.n+1,t:Date.now(),f:p.n?(p.f!==undefined?p.f:null):ok}; // f: 처음 풀었을 때 정답 여부(반복 풀이로 정답률이 부풀려지는 것과 구분)
   const sj=subjOfSec(q.sec).id; store.trk=store.trk||{}; store.trk[sj]=((store.trk[sj]||'')+(ok?'1':'0')).slice(-80);
   const d=today(); store.log[d]=store.log[d]||{n:0,o:0}; store.log[d].n++; if(ok) store.log[d].o++;
   const r=store.srs[q.id];
+  // 간격 복습: 직전 복습(또는 오답)일 기준. 틀리면 1일 뒤 → 그 복습일에 맞히면 3일 뒤 → 또 맞히면 7일 뒤 → 맞히면 완료.
+  // 복습 예정 시각 전에 다시 풀어 맞힌 것은 일반 재풀이로 보고 단계를 올리지 않는다(틀리면 처음부터).
   if(!ok) store.srs[q.id]={step:0,due:Date.now()+STEPS[0]*DAY};
-  else if(r){ const st=r.step+1; if(st>=STEPS.length) delete store.srs[q.id]; else store.srs[q.id]={step:st,due:Date.now()+STEPS[st]*DAY}; }
+  else if(r&&r.due<=Date.now()){ const st=r.step+1; if(st>=STEPS.length) delete store.srs[q.id]; else store.srs[q.id]={step:st,due:Date.now()+STEPS[st]*DAY}; }
 }
 // 합격 예측: 과목별 최근 80개 서로 다른 문항의 마지막 답안(같은 문제 반복은 1개로)으로 정답률을 Beta(1+o,1+x)로 보고,
 // 시험 문항 수(SUBJECTS.n)대로 합산한 정답 수 분포를 정규근사해 '오답 maxWrong()개 이하'가 될 확률을 계산
@@ -198,7 +200,7 @@ function home(){
       :`<button class="cta" data-act="go">안 푼 문제 풀기 · ${st.newIds.length}문제</button>`}</section>`;
   h+=freshCard()+releaseStatus();
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
-  h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀린 문제는 1·3·7일 뒤 다시 나와요</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
+  h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀리면 1일 뒤 → 맞히면 3일 뒤 → 7일 뒤 복습</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
   h+=hotCard();
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
   h+=dailyCard()+planCard();
@@ -404,6 +406,7 @@ function report(){
   let h=`<header class="top-h"><div><span class="eyebrow">학습 리포트</span><h1 class="title">나의 실력 분석</h1></div></header>`;
   const all=rate(activeQuestions);
   h+=`<div class="stat3"><div><b>${all.d}</b><span>푼 문항</span></div><div><b>${all.r==null?'–':all.r+'%'}</b><span>정답률</span></div><div><b>${streak()}일</b><span>연속 학습</span></div></div>`;
+  {const fa=Object.values(store.ans).filter(a=>a.f===true||a.f===false||a.n===1),fo=fa.filter(a=>a.f===true||(a.f===undefined&&a.ok)).length; if(fa.length>=10) h+=`<p class="foot" style="margin:-4px 0 12px">처음 풀었을 때 정답률 <b>${Math.round(fo/fa.length*100)}%</b> (${fa.length}문항) — 같은 문제를 다시 맞힌 것은 빼고 본 값이라 실제 시험 실력에 더 가까워요.</p>`;}
   const pr=predict();
   h+=`<div class="label">목표 달성 예측<small>50문항 중 오답 ${maxWrong()}개 이하일 추정 확률</small></div><div class="qcard predbox">`+(pr.ready?`<div class="pbig ${pr.prob>=70?'hi':pr.prob>=40?'mid':'lo'}">${pr.prob}%</div><p class="psub">지금 실력으로 50문항을 보면 <b>${pr.wrong}개</b> 정도 틀릴 것 같아요.</p><table class="tbl" style="margin-top:8px"><thead><tr><th>과목</th><th>최근 정답률</th><th>예상 오답</th></tr></thead><tbody>`+pr.per.map(x=>`<tr><td>${esc(x.sub.name)}</td><td>${x.n?Math.round(x.p*100)+'%':'–'}<small style="color:var(--muted)"> (${x.n}문항)</small></td><td>${x.n?Math.round(x.sub.n*(1-x.p)):'–'}/${x.sub.n}</td></tr>`).join('')+`</tbody></table><p class="foot" style="margin:12px 0 0">과목별로 최근 푼 서로 다른 문제 80개의 마지막 답안으로 정답률을 잡고(같은 문제를 여러 번 맞혀도 1개로 셈), 시험 문항 수대로 합산해 계산해요. 적게 푼 과목은 보수적으로 잡혀요. 실제 합격은 42명 중 상위 30% 상대평가라 다른 응시자 점수에 따라 달라지므로, 이 값은 합격 확률이 아니라 목표 점수 달성 가능성이에요.</p>`:`<p class="psub">문제를 ${20-pr.tot}개 더 풀면 목표 달성 확률을 계산해 드려요.</p>`)+`<div class="seg" style="margin-top:12px">${[[92,4],[90,5],[88,6]].map(([g,w])=>`<button data-pass="${g}" aria-pressed="${(store.pass||92)===g}">오답 ${w}개 이하</button>`).join('')}</div></div>`;
   h+=`<div class="list" style="margin-top:12px"><button class="row" id="gonote"><span class="ic y">${ico('note')}</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제와 보기별 해설 모아보기</span></span>${ico('chev','chev')}</button><button class="row" id="goset"><span class="ic">${ico('gear')}</span><span class="tx"><span class="nm">설정</span><span class="meta">테마·효과음·진동·하루 목표·목표 점수</span></span>${ico('chev','chev')}</button></div>`;
@@ -450,7 +453,7 @@ function settings(){
   $('#replay').onclick=()=>{slideI=0;onboarding();};
   $('#gdOpen').onclick=()=>installGuide();
   $('#bk').onclick=backup; $('#rs').onclick=restore;
-  let armed=false; $('#wipe').onclick=()=>{ if(!armed){armed=true;$('#wipe .nm').textContent='한 번 더 누르면 초기화돼요';return;} const cfg=store.cfg; store={ans:{},star:[],sess:null,best:{},round:1,log:{},srs:{},hist:[],goal:20,trk:{},pass:92,passV2:1,cfg}; save(); toast('기록을 초기화했어요'); view='home'; render(); };
+  let armed=false; $('#wipe').onclick=()=>{ if(!armed){armed=true;$('#wipe .nm').textContent='한 번 더 누르면 초기화돼요';return;} const cfg=store.cfg; store={ans:{},star:[],sess:null,best:{},round:1,log:{},srs:{},hist:[],goal:20,trk:{},pass:92,passV2:1,cfg,resetAt:Date.now()}; save(); toast('기록을 초기화했어요'); view='home'; render(); };
 }
 function render(){
   refreshRelease(); applyPendingVersion();
@@ -483,7 +486,7 @@ function hideSplash(){ const sp=document.getElementById('splash'); if(!sp) retur
 const SLIDES=[
  {k:'exam',t:'실제 시험처럼 연습해요',d:'공고와 같은 50문항 · 90분 실전 모의고사.\n과목별 점수와 보기별 해설까지 바로 확인해요.',
   art:`<div class="art-paper"><div class="ap-top"><span>실전 제1회</span><b>87:42</b></div><div class="ap-q"><i></i><i></i><i class="s"></i></div><div class="ap-o sel"><b>1</b><i></i></div><div class="ap-o"><b>2</b><i></i></div><div class="ap-o"><b>3</b><i></i></div></div>`},
- {k:'repeat',t:'틀린 문제는 맞힐 때까지',d:'오답 정복 모드는 틀리면 보기를 섞어 다시 나와요.\n1일·3일·7일 뒤 자동 복습으로 확실히 기억해요.',
+ {k:'repeat',t:'틀린 문제는 맞힐 때까지',d:'오답 정복 모드는 틀리면 보기를 섞어 다시 나와요.\n틀린 날부터 1일 뒤, 복습에서 맞히면 3일 뒤, 또 맞히면 7일 뒤에 다시 나와요.',
   art:`<div class="art-cards"><div class="ac c3">7일</div><div class="ac c2">3일</div><div class="ac c1"><span class="x">✕</span> → <span class="o">○</span><small>1일 뒤 복습</small></div></div>`},
  {k:'chart',t:'목표 달성 확률을 실시간으로',d:'푼 기록으로 예상 오답 수와\n목표(오답 4개 이하) 달성 확률을 계산하고, 취약 단원을 짚어줘요.',
   art:`<div class="art-gauge"><svg viewBox="0 0 200 112"><path d="M20 100 A80 80 0 0 1 180 100" class="g-bg"/><path d="M20 100 A80 80 0 0 1 180 100" class="g-fg dash"/></svg><b>78%</b><span>목표 달성 확률</span></div>`},

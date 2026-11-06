@@ -112,6 +112,16 @@
   function parse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
   function merge(a, b, aNewer) { // a=서버, b=이 기기
     if (!a) return b; if (!b) return a;
+    // '풀이 기록 초기화'(resetAt)가 더 늦은 쪽이 있으면, 그 시각 이전 기록은 다른 기기에서 되살리지 않는다
+    var R = Math.max(a.resetAt || 0, b.resetAt || 0);
+    if (R) { var cut = function (x) { if ((x.resetAt || 0) >= R) return x; var d0 = new Date(R + 9 * 36e5).toISOString().slice(0, 10), y = Object.assign({}, x), k;
+      y.ans = {}; for (k in (x.ans || {})) if ((x.ans[k].t || 0) >= R) y.ans[k] = x.ans[k];
+      y.srs = {}; for (k in (x.srs || {})) if (y.ans[k]) y.srs[k] = x.srs[k];
+      y.starT = {}; for (k in (x.starT || {})) if (x.starT[k] >= R) y.starT[k] = x.starT[k];
+      y.star = (x.star || []).filter(function (id) { return y.starT[id]; });
+      y.log = {}; for (k in (x.log || {})) if (k >= d0) y.log[k] = x.log[k];
+      y.hist = (x.hist || []).filter(function (h) { return (h.d || '') >= d0; }); y.best = {}; y.resetAt = R; return y; };
+      a = cut(a); b = cut(b); }
     var N = aNewer ? a : b, O = aNewer ? b : a, out = Object.assign({}, O, N);
     var ans = Object.assign({}, a.ans || {}); Object.keys(b.ans || {}).forEach(function (id) { var x = ans[id], y = b.ans[id]; if (!x || (y.t || 0) > (x.t || 0)) ans[id] = y; }); out.ans = ans;
     // 복습(srs)은 그 문제의 최신 답안을 가진 쪽의 상태를 그대로 따른다(없으면 복습 완료로 보고 되살리지 않음)
@@ -127,14 +137,16 @@
     var log = Object.assign({}, a.log || {}); Object.keys(b.log || {}).forEach(function (d) { var x = log[d] || { n: 0, o: 0 }, y = b.log[d]; log[d] = { n: Math.max(x.n || 0, y.n || 0), o: Math.max(x.o || 0, y.o || 0) }; }); out.log = log;
     var best = Object.assign({}, a.best || {}); Object.keys(b.best || {}).forEach(function (k) { best[k] = Math.max(best[k] == null ? -1 : best[k], b.best[k]); }); out.best = best;
     var seen = {}, hist = []; [].concat(a.hist || [], b.hist || []).forEach(function (h) { var k = h.d + '|' + h.name + '|' + h.sc; if (!seen[k]) { seen[k] = 1; hist.push(h); } }); hist.sort(function (x, y) { return x.d < y.d ? -1 : x.d > y.d ? 1 : 0; }); out.hist = hist.slice(-50);
+    if (R) out.resetAt = R;
     ['badges', 'badgeSeen', 'daily', 'fk'].forEach(function (k) { if (a[k] || b[k]) out[k] = Object.assign({}, O[k] || {}, N[k] || {}); });
     return out;
   }
   function stats(d) {
     var ids = Object.keys(d.ans || {}), ok = ids.filter(function (i) { return d.ans[i].ok; }).length;
+    var fi = ids.filter(function (i) { var a = d.ans[i]; return a.f === true || a.f === false || a.n === 1; }), fok = fi.filter(function (i) { var a = d.ans[i]; return a.f === true || (a.f === undefined && a.n === 1 && a.ok); }).length;
     var days = Object.keys(d.log || {}).sort(), last7 = days.filter(function (x) { return x >= new Date(Date.now() - 6 * 864e5 + 9 * 36e5).toISOString().slice(0, 10); });
     var h = d.hist || [], lastMock = h.length ? h[h.length - 1] : null, bestMock = h.reduce(function (m, x) { return Math.max(m, x.sc || 0); }, 0);
-    return { done: ids.length, ok: ok, pct: ids.length ? Math.round(ok / ids.length * 100) : 0, days7: last7.length, today: ((d.log || {})[new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10)] || { n: 0 }).n, mocks: h.length, lastMock: lastMock ? { sc: lastMock.sc, d: lastMock.d, name: lastMock.name } : null, bestMock: bestMock || null, wrong: ids.length - ok, stars: (d.star || []).length, total: relN(), subj: subjStats(d), live: d.sess && !d.sess.done ? { t: String(d.sess.title || '').slice(0, 30), i: (d.sess.i || 0) + 1, n: (d.sess.ids || []).length, mock: d.sess.mode === 'mock' } : null, pass: d.pass || 92 };
+    return { done: ids.length, ok: ok, pct: ids.length ? Math.round(ok / ids.length * 100) : 0, days7: last7.length, today: ((d.log || {})[new Date(Date.now() + 9 * 36e5).toISOString().slice(0, 10)] || { n: 0 }).n, mocks: h.length, lastMock: lastMock ? { sc: lastMock.sc, d: lastMock.d, name: lastMock.name } : null, bestMock: bestMock || null, wrong: ids.length - ok, stars: (d.star || []).length, total: relN(), subj: subjStats(d), live: d.sess && !d.sess.done ? { t: String(d.sess.title || '').slice(0, 30), i: (d.sess.i || 0) + 1, n: (d.sess.ids || []).length, mock: d.sess.mode === 'mock' } : null, pass: d.pass || 92, first: fi.length ? Math.round(fok / fi.length * 100) : null, firstN: fi.length };
   }
   function relN() { try { var day = new Date().toISOString().slice(0, 10); return QUESTIONS.filter(function (q) { return !q.rel || q.rel <= day; }).length; } catch (e) { return 0; } }
   function subjStats(d) {
@@ -146,7 +158,7 @@
   }
   async function pull() {
     var owner = rd(OWNER, '');
-    if (owner && owner !== st.user.id) { rm(KEY); rm(CHG); } // 이 기기에 다른 사람 기록이 있으면 지움(그 사람 기록은 서버에 있음)
+    if (owner && owner !== st.user.id) { if (unsynced()) wr('promo2-stash-' + owner, rd(KEY, '')); rm(KEY); rm(CHG); rm(SYNCED); } // 다른 사람의 미저장 기록은 지우지 않고 따로 보관 // 이 기기에 다른 사람 기록이 있으면 지움(그 사람 기록은 서버에 있음)
     wr(OWNER, st.user.id);
     try {
       var r = await st.sb.from('quiz_progress').select('data,updated_at').eq('owner', st.user.id).maybeSingle();
@@ -159,18 +171,44 @@
         realSet.call(localStorage, KEY, JSON.stringify(m));
         if (local && JSON.stringify(m) !== JSON.stringify(server)) queue(800);
       } else if (local) queue(800);
+      if (!(local && server && JSON.stringify(local) !== JSON.stringify(server))) wr(SYNCED, rd(CHG, '0'));
       st.lastSync = Date.now();
     } catch (e) { st.err = e.message || String(e); }
   }
-  async function push() {
-    if (st.syncing || !st.user) return; st.syncing = true;
-    try {
-      var d = parse(rd(KEY, 'null')); if (!d) return;
-      var r = await st.sb.from('quiz_progress').upsert({ owner: st.user.id, data: d, stats: stats(d), updated_at: new Date().toISOString() }, { onConflict: 'owner' });
-      if (r.error) throw r.error; st.err = ''; st.lastSync = Date.now();
-    } catch (e) { st.err = e.message || String(e); queue(30000); }
-    finally { st.syncing = false; }
+  // 서버 저장: 서버의 최신본을 읽어 문제별(답안 시각·별표 변경 시각)로 합친 뒤, 읽은 시점(updated_at)이 그대로일 때만 덮어쓴다.
+  // 그 사이 다른 기기가 먼저 저장했으면(조건 불일치) 다시 읽어 합치고 재시도 → PC·휴대폰 동시 사용 시 서로의 기록을 지우지 않음.
+  var SYNCED = 'promo2-synced';
+  function push() {
+    if (!st.user) return Promise.resolve(false);
+    if (st.syncing) { st.again = true; return st.syncing; }
+    st.syncing = (async function () {
+      try {
+        for (var attempt = 0; attempt < 5; attempt++) {
+          var chg = rd(CHG, '0'), local = parse(rd(KEY, 'null')); if (!local) return true;
+          var r = await st.sb.from('quiz_progress').select('data,updated_at').eq('owner', st.user.id).maybeSingle();
+          if (r.error) throw r.error;
+          var now = new Date().toISOString(), w;
+          if (r.data) {
+            var sAt = Date.parse(r.data.updated_at), lAt = +chg;
+            var data = merge(r.data.data || {}, local, sAt >= lAt);
+            w = await st.sb.from('quiz_progress').update({ data: data, stats: stats(data), updated_at: now }).eq('owner', st.user.id).eq('updated_at', r.data.updated_at).select('updated_at');
+            if (w.error) throw w.error;
+            if (!w.data || !w.data.length) continue; // 다른 기기가 먼저 저장 → 다시 읽어 합침
+          } else {
+            w = await st.sb.from('quiz_progress').insert({ owner: st.user.id, data: local, stats: stats(local), updated_at: now });
+            if (w.error) { if (w.error.code === '23505') continue; throw w.error; }
+          }
+          wr(SYNCED, chg); st.err = ''; st.lastSync = Date.now();
+          return true;
+        }
+        throw new Error('동시 저장이 계속 겹쳐 잠시 후 다시 시도해요');
+      } catch (e) { st.err = e.message || String(e); queue(30000); return false; }
+    })();
+    var p = st.syncing;
+    p.then(function () { st.syncing = null; if (st.again) { st.again = false; queue(1500); } });
+    return p;
   }
+  function unsynced() { return rd(KEY, null) && rd(CHG, '0') !== rd(SYNCED, '-'); }
   function queue(ms) { clearTimeout(st.timer); st.timer = setTimeout(push, ms == null ? 4000 : ms); }
   var realSet = Storage.prototype.setItem;
   function hookSave() {
@@ -188,7 +226,7 @@
       (me.is_admin ? '<button class="row" id="p2Adm"><span class="tx"><span class="nm">사용자 관리</span><span class="meta">가입 승인 · 해제 · 임시 비밀번호 · 학습 현황</span></span><span class="p2-pend" id="p2Pend"></span></button>' : '') +
       '<button class="row" id="p2Gd"><span class="tx"><span class="nm">사용설명서</span><span class="meta">업데이트 일정·쓰는 법·주의사항</span></span></button>' +
       '<button class="row" id="p2Pw"><span class="tx"><span class="nm">비밀번호 바꾸기</span></span></button>' +
-      '<button class="row" id="p2Out"><span class="tx"><span class="nm">로그아웃</span><span class="meta">공용 PC면 꼭 로그아웃하세요 · 이 기기의 기록은 지워지고 서버에 남아요</span></span></button></div>';
+      '<button class="row" id="p2Out"><span class="tx"><span class="nm">로그아웃</span><span class="meta">공용 PC면 꼭 로그아웃하세요 · 서버 저장을 확인한 뒤 이 기기의 기록을 지워요</span></span></button></div>';
   }
   function bindSettings(root) {
     var a = $('#p2Adm', root); if (a) { a.onclick = adminPanel; pendingCount().then(function (n) { var p = $('#p2Pend', root); if (p && n) p.textContent = '대기 ' + n; }); }
@@ -198,9 +236,26 @@
   }
   async function logout() {
     var o = $('#p2Out'); if (o && o.dataset.arm !== '1') { o.dataset.arm = '1'; $('.nm', o).textContent = '한 번 더 누르면 로그아웃'; return; }
-    clearTimeout(st.timer); await push();
-    await st.sb.auth.signOut(); rm(KEY); rm(CHG); rm(OWNER); rm(AUTHC); location.reload();
+    clearTimeout(st.timer);
+    if (o) $('.nm', o).textContent = '기록 저장 중…';
+    if (st.syncing) await st.syncing;          // 이미 진행 중인 저장이 끝날 때까지 기다림
+    var ok = !unsynced() || await push();       // 저장할 것이 남아 있으면 한 번 더 저장
+    if (ok && !unsynced()) return finishLogout(true);
+    // 저장 실패: 이 기기의 기록을 지우지 않고 안내
+    var sh = sheet('<h2>기록을 서버에 저장하지 못했어요</h2><p class="p2g-p">인터넷 연결을 확인한 뒤 다시 시도해 주세요. 이 기기의 풀이 기록은 지우지 않고 그대로 두었어요.' + (st.err ? '<br><small>(' + esc(st.err) + ')</small>' : '') + '</p>' +
+      '<button class="p2g-btn pri" id="p2Rt">다시 저장하고 로그아웃</button><button class="p2g-btn" id="p2Bk">백업 코드 만들기(설정 → 기록 백업하기)</button><button class="p2g-btn" id="p2Ks">기록은 이 기기에 남기고 로그아웃</button><div class="p2g-msg" id="p2M"></div>');
+    $('#p2Rt', sh).onclick = async function () { msg(sh, '저장 중…', true); var r = await push(); if (r && !unsynced()) finishLogout(true); else msg(sh, '아직 저장되지 않았어요: ' + (st.err || '연결 확인'), false); };
+    $('#p2Bk', sh).onclick = function () { sh.close(); var b = document.getElementById('bk'); if (b) b.click(); };
+    $('#p2Ks', sh).onclick = function () { finishLogout(false); };
+    if (o) { o.dataset.arm = ''; $('.nm', o).textContent = '로그아웃'; }
   }
+  async function finishLogout(clear) {
+    try { await st.sb.auth.signOut(); } catch (e) { }
+    if (clear) { rm(KEY); rm(CHG); rm(SYNCED); rm(OWNER); }
+    // clear=false: 기록과 소유자 표시는 남겨, 같은 계정으로 다시 로그인하면 서버와 합쳐서 올린다
+    rm(AUTHC); location.reload();
+  }
+
 
   /* ── 시트(관리자·비밀번호) ── */
   function sheet(html, wide) {
@@ -240,7 +295,7 @@
         var subj = s.subj ? '<div class="p2a-sj">' + ['F', 'E', 'D', 'Y', 'G'].map(function (k) { var v = s.subj[k]; var r = v && v[1] ? Math.round(v[0] / v[1] * 100) : null; return '<span><em>' + SN[k] + '</em><i><b style="width:' + (r || 0) + '%" class="' + (r != null && r < 60 ? 'lo' : '') + '"></b></i><small>' + (r == null ? '–' : r + '%') + '</small></span>'; }).join('') + '</div>' : '';
         var stat = x.status === 'approved' ? (live ? '<div class="p2a-live"><i></i>최근 5분 내 활동' + (s.live ? ' · 마지막 기록: ' + (s.live.mock ? '모의고사 ' : '') + esc(s.live.t) + ' ' + s.live.i + '/' + s.live.n + '번' : '') + '</div>' : '') +
           '<div class="p2a-pg"><span>진도 ' + prog + '%</span><i><b style="width:' + prog + '%"></b></i><small>' + (s.done || 0) + '/' + (s.total || '–') + '</small></div>' +
-          '<div class="p2a-st"><span><b>' + (s.today || 0) + '</b>오늘 푼 문제</span><span><b>' + (s.pct || 0) + '%</b>정답률</span><span><b>' + (s.days7 || 0) + '일</b>최근 7일</span><span><b>' + (s.lastMock ? s.lastMock.sc + '점' : '–') + '</b>최근 모의고사' + (s.bestMock ? ' (최고 ' + s.bestMock + ')' : '') + '</span></div>' + subj : '';
+          '<div class="p2a-st"><span><b>' + (s.today || 0) + '</b>오늘 푼 문제</span><span><b>' + (s.pct || 0) + '%</b>정답률(최종)</span><span><b>' + (s.first == null ? '–' : s.first + '%') + '</b>첫 풀이 정답률' + (s.firstN ? ' (' + s.firstN + '문항)' : '') + '</span><span><b>' + (s.days7 || 0) + '일</b>최근 7일</span><span><b>' + (s.lastMock ? s.lastMock.sc + '점' : '–') + '</b>최근 모의고사' + (s.bestMock ? ' (최고 ' + s.bestMock + ')' : '') + '</span></div>' + subj : '';
         return '<div class="p2a-r"><div class="p2a-h"><div><b>' + esc(x.name || '(이름 없음)') + '</b><small>' + esc(x.email) + '</small></div><div class="p2a-act">' + act + '</div></div>' + stat +
           '<div class="p2a-m">' + (x.status === 'pending' ? '가입 ' + ago(x.created_at) : '마지막 학습 ' + ago(x.synced_at) + ' · 접속 ' + ago(x.last_seen || x.last_sign_in)) + '</div></div>';
       };
@@ -319,7 +374,7 @@
       '<h3>🧭 이렇게 쓰세요</h3><ul>' +
       '<li><b>홈</b> — 안 푼 문제 이어 풀기, 오늘의 복습, 기출 빈출 쟁점</li>' +
       '<li><b>연습</b> — 과목별 풀이, 문제 검색, <b>암기 카드</b>(핵심 숫자·기간·요건)</li>' +
-      '<li><b>오답노트</b> — 틀린 문제·별표 문제. 틀린 문제는 1·3·7일 뒤 다시 나와요</li>' +
+      '<li><b>오답노트</b> — 틀린 문제·별표 문제. 틀리면 1일 뒤, 그 복습에서 맞히면 3일 뒤, 또 맞히면 7일 뒤 다시 나와요(복습일 전에 다시 맞혀도 단계는 그대로)</li>' +
       '<li><b>모의고사</b> — 실제와 같은 50문항(자배법·손해사정·보험계약법·공제약관 각 12, 상식 2)·90분, 답안지(OMR)로 빈 문항 확인</li>' +
       '<li><b>중간 점수</b> — 풀다가 1/4·절반·3/4 지점에서 지금까지 점수가 떠요. 위쪽 문항 번호(모의고사는 남은 시간)를 누르면 언제든 볼 수 있어요</li>' +
       '<li><b>목표 점수</b> — 실제 합격은 42명 중 상위 30% 상대평가예요. 앱의 「목표 달성 확률」은 예년 기준선인 <b>오답 4개 이하</b>를 맞힐 확률을 추정한 값이고, 다른 응시자 점수는 반영하지 않아요</li>' +
