@@ -348,6 +348,8 @@
     if (!window.BUILD || location.protocol === 'file:' || Date.now() - lastChk < 60000) return; lastChk = Date.now();
     fetch('version.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
       if (!j || !j.v || j.v === window.BUILD) return;
+      // 학습 중 새 버전은 앱이 답안과 타이머를 보존하고 안전한 시점에 반영한다.
+      if (window.P2RequestVersion) { window.P2RequestVersion(j.v); return; }
       var k = 'promo2-reloaded-' + j.v; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) { }
       if (st.timer) { clearTimeout(st.timer); push(); }
       setTimeout(function () { location.replace(location.pathname + '?v=' + j.v + location.hash); }, 300);

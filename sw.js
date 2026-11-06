@@ -1,5 +1,5 @@
 // 오프라인 지원: 네트워크 우선, 실패하면 캐시
-const C='promo2-202611061330';
+const C='promo2-202611061356';
 self.addEventListener('install',e=>{ self.skipWaiting(); e.waitUntil(caches.open(C).then(c=>c.addAll(['./','index.html','manifest.webmanifest','icon-192.png']).catch(()=>{}))); });
 self.addEventListener('activate',e=>{ e.waitUntil(self.clients.claim()); });
 self.addEventListener('fetch',e=>{
