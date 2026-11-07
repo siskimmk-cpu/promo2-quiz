@@ -20,6 +20,11 @@ for(const q of QUESTIONS){
     const FAM=/민법 제100[0-9]조|친권/; if(FAM.test(q.q+(q.case||'')+q.ref)&&!/공제약관 26 지급기준/.test(q.ref)) bad('민법 상속·가족법은 공제약관 지급기준(사망 위자료 청구권자) 문항에서만');
     const OUT=/보험업법|개인정보 보호법|여객자동차|공제규정|형사소송|행정소송|세법|소득세|부가가치세|역사|문학|스포츠|연예|드라마|영화/; if(OUT.test(q.q+(q.case||'')+q.ref)) bad('시험과목 밖 소재'); }
   if(!Array.isArray(q.why)||q.why.length!==q.opts.length) bad('why(보기별 해설) 누락 또는 개수 불일치');
+  else { const mk=q.why.map(w=>(String(w).trim().match(/^[○×]/)||[''])[0]);
+    if(mk.some(m=>!m)) bad('why는 보기마다 ○ 또는 ×로 시작해야 함');
+    else { const a=mk[q.ans]; if(mk.filter(m=>m===a).length!==1) bad('정답 보기만 ○/× 표시가 달라야 함(why와 ans 불일치)'); } }
+  if(/다음 사례|사례에서|다음 사안/.test(q.q)&&!q.case&&!q.box) bad('발문이 사례를 가리키는데 case(사례 본문)가 없음');
+  if(q.verifiedAt!==undefined&&!/^\d{4}-\d{2}-\d{2}$/.test(q.verifiedAt)) bad('verifiedAt은 YYYY-MM-DD');
 }
 const cnt={};QUESTIONS.forEach(q=>cnt[q.sec]=(cnt[q.sec]||0)+1);
 const pos=[0,0,0,0,0];QUESTIONS.forEach(q=>pos[q.ans]++);console.log('정답 위치 분포',pos.slice(0,4).join('/'),'· 5번',pos[4],'(5지선다 '+QUESTIONS.filter(q=>q.opts.length===5).length+'문항 중)');

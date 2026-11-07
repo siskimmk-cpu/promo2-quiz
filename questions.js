@@ -8421,7 +8421,8 @@ const QUESTIONS = [
    "× 상법 원칙 방식이다.",
    "○ 약관은 다른 계약이 없는 것으로 각 계약별 보상책임액을 산출해 그 비율로 분담(독립책임액 비례)."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "B41",
@@ -8474,7 +8475,8 @@ const QUESTIONS = [
    "○ 과실만 있으면 무효를 안 날까지의 경과기간을 단기요율로 계산한 분담금을 빼고 환급.",
    "○ 선의·무중과실이면 전액 환급."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "A31",
@@ -8699,7 +8701,8 @@ const QUESTIONS = [
    "× 법률상 준용이므로 별도 합의가 필요 없다.",
    "× 통칙(고지의무·시효 등)도 성질에 반하지 않는 한 준용된다."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D66",
@@ -8856,7 +8859,8 @@ const QUESTIONS = [
    "y": 9,
    "of": 10
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D71",
@@ -9012,7 +9016,8 @@ const QUESTIONS = [
    "y": 14,
    "of": 17
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F61",
@@ -9160,7 +9165,8 @@ const QUESTIONS = [
    "of": 10
   },
   "reviewedAt": "2026-11-06",
-  "rev": 2
+  "rev": 2,
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E57",
@@ -9275,7 +9281,8 @@ const QUESTIONS = [
    "× 대수의 법칙.",
    "× 급부·반대급부 균등."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E62",
@@ -9410,7 +9417,8 @@ const QUESTIONS = [
    "× 스태그플레이션은 경기침체 속 물가상승.",
    "○ 디커플링: 세계 흐름과 따로 움직이는 탈동조화."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G36",
@@ -9542,7 +9550,8 @@ const QUESTIONS = [
    "○ 출구전략: 비상 완화조치를 거두어 정상화하는 것.",
    "× 반대 방향."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G41",
@@ -11847,7 +11856,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN02",
@@ -11875,7 +11885,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN03",
@@ -11903,7 +11914,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN04",
@@ -11929,7 +11941,7 @@ const QUESTIONS = [
    "○ 제50조 제2항 제1호.",
    "○ 제52조 제2항."
   ],
-  "rel": "2026-11-08",
+  "rel": "2026-11-20",
   "reviewedAt": "2026-11-06",
   "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
  },
@@ -11959,7 +11971,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN06",
@@ -11987,7 +12000,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN07",
@@ -12080,6 +12094,7 @@ const QUESTIONS = [
    "결정효력"
   ],
   "q": "다음 사례에서 자배법 제21조에 따른 효과로 옳은 것은?",
+  "case": "의료기관 A와 보험회사 B 사이의 자동차보험진료수가 분쟁에 대하여 자동차보험진료수가분쟁심의회가 심사·결정을 하고 2026. 3. 2. A와 B에게 통지하였다. A와 B는 모두 결정을 수락한다는 의사를 표시하지 않았고, 통지받은 날부터 30일이 지나도록 소를 제기하지도 않았다.",
   "opts": [
    "통지받은 날부터 30일이 지난 날의 다음 날 합의가 성립한 것으로 보고, 그날부터 7일 이내에 정산한다.",
    "수락 의사를 표시하지 않았으므로 결정은 효력이 없고 전문심사기관의 심사결과가 그대로 확정된다.",
@@ -12498,6 +12513,7 @@ const QUESTIONS = [
    "대리인"
   ],
   "q": "다음 사례에 관한 설명으로 옳은 것은?",
+  "case": "갑은 배우자 을을 대리인으로 하여 A보험회사와 상해보험계약을 체결하였다. 계약 체결 한 달 전 갑의 건강검진에서 고혈압 진단이 나왔으나 결과 통지는 을만 받아 갑은 그 사실을 몰랐다. 을은 A가 서면으로 질문한 '최근 3개월 내 진단 사실' 란에 '없음'이라고 적었다.",
   "opts": [
    "고지의무 위반 여부는 본인인 갑을 기준으로만 판단하므로 갑이 진단 사실을 몰랐던 이상 위반이 아니다.",
    "대리인 을은 보험계약자가 아니므로 을이 아는 사실은 고지 대상이 아니다.",
@@ -12515,7 +12531,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN02",
@@ -12543,7 +12560,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN03",
@@ -12554,6 +12572,7 @@ const QUESTIONS = [
    "사고후멸실"
   ],
   "q": "다음 사례에서 보험자의 책임에 관한 상법의 태도로 옳은 것은?",
+  "case": "갑은 자신의 창고(보험가액 1억원)를 보험금액 1억원의 화재보험에 가입하였다. 보험기간 중 화재로 창고에 2,000만원의 손해가 생겼고, 복구하기 전에 이 보험이 담보하지 않는 홍수로 창고가 전부 멸실되었다.",
   "opts": [
    "창고가 담보하지 않는 위험으로 전부 멸실되었으므로 보험자는 책임을 면한다.",
    "보험자는 화재 손해와 홍수 손해를 합한 전부를 보상하여야 한다.",
@@ -12571,7 +12590,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN04",
@@ -12599,7 +12619,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN05",
@@ -12626,7 +12647,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN06",
@@ -12693,6 +12715,7 @@ const QUESTIONS = [
    "중복보험"
   ],
   "q": "다음 사례에서 상법상 A·B의 보상책임에 관한 설명으로 옳은 것은?",
+  "case": "갑은 같은 배상책임 위험에 대하여 A보험회사와 보험금액 1억원, B보험회사와 보험금액 2억원의 책임보험계약을 각각 체결하였다. 보험기간 중 사고로 갑이 제3자에게 부담하게 된 손해배상액은 1억 5천만원이다.",
   "opts": [
    "책임보험에는 보험가액이 없으므로 중복보험 규정이 적용되지 않고 갑이 선택한 보험자가 전액을 보상한다.",
    "A와 B는 먼저 체결된 계약의 보험자부터 순차로 보상한다.",
@@ -12710,7 +12733,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN09",
@@ -12778,6 +12802,7 @@ const QUESTIONS = [
    "인과관계"
   ],
   "q": "다음 사례에 관한 상법의 태도로 옳은 것은?",
+  "case": "갑은 자신의 점포 건물을 화재보험에 가입한 뒤, 보험기간 중 건물 일부를 인화성 도료 보관창고로 바꾸어 사고 발생 위험이 현저하게 증가하였으나 보험자에게 알리지 않았다. 그 뒤 전기 배선 합선으로 화재가 발생하였고, 보험자는 사고 조사 과정에서 위험 증가 사실을 처음 알았다.",
   "opts": [
    "보험사고가 이미 발생하였으므로 보험자는 위험변경·증가 통지의무 위반을 이유로 계약을 해지할 수 없다.",
    "보험자는 해지할 수 있으나, 위험 증가가 사고 발생에 영향을 미치지 않았음이 증명되면 보험금을 지급하여야 한다.",
@@ -12795,7 +12820,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN12",
@@ -12865,6 +12891,7 @@ const QUESTIONS = [
    "운전피보험자"
   ],
   "q": "다음 사례에 관한 판례의 태도로 옳은 것은? (다툼이 있는 경우 판례에 의함)",
+  "case": "자동차보험 기명피보험자 갑은 자기 승용차를 친구 을에게 빌려주면서 '다른 사람에게는 절대 운전시키지 말라'고 분명히 말했다. 을은 술을 마신 뒤 지인 병에게 부탁하여 자신을 집까지 태워 달라고 했고, 병이 을을 위하여 운전하다가 사고를 내 보험자가 피해자에게 보험금을 지급하였다.",
   "opts": [
    "병은 을의 구체적·개별적 승낙을 받고 을을 위해 운전했으므로 운전피보험자에 해당하고, 보험자는 병에게 대위할 수 없다.",
    "병이 운전피보험자인지는 을의 승낙 여부만으로 판단하고 기명피보험자의 의사는 고려하지 않는다.",
@@ -13085,7 +13112,8 @@ const QUESTIONS = [
    "○ 신구교환이익 공제의 근거는 이득금지(실손보상) 원칙이다."
   ],
   "rel": "2026-11-08",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN02",
@@ -13113,7 +13141,8 @@ const QUESTIONS = [
    "× 격락손해는 수리 후에도 남는 교환가치 하락분이다. 사용불능에 대한 손해는 대차료·휴차료로 다룬다."
   ],
   "rel": "2026-11-08",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN03",
@@ -13140,7 +13169,8 @@ const QUESTIONS = [
    "× 신가보험(재조달가액보험)의 설명이다."
   ],
   "rel": "2026-11-08",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN04",
@@ -13168,7 +13198,8 @@ const QUESTIONS = [
    "○ 보험사기의 사회적 비용."
   ],
   "rel": "2026-11-08",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN05",
@@ -13195,7 +13226,8 @@ const QUESTIONS = [
    "○ 손실재무비용."
   ],
   "rel": "2026-11-08",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN06",
@@ -13629,7 +13661,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN02",
@@ -13657,7 +13690,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN03",
@@ -13685,7 +13719,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN04",
@@ -13696,6 +13731,7 @@ const QUESTIONS = [
    "갱신등급"
   ],
   "q": "다음 사례에서 공제약관상 갑의 갱신계약 적용등급 산정에 관한 설명으로 옳은 것은?",
+  "case": "기명조합원 갑의 전계약 적용등급은 15Z이다. 평가대상기간 중 사고는 1건으로, 상대 차량과 충돌하여 상대 운전자가 부상 9급의 상해를 입었으며 갑의 과실은 30%이다. 그 밖의 사고는 없다.",
   "opts": [
    "과실이 있는 부상 9급 사고이므로 사고점수 2점을 빼 갱신계약은 13Z가 된다.",
    "과실 50% 미만 사고이므로 최근 1년간 사고점수에서 제외하되, 특별할증에는 반영한다.",
@@ -13713,7 +13749,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN05",
@@ -13741,7 +13778,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-08",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN06",
@@ -13752,6 +13790,7 @@ const QUESTIONS = [
    "의무보험"
   ],
   "q": "다음 사례에 관한 공제약관의 설명으로 옳은 것은?",
+  "case": "기명조합원 갑의 개인택시에는 A보험회사의 의무보험이 포함된 자동차보험계약(A보험계약)이 유효하게 맺어져 있었다. 갑은 이를 잊고 공제조합과 의무보험(대인공제Ⅰ·대물공제)만으로 된 공제계약을 새로 맺었다.",
   "opts": [
    "의무보험은 해지·해제가 제한되므로 갑은 이 공제계약을 해제할 수 없다.",
    "갑은 A보험계약이 종료한 뒤에만 이 공제계약을 해제할 수 있다.",
@@ -13769,7 +13808,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN07",
@@ -14147,6 +14187,7 @@ const QUESTIONS = [
    "사망위자료"
   ],
   "q": "다음 사례에서 공제약관 대인공제 지급기준에 따른 지급액으로 옳은 것은?",
+  "case": "공제계약자동차에 치여 사망한 보행자 을은 사고 당시 만 70세였다. 을의 유족으로는 배우자와 자녀 2명이 있다(과실상계 등 다른 감액 사유는 없는 것으로 본다).",
   "opts": [
    "장례비 500만원, 사망 위자료 5,000만원",
    "장례비 500만원, 사망 위자료 8,000만원",
@@ -14164,7 +14205,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F75",
