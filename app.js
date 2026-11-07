@@ -1098,6 +1098,61 @@ const bkMin=c=>Math.max(1,Math.round(bkText(c).length/450));
 function bkRel(c){ const secs=(c.sec||'').split(''); const hay=q=>q.q+' '+(q.case||'')+' '+q.opts.join(' ')+' '+(q.ref||'')+' '+(q.tags||[]).join(' ');
   return activeQuestions.filter(q=>secs.includes(q.sec)&&c.m&&c.m.test(hay(q))).map(q=>q.id); }
 function bkInline(s){ return esc(s).replace(/(\d[\d,.]*(?:\s?[~∼]\s?\d[\d,.]*)?\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|억|원|개월|주|일|년|월|급|km|세|점|배|회|시간|명|리터))/g,'<b class="bk-num" tabindex="0">$1</b>'); }
+/* 본문: 같은 종류 블록을 한 카드로 묶고, 중간중간 깜짝 퀴즈(빈칸 입력·O/X)를 넣는다 */
+const BKGRP={k:['bk-key','💡 핵심 포인트'],w:['bk-warn','⚠️ 시험 함정'],j:['bk-case','⚖️ 판례로 보기'],x:['bk-ex','📝 예시']};
+function bkHash(s){ let h=0; for(const ch of s) h=(h*31+ch.charCodeAt(0))|0; return Math.abs(h); }
+function bkQuizzes(c,rel){ const out=[], seed=bkHash(c.id+dayKey9());
+  const chips=c.b.filter(x=>x[0]==='n').flatMap(x=>x.slice(2).split(';').map(p=>p.split('='))).filter(([a,b])=>a&&b&&/\d/.test(b));
+  if(chips.length){ const [a,b]=chips[seed%chips.length]; out.push({k:'f',q:a.trim(),a:b.trim()}); }
+  const pool=rel.map(i=>byId[i]).filter(q=>q&&!q.case&&q.why&&q.why.length===q.opts.length);
+  if(pool.length){ const q=pool[(seed>>3)%pool.length], wantX=(seed>>2)&1, idx=q.opts.map((_,j)=>j), pick=idx.filter(j=>String(q.why[j]).trim().startsWith(wantX?'×':'○')), cand=pick.length?pick:idx, oi=cand[(seed>>5)%cand.length], w=String(q.why[oi]).trim(); let e=w.replace(/^[○×]\s*/,''); if(/^(공제)?(약관|자배법|상법|시행령|민법|대법|판례)/.test(e)&&e.length<30) e='근거: '+e; out.push({k:'o',q:q.opts[oi],a:w.startsWith('○'),e,src:q.id}); }
+  return out; }
+function bkQuizHTML(z,n,done){ const tag=z.k==='f'?'✍️ 빈칸 채우기':'⭕ O/X 깜짝 퀴즈';
+  if(z.k==='f') return `<section class="bk-pop" data-pq="${n}"><div class="bk-pop-h"><b>${tag}</b><small>직접 써 보면 더 오래 남아요</small></div><p class="bk-pop-q"><span>${esc(z.q)}</span><em>=</em><span class="bk-blank">?</span></p><form class="bk-fi" onsubmit="return false"><input autocomplete="off" enterkeyhint="done" placeholder="답을 입력하세요 (예: 30일)"><button>확인</button></form><button class="bk-skip" type="button">모르겠어요 · 정답 보기</button><div class="bk-pop-r"></div></section>`;
+  return `<section class="bk-pop" data-pq="${n}"><div class="bk-pop-h"><b>${tag}</b><small>맞으면 O, 틀리면 X</small></div><p class="bk-pop-s">${esc(z.q)}</p><div class="bk-ox"><button data-ox="1">O</button><button data-ox="0">X</button></div><div class="bk-pop-r"></div></section>`; }
+function bkBody(c,hl,rel,st){ const qs=bkQuizzes(c,rel), B=c.b, n=B.length;
+  const slots=qs.length===2?[Math.max(1,Math.round(n*.4)),Math.max(2,Math.round(n*.8))]:qs.length?[Math.max(1,Math.round(n*.55))]:[];
+  let h='', depth=0, i=0, qi=0;
+  const putQuiz=()=>{ const z=qs[qi], key=c.id+':'+qi, done=st.pq&&st.pq[key]; h+=bkQuizHTML(z,qi,done); h+=`<div class="bk-rest ${done?'':'locked'}" data-rest="${qi}">`; depth++; qi++; };
+  while(i<n){ if(qi<slots.length&&i>=slots[qi]) putQuiz();
+    const k=B[i][0];
+    if(BKGRP[k]){ let j=i; const items=[]; while(j<n&&B[j][0]===k&&!(qi<slots.length&&j>=slots[qi]&&j>i)){ items.push(j); j++; }
+      const [cls,lab]=BKGRP[k];
+      h+=items.length>1?`<div class="${cls} bk-grp rv"><i>${lab}</i><ul>${items.map(x=>`<li class="bk-b${hl.includes(x)?' hl':''}" data-bi="${x}">${bkInline(B[x].slice(2))}</li>`).join('')}</ul></div>`
+        :`<div class="${cls} bk-b rv${hl.includes(i)?' hl':''}" data-bi="${i}"><i>${lab}</i><p>${bkInline(B[i].slice(2))}</p></div>`;
+      i=j; continue; }
+    h+=bkBlock(B[i],i,hl).replace(/class="(bk-[a-z]+)/,'class="$1 rv'); i++; }
+  while(qi<qs.length) putQuiz();
+  const chips=B.filter(x=>x[0]==='n').flatMap(x=>x.slice(2).split(';'));
+  h+=`<div class="bk-recap rv"><i>📌 한눈에 복습</i><p>${bkInline(c.s)}</p>${chips.length?`<div class="bk-rchips">${chips.map(p=>{const [a,b]=p.split('=');return `<span>${esc(a)} <b class="bk-num">${esc(b||'')}</b></span>`;}).join('')}</div>`:''}</div>`;
+  h+='</div>'.repeat(depth);
+  return {html:`<div class="bk-body">${h}</div>`,qs}; }
+function bkGrade(input,ans){ const N=s=>String(s).replace(/\s|,|이내|까지|이상|부터|정도/g,'').toLowerCase();
+  const ui=N(input), ai=N(ans); if(!ui) return false; if(ui===ai||ai.includes(ui)&&ui.length>=Math.max(2,ai.length*.6)) return true;
+  const num=s=>(s.match(/\d+(?:\.\d+)?/g)||[]); const an=num(ai), un=num(ui); if(!an.length||!un.length) return false;
+  if(!un.includes(an[0])) return false;
+  const unit=s=>{ const m=s.match(/\d(?:\.\d+)?([가-힣%]+)/); return m?m[1].replace(/^(만원|억원|천만원)$/,'원'):''; }; const uu=unit(ui), au=unit(ai);
+  return !uu||!au||au.startsWith(uu)||uu.startsWith(au); }
+function bkBindPops(id,qs,st){ st.pq=st.pq||{};
+  const unlock=n=>{ const r=app.querySelector(`.bk-rest[data-rest="${n}"]`); if(r){ r.classList.remove('locked'); r.classList.add('opened'); } };
+  app.querySelectorAll('.bk-pop').forEach(sec=>{ const n=+sec.dataset.pq, z=qs[n], key=id+':'+n, res=sec.querySelector('.bk-pop-r');
+    const show=(ok,given)=>{ sec.classList.add(ok?'ok':'no','done');
+      if(z.k==='f'){ const bl=sec.querySelector('.bk-blank'); bl.textContent=z.a; bl.classList.add('on'); const f=sec.querySelector('.bk-fi'); if(f) f.remove(); const sk=sec.querySelector('.bk-skip'); if(sk) sk.remove();
+        res.innerHTML=`<b>${ok?'정답! 👏':given==null?'정답을 확인해요':'아쉬워요'}</b>${given&&!ok?`<span>내 답: ${esc(given)}</span>`:''}`; }
+      else { sec.querySelectorAll('[data-ox]').forEach(b=>{ b.disabled=true; b.classList.toggle('ans',(b.dataset.ox==='1')===z.a); });
+        res.innerHTML=`<b>${ok?'정답! 👏':'아쉬워요'} · ${z.a?'O(맞는 말)':'X(틀린 말)'}</b><span>${hl(z.e)}</span>`; }
+      unlock(n); };
+    if(st.pq[key]) { show(st.pq[key].ok,st.pq[key].g); return; }
+    const fin=(ok,g)=>{ st.pq[key]={ok,g:g==null?null:g,t:Date.now()}; save(); buzz(ok?[10]:[20,40,20]); show(ok,g);
+      const r=app.querySelector(`.bk-rest[data-rest="${n}"]`); if(r) setTimeout(()=>{ const nx=r.firstElementChild; if(nx&&!RM) nx.scrollIntoView({behavior:'smooth',block:'center'}); },650); };
+    if(z.k==='f'){ const f=sec.querySelector('.bk-fi'), inp=f.querySelector('input');
+      f.onsubmit=e=>{ e.preventDefault(); const v=inp.value.trim(); if(!v){ inp.focus(); return false; } fin(bkGrade(v,z.a),v); return false; };
+      sec.querySelector('.bk-skip').onclick=()=>fin(false,null); }
+    else sec.querySelectorAll('[data-ox]').forEach(b=>b.onclick=()=>fin((b.dataset.ox==='1')===z.a,b.dataset.ox==='1'?'O':'X')); });
+  app.querySelectorAll('.bk-rest.locked').forEach(r=>{ const n=r.dataset.rest; r.insertAdjacentHTML('afterbegin',`<button class="bk-unlock" type="button">퀴즈 건너뛰고 계속 읽기</button>`); r.querySelector('.bk-unlock').onclick=()=>{ r.classList.remove('locked'); r.classList.add('opened'); }; });
+  if(!RM&&'IntersectionObserver' in window){ const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }),{rootMargin:'0px 0px -8% 0px'}); app.querySelectorAll('.rv').forEach(el=>io.observe(el)); }
+  else app.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+}
 function bkBlock(raw,i,hl){
   const k=raw.slice(0,1), x=raw.slice(2), on=hl.includes(i)?' hl':'', at=`data-bi="${i}"`;
   if(k==='p') return `<p class="bk-p bk-b${on}" ${at}>${bkInline(x)}</p>`;
@@ -1173,7 +1228,7 @@ function bookRead(id){
   h+=`<article class="bk-art anim s-${c.bsub}"><div class="bk-meta"><span class="eyebrow">${String(idx+1).padStart(2,'0')}절 · 약 ${bkMin(c)}분</span>${done?'<span class="bk-badge">읽음</span>':''}</div><h1 class="bk-h">${esc(c.t)}</h1>`;
   h+=`<div class="bk-sum"><i>한 줄 요약</i><p>${bkInline(c.s)}</p></div>`;
   h+=`<div class="bk-tools"><button id="bkMask" class="${st.mask?'on':''}">${ico('eye')}<span>${st.mask?'가리개 ON':'가리개'}</span></button><button id="bkPen" class="${st.pen?'on':''}">${ico('pen')}<span>형광펜</span></button><button id="bkTts">${ico('sound')}<span>듣기</span></button></div>`;
-  h+=`<div class="bk-body">${c.b.map((x,i)=>bkBlock(x,i,hl)).join('')}</div>`;
+  const BD=bkBody(c,hl,rel,st); h+=BD.html;
   h+=`<p class="bk-ref">근거 · ${esc(c.r)}</p></article>`;
   const DY=bkDaily(), isD=DY.list.some(x=>x.id===id);
   if(isD) h+=`<div class="bk-dban ${DY.chk[id]?'on':''}" id="bkDB"><span>☀️</span><div><b>오늘 짚고 갈 곳</b><small>${esc(DY.list.find(x=>x.id===id).why)}</small></div><button id="bkDC" aria-pressed="${!!DY.chk[id]}">${DY.chk[id]?'확인함 ✓':'확인했어요'}</button></div>`;
@@ -1199,6 +1254,7 @@ function bookRead(id){
     const parts=[c.t,c.s].concat(c.b.map(x=>x[0]==='t'?x.slice(2).split('\n').map(r=>r.split('|').filter(Boolean).join(', ')).join('. '):x[0]==='n'?x.slice(2).split(';').map(p=>p.replace('=',' ')).join('. '):bkPlain(x)));
     parts.forEach((p,i)=>{ const u=new SpeechSynthesisUtterance(p.replace(/[~∼]/g,'에서 ').replace(/·/g,', ')); u.lang='ko-KR'; u.rate=1.05; if(i===parts.length-1) u.onend=()=>{ tts.classList.remove('on'); tts.querySelector('span').textContent='듣기'; }; S.speak(u); });
     tts.classList.add('on'); tts.querySelector('span').textContent='멈춤'; };
+  bkBindPops(id,BD.qs,st);
   const toggleHl=el=>{ const i=+el.dataset.bi, a=st.hl[id]||(st.hl[id]=[]); const k=a.indexOf(i); if(k<0) a.push(i); else a.splice(k,1); if(!a.length) delete st.hl[id]; save(); el.classList.toggle('hl',k<0); buzz(8); };
   app.querySelectorAll('.bk-b').forEach(el=>{ let t=null;
     el.addEventListener('click',e=>{ const n=e.target.closest('.bk-num'); if(st.mask&&n){ n.classList.toggle('shown'); return; } if(st.pen) toggleHl(el); });
@@ -1243,7 +1299,7 @@ function bookRead(id){
   app.onwheel=e=>{ if(wlock||Math.abs(e.deltaX)<Math.abs(e.deltaY)*1.3) return; art.classList.remove('anim','bk-in-r','bk-in-l'); e.preventDefault(); wx-=e.deltaX; const edge=(wx<0&&!next)||(wx>0&&!prev); paint(edge?wx*0.22:wx,false);
     clearTimeout(wt); if(Math.abs(wx)>W()*.22&&!edge){ wlock=true; flip(wx<0?'l':'r'); return; } wt=setTimeout(()=>{ wx=0; paint(0,true); },160); };
   if(!st.nudged&&next&&!RM){ st.nudged=1; save(); setTimeout(()=>{ if(!document.body.contains(art)) return; art.classList.add('bk-nudge'); toast('옆으로 밀면 다음 절로 넘어가요 👉'); setTimeout(()=>art.classList.remove('bk-nudge'),1400); },900); }
-  document.onkeydown=e=>{ if(document.body.dataset.view!=='book'||!ov.hidden||!bkSt().open) return; if(e.key==='ArrowRight'&&next){ mark(); goTo(next.id,'l'); } else if(e.key==='ArrowLeft'&&prev) goTo(prev.id,'r'); else if(e.key==='Escape') goTo(null); };
+  document.onkeydown=e=>{ if(document.body.dataset.view!=='book'||!ov.hidden||!bkSt().open||/input|textarea/i.test((e.target||{}).tagName||'')) return; if(e.key==='ArrowRight'&&next){ mark(); goTo(next.id,'l'); } else if(e.key==='ArrowLeft'&&prev) goTo(prev.id,'r'); else if(e.key==='Escape') goTo(null); };
 }
 var _render2=render;
 render=function(){ const s=store.sess;
