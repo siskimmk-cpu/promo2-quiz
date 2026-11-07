@@ -1108,6 +1108,78 @@ function checkReleaseBoundary(){
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible') checkReleaseBoundary();});
 window.addEventListener('focus',checkReleaseBoundary);
 checkReleaseBoundary();
+/* ── 교재(e북): 과목별 핵심 정리 · 읽은 절 기록 · 관련 문제 바로 풀기 ── */
+const BK=(typeof BOOK!=='undefined'?BOOK:[]);
+const BKALL=BK.flatMap(b=>b.ch.map(c=>Object.assign({},c,{bsub:b.sub,bname:b.name,bic:b.ic})));
+const BKMAP=Object.fromEntries(BKALL.map(c=>[c.id,c]));
+IC.book='<path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/>';
+if(!TABS.some(t=>t[0]==='book')) TABS.splice(1,0,['book','교재','book']);
+const bkSt=()=>store.bk||(store.bk={read:{},last:null,sub:null,fs:0});
+function bkRel(c){ const secs=(c.sec||'').split(''); const hay=q=>q.q+' '+(q.case||'')+' '+q.opts.join(' ')+' '+(q.ref||'')+' '+(q.tags||[]).join(' ');
+  return activeQuestions.filter(q=>secs.includes(q.sec)&&c.m&&c.m.test(hay(q))).map(q=>q.id); }
+function bkInline(s){ return esc(s).replace(/(\d[\d,.]*(?:\s?[~∼]\s?\d[\d,.]*)?\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|억|원|개월|주|일|년|월|급|km|세|점|배|회|시간|명|리터))/g,'<b class="bk-num">$1</b>'); }
+function bkBlock(raw){
+  const k=raw.slice(0,1), x=raw.slice(2);
+  if(k==='p') return `<p class="bk-p">${bkInline(x)}</p>`;
+  if(k==='k') return `<div class="bk-key"><i>핵심</i><p>${bkInline(x)}</p></div>`;
+  if(k==='w') return `<div class="bk-warn"><i>⚠️ 함정</i><p>${bkInline(x)}</p></div>`;
+  if(k==='j') return `<div class="bk-case"><i>⚖️ 판례</i><p>${bkInline(x)}</p></div>`;
+  if(k==='x') return `<div class="bk-ex"><i>예시</i><p>${bkInline(x)}</p></div>`;
+  if(k==='n') return `<div class="bk-nums">${x.split(';').map(p=>{const [a,b]=p.split('=');return `<span><small>${esc(a)}</small><b>${esc(b||'')}</b></span>`;}).join('')}</div>`;
+  if(k==='t'){ const rows=x.split('\n').map(r=>r.split('|')); const h=rows.shift();
+    return `<div class="bk-tw"><table class="bk-t"><thead><tr>${h.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0&&c===''?' class="e"':''}>${bkInline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`; }
+  return '';
+}
+function bookView(){
+  clearInterval(tick); const st=bkSt();
+  document.body.dataset.fs=st.fs||0;
+  if(st.open&&BKMAP[st.open]) return bookRead(st.open);
+  showTabs('book');
+  const tot=BKALL.length, rd=BKALL.filter(c=>st.read[c.id]).length;
+  const cur=st.sub&&BK.find(b=>b.sub===st.sub)?st.sub:BK[0]&&BK[0].sub;
+  const last=st.last&&BKMAP[st.last]?BKMAP[st.last]:null;
+  const nextUnread=BKALL.find(c=>!st.read[c.id]);
+  const resume=last&&!st.read[last.id]?last:(last?BKALL[BKALL.findIndex(c=>c.id===last.id)+1]||nextUnread:nextUnread);
+  let h=`<header class="top-h"><div><span class="eyebrow">교재</span><h1 class="title">하루 한 절씩,<br>핵심만 읽어요</h1></div></header>`;
+  h+=`<div class="bk-hero anim"><div class="bk-hero-t"><span>전체 진도</span><b>${rd}<small>/${tot}절</small></b></div><div class="bk-bar"><i style="width:${tot?rd/tot*100:0}%"></i></div>`+
+     (resume?`<button class="bk-resume" data-bk="${resume.id}"><span class="bk-ic">${resume.bic}</span><span class="tx"><small>${last&&resume.id===last.id?'이어 읽기':'다음 읽을 절'} · ${esc(sname(resume.bname))}</small><b>${esc(resume.t)}</b></span>${ico('chev','chev')}</button>`:`<p class="bk-done">🎉 모든 절을 읽었어요. 표시된 핵심만 다시 훑어보세요.</p>`)+`</div>`;
+  h+=`<div class="bk-seg anim" role="tablist">${BK.map(b=>{const n=b.ch.length,r=b.ch.filter(c=>st.read[c.id]).length;return `<button role="tab" aria-selected="${b.sub===cur}" data-bks="${b.sub}"><span>${b.ic}</span><b>${esc(sname(b.name).replace('자동차공제약관','공제약관'))}</b><small>${r}/${n}</small></button>`;}).join('')}</div>`;
+  const B=BK.find(b=>b.sub===cur);
+  if(B){ h+=`<p class="bk-desc">${esc(B.desc)}</p><div class="list anim bk-toc">`+B.ch.map((c,i)=>{const done=st.read[c.id], n=bkRel(Object.assign({},c)).length;
+    return `<button class="row" data-bk="${c.id}"><span class="bk-no ${done?'on':''}">${done?'✓':i+1}</span><span class="tx"><span class="nm">${esc(c.t)}</span><span class="meta">${esc(c.s)}</span>${n?`<span class="bk-q">관련 문제 ${n}개</span>`:''}</span>${ico('chev','chev')}</button>`;}).join('')+`</div>`; }
+  h+=`<p class="bk-foot">근거: 공제약관(2025. 8. 12.) · 자배법·시행령(2026. 9. 15.) · 상법 제4편 · 민법 · 대법원 판례. 시험 직전엔 원문 조항도 한 번씩 확인하세요.</p>`;
+  app.innerHTML=h;
+  app.querySelectorAll('[data-bks]').forEach(b=>b.onclick=()=>{ bkSt().sub=b.dataset.bks; save(); bookView(); });
+  app.querySelectorAll('[data-bk]').forEach(b=>b.onclick=()=>bkOpen(b.dataset.bk));
+}
+function bkOpen(id){ const st=bkSt(); st.open=id; st.last=id; st.sub=BKMAP[id].bsub; save(); go('book'); }
+function bookRead(id){
+  hideTabs(); const st=bkSt(), c=BKMAP[id], B=BK.find(b=>b.sub===c.bsub), idx=B.ch.findIndex(x=>x.id===id);
+  const prev=B.ch[idx-1], next=B.ch[idx+1], rel=bkRel(c), done=!!st.read[id];
+  let h=`<div class="bk-top"><button class="x-btn" id="bkBack" aria-label="목차">${ico('chev','back')}</button><div class="bk-tt"><small>${esc(sname(B.name))}</small><span>${idx+1} / ${B.ch.length}</span></div><button class="bk-fs" id="bkFs" aria-label="글자 크기">가<sup>${['','+','++'][st.fs||0]||''}</sup></button></div>`;
+  h+=`<div class="bk-prog"><i style="width:${(idx+1)/B.ch.length*100}%"></i></div>`;
+  h+=`<article class="bk-art anim"><span class="eyebrow">${c.bic} ${String(idx+1).padStart(2,'0')}</span><h1 class="bk-h">${esc(c.t)}</h1>`;
+  h+=`<div class="bk-sum"><i>한 줄 요약</i><p>${bkInline(c.s)}</p></div>`;
+  h+=c.b.map(bkBlock).join('');
+  h+=`<p class="bk-ref">근거 · ${esc(c.r)}</p></article>`;
+  h+=`<div class="bk-act">${rel.length?`<button class="cta" id="bkQ">관련 문제 ${Math.min(rel.length,20)}개 바로 풀기</button>`:''}<button class="cta ${rel.length?'ghost':''}" id="bkNext">${next?(done?'다음 절':'다 읽었어요 · 다음 절'):'다 읽었어요 · 목차로'}</button>${prev?`<button class="linkbtn center" id="bkPrev">← ${esc(prev.t)}</button>`:''}</div>`;
+  app.innerHTML=h; document.body.dataset.view='book';
+  const mark=()=>{ if(!st.read[id]){ st.read[id]=Date.now(); save(); } };
+  $('#bkBack').onclick=()=>{ st.open=null; save(); go('book'); };
+  $('#bkFs').onclick=()=>{ st.fs=((st.fs||0)+1)%3; save(); document.body.dataset.fs=st.fs; $('#bkFs').querySelector('sup').textContent=['','+','++'][st.fs]; };
+  $('#bkNext').onclick=()=>{ mark(); buzz(10); if(next){ st.open=next.id; st.last=next.id; save(); go('book'); } else { st.open=null; save(); toast(`${sname(B.name)} 교재를 다 읽었어요 🎉`); go('book'); } };
+  const pv=$('#bkPrev'); if(pv) pv.onclick=()=>{ st.open=prev.id; st.last=prev.id; save(); go('book'); };
+  const q=$('#bkQ'); if(q) q.onclick=()=>{ mark(); st.open=null; save(); start(shuffle(rel).slice(0,20),c.t,'practice',{mix:true}); };
+  let x0=null,y0=null; app.ontouchstart=e=>{ x0=e.touches[0].clientX; y0=e.touches[0].clientY; };
+  app.ontouchend=e=>{ if(x0==null) return; const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null; if(Math.abs(dx)<80||Math.abs(dy)>Math.abs(dx)*.6) return; if(dx<0&&next){ mark(); st.open=next.id; st.last=next.id; save(); go('book'); } else if(dx>0&&prev){ st.open=prev.id; st.last=prev.id; save(); go('book'); } };
+}
+var _render2=render;
+render=function(){ const s=store.sess;
+  if(view==='book'&&!(s&&s.done)&&!(s&&!s.done&&(s.mode==='mock'))){ app.ontouchstart=app.ontouchend=null; document.body.dataset.view='book'; app.classList.remove('dsk'); return bookView(); }
+  if(view!=='book'&&store.bk&&store.bk.open){ store.bk.open=null; }
+  return _render2.apply(this,arguments); };
+
+if(!tabbar.hidden){ const cur=tabbar.querySelector('[aria-current="true"]'); showTabs(cur?cur.dataset.tab:'home'); }
 })();
 
 /* 오프라인 지원 */
