@@ -1079,35 +1079,6 @@ try{ const s1=store.sess; if(DSK.matches&&(!tabbar.hidden||(s1&&s1.mode==='mock'
 (function(){ const sd=document.getElementById("spDd"); if(sd) sd.textContent="시험까지 "+dday()+" · 12. 18.(금) 11:00"; })();
 
 // 화면을 켜 둔 경우와 백그라운드 복귀 모두 공개 날짜를 확인한다.
-var releaseTimer=null, versionReloading=false;
-function studyInProgress(){ return !!(store.sess&&!store.sess.done&&(view==='quiz'||store.sess.mode==='mock')); }
-function applyPendingVersion(){
-  const v=window.P2_PENDING_VERSION;
-  if(!v||studyInProgress()||versionReloading) return;
-  versionReloading=true; save();
-  setTimeout(()=>{
-    if(studyInProgress()){ versionReloading=false; return; }
-    const k='promo2-reloaded-'+v;
-    try{ if(sessionStorage.getItem(k)){versionReloading=false;return;} sessionStorage.setItem(k,'1'); }catch(e){}
-    location.replace(location.pathname+'?v='+encodeURIComponent(v)+location.hash);
-  },300);
-}
-window.P2RequestVersion=function(v){
-  if(typeof v!=='string'||!/^\d{12}$/.test(v)||v===window.BUILD) return;
-  window.P2_PENDING_VERSION=v; applyPendingVersion();
-};
-function checkReleaseBoundary(){
-  clearTimeout(releaseTimer);
-  const changed=refreshRelease();
-  // 문항·답안·시험 타이머·열린 해설은 그대로 둔다. 다음 화면 전환 때 새 목록 사용.
-  const s=store.sess;
-  if(changed&&!(s&&s.done)&&view!=='quiz'&&view!=='bank'&&(!s||s.mode!=='mock'||s.done)&&ov.hidden) render();
-  applyPendingVersion();
-  releaseTimer=setTimeout(checkReleaseBoundary,msToSwitch()+100);
-}
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible') checkReleaseBoundary();});
-window.addEventListener('focus',checkReleaseBoundary);
-checkReleaseBoundary();
 /* ── 교재(e북): 과목별 핵심 정리 · 읽은 절 기록 · 관련 문제 바로 풀기 ── */
 const BK=(typeof BOOK!=='undefined'?BOOK:[]);
 const BKALL=BK.flatMap(b=>b.ch.map(c=>Object.assign({},c,{bsub:b.sub,bname:b.name,bic:b.ic})));
@@ -1180,6 +1151,36 @@ render=function(){ const s=store.sess;
   return _render2.apply(this,arguments); };
 
 if(!tabbar.hidden){ const cur=tabbar.querySelector('[aria-current="true"]'); showTabs(cur?cur.dataset.tab:'home'); }
+
+var releaseTimer=null, versionReloading=false;
+function studyInProgress(){ return !!(store.sess&&!store.sess.done&&(view==='quiz'||store.sess.mode==='mock')); }
+function applyPendingVersion(){
+  const v=window.P2_PENDING_VERSION;
+  if(!v||studyInProgress()||versionReloading) return;
+  versionReloading=true; save();
+  setTimeout(()=>{
+    if(studyInProgress()){ versionReloading=false; return; }
+    const k='promo2-reloaded-'+v;
+    try{ if(sessionStorage.getItem(k)){versionReloading=false;return;} sessionStorage.setItem(k,'1'); }catch(e){}
+    location.replace(location.pathname+'?v='+encodeURIComponent(v)+location.hash);
+  },300);
+}
+window.P2RequestVersion=function(v){
+  if(typeof v!=='string'||!/^\d{12}$/.test(v)||v===window.BUILD) return;
+  window.P2_PENDING_VERSION=v; applyPendingVersion();
+};
+function checkReleaseBoundary(){
+  clearTimeout(releaseTimer);
+  const changed=refreshRelease();
+  // 문항·답안·시험 타이머·열린 해설은 그대로 둔다. 다음 화면 전환 때 새 목록 사용.
+  const s=store.sess;
+  if(changed&&!(s&&s.done)&&view!=='quiz'&&view!=='bank'&&(!s||s.mode!=='mock'||s.done)&&ov.hidden) render();
+  applyPendingVersion();
+  releaseTimer=setTimeout(checkReleaseBoundary,msToSwitch()+100);
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible') checkReleaseBoundary();});
+window.addEventListener('focus',checkReleaseBoundary);
+checkReleaseBoundary();
 })();
 
 /* 오프라인 지원 */
