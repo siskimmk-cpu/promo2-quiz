@@ -1,5 +1,5 @@
 // 오프라인 지원: 네트워크 우선, 실패하면 캐시
-const C='promo2-202611071817';
+const C='promo2-202611071827';
 self.addEventListener('install',e=>{ self.skipWaiting(); e.waitUntil(caches.open(C).then(c=>c.addAll(['./','index.html','manifest.webmanifest','icon-192.png']).catch(()=>{}))); });
 // 로그인 도입(2026-11-06 12:53) 이전 화면을 캐시로 쓰던 기기: 옛 캐시를 지우고 열린 창을 새로 불러와 로그인 화면으로 보낸다.
 // 로그인 이후 버전끼리 업데이트할 때는 풀이 중 화면을 강제로 새로고침하지 않는다(앱이 안전한 시점에 반영).
