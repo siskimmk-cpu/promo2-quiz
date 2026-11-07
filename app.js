@@ -1079,78 +1079,189 @@ try{ const s1=store.sess; if(DSK.matches&&(!tabbar.hidden||(s1&&s1.mode==='mock'
 (function(){ const sd=document.getElementById("spDd"); if(sd) sd.textContent="시험까지 "+dday()+" · 12. 18.(금) 11:00"; })();
 
 // 화면을 켜 둔 경우와 백그라운드 복귀 모두 공개 날짜를 확인한다.
-/* ── 교재(e북): 과목별 핵심 정리 · 읽은 절 기록 · 관련 문제 바로 풀기 ── */
+/* ── 교재(e북): 목차·이어읽기·검색·북마크·형광펜·가리개(암기)·듣기·확인 문제 ── */
 const BK=(typeof BOOK!=='undefined'?BOOK:[]);
-const BKALL=BK.flatMap(b=>b.ch.map(c=>Object.assign({},c,{bsub:b.sub,bname:b.name,bic:b.ic})));
+const BKALL=BK.flatMap(b=>b.ch.map((c,i)=>Object.assign({},c,{bsub:b.sub,bname:b.name,bic:b.ic,bno:i+1})));
 const BKMAP=Object.fromEntries(BKALL.map(c=>[c.id,c]));
 IC.book='<path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/>';
+IC.list='<path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/>';
+IC.bmk='<path d="M6 3h12v18l-6-4.5L6 21z"/>';
+IC.eye='<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>';
+IC.sound='<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>';
+IC.search='<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>';
+IC.pen='<path d="m4 20 4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/>';
 if(!TABS.some(t=>t[0]==='book')) TABS.splice(1,0,['book','교재','book']);
-const bkSt=()=>store.bk||(store.bk={read:{},last:null,sub:null,fs:0});
+const bkSt=()=>{ const s=store.bk||(store.bk={}); s.read=s.read||{}; s.bm=s.bm||{}; s.hl=s.hl||{}; s.qz=s.qz||{}; if(s.fs==null) s.fs=0; return s; };
+const bkPlain=s=>String(s).replace(/^[a-z]:/,'');
+const bkText=c=>[c.t,c.s].concat(c.b.map(x=>x[0]==='t'?x.slice(2).replace(/[|\n]/g,' '):x[0]==='n'?x.slice(2).replace(/[=;]/g,' '):bkPlain(x))).join(' ');
+const bkMin=c=>Math.max(1,Math.round(bkText(c).length/450));
 function bkRel(c){ const secs=(c.sec||'').split(''); const hay=q=>q.q+' '+(q.case||'')+' '+q.opts.join(' ')+' '+(q.ref||'')+' '+(q.tags||[]).join(' ');
   return activeQuestions.filter(q=>secs.includes(q.sec)&&c.m&&c.m.test(hay(q))).map(q=>q.id); }
-function bkInline(s){ return esc(s).replace(/(\d[\d,.]*(?:\s?[~∼]\s?\d[\d,.]*)?\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|억|원|개월|주|일|년|월|급|km|세|점|배|회|시간|명|리터))/g,'<b class="bk-num">$1</b>'); }
-function bkBlock(raw){
-  const k=raw.slice(0,1), x=raw.slice(2);
-  if(k==='p') return `<p class="bk-p">${bkInline(x)}</p>`;
-  if(k==='k') return `<div class="bk-key"><i>핵심</i><p>${bkInline(x)}</p></div>`;
-  if(k==='w') return `<div class="bk-warn"><i>⚠️ 함정</i><p>${bkInline(x)}</p></div>`;
-  if(k==='j') return `<div class="bk-case"><i>⚖️ 판례</i><p>${bkInline(x)}</p></div>`;
-  if(k==='x') return `<div class="bk-ex"><i>예시</i><p>${bkInline(x)}</p></div>`;
-  if(k==='n') return `<div class="bk-nums">${x.split(';').map(p=>{const [a,b]=p.split('=');return `<span><small>${esc(a)}</small><b>${esc(b||'')}</b></span>`;}).join('')}</div>`;
+function bkInline(s){ return esc(s).replace(/(\d[\d,.]*(?:\s?[~∼]\s?\d[\d,.]*)?\s?(?:%p|%|만\s?원|억\s?원|천만\s?원|억|원|개월|주|일|년|월|급|km|세|점|배|회|시간|명|리터))/g,'<b class="bk-num" tabindex="0">$1</b>'); }
+function bkBlock(raw,i,hl){
+  const k=raw.slice(0,1), x=raw.slice(2), on=hl.includes(i)?' hl':'', at=`data-bi="${i}"`;
+  if(k==='p') return `<p class="bk-p bk-b${on}" ${at}>${bkInline(x)}</p>`;
+  const box=(cls,lab)=>`<div class="${cls} bk-b${on}" ${at}><i>${lab}</i><p>${bkInline(x)}</p></div>`;
+  if(k==='k') return box('bk-key','핵심');
+  if(k==='w') return box('bk-warn','⚠️ 함정');
+  if(k==='j') return box('bk-case','⚖️ 판례');
+  if(k==='x') return box('bk-ex','예시');
+  if(k==='n') return `<div class="bk-nums bk-b${on}" ${at}><i class="bk-lab">꼭 외울 숫자</i>${x.split(';').map(p=>{const [a,b]=p.split('=');return `<span><small>${esc(a)}</small><b class="bk-num" tabindex="0">${esc(b||'')}</b></span>`;}).join('')}</div>`;
   if(k==='t'){ const rows=x.split('\n').map(r=>r.split('|')); const h=rows.shift();
-    return `<div class="bk-tw"><table class="bk-t"><thead><tr>${h.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0&&c===''?' class="e"':''}>${bkInline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`; }
+    return `<div class="bk-tw bk-b${on}" ${at}><table class="bk-t"><thead><tr>${h.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,j)=>`<td${j===0&&c===''?' class="e"':''}>${bkInline(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`; }
   return '';
 }
+let bkDir='';
+function bkStop(){ try{ if(window.speechSynthesis) speechSynthesis.cancel(); }catch(e){} }
+/* 서재 */
 function bookView(){
-  clearInterval(tick); const st=bkSt();
-  document.body.dataset.fs=st.fs||0;
+  clearInterval(tick); bkStop(); const st=bkSt();
+  document.body.dataset.fs=st.fs; document.body.classList.toggle('bk-mask',!!st.mask);
   if(st.open&&BKMAP[st.open]) return bookRead(st.open);
   showTabs('book');
   const tot=BKALL.length, rd=BKALL.filter(c=>st.read[c.id]).length;
   const cur=st.sub&&BK.find(b=>b.sub===st.sub)?st.sub:BK[0]&&BK[0].sub;
   const last=st.last&&BKMAP[st.last]?BKMAP[st.last]:null;
   const nextUnread=BKALL.find(c=>!st.read[c.id]);
-  const resume=last&&!st.read[last.id]?last:(last?BKALL[BKALL.findIndex(c=>c.id===last.id)+1]||nextUnread:nextUnread);
+  const resume=last&&!st.read[last.id]?last:(nextUnread||last);
+  const bms=BKALL.filter(c=>st.bm[c.id]), hls=BKALL.filter(c=>(st.hl[c.id]||[]).length);
+  const streak=Object.values(st.read).filter(t=>Date.now()-t<864e5).length;
   let h=`<header class="top-h"><div><span class="eyebrow">교재</span><h1 class="title">하루 한 절씩,<br>핵심만 읽어요</h1></div></header>`;
-  h+=`<div class="bk-hero anim"><div class="bk-hero-t"><span>전체 진도</span><b>${rd}<small>/${tot}절</small></b></div><div class="bk-bar"><i style="width:${tot?rd/tot*100:0}%"></i></div>`+
-     (resume?`<button class="bk-resume" data-bk="${resume.id}"><span class="bk-ic">${resume.bic}</span><span class="tx"><small>${last&&resume.id===last.id?'이어 읽기':'다음 읽을 절'} · ${esc(sname(resume.bname))}</small><b>${esc(resume.t)}</b></span>${ico('chev','chev')}</button>`:`<p class="bk-done">🎉 모든 절을 읽었어요. 표시된 핵심만 다시 훑어보세요.</p>`)+`</div>`;
-  h+=`<div class="bk-seg anim" role="tablist">${BK.map(b=>{const n=b.ch.length,r=b.ch.filter(c=>st.read[c.id]).length;return `<button role="tab" aria-selected="${b.sub===cur}" data-bks="${b.sub}"><span>${b.ic}</span><b>${esc(sname(b.name).replace('자동차공제약관','공제약관'))}</b><small>${r}/${n}</small></button>`;}).join('')}</div>`;
+  h+=`<label class="bk-search anim">${ico('search')}<input id="bkS" type="search" placeholder="조문·숫자·판례 검색 (예: 15일, 직접청구권)" value="${esc(st.q||'')}" autocomplete="off"></label><div id="bkSR"></div>`;
+  h+=`<div class="bk-hero anim"><div class="bk-hero-t"><span>전체 진도${streak?` · 오늘 ${streak}절 읽음`:''}</span><b>${rd}<small>/${tot}절</small></b></div><div class="bk-bar"><i style="width:${tot?rd/tot*100:0}%"></i></div>`+
+     (resume?`<button class="bk-resume" data-bk="${resume.id}"><span class="bk-cover s-${resume.bsub}"><b>${resume.bic}</b></span><span class="tx"><small>${last&&resume.id===last.id&&!st.read[last.id]?'이어 읽기':'다음 읽을 절'} · ${esc(sname(resume.bname))} ${resume.bno}절</small><b>${esc(resume.t)}</b><em>약 ${bkMin(resume)}분</em></span>${ico('chev','chev')}</button>`:'')+
+     (rd===tot&&tot?`<p class="bk-done">🎉 모든 절을 읽었어요. 형광펜과 가리개 모드로 다시 훑어보세요.</p>`:'')+`</div>`;
+  h+=bkDailyCard();
+  if(bms.length||hls.length) h+=`<div class="bk-quick anim">${bms.length?`<button data-bkl="bm">${ico('bmk')}<b>북마크</b><small>${bms.length}절</small></button>`:''}${hls.length?`<button data-bkl="hl">${ico('pen')}<b>형광펜 모아보기</b><small>${hls.reduce((a,c)=>a+st.hl[c.id].length,0)}곳</small></button>`:''}</div>`;
+  h+=`<div class="bk-shelf anim" role="tablist">${BK.map(b=>{const n=b.ch.length,r=b.ch.filter(c=>st.read[c.id]).length;return `<button role="tab" class="s-${b.sub}" aria-selected="${b.sub===cur}" data-bks="${b.sub}"><span class="bk-cover s-${b.sub}"><b>${b.ic}</b><i style="--p:${n?r/n*100:0}%"></i></span><b>${esc(sname(b.name).replace('자동차공제약관','공제약관'))}</b><small>${r}/${n}절</small></button>`;}).join('')}</div>`;
   const B=BK.find(b=>b.sub===cur);
-  if(B){ h+=`<p class="bk-desc">${esc(B.desc)}</p><div class="list anim bk-toc">`+B.ch.map((c,i)=>{const done=st.read[c.id], n=bkRel(Object.assign({},c)).length;
-    return `<button class="row" data-bk="${c.id}"><span class="bk-no ${done?'on':''}">${done?'✓':i+1}</span><span class="tx"><span class="nm">${esc(c.t)}</span><span class="meta">${esc(c.s)}</span>${n?`<span class="bk-q">관련 문제 ${n}개</span>`:''}</span>${ico('chev','chev')}</button>`;}).join('')+`</div>`; }
+  if(B){ h+=`<p class="bk-desc">${esc(B.desc)} · 전체 약 ${B.ch.reduce((a,c)=>a+bkMin(c),0)}분</p><div class="list anim bk-toc">`+B.ch.map((c,i)=>{const done=st.read[c.id], n=bkRel(c).length;
+    return `<button class="row" data-bk="${c.id}"><span class="bk-no ${done?'on':''}">${done?'✓':i+1}</span><span class="tx"><span class="nm">${esc(c.t)}${st.bm[c.id]?' <i class="bk-bmi">🔖</i>':''}</span><span class="meta">${esc(c.s)}</span><span class="bk-tags"><em>약 ${bkMin(c)}분</em>${n?`<em class="q">관련 문제 ${n}개</em>`:''}${(st.hl[c.id]||[]).length?`<em class="h">형광펜 ${st.hl[c.id].length}</em>`:''}</span></span>${ico('chev','chev')}</button>`;}).join('')+`</div>`; }
   h+=`<p class="bk-foot">근거: 공제약관(2025. 8. 12.) · 자배법·시행령(2026. 9. 15.) · 상법 제4편 · 민법 · 대법원 판례. 시험 직전엔 원문 조항도 한 번씩 확인하세요.</p>`;
   app.innerHTML=h;
   app.querySelectorAll('[data-bks]').forEach(b=>b.onclick=()=>{ bkSt().sub=b.dataset.bks; save(); bookView(); });
   app.querySelectorAll('[data-bk]').forEach(b=>b.onclick=()=>bkOpen(b.dataset.bk));
+  app.querySelectorAll('[data-bkl]').forEach(b=>b.onclick=()=>bkCollect(b.dataset.bkl));
+  const inp=$('#bkS'), out=$('#bkSR');
+  const run=()=>{ const q=inp.value.trim(); st.q=q; if(q.length<2){ out.innerHTML=''; return; }
+    const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i');
+    const hits=BKALL.map(c=>{ const tx=bkText(c), m=tx.search(re); return m<0?null:{c,snip:tx.slice(Math.max(0,m-24),m+q.length+40)}; }).filter(Boolean);
+    out.innerHTML=hits.length?`<div class="list bk-sres">${hits.slice(0,12).map(({c,snip})=>`<button class="row" data-bk="${c.id}"><span class="tx"><span class="meta">${c.bic} ${esc(sname(c.bname))} · ${esc(c.t)}</span><span class="nm">…${esc(snip).replace(new RegExp(esc(q).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi'),m=>`<mark>${m}</mark>`)}…</span></span>${ico('chev','chev')}</button>`).join('')}</div>`:`<p class="bk-none">"${esc(q)}"이(가) 나오는 절이 없어요.</p>`;
+    out.querySelectorAll('[data-bk]').forEach(b=>b.onclick=()=>bkOpen(b.dataset.bk)); };
+  inp.oninput=run; if(st.q) run();
+  bkBindDaily(app,()=>bookView()); bkMorning();
+}
+function bkCollect(kind){ const st=bkSt();
+  const items=kind==='bm'?BKALL.filter(c=>st.bm[c.id]).map(c=>`<button class="row" data-bkc="${c.id}"><span class="tx"><span class="meta">${c.bic} ${esc(sname(c.bname))} ${c.bno}절</span><span class="nm">${esc(c.t)}</span></span>${ico('chev','chev')}</button>`)
+   :BKALL.filter(c=>(st.hl[c.id]||[]).length).flatMap(c=>st.hl[c.id].slice().sort((a,b)=>a-b).map(i=>c.b[i]?`<button class="row bk-hlrow" data-bkc="${c.id}" data-bi="${i}"><span class="tx"><span class="meta">${c.bic} ${esc(c.t)}</span><span class="nm">${esc(bkPlain(c.b[i]).replace(/[|\n;=]/g,' ').slice(0,90))}</span></span></button>`:''));
+  sheet(`<div class="upd"><span class="upd-ic" style="font-size:24px">${kind==='bm'?'🔖':'🖍️'}</span><b>${kind==='bm'?'북마크한 절':'형광펜 모아보기'}</b><p>${kind==='bm'?'본문 위쪽 🔖 버튼으로 넣고 빼요.':'본문 문단을 길게 누르거나 ✏️ 모드에서 탭하면 칠해져요.'}</p></div><div class="list bk-coll">${items.join('')||'<p class="bk-none">아직 없어요.</p>'}</div>`,()=>{
+    ov.querySelectorAll('[data-bkc]').forEach(b=>b.onclick=()=>{ const id=b.dataset.bkc, bi=b.dataset.bi; closeOv(); setTimeout(()=>{ bkOpen(id); if(bi!=null) setTimeout(()=>{ const el=app.querySelector(`[data-bi="${bi}"]`); if(el){ el.scrollIntoView({block:'center',behavior:'smooth'}); el.classList.add('flash'); } },350); },260); }); });
 }
 function bkOpen(id){ const st=bkSt(); st.open=id; st.last=id; st.sub=BKMAP[id].bsub; save(); go('book'); }
+function bkToc(B,id){ const st=bkSt();
+  sheet(`<div class="bk-sheet-h"><span class="bk-cover s-${B.sub}"><b>${B.ic}</b></span><div><b>${esc(B.name)}</b><small>${B.ch.filter(c=>st.read[c.id]).length}/${B.ch.length}절 읽음</small></div></div><div class="list bk-coll">${B.ch.map((c,i)=>`<button class="row ${c.id===id?'cur':''}" data-bkc="${c.id}"><span class="bk-no ${st.read[c.id]?'on':''}">${st.read[c.id]?'✓':i+1}</span><span class="tx"><span class="nm">${esc(c.t)}</span><span class="meta">약 ${bkMin(c)}분${st.bm[c.id]?' · 🔖':''}</span></span></button>`).join('')}</div>`,()=>{
+    ov.querySelectorAll('[data-bkc]').forEach(b=>b.onclick=()=>{ closeOv(); setTimeout(()=>bkOpen(b.dataset.bkc),240); }); const c=ov.querySelector('.row.cur'); if(c) c.scrollIntoView({block:'center'}); });
+}
+/* 읽기 화면 */
 function bookRead(id){
   hideTabs(); const st=bkSt(), c=BKMAP[id], B=BK.find(b=>b.sub===c.bsub), idx=B.ch.findIndex(x=>x.id===id);
-  const prev=B.ch[idx-1], next=B.ch[idx+1], rel=bkRel(c), done=!!st.read[id];
-  let h=`<div class="bk-top"><button class="x-btn" id="bkBack" aria-label="목차">${ico('chev','back')}</button><div class="bk-tt"><small>${esc(sname(B.name))}</small><span>${idx+1} / ${B.ch.length}</span></div><button class="bk-fs" id="bkFs" aria-label="글자 크기">가<sup>${['','+','++'][st.fs||0]||''}</sup></button></div>`;
-  h+=`<div class="bk-prog"><i style="width:${(idx+1)/B.ch.length*100}%"></i></div>`;
-  h+=`<article class="bk-art anim"><span class="eyebrow">${c.bic} ${String(idx+1).padStart(2,'0')}</span><h1 class="bk-h">${esc(c.t)}</h1>`;
+  const prev=B.ch[idx-1], next=B.ch[idx+1], rel=bkRel(c), done=!!st.read[id], hl=st.hl[id]||[];
+  const qid=rel.length?rel[(Number(dayKey9().replace(/-/g,''))+idx)%rel.length]:null, qq=qid&&byId[qid];
+  let h=`<div class="bk-top"><button class="bk-ib" id="bkBack" aria-label="서재로">${ico('chev','back')}</button><button class="bk-tt" id="bkTocB"><small>${B.ic} ${esc(sname(B.name))}</small><span>${idx+1} / ${B.ch.length} ${ico('list','sm')}</span></button>
+    <button class="bk-ib ${st.bm[id]?'on':''}" id="bkBm" aria-label="북마크">${ico('bmk')}</button><button class="bk-ib" id="bkMore" aria-label="보기 설정">가</button></div>
+    <div class="bk-prog"><i id="bkRP" style="width:0"></i></div>`;
+  h+=`<article class="bk-art anim s-${c.bsub}"><div class="bk-meta"><span class="eyebrow">${String(idx+1).padStart(2,'0')}절 · 약 ${bkMin(c)}분</span>${done?'<span class="bk-badge">읽음</span>':''}</div><h1 class="bk-h">${esc(c.t)}</h1>`;
   h+=`<div class="bk-sum"><i>한 줄 요약</i><p>${bkInline(c.s)}</p></div>`;
-  h+=c.b.map(bkBlock).join('');
+  h+=`<div class="bk-tools"><button id="bkMask" class="${st.mask?'on':''}">${ico('eye')}<span>${st.mask?'가리개 켜짐':'숫자 가리개'}</span></button><button id="bkPen" class="${st.pen?'on':''}">${ico('pen')}<span>형광펜</span></button><button id="bkTts">${ico('sound')}<span>듣기</span></button></div>`;
+  h+=`<div class="bk-body">${c.b.map((x,i)=>bkBlock(x,i,hl)).join('')}</div>`;
   h+=`<p class="bk-ref">근거 · ${esc(c.r)}</p></article>`;
-  h+=`<div class="bk-act">${rel.length?`<button class="cta" id="bkQ">관련 문제 ${Math.min(rel.length,20)}개 바로 풀기</button>`:''}<button class="cta ${rel.length?'ghost':''}" id="bkNext">${next?(done?'다음 절':'다 읽었어요 · 다음 절'):'다 읽었어요 · 목차로'}</button>${prev?`<button class="linkbtn center" id="bkPrev">← ${esc(prev.t)}</button>`:''}</div>`;
+  const DY=bkDaily(), isD=DY.list.some(x=>x.id===id);
+  if(isD) h+=`<div class="bk-dban ${DY.chk[id]?'on':''}" id="bkDB"><span>☀️</span><div><b>오늘 아침 보충 절</b><small>${esc(DY.list.find(x=>x.id===id).why)}</small></div><button id="bkDC" aria-pressed="${!!DY.chk[id]}">${DY.chk[id]?'확인 ✓':'확인 체크'}</button></div>`;
+  if(qq){ const a=st.qz[id];
+    h+=`<section class="bk-quiz anim" id="bkQz"><div class="bk-qh"><i>✅ 확인 문제</i><small>읽은 내용을 바로 꺼내 보면 오래 남아요</small></div><p class="bk-qq">${esc(qq.q)}</p>${qq.case?`<p class="bk-qc">${esc(qq.case)}</p>`:''}
+      <div class="bk-qo">${qq.opts.map((o,i)=>`<button data-qo="${i}"><b>${i+1}</b><span>${esc(o)}</span></button>`).join('')}</div><div class="bk-qf" id="bkQf"></div></section>`; }
+  h+=`<div class="bk-act">${rel.length?`<button class="cta" id="bkQ">관련 문제 ${Math.min(rel.length,20)}개 이어서 풀기</button>`:''}<button class="cta ${rel.length?'ghost':''}" id="bkNext">${(isD&&!DY.chk[id]?'확인 체크하고 ':'')+(next?(done?'다음 절 →':'다 읽었어요 · 다음 절 →'):'다 읽었어요 · 서재로')}</button>${prev?`<button class="linkbtn center" id="bkPrev">← 이전 절 · ${esc(prev.t)}</button>`:''}</div>`;
   app.innerHTML=h; document.body.dataset.view='book';
   const mark=()=>{ if(!st.read[id]){ st.read[id]=Date.now(); save(); } };
-  $('#bkBack').onclick=()=>{ st.open=null; save(); go('book'); };
-  $('#bkFs').onclick=()=>{ st.fs=((st.fs||0)+1)%3; save(); document.body.dataset.fs=st.fs; $('#bkFs').querySelector('sup').textContent=['','+','++'][st.fs]; };
-  $('#bkNext').onclick=()=>{ mark(); buzz(10); if(next){ st.open=next.id; st.last=next.id; save(); go('book'); } else { st.open=null; save(); toast(`${sname(B.name)} 교재를 다 읽었어요 🎉`); go('book'); } };
-  const pv=$('#bkPrev'); if(pv) pv.onclick=()=>{ st.open=prev.id; st.last=prev.id; save(); go('book'); };
-  const q=$('#bkQ'); if(q) q.onclick=()=>{ mark(); st.open=null; save(); start(shuffle(rel).slice(0,20),c.t,'practice',{mix:true}); };
-  let x0=null,y0=null; app.ontouchstart=e=>{ x0=e.touches[0].clientX; y0=e.touches[0].clientY; };
-  app.ontouchend=e=>{ if(x0==null) return; const dx=e.changedTouches[0].clientX-x0, dy=e.changedTouches[0].clientY-y0; x0=null; if(Math.abs(dx)<80||Math.abs(dy)>Math.abs(dx)*.6) return; if(dx<0&&next){ mark(); st.open=next.id; st.last=next.id; save(); go('book'); } else if(dx>0&&prev){ st.open=prev.id; st.last=prev.id; save(); go('book'); } };
+  const goTo=(t,dir)=>{ bkStop(); st.open=t; if(t) st.last=t; save(); const art=app.querySelector('.bk-art');
+    const fin=()=>{ bkDir=dir||''; view='book'; render(); top(); };
+    if(dir&&art&&!RM){ art.style.transition='transform .22s cubic-bezier(.4,0,.2,1),opacity .22s'; art.style.transform=`translateX(${dir==='l'?'-':''}${innerWidth*0.9}px)`; art.style.opacity='0'; setTimeout(fin,200); } else if(dir) fin(); else go('book'); };
+  $('#bkBack').onclick=()=>goTo(null);
+  $('#bkTocB').onclick=()=>bkToc(B,id);
+  $('#bkBm').onclick=e=>{ if(st.bm[id]) delete st.bm[id]; else st.bm[id]=Date.now(); save(); e.currentTarget.classList.toggle('on',!!st.bm[id]); toast(st.bm[id]?'북마크했어요 🔖':'북마크를 뺐어요'); buzz(8); };
+  $('#bkMore').onclick=()=>sheet(`<div class="upd"><b>보기 설정</b></div><div class="bk-set"><span>글자 크기</span><div class="bk-segc">${['작게','보통','크게'].map((l,i)=>`<button data-fs="${i}" aria-pressed="${st.fs===i}">${l}</button>`).join('')}</div></div><p class="bk-tip">숫자 가리개: 숫자·기간이 가려지고, 탭하면 보여요. 시험 직전 암기 확인용.<br>형광펜: ✏️를 켜고 문단을 탭하거나, 언제든 문단을 길게 누르면 칠해져요.<br>좌우로 밀면 이전·다음 절로 넘어가요.</p>`,()=>{
+    ov.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{ st.fs=+b.dataset.fs; save(); document.body.dataset.fs=st.fs; ov.querySelectorAll('[data-fs]').forEach(x=>x.setAttribute('aria-pressed',x===b)); }); });
+  $('#bkMask').onclick=e=>{ st.mask=!st.mask; save(); document.body.classList.toggle('bk-mask',st.mask); const b=e.currentTarget; b.classList.toggle('on',st.mask); b.querySelector('span').textContent=st.mask?'가리개 켜짐':'숫자 가리개'; app.querySelectorAll('.bk-num.shown').forEach(n=>n.classList.remove('shown')); };
+  $('#bkPen').onclick=e=>{ st.pen=!st.pen; save(); e.currentTarget.classList.toggle('on',st.pen); if(st.pen) toast('문단을 탭하면 형광펜이 칠해져요'); };
+  const tts=$('#bkTts');
+  tts.onclick=()=>{ const S=window.speechSynthesis; if(!S){ toast('이 기기는 듣기를 지원하지 않아요'); return; }
+    if(S.speaking){ bkStop(); tts.classList.remove('on'); tts.querySelector('span').textContent='듣기'; return; }
+    const parts=[c.t,c.s].concat(c.b.map(x=>x[0]==='t'?x.slice(2).split('\n').map(r=>r.split('|').filter(Boolean).join(', ')).join('. '):x[0]==='n'?x.slice(2).split(';').map(p=>p.replace('=',' ')).join('. '):bkPlain(x)));
+    parts.forEach((p,i)=>{ const u=new SpeechSynthesisUtterance(p.replace(/[~∼]/g,'에서 ').replace(/·/g,', ')); u.lang='ko-KR'; u.rate=1.05; if(i===parts.length-1) u.onend=()=>{ tts.classList.remove('on'); tts.querySelector('span').textContent='듣기'; }; S.speak(u); });
+    tts.classList.add('on'); tts.querySelector('span').textContent='멈춤'; };
+  const toggleHl=el=>{ const i=+el.dataset.bi, a=st.hl[id]||(st.hl[id]=[]); const k=a.indexOf(i); if(k<0) a.push(i); else a.splice(k,1); if(!a.length) delete st.hl[id]; save(); el.classList.toggle('hl',k<0); buzz(8); };
+  app.querySelectorAll('.bk-b').forEach(el=>{ let t=null;
+    el.addEventListener('click',e=>{ const n=e.target.closest('.bk-num'); if(st.mask&&n){ n.classList.toggle('shown'); return; } if(st.pen) toggleHl(el); });
+    el.addEventListener('touchstart',()=>{ t=setTimeout(()=>{ t=null; toggleHl(el); },550); },{passive:true});
+    ['touchend','touchmove','touchcancel'].forEach(ev=>el.addEventListener(ev,()=>{ if(t){ clearTimeout(t); t=null; } },{passive:true}));
+    el.addEventListener('contextmenu',e=>{ e.preventDefault(); toggleHl(el); }); });
+  const dc=$('#bkDC'); if(dc) dc.onclick=()=>{ const on=!bkDaily().chk[id]; bkDailyCheck(id,on); buzz(10); dc.textContent=on?'확인 ✓':'확인 체크'; dc.setAttribute('aria-pressed',on); $('#bkDB').classList.toggle('on',on); const D=bkDaily(); if(on&&D.list.every(x=>D.chk[x.id])) toast('오늘 보충 끝! 수고했어요 🎉'); else if(on){ const nx=D.list.find(x=>!D.chk[x.id]); if(nx) toast(`다음 보충: ${BKMAP[nx.id].t}`); } };
+  const qz=$('#bkQz');
+  if(qz){ const show=pick=>{ const ok=pick===qq.ans; qz.querySelectorAll('[data-qo]').forEach(b=>{ const i=+b.dataset.qo; b.disabled=true; b.classList.toggle('ok',i===qq.ans); b.classList.toggle('no',i===pick&&!ok); });
+      $('#bkQf').innerHTML=`<div class="bk-qr ${ok?'ok':'no'}"><b>${ok?'정답이에요! 🎉':`아쉬워요 · 정답 ${qq.ans+1}번`}</b><p>${hl(qq.exp)}</p></div>`; };
+    if(st.qz[id]&&st.qz[id].q===qid) show(st.qz[id].p);
+    qz.querySelectorAll('[data-qo]').forEach(b=>b.onclick=()=>{ const p=+b.dataset.qo; st.qz[id]={q:qid,p}; record(qq,p); save(); buzz(p===qq.ans?10:[20,40,20]); show(p); }); }
+  $('#bkNext').onclick=()=>{ mark(); buzz(10); bkDailyCheck(id); if(next) goTo(next.id,'l'); else { toast(`${sname(B.name)} 교재를 다 읽었어요 🎉`); goTo(null); } };
+  const pv=$('#bkPrev'); if(pv) pv.onclick=()=>goTo(prev.id,'r');
+  const q=$('#bkQ'); if(q) q.onclick=()=>{ mark(); bkStop(); st.open=null; save(); start(shuffle(rel).slice(0,20),c.t,'practice',{mix:true}); };
+  const rp=$('#bkRP'), onScroll=()=>{ if(!document.body.contains(rp)){ window.removeEventListener('scroll',onScroll); return; } const H=document.documentElement.scrollHeight-innerHeight; const p=H>0?Math.min(1,scrollY/H):1; rp.style.width=p*100+'%'; if(p>.92&&!st.read[id]){ mark(); const bd=app.querySelector('.bk-meta'); if(bd&&!bd.querySelector('.bk-badge')) bd.insertAdjacentHTML('beforeend','<span class="bk-badge">읽음</span>'); } };
+  window.addEventListener('scroll',onScroll,{passive:true}); setTimeout(onScroll,50);
+  const art=app.querySelector('.bk-art'); if(bkDir&&!RM){ art.classList.add(bkDir==='l'?'bk-in-r':'bk-in-l'); } bkDir='';
+  let x0=null,y0=null,dx=0,lock=null;
+  app.ontouchstart=e=>{ if(e.target.closest('.bk-tw,.bk-quiz')){ x0=null; return; } x0=e.touches[0].clientX; y0=e.touches[0].clientY; dx=0; lock=null; art.style.transition='none'; };
+  app.ontouchmove=e=>{ if(x0==null) return; const mx=e.touches[0].clientX-x0, my=e.touches[0].clientY-y0;
+    if(lock==null&&(Math.abs(mx)>10||Math.abs(my)>10)) lock=Math.abs(mx)>Math.abs(my)*1.2?'x':'y';
+    if(lock!=='x') return; dx=mx; const edge=(dx<0&&!next)||(dx>0&&!prev); const d=edge?dx*0.25:dx;
+    art.style.transform=`translateX(${d}px) rotate(${d/innerWidth*2}deg)`; art.style.opacity=String(1-Math.min(.35,Math.abs(d)/innerWidth*.6)); };
+  app.ontouchend=()=>{ if(x0==null) return; x0=null; if(lock!=='x'){ return; }
+    const go2=dx<-innerWidth*.22&&next?'l':dx>innerWidth*.22&&prev?'r':null;
+    if(go2==='l'){ mark(); bkDailyCheck(id); buzz(8); goTo(next.id,'l'); } else if(go2==='r'){ buzz(8); goTo(prev.id,'r'); }
+    else { art.style.transition='transform .3s cubic-bezier(.2,.9,.3,1.2),opacity .3s'; art.style.transform=''; art.style.opacity=''; } };
+  document.onkeydown=e=>{ if(document.body.dataset.view!=='book'||!ov.hidden||!bkSt().open) return; if(e.key==='ArrowRight'&&next){ mark(); goTo(next.id,'l'); } else if(e.key==='ArrowLeft'&&prev) goTo(prev.id,'r'); else if(e.key==='Escape') goTo(null); };
 }
 var _render2=render;
 render=function(){ const s=store.sess;
-  if(view==='book'&&!(s&&s.done)&&!(s&&!s.done&&(s.mode==='mock'))){ app.ontouchstart=app.ontouchend=null; document.body.dataset.view='book'; app.classList.remove('dsk'); return bookView(); }
-  if(view!=='book'&&store.bk&&store.bk.open){ store.bk.open=null; }
+  if(view==='book'&&!(s&&s.done)&&!(s&&!s.done&&(s.mode==='mock'))){ app.ontouchstart=app.ontouchend=app.ontouchmove=null; document.body.dataset.view='book'; app.classList.remove('dsk'); return bookView(); }
+  app.ontouchmove=null; if(store.bk&&store.bk.open){ store.bk.open=null; } bkStop(); document.body.classList.remove('bk-mask');
   return _render2.apply(this,arguments); };
-
 if(!tabbar.hidden){ const cur=tabbar.querySelector('[aria-current="true"]'); showTabs(cur?cur.dataset.tab:'home'); }
+/* 오늘 아침 보충: 틀린 문제가 몰린 절을 매일 오전 9시 기준으로 3개 골라 알려 주고, 확인 체크하며 넘어간다 */
+function bkWeak(){ const st=bkSt();
+  const rows=BKALL.map(c=>{ const ids=bkRel(c), done=ids.filter(i=>store.ans[i]), wr=done.filter(i=>!store.ans[i].ok); return {c,n:ids.length,d:done.length,w:wr.length,acc:done.length?(done.length-wr.length)/done.length:null}; });
+  let pick=rows.filter(r=>r.w>0).sort((a,b)=>b.w-a.w||(a.acc-b.acc));
+  if(pick.length<3){ const subAcc=sid=>{ const r=rows.filter(x=>x.c.bsub===sid&&x.d); const d=r.reduce((a,x)=>a+x.d,0), w=r.reduce((a,x)=>a+x.w,0); return d?(d-w)/d:1; };
+    const order=BK.map(b=>b.sub).sort((a,b)=>subAcc(a)-subAcc(b));
+    const rest=rows.filter(r=>!pick.includes(r)&&!st.read[r.c.id]).sort((a,b)=>order.indexOf(a.c.bsub)-order.indexOf(b.c.bsub));
+    pick=pick.concat(rest.length?rest:rows.filter(r=>!pick.includes(r))); }
+  return pick.slice(0,3).map(r=>({id:r.c.id,why:r.w?`관련 문제 오답 ${r.w}개${r.d?` · 정답률 ${Math.round(r.acc*100)}%`:''}`:(st.read[r.c.id]?'정답률 낮은 과목 복습':'아직 안 읽은 절')}));
+}
+function bkDaily(){ const st=bkSt(), d=dayKey9(); if(!st.dly||st.dly.d!==d){ st.dly={d,list:bkWeak(),chk:{}}; save(); } return st.dly; }
+function bkDailyCheck(id,force){ const st=bkSt(), D=bkDaily(); if(!D.list.some(x=>x.id===id)) return false; if(force===false) delete D.chk[id]; else D.chk[id]=Date.now(); save(); return true; }
+function bkDailyCard(){ const D=bkDaily(); if(!D.list.length) return ''; const n=D.list.filter(x=>D.chk[x.id]).length, all=n===D.list.length;
+  return `<div class="bk-daily anim ${all?'done':''}"><div class="bk-dh"><span>☀️</span><div><b>${all?'오늘 보충 끝! 🎉':'오늘 아침 보충'}</b><small>${all?'내일 오전 9시에 새로 골라 드려요':'틀린 문제가 몰린 절이에요 · 읽고 체크해요'}</small></div><em>${n}/${D.list.length}</em></div>
+    ${D.list.map(x=>{ const c=BKMAP[x.id]; if(!c) return ''; const on=!!D.chk[x.id]; return `<div class="bk-drow ${on?'on':''}"><button class="bk-chk" data-dchk="${x.id}" aria-pressed="${on}" aria-label="확인 체크">${on?'✓':''}</button><button class="bk-dgo" data-bk="${x.id}"><b>${c.bic} ${esc(c.t)}</b><small>${esc(x.why)}</small></button></div>`; }).join('')}</div>`; }
+function bkBindDaily(root,rerender){ root.querySelectorAll('[data-dchk]').forEach(b=>b.onclick=e=>{ e.stopPropagation(); const id=b.dataset.dchk, D=bkDaily(); bkDailyCheck(id,D.chk[id]?false:true); buzz(10); if(bkDaily().list.every(x=>bkDaily().chk[x.id])) toast('오늘 보충 끝! 수고했어요 🎉'); rerender(); });
+  root.querySelectorAll('.bk-daily [data-bk]').forEach(b=>b.onclick=()=>bkOpen(b.dataset.bk)); }
+function bkMorning(){ const st=bkSt(), D=bkDaily(); if(st.dlySeen===D.d||!D.list.length) return; const s=store.sess; if(s&&!s.done) return;
+  setTimeout(()=>{ if(!ov.hidden||st.dlySeen===D.d||(document.body.dataset.view!=='home'&&document.body.dataset.view!=='book')) return; st.dlySeen=D.d; save();
+    sheet(`<div class="upd"><span class="upd-ic" style="font-size:28px">☀️</span><b>오늘 아침 보충 ${D.list.length}절</b><p>어제까지 푼 기록에서 틀린 문제가 몰린 곳을 골랐어요. 하나씩 읽고 체크하면 끝나요.</p></div>
+      <div class="bk-mlist">${D.list.map((x,i)=>{const c=BKMAP[x.id];return `<div class="bk-mrow"><span>${i+1}</span><div><b>${c.bic} ${esc(c.t)}</b><small>${esc(x.why)}</small></div></div>`;}).join('')}</div>
+      <button class="cta" id="bkMGo">지금 보충 시작</button><button class="linkbtn center" id="bkMLater">이따 할게요 (홈·교재에 계속 떠 있어요)</button>`,()=>{
+      $('#bkMGo').onclick=()=>{ closeOv(); const f=D.list.find(x=>!D.chk[x.id])||D.list[0]; setTimeout(()=>bkOpen(f.id),260); };
+      $('#bkMLater').onclick=()=>closeOv(); }); },1600); }
+var _home9=home;
+home=function(){ const r=_home9.apply(this,arguments); try{ const card=bkDailyCard(); if(card){ const hd=app.querySelector('.top-h')||app.firstElementChild; const w=document.createElement('div'); w.innerHTML=card; const el=w.firstElementChild; if(hd&&hd.nextSibling) hd.parentNode.insertBefore(el,hd.nextSibling); else app.prepend(el); bkBindDaily(el,()=>{ view='home'; render(); }); } bkMorning(); }catch(e){} return r; };
+setTimeout(()=>{ try{ if(view==='home'&&!app.querySelector('.bk-daily')&&!(store.sess&&!store.sess.done)) render(); }catch(e){} },0);
 
 var releaseTimer=null, versionReloading=false;
 function studyInProgress(){ return !!(store.sess&&!store.sess.done&&(view==='quiz'||store.sess.mode==='mock')); }
