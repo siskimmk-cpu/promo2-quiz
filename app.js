@@ -1172,7 +1172,7 @@ function bookRead(id){
     <div class="bk-prog"><i id="bkRP" style="width:0"></i></div>`;
   h+=`<article class="bk-art anim s-${c.bsub}"><div class="bk-meta"><span class="eyebrow">${String(idx+1).padStart(2,'0')}절 · 약 ${bkMin(c)}분</span>${done?'<span class="bk-badge">읽음</span>':''}</div><h1 class="bk-h">${esc(c.t)}</h1>`;
   h+=`<div class="bk-sum"><i>한 줄 요약</i><p>${bkInline(c.s)}</p></div>`;
-  h+=`<div class="bk-tools"><button id="bkMask" class="${st.mask?'on':''}">${ico('eye')}<span>${st.mask?'가리개 켜짐':'숫자 가리개'}</span></button><button id="bkPen" class="${st.pen?'on':''}">${ico('pen')}<span>형광펜</span></button><button id="bkTts">${ico('sound')}<span>듣기</span></button></div>`;
+  h+=`<div class="bk-tools"><button id="bkMask" class="${st.mask?'on':''}">${ico('eye')}<span>${st.mask?'가리개 ON':'가리개'}</span></button><button id="bkPen" class="${st.pen?'on':''}">${ico('pen')}<span>형광펜</span></button><button id="bkTts">${ico('sound')}<span>듣기</span></button></div>`;
   h+=`<div class="bk-body">${c.b.map((x,i)=>bkBlock(x,i,hl)).join('')}</div>`;
   h+=`<p class="bk-ref">근거 · ${esc(c.r)}</p></article>`;
   const DY=bkDaily(), isD=DY.list.some(x=>x.id===id);
@@ -1185,13 +1185,13 @@ function bookRead(id){
   const mark=()=>{ if(!st.read[id]){ st.read[id]=Date.now(); save(); } };
   const goTo=(t,dir)=>{ bkStop(); st.open=t; if(t) st.last=t; save(); const art=app.querySelector('.bk-art');
     const fin=()=>{ bkDir=dir||''; view='book'; render(); top(); };
-    if(dir&&art&&!RM){ art.style.transition='transform .22s cubic-bezier(.4,0,.2,1),opacity .22s'; art.style.transform=`translateX(${dir==='l'?'-':''}${innerWidth*0.9}px)`; art.style.opacity='0'; setTimeout(fin,200); } else if(dir) fin(); else go('book'); };
+    if(dir&&art&&!RM){ art.style.transition='transform .26s cubic-bezier(.4,0,.2,1),opacity .26s'; art.style.transform=`translateX(${dir==='l'?'-':''}${Math.min(innerWidth,760)*1.05}px) rotate(${dir==='l'?'-':''}3deg) scale(.95)`; art.style.opacity='0'; setTimeout(fin,230); } else if(dir) fin(); else go('book'); };
   $('#bkBack').onclick=()=>goTo(null);
   $('#bkTocB').onclick=()=>bkToc(B,id);
   $('#bkBm').onclick=e=>{ if(st.bm[id]) delete st.bm[id]; else st.bm[id]=Date.now(); save(); e.currentTarget.classList.toggle('on',!!st.bm[id]); toast(st.bm[id]?'북마크했어요 🔖':'북마크를 뺐어요'); buzz(8); };
   $('#bkMore').onclick=()=>sheet(`<div class="upd"><b>보기 설정</b></div><div class="bk-set"><span>글자 크기</span><div class="bk-segc">${['작게','보통','크게'].map((l,i)=>`<button data-fs="${i}" aria-pressed="${st.fs===i}">${l}</button>`).join('')}</div></div><p class="bk-tip">숫자 가리개: 숫자·기간이 가려지고, 탭하면 보여요. 시험 직전 암기 확인용.<br>형광펜: ✏️를 켜고 문단을 탭하거나, 언제든 문단을 길게 누르면 칠해져요.<br>좌우로 밀면 이전·다음 절로 넘어가요.</p>`,()=>{
     ov.querySelectorAll('[data-fs]').forEach(b=>b.onclick=()=>{ st.fs=+b.dataset.fs; save(); document.body.dataset.fs=st.fs; ov.querySelectorAll('[data-fs]').forEach(x=>x.setAttribute('aria-pressed',x===b)); }); });
-  $('#bkMask').onclick=e=>{ st.mask=!st.mask; save(); document.body.classList.toggle('bk-mask',st.mask); const b=e.currentTarget; b.classList.toggle('on',st.mask); b.querySelector('span').textContent=st.mask?'가리개 켜짐':'숫자 가리개'; app.querySelectorAll('.bk-num.shown').forEach(n=>n.classList.remove('shown')); };
+  $('#bkMask').onclick=e=>{ st.mask=!st.mask; save(); document.body.classList.toggle('bk-mask',st.mask); const b=e.currentTarget; b.classList.toggle('on',st.mask); b.querySelector('span').textContent=st.mask?'가리개 ON':'가리개'; app.querySelectorAll('.bk-num.shown').forEach(n=>n.classList.remove('shown')); };
   $('#bkPen').onclick=e=>{ st.pen=!st.pen; save(); e.currentTarget.classList.toggle('on',st.pen); if(st.pen) toast('문단을 탭하면 형광펜이 칠해져요'); };
   const tts=$('#bkTts');
   tts.onclick=()=>{ const S=window.speechSynthesis; if(!S){ toast('이 기기는 듣기를 지원하지 않아요'); return; }
@@ -1217,22 +1217,38 @@ function bookRead(id){
   const rp=$('#bkRP'), onScroll=()=>{ if(!document.body.contains(rp)){ window.removeEventListener('scroll',onScroll); return; } const H=document.documentElement.scrollHeight-innerHeight; const p=H>0?Math.min(1,scrollY/H):1; rp.style.width=p*100+'%'; if(p>.92&&!st.read[id]){ mark(); const bd=app.querySelector('.bk-meta'); if(bd&&!bd.querySelector('.bk-badge')) bd.insertAdjacentHTML('beforeend','<span class="bk-badge">읽음</span>'); } };
   window.addEventListener('scroll',onScroll,{passive:true}); setTimeout(onScroll,50);
   const art=app.querySelector('.bk-art'); if(bkDir&&!RM){ art.classList.add(bkDir==='l'?'bk-in-r':'bk-in-l'); } bkDir='';
-  let x0=null,y0=null,dx=0,lock=null;
-  app.ontouchstart=e=>{ if(e.target.closest('.bk-tw,.bk-quiz')){ x0=null; return; } x0=e.touches[0].clientX; y0=e.touches[0].clientY; dx=0; lock=null; art.style.transition='none'; };
-  app.ontouchmove=e=>{ if(x0==null) return; const mx=e.touches[0].clientX-x0, my=e.touches[0].clientY-y0;
-    if(lock==null&&(Math.abs(mx)>10||Math.abs(my)>10)) lock=Math.abs(mx)>Math.abs(my)*1.2?'x':'y';
-    if(lock!=='x') return; dx=mx; const edge=(dx<0&&!next)||(dx>0&&!prev); const d=edge?dx*0.25:dx;
-    art.style.transform=`translateX(${d}px) rotate(${d/innerWidth*2}deg)`; art.style.opacity=String(1-Math.min(.35,Math.abs(d)/innerWidth*.6)); };
-  app.ontouchend=()=>{ if(x0==null) return; x0=null; if(lock!=='x'){ return; }
-    const go2=dx<-innerWidth*.22&&next?'l':dx>innerWidth*.22&&prev?'r':null;
-    if(go2==='l'){ mark(); bkDailyCheck(id); buzz(8); goTo(next.id,'l'); } else if(go2==='r'){ buzz(8); goTo(prev.id,'r'); }
-    else { art.style.transition='transform .3s cubic-bezier(.2,.9,.3,1.2),opacity .3s'; art.style.transform=''; art.style.opacity=''; } };
+  document.querySelectorAll('.bk-peek').forEach(x=>x.remove());
+  document.body.insertAdjacentHTML('beforeend',`${next?`<div class="bk-peek r" id="bkPkR"><small>다음 절</small><b>${esc(next.t)}</b><i>←</i></div>`:''}${prev?`<div class="bk-peek l" id="bkPkL"><i>→</i><small>이전 절</small><b>${esc(prev.t)}</b></div>`:''}`);
+  app.querySelectorAll('.bk-tw').forEach(t=>t.classList.toggle('ovf',t.scrollWidth>t.clientWidth+4));
+  const pkR=$('#bkPkR'), pkL=$('#bkPkL'), W=()=>Math.min(innerWidth,760);
+  const paint=(d,anim)=>{ const tr=anim?'transform .34s cubic-bezier(.2,.9,.3,1.15),opacity .34s':'none';
+    art.style.transition=tr; art.style.transform=d?`translateX(${d}px) rotate(${d/W()*1.6}deg) scale(${1-Math.min(.04,Math.abs(d)/W()*.06)})`:''; art.style.opacity=d?String(1-Math.min(.3,Math.abs(d)/W()*.5)):'';
+    const pr=Math.min(1,Math.abs(d)/(W()*.28));
+    if(pkR){ pkR.style.transition=tr; const on=d<0?pr:0; pkR.style.transform=`translate(${(1-on)*110}%,-50%)`; pkR.style.opacity=on; pkR.classList.toggle('ready',d<0&&pr>=1); }
+    if(pkL){ pkL.style.transition=tr; const on=d>0?pr:0; pkL.style.transform=`translate(${-(1-on)*110}%,-50%)`; pkL.style.opacity=on; pkL.classList.toggle('ready',d>0&&pr>=1); } };
+  const flip=dir=>{ if(dir==='l'&&next){ mark(); bkDailyCheck(id); buzz(8); [pkR,pkL].forEach(x=>x&&x.remove()); goTo(next.id,'l'); return true; } if(dir==='r'&&prev){ buzz(8); [pkR,pkL].forEach(x=>x&&x.remove()); goTo(prev.id,'r'); return true; } return false; };
+  let x0=null,y0=null,t0=0,dx=0,lock=null,pid=null,lx=0,lt=0,vx=0;
+  const skip=t=>{ if(t.closest('input,textarea,.bk-top')) return true; const tw=t.closest('.bk-tw'); return !!(tw&&tw.scrollWidth>tw.clientWidth+4); };
+  art.onpointerdown=e=>{ if(e.button>0||skip(e.target)) return; art.classList.remove('bk-nudge','bk-in-r','bk-in-l','anim'); x0=e.clientX; y0=e.clientY; t0=lt=performance.now(); lx=x0; dx=0; vx=0; lock=null; pid=e.pointerId; };
+  art.onpointermove=e=>{ if(x0==null||e.pointerId!==pid) return; const mx=e.clientX-x0, my=e.clientY-y0;
+    if(lock==null&&(Math.abs(mx)>8||Math.abs(my)>8)){ lock=Math.abs(mx)>Math.abs(my)*1.15?'x':'y'; if(lock==='x'){ try{ art.setPointerCapture(pid); }catch(_){} document.body.classList.add('bk-drag'); } }
+    if(lock!=='x') return; e.preventDefault(); const now=performance.now(); vx=(e.clientX-lx)/Math.max(1,now-lt); lx=e.clientX; lt=now;
+    dx=mx; const edge=(dx<0&&!next)||(dx>0&&!prev); paint(edge?dx*0.22:dx,false); };
+  const end=e=>{ if(x0==null||(e&&e.pointerId!==pid)) return; x0=null; document.body.classList.remove('bk-drag'); if(lock!=='x') return;
+    const far=Math.abs(dx)>W()*.28, fast=Math.abs(vx)>.55&&Math.abs(dx)>36;
+    if((far||fast)&&flip(dx<0?'l':'r')) return; paint(0,true); };
+  art.onpointerup=end; art.onpointercancel=end;
+  art.addEventListener('click',e=>{ if(Math.abs(dx)>8&&lock==='x'){ e.stopPropagation(); e.preventDefault(); dx=0; } },true);
+  let wx=0,wt=null,wlock=false;
+  app.onwheel=e=>{ if(wlock||Math.abs(e.deltaX)<Math.abs(e.deltaY)*1.3) return; art.classList.remove('anim','bk-in-r','bk-in-l'); e.preventDefault(); wx-=e.deltaX; const edge=(wx<0&&!next)||(wx>0&&!prev); paint(edge?wx*0.22:wx,false);
+    clearTimeout(wt); if(Math.abs(wx)>W()*.22&&!edge){ wlock=true; flip(wx<0?'l':'r'); return; } wt=setTimeout(()=>{ wx=0; paint(0,true); },160); };
+  if(!st.nudged&&next&&!RM){ st.nudged=1; save(); setTimeout(()=>{ if(!document.body.contains(art)) return; art.classList.add('bk-nudge'); toast('옆으로 밀면 다음 절로 넘어가요 👉'); setTimeout(()=>art.classList.remove('bk-nudge'),1400); },900); }
   document.onkeydown=e=>{ if(document.body.dataset.view!=='book'||!ov.hidden||!bkSt().open) return; if(e.key==='ArrowRight'&&next){ mark(); goTo(next.id,'l'); } else if(e.key==='ArrowLeft'&&prev) goTo(prev.id,'r'); else if(e.key==='Escape') goTo(null); };
 }
 var _render2=render;
 render=function(){ const s=store.sess;
-  if(view==='book'&&!(s&&s.done)&&!(s&&!s.done&&(s.mode==='mock'))){ app.ontouchstart=app.ontouchend=app.ontouchmove=null; document.body.dataset.view='book'; app.classList.remove('dsk'); return bookView(); }
-  app.ontouchmove=null; if(store.bk&&store.bk.open){ store.bk.open=null; } bkStop(); document.body.classList.remove('bk-mask');
+  if(view==='book'&&!(s&&s.done)&&!(s&&!s.done&&(s.mode==='mock'))){ app.ontouchstart=app.ontouchend=app.ontouchmove=app.onwheel=null; document.body.dataset.view='book'; app.classList.remove('dsk'); return bookView(); }
+  app.ontouchmove=null; app.onwheel=null; document.querySelectorAll('.bk-peek').forEach(x=>x.remove()); if(store.bk&&store.bk.open){ store.bk.open=null; } bkStop(); document.body.classList.remove('bk-mask');
   return _render2.apply(this,arguments); };
 if(!tabbar.hidden){ const cur=tabbar.querySelector('[aria-current="true"]'); showTabs(cur?cur.dataset.tab:'home'); }
 /* 오늘 아침 보충: 틀린 문제가 몰린 절을 매일 오전 9시 기준으로 3개 골라 알려 주고, 확인 체크하며 넘어간다 */

@@ -438,7 +438,7 @@ button,.row,.opt,.paper,.qbtn,.chip{position:relative;overflow:hidden}
 .cta.ghost{box-shadow:none}
 @media (prefers-reduced-motion:reduce){#splash>i,.sp-ring .pg,.shine,.sp-t span,.ripple{animation:none!important}.sp-ring .pg{stroke-dashoffset:0}::view-transition-old(root),::view-transition-new(root){animation:none}}
 </style>
-<link rel="manifest" href="manifest.webmanifest?v=202611071759"><link rel="apple-touch-icon" href="icon-180.png?v=202611071759"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
+<link rel="manifest" href="manifest.webmanifest?v=202611071811"><link rel="apple-touch-icon" href="icon-180.png?v=202611071811"><link rel="icon" href="favicon-32.png" sizes="32x32"><link rel="icon" href="icon-192.png" sizes="192x192"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="2급 합격"><meta name="application-name" content="2급 합격"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" media="print" onload="this.media='all'"><style>:root{--f:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif!important;--num:"Pretendard Variable",Pretendard,-apple-system,sans-serif!important}</style>
 <style>
 /* ── v10 프리미엄 레이어 ── */
 /* 1. 히어로: 토스풍 블루 그라데이션 카드 */
@@ -1410,6 +1410,17 @@ body[data-fs="2"] .bk-t{font-size:17px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bk-p.hl{background:color-mix(in srgb,#ffd54a 22%,transparent)}:root:not([data-theme="light"]) .bk-tags em.h{background:color-mix(in srgb,#ffd54a 18%,transparent);color:#ffd54a}:root:not([data-theme="light"]) .bk-sres mark{background:color-mix(in srgb,#ffd54a 35%,transparent)}}
 @media (min-width:1024px){body[data-view=book] #app.wrap{max-width:760px}.bk-prog{top:56px}}
 @media (prefers-reduced-motion:reduce){.bk-in-r,.bk-in-l{animation:none}}
+.bk-tw{touch-action:pan-y}.bk-tw.ovf{touch-action:auto}
+.bk-peek{position:fixed;top:50%;z-index:6;display:grid;gap:3px;max-width:150px;padding:14px 16px;background:var(--card);border-radius:18px;box-shadow:0 12px 32px -12px rgba(16,24,40,.35);opacity:0;pointer-events:none;transition:none}
+.bk-peek.r{right:10px;transform:translate(110%,-50%)}.bk-peek.l{left:10px;transform:translate(-110%,-50%)}
+.bk-peek small{font-size:11.5px;font-weight:700;color:var(--muted)}.bk-peek b{font-size:14px;line-height:1.35;letter-spacing:-.02em;color:var(--ink)}
+.bk-peek i{font-style:normal;font-weight:900;color:var(--accent);font-size:18px}.bk-peek.ready{background:var(--accent)}.bk-peek.ready b,.bk-peek.ready small,.bk-peek.ready i{color:#fff}
+body.bk-drag,body.bk-drag *{user-select:none!important;-webkit-user-select:none!important;cursor:grabbing}
+.bk-in-r{animation:bkInR .38s cubic-bezier(.2,.9,.3,1) both}.bk-in-l{animation:bkInL .38s cubic-bezier(.2,.9,.3,1) both}
+@keyframes bkInR{from{transform:translateX(60%) rotate(2.5deg) scale(.95);opacity:0}to{transform:none;opacity:1}}
+@keyframes bkInL{from{transform:translateX(-60%) rotate(-2.5deg) scale(.95);opacity:0}to{transform:none;opacity:1}}
+.bk-nudge{animation:bkNudge 1.3s cubic-bezier(.4,0,.2,1)}@keyframes bkNudge{0%,100%{transform:none}30%{transform:translateX(-42px) rotate(-1deg)}55%{transform:translateX(6px)}75%{transform:translateX(-14px)}}
+@media (prefers-reduced-motion:reduce){.bk-nudge{animation:none}}
 </style>
 </head><body>
 <div id="splash" class="v2" aria-hidden="true"><div class="s2-in"><div class="s2-mark"><div class="s2-icon"><svg viewBox="0 0 64 64" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path class="s2-chk" d="M15 33l11 11 23-24"/></svg><span class="gl"></span></div><span class="s2-bub">2급</span></div><div class="s2-t"><span>승진시험</span><span>합격까지</span></div><div class="s2-s">예상 기출문제</div><div class="s2-dd" id="spDd">시험 2026. 12. 18.(금)</div></div><div class="s2-bot"><div class="dots"><i></i><i></i><i></i></div><div class="s2-org">개인택시공제조합<small>직원 자율 학습용 · 비공식</small></div></div></div>
@@ -1418,10 +1429,10 @@ body[data-fs="2"] .bk-t{font-size:17px}
 <nav class="tabbar" id="tabbar" hidden aria-label="메뉴"></nav>
 <div class="ov" id="ov" hidden></div>
 <noscript><div class="wrap" style="padding:40px 20px">이 페이지는 크롬·사파리 같은 브라우저에서 열어 주세요.</div></noscript>
-<script>window.BUILD="202611071759"</script>
-<script src="questions.js?v=202611071759"></script>
-<script src="book.js?v=202611071759"></script>
-<script src="flash.js?v=202611071759"></script>
-<script src="vendor/supabase.js?v=202611071759"></script>
-<script src="auth.js?v=202611071759"></script>
+<script>window.BUILD="202611071811"</script>
+<script src="questions.js?v=202611071811"></script>
+<script src="book.js?v=202611071811"></script>
+<script src="flash.js?v=202611071811"></script>
+<script src="vendor/supabase.js?v=202611071811"></script>
+<script src="auth.js?v=202611071811"></script>
 </body></html>
