@@ -1106,8 +1106,8 @@ function bkQuizzes(c,rel){ const out=[], seed=bkHash(c.id+dayKey9());
   const TOK=/(?<![\d가-힣.,~∼])\d[\d,.]*\s?(?:억\s?\d[\d,.]*\s?천?만\s?원|%p|%|만\s?원|억\s?원|천만\s?원|억|원|개월|주|일|년|월|급|km|세|점|배|회|시간|명|리터)(?![\d가-힣~∼])/g, nz=t=>t.replace(/\s/g,'');
   const imp=new Set(chips.flatMap(([,b])=>b.match(TOK)||[]).map(nz));
   const lim=Math.max(1,Math.round(c.b.length*.4)), cands=[], ART=/^\d{3}(?:의\d)?:\s?/;
-  const sents=txt=>{ const o=[]; String(txt).split(/(?<=[가-힣)]\.)\s+|\s*→\s*/).forEach(x=>{ x=x.replace(ART,'').trim(); if(!x) return; if(o.length&&(/^(단|다만|대신|그|이|또)[,\s]/.test(x)||x.length<16)) o[o.length-1]+=' '+x; else o.push(x); }); return o; };
-  const add=(sen,t,w,ans,hint)=>{ if(sen.length<14||sen.length>110||sen.split(t).length!==2) return; const [pre,post]=sen.split(t); cands.push({pre,post,a:ans||t.trim(),w,hint}); };
+  const sents=txt=>{ const o=[]; String(txt).split(/(?<=[가-힣)]\.)\s+/).forEach(x=>{ x=x.replace(ART,'').trim(); if(!x) return; if(o.length&&(/^(단|다만|대신|그|이|또)[,\s]/.test(x)||x.length<16)) o[o.length-1]+=' '+x; else o.push(x); }); return o; };
+  const add=(sen,t,w,ans,hint)=>{ if(sen.length<14||sen.length>130||sen.split(t).length!==2) return; const [pre,post]=sen.split(t); if((pre+post).replace(/[\s.,()"·:]/g,'').length<14) return; cands.push({pre,post,a:ans||t.trim(),w,hint}); };
   const scan=(txt,early)=>sents(txt).forEach(sen=>{ if(/틀림|틀린 보기/.test(sen)) return;
     (sen.match(TOK)||[]).filter(t=>!/^1\s?(일|회|명|점|배|주)$/.test(t.trim())).forEach(t=>add(sen,t,(imp.has(nz(t))?2:1)+(early?2:0)));
     if(!/틀림|틀린|→/.test(sen)) for(const m of sen.matchAll(/"([^"]{1,14})"/g)) add(sen,m[0],1+(early?2:0),m[1]);
@@ -1119,12 +1119,18 @@ function bkQuizzes(c,rel){ const out=[], seed=bkHash(c.id+dayKey9());
       ch=chips.filter(([a,b])=>(b.match(TOK)||[]).some(t=>nz(t)===nz(z.a))&&ov(a)).sort((x,y)=>ov(y[0])-ov(x[0])||(nz((y[1].match(TOK)||[''])[0])===nz(z.a))-(nz((x[1].match(TOK)||[''])[0])===nz(z.a)))[0], hz=/^\d+$/.test(z.hint||'')?'제'+z.hint+'조':z.hint||'';
     out.push({k:'f',pre:z.pre,post:z.post,a:z.a,hint:ch&&!sen.includes(ch[0].trim())?ch[0].trim():hz,full:ch?ch[0].trim()+' = '+ch[1].trim():''}); }
   else if(chips.length){ const [a,b]=chips[seed%chips.length]; out.push({k:'f',pre:c.t+' — '+a.trim()+'은(는) ',post:'',a:b.trim(),hint:'',full:''}); }
-  const pool=rel.map(i=>byId[i]).filter(q=>q&&!q.case&&q.why&&q.why.length===q.opts.length);
-  if(pool.length){ const q=pool[(seed>>3)%pool.length], wantX=(seed>>2)&1, idx=q.opts.map((_,j)=>j), pick=idx.filter(j=>String(q.why[j]).trim().startsWith(wantX?'×':'○')), cand=pick.length?pick:idx, oi=cand[(seed>>5)%cand.length], w=String(q.why[oi]).trim(); let e=w.replace(/^[○×]\s*/,''); if(/^(공제)?(약관|자배법|상법|시행령|민법|대법|판례)/.test(e)&&e.length<30) e='근거: '+e; out.push({k:'o',q:q.opts[oi],a:w.startsWith('○'),e,src:q.id}); }
+  const STM=/(옳은|옳지\s?않은|틀린|맞는|바른|바르지|잘못된)\s*(것|설명|내용)/, pairs=[];
+  rel.map(i=>byId[i]).forEach(q=>{ if(!q||q.case||!q.why||q.why.length!==q.opts.length||!STM.test(q.q)||/해당|속하|아닌 것은|순서|모두 고른|몇 개|연결|사례/.test(q.q)) return;
+    q.opts.forEach((o,j)=>{ o=String(o).trim(); if(o.length<16||!/다\.?$/.test(o)||/[①-⑳]|ㄱ\.|가\./.test(o)) return; const w=String(q.why[j]).trim(); if(!/^[○×]/.test(w)) return;
+      const sc=c.m&&c.m.test(o)?2:(c.m&&c.m.test(q.q)?1:0); if(sc) pairs.push({q,j,o,w,sc,x:w.startsWith('×')}); }); });
+  if(pairs.length){ const top=Math.max(...pairs.map(z=>z.sc)); let P=pairs.filter(z=>z.sc===top); const wantX=!!((seed>>2)&1), P2=P.filter(z=>z.x===wantX); if(P2.length) P=P2;
+    const z=P[(seed>>5)%P.length]; let e=z.w.replace(/^[○×]\s*/,''); if(/^(공제)?(약관|자배법|상법|시행령|민법|대법|판례)/.test(e)&&e.length<30) e='근거: '+e; if(!e) e=String(z.q.exp||'');
+    let ctx=String(z.q.q).replace(/^(다음\s?중\s?)/,'').replace(/\s*(?:으로|로)?\s*(?:가장\s*)?(?:옳은|옳지\s?않은|틀린|맞는|바른|바르지\s?않은|잘못된)\s*(?:것|설명|내용)(?:은|을)?.*$/,'').trim(); if(/^다음|^$/.test(ctx)||ctx.length>70) ctx='';
+    out.push({k:'o',q:z.o,a:!z.x,e,src:z.q.id,ctx}); }
   return out.reverse(); }
 function bkQuizHTML(z,n,done){ const tag=z.k==='f'?'✍️ 빈칸 채우기':'⭕ O/X 깜짝 퀴즈';
   if(z.k==='f') return `<section class="bk-pop" data-pq="${n}"><div class="bk-pop-h"><b>${tag}</b><small>직접 써 보면 더 오래 남아요</small></div><p class="bk-pop-s bk-pop-fs">${esc(z.pre)}<span class="bk-blank">?</span>${esc(z.post)}</p>${z.hint?`<p class="bk-pop-hint">힌트 · ${esc(z.hint)}</p>`:''}<form class="bk-fi" onsubmit="return false"><input autocomplete="off" enterkeyhint="done" placeholder="빈칸에 들어갈 말 (예: 30일)"><button>확인</button></form><button class="bk-skip" type="button">모르겠어요 · 정답 보기</button><div class="bk-pop-r"></div></section>`;
-  return `<section class="bk-pop" data-pq="${n}"><div class="bk-pop-h"><b>${tag}</b><small>맞으면 O, 틀리면 X</small></div><p class="bk-pop-s">${esc(z.q)}</p><div class="bk-ox"><button data-ox="1">O</button><button data-ox="0">X</button></div><div class="bk-pop-r"></div></section>`; }
+  return `<section class="bk-pop" data-pq="${n}"><div class="bk-pop-h"><b>${tag}</b><small>맞으면 O, 틀리면 X</small></div>${z.ctx?`<p class="bk-pop-ctx">${esc(z.ctx)}</p>`:''}<p class="bk-pop-s">${esc(z.q)}</p><div class="bk-ox"><button data-ox="1">O</button><button data-ox="0">X</button></div><div class="bk-pop-r"></div></section>`; }
 function bkBody(c,hl,rel,st){ const qs=bkQuizzes(c,rel), B=c.b, n=B.length;
   const slots=qs.length===2?[Math.max(1,Math.round(n*.4)),Math.max(2,Math.round(n*.8))]:qs.length?[Math.max(1,Math.round(n*.55))]:[];
   let h='', depth=0, i=0, qi=0;
