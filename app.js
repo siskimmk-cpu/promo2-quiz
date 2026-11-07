@@ -1176,11 +1176,11 @@ function bookRead(id){
   h+=`<div class="bk-body">${c.b.map((x,i)=>bkBlock(x,i,hl)).join('')}</div>`;
   h+=`<p class="bk-ref">근거 · ${esc(c.r)}</p></article>`;
   const DY=bkDaily(), isD=DY.list.some(x=>x.id===id);
-  if(isD) h+=`<div class="bk-dban ${DY.chk[id]?'on':''}" id="bkDB"><span>☀️</span><div><b>오늘 아침 보충 절</b><small>${esc(DY.list.find(x=>x.id===id).why)}</small></div><button id="bkDC" aria-pressed="${!!DY.chk[id]}">${DY.chk[id]?'확인 ✓':'확인 체크'}</button></div>`;
+  if(isD) h+=`<div class="bk-dban ${DY.chk[id]?'on':''}" id="bkDB"><span>☀️</span><div><b>오늘 짚고 갈 곳</b><small>${esc(DY.list.find(x=>x.id===id).why)}</small></div><button id="bkDC" aria-pressed="${!!DY.chk[id]}">${DY.chk[id]?'확인함 ✓':'확인했어요'}</button></div>`;
   if(qq){ const a=st.qz[id];
     h+=`<section class="bk-quiz anim" id="bkQz"><div class="bk-qh"><i>✅ 확인 문제</i><small>읽은 내용을 바로 꺼내 보면 오래 남아요</small></div><p class="bk-qq">${esc(qq.q)}</p>${qq.case?`<p class="bk-qc">${esc(qq.case)}</p>`:''}
       <div class="bk-qo">${qq.opts.map((o,i)=>`<button data-qo="${i}"><b>${i+1}</b><span>${esc(o)}</span></button>`).join('')}</div><div class="bk-qf" id="bkQf"></div></section>`; }
-  h+=`<div class="bk-act">${rel.length?`<button class="cta" id="bkQ">관련 문제 ${Math.min(rel.length,20)}개 이어서 풀기</button>`:''}<button class="cta ${rel.length?'ghost':''}" id="bkNext">${(isD&&!DY.chk[id]?'확인 체크하고 ':'')+(next?(done?'다음 절 →':'다 읽었어요 · 다음 절 →'):'다 읽었어요 · 서재로')}</button>${prev?`<button class="linkbtn center" id="bkPrev">← 이전 절 · ${esc(prev.t)}</button>`:''}</div>`;
+  h+=`<div class="bk-act">${rel.length?`<button class="cta" id="bkQ">관련 문제 ${Math.min(rel.length,20)}개 이어서 풀기</button>`:''}<button class="cta ${rel.length?'ghost':''}" id="bkNext">${(isD&&!DY.chk[id]?'확인하고 ':'')+(next?(done?'다음 절 →':'다 읽었어요 · 다음 절 →'):'다 읽었어요 · 서재로')}</button>${prev?`<button class="linkbtn center" id="bkPrev">← 이전 절 · ${esc(prev.t)}</button>`:''}</div>`;
   app.innerHTML=h; document.body.dataset.view='book';
   const mark=()=>{ if(!st.read[id]){ st.read[id]=Date.now(); save(); } };
   const goTo=(t,dir)=>{ bkStop(); st.open=t; if(t) st.last=t; save(); const art=app.querySelector('.bk-art');
@@ -1205,7 +1205,7 @@ function bookRead(id){
     el.addEventListener('touchstart',()=>{ t=setTimeout(()=>{ t=null; toggleHl(el); },550); },{passive:true});
     ['touchend','touchmove','touchcancel'].forEach(ev=>el.addEventListener(ev,()=>{ if(t){ clearTimeout(t); t=null; } },{passive:true}));
     el.addEventListener('contextmenu',e=>{ e.preventDefault(); toggleHl(el); }); });
-  const dc=$('#bkDC'); if(dc) dc.onclick=()=>{ const on=!bkDaily().chk[id]; bkDailyCheck(id,on); buzz(10); dc.textContent=on?'확인 ✓':'확인 체크'; dc.setAttribute('aria-pressed',on); $('#bkDB').classList.toggle('on',on); const D=bkDaily(); if(on&&D.list.every(x=>D.chk[x.id])) toast('오늘 보충 끝! 수고했어요 🎉'); else if(on){ const nx=D.list.find(x=>!D.chk[x.id]); if(nx) toast(`다음 보충: ${BKMAP[nx.id].t}`); } };
+  const dc=$('#bkDC'); if(dc) dc.onclick=()=>{ const on=!bkDaily().chk[id]; bkDailyCheck(id,on); buzz(10); dc.textContent=on?'확인함 ✓':'확인했어요'; dc.setAttribute('aria-pressed',on); $('#bkDB').classList.toggle('on',on); const D=bkDaily(); if(on&&D.list.every(x=>D.chk[x.id])) toast('오늘 짚을 곳 완료! 수고했어요 👏'); else if(on){ const nx=D.list.find(x=>!D.chk[x.id]); if(nx) toast(`다음은 ‘${BKMAP[nx.id].t}’`); } };
   const qz=$('#bkQz');
   if(qz){ const show=pick=>{ const ok=pick===qq.ans; qz.querySelectorAll('[data-qo]').forEach(b=>{ const i=+b.dataset.qo; b.disabled=true; b.classList.toggle('ok',i===qq.ans); b.classList.toggle('no',i===pick&&!ok); });
       $('#bkQf').innerHTML=`<div class="bk-qr ${ok?'ok':'no'}"><b>${ok?'정답이에요! 🎉':`아쉬워요 · 정답 ${qq.ans+1}번`}</b><p>${hl(qq.exp)}</p></div>`; };
@@ -1243,20 +1243,20 @@ function bkWeak(){ const st=bkSt();
     const order=BK.map(b=>b.sub).sort((a,b)=>subAcc(a)-subAcc(b));
     const rest=rows.filter(r=>!pick.includes(r)&&!st.read[r.c.id]).sort((a,b)=>order.indexOf(a.c.bsub)-order.indexOf(b.c.bsub));
     pick=pick.concat(rest.length?rest:rows.filter(r=>!pick.includes(r))); }
-  return pick.slice(0,3).map(r=>({id:r.c.id,why:r.w?`관련 문제 오답 ${r.w}개${r.d?` · 정답률 ${Math.round(r.acc*100)}%`:''}`:(st.read[r.c.id]?'정답률 낮은 과목 복습':'아직 안 읽은 절')}));
+  return pick.slice(0,3).map(r=>({id:r.c.id,why:r.w?`관련 문제 ${r.w}개 틀림${r.d?` · 정답률 ${Math.round(r.acc*100)}%`:''}`:(st.read[r.c.id]?'정답률이 낮은 과목이에요':'아직 안 읽은 단원이에요')}));
 }
 function bkDaily(){ const st=bkSt(), d=dayKey9(); if(!st.dly||st.dly.d!==d){ st.dly={d,list:bkWeak(),chk:{}}; save(); } return st.dly; }
 function bkDailyCheck(id,force){ const st=bkSt(), D=bkDaily(); if(!D.list.some(x=>x.id===id)) return false; if(force===false) delete D.chk[id]; else D.chk[id]=Date.now(); save(); return true; }
 function bkDailyCard(){ const D=bkDaily(); if(!D.list.length) return ''; const n=D.list.filter(x=>D.chk[x.id]).length, all=n===D.list.length;
-  return `<div class="bk-daily anim ${all?'done':''}"><div class="bk-dh"><span>☀️</span><div><b>${all?'오늘 보충 끝! 🎉':'오늘 아침 보충'}</b><small>${all?'내일 오전 9시에 새로 골라 드려요':'틀린 문제가 몰린 절이에요 · 읽고 체크해요'}</small></div><em>${n}/${D.list.length}</em></div>
-    ${D.list.map(x=>{ const c=BKMAP[x.id]; if(!c) return ''; const on=!!D.chk[x.id]; return `<div class="bk-drow ${on?'on':''}"><button class="bk-chk" data-dchk="${x.id}" aria-pressed="${on}" aria-label="확인 체크">${on?'✓':''}</button><button class="bk-dgo" data-bk="${x.id}"><b>${c.bic} ${esc(c.t)}</b><small>${esc(x.why)}</small></button></div>`; }).join('')}</div>`; }
-function bkBindDaily(root,rerender){ root.querySelectorAll('[data-dchk]').forEach(b=>b.onclick=e=>{ e.stopPropagation(); const id=b.dataset.dchk, D=bkDaily(); bkDailyCheck(id,D.chk[id]?false:true); buzz(10); if(bkDaily().list.every(x=>bkDaily().chk[x.id])) toast('오늘 보충 끝! 수고했어요 🎉'); rerender(); });
+  return `<div class="bk-daily anim ${all?'done':''}"><div class="bk-dh"><span>☀️</span><div><b>${all?'오늘 짚을 곳 완료 👏':'오늘 짚고 갈 곳'}</b><small>${all?'내일 아침 9시에 새로 골라 드릴게요':'틀린 문제에서 골랐어요'}</small></div><em>${n}/${D.list.length}</em></div>
+    ${D.list.map(x=>{ const c=BKMAP[x.id]; if(!c) return ''; const on=!!D.chk[x.id]; return `<div class="bk-drow ${on?'on':''}"><button class="bk-chk" data-dchk="${x.id}" aria-pressed="${on}" aria-label="확인했어요">${on?'✓':''}</button><button class="bk-dgo" data-bk="${x.id}"><b>${c.bic} ${esc(c.t)}</b><small>${esc(x.why)}</small></button></div>`; }).join('')}</div>`; }
+function bkBindDaily(root,rerender){ root.querySelectorAll('[data-dchk]').forEach(b=>b.onclick=e=>{ e.stopPropagation(); const id=b.dataset.dchk, D=bkDaily(); bkDailyCheck(id,D.chk[id]?false:true); buzz(10); if(bkDaily().list.every(x=>bkDaily().chk[x.id])) toast('오늘 짚을 곳 완료! 수고했어요 👏'); rerender(); });
   root.querySelectorAll('.bk-daily [data-bk]').forEach(b=>b.onclick=()=>bkOpen(b.dataset.bk)); }
 function bkMorning(){ const st=bkSt(), D=bkDaily(); if(st.dlySeen===D.d||!D.list.length) return; const s=store.sess; if(s&&!s.done) return;
   setTimeout(()=>{ if(!ov.hidden||st.dlySeen===D.d||(document.body.dataset.view!=='home'&&document.body.dataset.view!=='book')) return; st.dlySeen=D.d; save();
-    sheet(`<div class="upd"><span class="upd-ic" style="font-size:28px">☀️</span><b>오늘 아침 보충 ${D.list.length}절</b><p>어제까지 푼 기록에서 틀린 문제가 몰린 곳을 골랐어요. 하나씩 읽고 체크하면 끝나요.</p></div>
+    sheet(`<div class="upd"><span class="upd-ic" style="font-size:28px">☀️</span><b>좋은 아침이에요</b><p>지금까지 틀린 문제를 보고<br>오늘 짚고 갈 곳 ${D.list.length}가지를 골랐어요.</p></div>
       <div class="bk-mlist">${D.list.map((x,i)=>{const c=BKMAP[x.id];return `<div class="bk-mrow"><span>${i+1}</span><div><b>${c.bic} ${esc(c.t)}</b><small>${esc(x.why)}</small></div></div>`;}).join('')}</div>
-      <button class="cta" id="bkMGo">지금 보충 시작</button><button class="linkbtn center" id="bkMLater">이따 할게요 (홈·교재에 계속 떠 있어요)</button>`,()=>{
+      <button class="cta" id="bkMGo">바로 시작하기</button><button class="linkbtn center" id="bkMLater">나중에 할게요</button>`,()=>{
       $('#bkMGo').onclick=()=>{ closeOv(); const f=D.list.find(x=>!D.chk[x.id])||D.list[0]; setTimeout(()=>bkOpen(f.id),260); };
       $('#bkMLater').onclick=()=>closeOv(); }); },1600); }
 var _home9=home;
