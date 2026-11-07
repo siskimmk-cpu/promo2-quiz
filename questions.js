@@ -8684,7 +8684,8 @@ const QUESTIONS = [
    "○ 일부 보상 시 조합원의 권리를 해치지 않는 범위에서만 대위."
   ],
   "reviewedAt": "2026-11-06",
-  "rev": 2
+  "rev": 2,
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "A30",
@@ -8737,7 +8738,8 @@ const QUESTIONS = [
    "○ 책임 없는 사유로 효력상실이면 미경과기간 일할 환급.",
    "× 책임 있는 경우의 방식이다."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "A32",
@@ -8763,7 +8765,8 @@ const QUESTIONS = [
    "○ 약관에 없는 사항은 대한민국 법령에 따른다.",
    "○ 사고 후 면허취소·양도 등으로 해지하며 분담금을 다 내지 않으면 미납입분을 추징할 수 있다."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C30",
@@ -8795,7 +8798,8 @@ const QUESTIONS = [
    "y": 12,
    "of": 17
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C31",
@@ -8827,7 +8831,8 @@ const QUESTIONS = [
    "y": 12,
    "of": 17
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "A33",
@@ -8853,7 +8858,8 @@ const QUESTIONS = [
    "○ 제공 가능.",
    "○ 제공 가능."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C33",
@@ -8971,7 +8977,8 @@ const QUESTIONS = [
    "of": 10
   },
   "reviewedAt": "2026-11-06",
-  "rev": 2
+  "rev": 2,
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D67",
@@ -9002,7 +9009,8 @@ const QUESTIONS = [
    "y": 10,
    "of": 10
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D68",
@@ -9034,7 +9042,8 @@ const QUESTIONS = [
    "of": 10
   },
   "reviewedAt": "2026-11-06",
-  "rev": 2
+  "rev": 2,
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D69",
@@ -9129,7 +9138,8 @@ const QUESTIONS = [
    "y": 9,
    "of": 10
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D73",
@@ -9161,7 +9171,8 @@ const QUESTIONS = [
    "of": 10
   },
   "reviewedAt": "2026-11-06",
-  "rev": 2
+  "rev": 2,
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D74",
@@ -9192,7 +9203,8 @@ const QUESTIONS = [
    "y": 9,
    "of": 10
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D76",
@@ -9287,7 +9299,8 @@ const QUESTIONS = [
    "y": 14,
    "of": 17
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F62",
@@ -9315,7 +9328,8 @@ const QUESTIONS = [
    "× 제작자등은 결함이 있을 때 구상 상대방이 될 뿐이고, 피해자 보호는 운행자책임과 의무보험이 맡는다."
   ],
   "reviewedAt": "2026-11-06",
-  "rev": 2
+  "rev": 2,
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F63",
@@ -9341,7 +9355,8 @@ const QUESTIONS = [
    "○ 제12조 제4항.",
    "× 국토교통부장관이 고시한다(제15조)."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E55",
@@ -9438,7 +9453,8 @@ const QUESTIONS = [
    "of": 10
   },
   "reviewedAt": "2026-11-06",
-  "rev": 2
+  "rev": 2,
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E58",
@@ -9464,7 +9480,8 @@ const QUESTIONS = [
    "○ 미경과보험료적립금은 책임준비금 항목.",
    "○ 보험료적립금은 책임준비금 항목."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E59",
@@ -9495,7 +9512,8 @@ const QUESTIONS = [
    "y": 10,
    "of": 10
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E61",
@@ -9553,7 +9571,8 @@ const QUESTIONS = [
    "y": 7,
    "of": 10
   },
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G32",
@@ -9579,7 +9598,8 @@ const QUESTIONS = [
    "○ 기펜재: 가격이 내려도 수요가 줄어드는 특수한 열등재.",
    "× 사치재는 소득이 늘면 수요가 더 크게 느는 재화."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G33",
@@ -9605,7 +9625,8 @@ const QUESTIONS = [
    "× GDP.",
    "× 가계 소비만 합한 것은 민간소비 지출."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G34",
@@ -9687,7 +9708,8 @@ const QUESTIONS = [
    "○ 옳은 연결."
   ],
   "reviewedAt": "2026-11-06",
-  "rev": 2
+  "rev": 2,
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G37",
@@ -9713,7 +9735,8 @@ const QUESTIONS = [
    "× 블록체인은 분산 원장 기술.",
    "○ 빅블러: 산업·업종 경계가 흐려지는 현상(핀테크 등)."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G38",
@@ -9739,7 +9762,8 @@ const QUESTIONS = [
    "× 니치마켓은 틈새시장.",
    "× 블루오션은 경쟁 없는 신시장."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G39",
@@ -9819,7 +9843,8 @@ const QUESTIONS = [
    "× 바이럴 마케팅은 입소문 확산 마케팅.",
    "○ 카니발리제이션: 신제품이 자사 기존 제품 시장을 잠식."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G42",
@@ -9845,7 +9870,8 @@ const QUESTIONS = [
    "× 엣지 컴퓨팅은 데이터 발생 지점 근처에서 처리.",
    "× 메타버스는 가상 공유 공간 자체."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G43",
@@ -9871,7 +9897,8 @@ const QUESTIONS = [
    "× 통화 가치를 낮추는 것.",
    "× 통화 교환 계약."
   ],
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D78",
@@ -12337,20 +12364,21 @@ const QUESTIONS = [
    "의료기관은 입원진료가 더 이상 필요하지 않은 환자에게 퇴원을 지시할 수 있고, 그 사유와 일자를 환자와 지급 의사를 통지한 보험회사등에 지체 없이 통보하여야 한다.",
    "보험회사등은 의료기관으로부터 진료수가를 청구받으면 그 의료기관에 관계 진료기록의 열람을 청구할 수 있다.",
    "보험회사등은 보험금 지급 청구를 받은 경우 경찰청 등 교통사고 조사기관에 조사기록의 열람을 청구할 수 있다.",
-   "보험회사등이 열람으로 알게 된 다른 사람의 비밀을 누설한 경우의 형사처벌은 피해자의 고소와 관계없이 공소를 제기할 수 있다."
+   "자동차손해배상진흥원은 국토교통부장관에게서 받은 운전면허·교통법규 위반 정보를 보험료 산정이나 보험금 지급과 관계없는 목적으로도 보험회사등에 제공할 수 있다."
   ],
   "ans": 3,
-  "exp": "① ○ 제13조의2 제1항.\n② ○ 제14조 제1항.\n③ ○ 제14조 제4항.\n④ × 5년 이하 징역 또는 5천만원 이하 벌금이며, 고소가 있어야 공소를 제기할 수 있다(제46조 제1항).",
+  "exp": "① ○ 제13조의2 제1항.\n② ○ 제14조 제1항.\n③ ○ 제14조 제4항.\n④ × 진흥원이 받은 운전면허·법규위반 정보는 보험료 산정·보험금 지급 목적 외로 제공할 수 없고, 보험회사등 임직원도 이를 누설하거나 다른 목적으로 사용할 수 없다(제14조).",
   "ref": "자배법 제13조의2·제14조",
   "why": [
    "○ 제13조의2 제1항.",
    "○ 제14조 제1항.",
    "○ 제14조 제4항.",
-   "× 5년 이하 징역 또는 5천만원 이하 벌금이며, 고소가 있어야 공소를 제기할 수 있다(제46조 제1항)."
+   "× 진흥원은 이 정보를 보험료 산정·보험금 지급 목적 외로 제공할 수 없다(제14조)."
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN08",
@@ -12377,7 +12405,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN09",
@@ -12404,7 +12433,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN10",
@@ -12433,7 +12463,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN11",
@@ -12461,7 +12492,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN12",
@@ -12476,20 +12508,21 @@ const QUESTIONS = [
    "보험회사등은 대통령령으로 정하는 사유가 있는 경우 외에는 자동차보유자의 의무보험 가입을 거부할 수 없다.",
    "교통사고 발생 개연성이 높은 자동차보유자에 대해서는 보험회사가 단독으로 인수를 거절할 수 있을 뿐 공동으로 계약할 방법은 없다.",
    "공동계약을 체결하는 경우 보험회사는 자동차보유자에게 공동계약체결의 절차와 보험료를 안내하여야 한다.",
-   "정당한 사유 없이 의무보험 계약 체결을 거부한 보험회사등에는 2천만원 이하의 과태료가 부과된다."
+   "공동계약 대상이 되는 교통사고 발생 개연성이 높은 자동차보유자의 범위는 국토교통부령으로 정한다."
   ],
   "ans": 1,
-  "exp": "① ○ 제24조 제1항.\n② × 국토교통부령으로 정하는 사유에 해당하면 다수의 보험회사가 공동으로 계약을 체결할 수 있다(제24조 제2항).\n③ ○ 제24조 제2항 후단.\n④ ○ 제48조 제2항 제3호.",
-  "ref": "자배법 제24조·제48조",
+  "exp": "① ○ 제24조 제1항.\n② × 국토교통부령으로 정하는 사유에 해당하면 다수의 보험회사가 공동으로 계약을 체결할 수 있다(제24조 제2항).\n③ ○ 제24조 제2항 후단.\n④ ○ 제24조 제2항.",
+  "ref": "자배법 제24조",
   "why": [
    "○ 제24조 제1항.",
    "× 국토교통부령으로 정하는 사유에 해당하면 다수의 보험회사가 공동으로 계약을 체결할 수 있다(제24조 제2항).",
    "○ 제24조 제2항 후단.",
-   "○ 제48조 제2항 제3호."
+   "○ 제24조 제2항."
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN13",
@@ -12517,7 +12550,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN14",
@@ -12545,7 +12579,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN15",
@@ -12558,21 +12593,22 @@ const QUESTIONS = [
   "opts": [
    "분담금은 책임보험등 보험료의 100분의 10을 넘지 않는 범위에서 대통령령으로 정한다.",
    "책임보험등 가입자의 분담금은 가입자가 국토교통부장관에게 직접 납부하여야 한다.",
-   "분담금을 내지 않은 자에게는 7일 이상의 기간을 정해 독촉하여야 한다.",
+   "분담금을 내지 않은 자에 대해서는 정부가 강제로 징수할 방법이 없다.",
    "뺑소니나 무보험 자동차 사고를 일으킨 자에게는 분담금의 3배 범위에서 추가로 징수할 수 있다."
   ],
   "ans": 3,
-  "exp": "독촉을 받고도 내지 않으면 국세 체납처분의 예에 따라 징수한다(제38조 제2항).",
+  "exp": "분담금은 책임보험등 보험료의 100분의 5 이내에서 대통령령으로 정하고(제37조 제2항), 책임보험등 가입자의 분담금은 보험회사등이 계약 시 받아 정부에 낸다(제37조 제3항). 독촉을 받고도 내지 않으면 국세 체납처분의 예에 따라 징수하며(제38조), 뺑소니·무보험 사고 유발자에게는 분담금의 3배 범위에서 추가 징수할 수 있다(제37조 제4항).",
   "ref": "자배법 제37조·제38조",
   "why": [
    "× 100분의 5를 초과하지 않는 범위이다(제37조 제2항).",
    "× 계약을 체결하는 보험회사등이 계약 체결 시 징수하여 정부에 낸다(제37조 제3항).",
-   "× 10일 이상의 기간을 정하여 독촉한다(제38조 제1항).",
+   "× 독촉 후에도 내지 않으면 국세 체납처분의 예에 따라 징수할 수 있다(제38조).",
    "○ 제37조 제4항."
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN16",
@@ -12600,7 +12636,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN17",
@@ -12626,7 +12663,7 @@ const QUESTIONS = [
    "× 영치 번호판 해제 시에도 가입 여부를 확인하여야 한다(제42조 제1항 제2호).",
    "× 건설기계관리법에 따른 등록 등도 대상이다(제42조 제1항 제1호)."
   ],
-  "rel": "2026-11-10",
+  "rel": "2026-11-21",
   "reviewedAt": "2026-11-06",
   "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
  },
@@ -12654,7 +12691,7 @@ const QUESTIONS = [
    "○ 제39조의17 제2항.",
    "○ 제39조의15 제6항. 열람·제공 비용은 청구인이 부담한다(제39조의17 제5항)."
   ],
-  "rel": "2026-11-10",
+  "rel": "2026-11-21",
   "reviewedAt": "2026-11-06",
   "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
  },
@@ -12684,7 +12721,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN20",
@@ -12710,7 +12748,7 @@ const QUESTIONS = [
    "○ 제48조 제3항 제1호.",
    "○ 제46조 제2항 제2호."
   ],
-  "rel": "2026-11-11",
+  "rel": "2026-11-21",
   "reviewedAt": "2026-11-06",
   "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
  },
@@ -12740,7 +12778,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN22",
@@ -12768,7 +12807,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN23",
@@ -12796,7 +12836,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "FN24",
@@ -12823,7 +12864,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN01",
@@ -12997,7 +13039,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN07",
@@ -13025,7 +13068,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN08",
@@ -13083,7 +13127,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN10",
@@ -13111,7 +13156,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.law.go.kr/법령/상법"
+  "sourceUrl": "https://www.law.go.kr/법령/상법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN11",
@@ -13171,7 +13217,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/2013다66966"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/2013다66966",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN13",
@@ -13200,7 +13247,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/94다47261"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/94다47261",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN14",
@@ -13230,7 +13278,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/2012다116123"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/2012다116123",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN15",
@@ -13259,7 +13308,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/94다200"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/94다200",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN16",
@@ -13289,7 +13339,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/2012다107051"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/2012다107051",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN17",
@@ -13318,7 +13369,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/2014다204178"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/2014다204178",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN18",
@@ -13347,7 +13399,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/94다60615"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/94다60615",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN19",
@@ -13376,7 +13429,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/2000다25002"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/2000다25002",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "DN20",
@@ -13405,7 +13459,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/2002다33496"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/2002다33496",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN01",
@@ -13574,7 +13629,8 @@ const QUESTIONS = [
    "○ 재보험의 개념. 여러 보험자가 하나의 위험을 공동 인수하는 것은 공동보험(공동인수)이다."
   ],
   "rel": "2026-11-09",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN07",
@@ -13601,7 +13657,8 @@ const QUESTIONS = [
    "× 상실이익은 다른 약정이 없으면 보상할 손해액에 산입하지 않는다(상법 제667조)."
   ],
   "rel": "2026-11-09",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN08",
@@ -13628,7 +13685,8 @@ const QUESTIONS = [
    "× 그러한 합의가 있어도 현저하게 부당한 것이 아니면 보험자는 보상책임을 면하지 못한다(상법 제723조 제3항)."
   ],
   "rel": "2026-11-09",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN09",
@@ -13655,7 +13713,8 @@ const QUESTIONS = [
    "○ 판례는 신의칙상 허용되지 않는다고 본다."
   ],
   "rel": "2026-11-09",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN10",
@@ -13682,7 +13741,8 @@ const QUESTIONS = [
    "○ 손실감소 측면의 에너지 통제 예."
   ],
   "rel": "2026-11-09",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN11",
@@ -13710,7 +13770,8 @@ const QUESTIONS = [
    "○ 중간이자 공제(호프만·라이프니츠)."
   ],
   "rel": "2026-11-10",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN12",
@@ -13737,7 +13798,8 @@ const QUESTIONS = [
    "○ 실손형은 손해보험 원리(실손보상)에 따라 비례 분담한다."
   ],
   "rel": "2026-11-10",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN13",
@@ -13765,7 +13827,8 @@ const QUESTIONS = [
    "○ 상법 제720조 제1항 후단."
   ],
   "rel": "2026-11-10",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN14",
@@ -13792,7 +13855,8 @@ const QUESTIONS = [
    "○ 공제약관 대물공제 등에서 주요 부분품 교체 시 감가 공제."
   ],
   "rel": "2026-11-10",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN15",
@@ -13820,7 +13884,8 @@ const QUESTIONS = [
    "× 분손은 단독해손과 공동해손으로 나뉜다."
   ],
   "rel": "2026-11-10",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN16",
@@ -13847,7 +13912,8 @@ const QUESTIONS = [
    "× 손실 경험의 반영 정도를 정하는 이론이다."
   ],
   "rel": "2026-11-11",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN17",
@@ -13873,7 +13939,8 @@ const QUESTIONS = [
    "× 자가보험은 기업이 기금을 적립해 스스로 부담하는 계획적 위험보유이다."
   ],
   "rel": "2026-11-11",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN18",
@@ -13900,7 +13967,8 @@ const QUESTIONS = [
    "× 상법 제724조 제2항이 인정한다."
   ],
   "rel": "2026-11-11",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN19",
@@ -13927,7 +13995,8 @@ const QUESTIONS = [
    "○ 과실상계."
   ],
   "rel": "2026-11-11",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "EN20",
@@ -13954,7 +14023,8 @@ const QUESTIONS = [
    "○ 복제."
   ],
   "rel": "2026-11-11",
-  "reviewedAt": "2026-11-06"
+  "reviewedAt": "2026-11-06",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN01",
@@ -14158,7 +14228,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN08",
@@ -14186,7 +14257,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "AN09",
@@ -14214,7 +14286,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "BN01",
@@ -14242,7 +14315,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-09",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "BN02",
@@ -14271,7 +14345,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "BN03",
@@ -14299,7 +14374,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "BN04",
@@ -14327,7 +14403,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "BN05",
@@ -14355,7 +14432,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "CN01",
@@ -14383,7 +14461,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-10",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "CN02",
@@ -14411,7 +14490,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "CN03",
@@ -14440,7 +14520,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "CN04",
@@ -14468,7 +14549,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "CN05",
@@ -14496,7 +14578,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-11",
   "reviewedAt": "2026-11-06",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "CN06",
@@ -14555,7 +14638,8 @@ const QUESTIONS = [
    "○ 제33조 제3항."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F76",
@@ -14583,7 +14667,8 @@ const QUESTIONS = [
    "× 이전등록 신청기간이 끝나는 날까지 승계한다(제26조)."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F77",
@@ -14611,7 +14696,8 @@ const QUESTIONS = [
    "× 제761조 제2항이 긴급피난에 제1항을 준용한다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c761%ec%a1%b0/"
+  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c761%ec%a1%b0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F78",
@@ -14640,7 +14726,8 @@ const QUESTIONS = [
    "× 외형상 직무범위 내이면 사무집행 관련성이 인정된다(외형이론)."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/법령/민법/제756조"
+  "sourceUrl": "https://www.law.go.kr/법령/민법/제756조",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F79",
@@ -14668,7 +14755,8 @@ const QUESTIONS = [
    "○ 제14조 제4항 준용."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F80",
@@ -14696,7 +14784,8 @@ const QUESTIONS = [
    "○ 제7조 제2항."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F81",
@@ -14724,7 +14813,8 @@ const QUESTIONS = [
    "○ 제396조 준용."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c763%ec%a1%b0/"
+  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c763%ec%a1%b0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F82",
@@ -14752,7 +14842,8 @@ const QUESTIONS = [
    "○ 노무도급에 관한 판례."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/법령/민법/제757조"
+  "sourceUrl": "https://www.law.go.kr/법령/민법/제757조",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E81",
@@ -14780,7 +14871,8 @@ const QUESTIONS = [
    "× 판례는 영업용 택시의 대체 곤란을 특별한 사정으로 인정했다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/98다7735"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/98다7735",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E82",
@@ -14806,7 +14898,8 @@ const QUESTIONS = [
    "○ 부가보험료가 있으면 일부보험이 최적일 수 있다.",
    "○ 공정보험료의 정의."
   ],
-  "reviewedAt": "2026-11-07"
+  "reviewedAt": "2026-11-07",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E83",
@@ -14834,7 +14927,8 @@ const QUESTIONS = [
    "○ 과실상계는 직권 판단 사항."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%ED%94%BC%ED%95%B4%EC%9E%90%EC%B8%A1-%EA%B3%BC%EC%8B%A4/"
+  "sourceUrl": "https://korea.legal/wiki/%ED%94%BC%ED%95%B4%EC%9E%90%EC%B8%A1-%EA%B3%BC%EC%8B%A4/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E84",
@@ -14862,7 +14956,8 @@ const QUESTIONS = [
    "○ 2009다103950 판결의 예외."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/2009다103950"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/2009다103950",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E85",
@@ -14890,7 +14985,8 @@ const QUESTIONS = [
    "× 운행 경비 포함은 증명이 필요하다(92다6112)."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/92%eb%8b%a46112/"
+  "sourceUrl": "https://korea.legal/wiki/92%eb%8b%a46112/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E86",
@@ -14918,7 +15014,8 @@ const QUESTIONS = [
    "× 예견가능성이 있어야 배상한다(제393조 제2항)."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c763%ec%a1%b0/"
+  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c763%ec%a1%b0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E87",
@@ -14944,7 +15041,8 @@ const QUESTIONS = [
    "○ 위험프리미엄 = 기대값 − 확실성등가.",
    "○ 확실성등가의 정의."
   ],
-  "reviewedAt": "2026-11-07"
+  "reviewedAt": "2026-11-07",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E88",
@@ -14970,7 +15068,8 @@ const QUESTIONS = [
    "○ 생존 피해자는 공제하지 않는다.",
    "× 법정 고정비율이 아니라 사실인정 사항이다."
   ],
-  "reviewedAt": "2026-11-07"
+  "reviewedAt": "2026-11-07",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D111",
@@ -14998,7 +15097,8 @@ const QUESTIONS = [
    "× 지체 없이 통지하여야 한다(제724조 제3항)."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c719%ec%a1%b0/"
+  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c719%ec%a1%b0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D112",
@@ -15027,7 +15127,8 @@ const QUESTIONS = [
    "× 보험자가 먼저 받았어도 특별한 사정이 없으면 같은 법리가 적용된다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2023%eb%8b%a4228244/"
+  "sourceUrl": "https://korea.legal/wiki/2023%eb%8b%a4228244/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D113",
@@ -15057,7 +15158,8 @@ const QUESTIONS = [
    "× 해당 약관 조항을 계약 내용으로 주장할 수 없을 뿐이다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.nepla.ai/case/대법원/97다47255"
+  "sourceUrl": "https://www.nepla.ai/case/대법원/97다47255",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D114",
@@ -15085,7 +15187,8 @@ const QUESTIONS = [
    "○ 약관규제법 제3조 제4항."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2023%eb%8b%a4280945/"
+  "sourceUrl": "https://korea.legal/wiki/2023%eb%8b%a4280945/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D115",
@@ -15114,7 +15217,8 @@ const QUESTIONS = [
    "× 해당 조항이 편입되지 않을 뿐 면책제도 계약 전체가 무효로 되는 것은 아니다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2024%eb%8b%a4312559/"
+  "sourceUrl": "https://korea.legal/wiki/2024%eb%8b%a4312559/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D116",
@@ -15142,7 +15246,8 @@ const QUESTIONS = [
    "○ 제724조 제4항."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c724%ec%a1%b0/"
+  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c724%ec%a1%b0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "A38",
@@ -15170,7 +15275,8 @@ const QUESTIONS = [
    "× 마지막 날 24시에 끝난다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "A39",
@@ -15197,7 +15303,8 @@ const QUESTIONS = [
    "○ 산정 → 합의 → 결정·지급."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "B44",
@@ -15225,7 +15332,8 @@ const QUESTIONS = [
    "× 조합원 소유 자동차는 무보험자동차에서 제외된다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "B45",
@@ -15253,7 +15361,8 @@ const QUESTIONS = [
    "× 비용은 공제가입금액과 관계없이 보상한다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "B46",
@@ -15281,7 +15390,8 @@ const QUESTIONS = [
    "○ 6회 제공 시 종료."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "B47",
@@ -15308,7 +15418,8 @@ const QUESTIONS = [
    "× 대인공제Ⅰ 지급액은 고의 조합원에게 청구할 수 있다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G44",
@@ -15336,7 +15447,8 @@ const QUESTIONS = [
    "○ 제130조 제2항."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/법령/대한민국헌법"
+  "sourceUrl": "https://www.law.go.kr/법령/대한민국헌법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G45",
@@ -15364,7 +15476,8 @@ const QUESTIONS = [
    "× 재적 3분의 1 이상 발의, 재적 과반수 찬성이다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/법령/대한민국헌법"
+  "sourceUrl": "https://www.law.go.kr/법령/대한민국헌법",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F83",
@@ -15393,7 +15506,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c754%ec%a1%b0/"
+  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c754%ec%a1%b0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F84",
@@ -15422,7 +15536,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/89%ed%97%8c%eb%a7%88160/"
+  "sourceUrl": "https://korea.legal/wiki/89%ed%97%8c%eb%a7%88160/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F85",
@@ -15451,7 +15566,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.scourt.go.kr/sjudge/1683617028474_162348.pdf"
+  "sourceUrl": "https://www.scourt.go.kr/sjudge/1683617028474_162348.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E89",
@@ -15481,7 +15597,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://scourt.go.kr/sjudge/1718863622291_150702.pdf"
+  "sourceUrl": "https://scourt.go.kr/sjudge/1718863622291_150702.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E90",
@@ -15510,7 +15627,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.scourt.go.kr/sjudge/1787008350584_081230.pdf"
+  "sourceUrl": "https://www.scourt.go.kr/sjudge/1787008350584_081230.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E91",
@@ -15539,7 +15657,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.scourt.go.kr/sjudge/1753163987834_145947.pdf"
+  "sourceUrl": "https://www.scourt.go.kr/sjudge/1753163987834_145947.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D117",
@@ -15567,7 +15686,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/LSW//precInfoP.do?precSeq=145257"
+  "sourceUrl": "https://www.law.go.kr/LSW//precInfoP.do?precSeq=145257",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D118",
@@ -15596,7 +15716,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.scourt.go.kr/sjudge/1778832944433_171544.pdf"
+  "sourceUrl": "https://www.scourt.go.kr/sjudge/1778832944433_171544.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D119",
@@ -15625,7 +15746,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.scourt.go.kr/sjudge/1787008350584_081230.pdf"
+  "sourceUrl": "https://www.scourt.go.kr/sjudge/1787008350584_081230.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G46",
@@ -15653,7 +15775,8 @@ const QUESTIONS = [
   ],
   "rel": "2026-11-13",
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://scourt.go.kr/sjudge/1718863622291_150702.pdf"
+  "sourceUrl": "https://scourt.go.kr/sjudge/1718863622291_150702.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F86",
@@ -15682,7 +15805,8 @@ const QUESTIONS = [
    "○ 제758조 제3항."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c758%ec%a1%b0/"
+  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c758%ec%a1%b0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F87",
@@ -15711,7 +15835,8 @@ const QUESTIONS = [
    "× 연대하여 책임진다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a476306/"
+  "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a476306/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F88",
@@ -15740,7 +15865,8 @@ const QUESTIONS = [
    "× 주의의무 이행의 증명책임은 甲에게 있다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c759%ec%a1%b0/"
+  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c759%ec%a1%b0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "F90",
@@ -15769,7 +15895,8 @@ const QUESTIONS = [
    "○ 제12조 제5항 제3호."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E92",
@@ -15795,7 +15922,8 @@ const QUESTIONS = [
    "○ 위험결합의 의의.",
    "○ 위험통제기법의 분류."
   ],
-  "reviewedAt": "2026-11-07"
+  "reviewedAt": "2026-11-07",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E93",
@@ -15823,7 +15951,8 @@ const QUESTIONS = [
    "○ 2007다52294 판결."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a452294/"
+  "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a452294/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E94",
@@ -15851,7 +15980,8 @@ const QUESTIONS = [
    "○ 2020다216240 판결."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/%eb%85%b8%eb%8f%99%eb%8a%a5%eb%a0%a5%ec%83%81%ec%8b%a4%eb%a5%a0/"
+  "sourceUrl": "https://korea.legal/wiki/%eb%85%b8%eb%8f%99%eb%8a%a5%eb%a0%a5%ec%83%81%ec%8b%a4%eb%a5%a0/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "E95",
@@ -15880,7 +16010,8 @@ const QUESTIONS = [
    "× 그 부분은 공단이 최종 부담한다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4262209/"
+  "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4262209/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D120",
@@ -15909,7 +16040,8 @@ const QUESTIONS = [
    "× 계약은 유지되고 수익자의 상속인이 수익자가 된다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4306048/"
+  "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4306048/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D121",
@@ -15938,7 +16070,8 @@ const QUESTIONS = [
    "× 약관은 객관적·획일적으로 해석한다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4211789/"
+  "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4211789/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "D122",
@@ -15966,7 +16099,8 @@ const QUESTIONS = [
    "○ 2025다220126 판결."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4220126/"
+  "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4220126/",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G49",
@@ -15996,7 +16130,8 @@ const QUESTIONS = [
    "× 기록 누락도 기망행위의 일부로 평가되었다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.asiae.co.kr/en/article/2025110315065950088"
+  "sourceUrl": "https://www.asiae.co.kr/en/article/2025110315065950088",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "A40",
@@ -16023,7 +16158,8 @@ const QUESTIONS = [
    "○ 사망·부상 시."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf"
+  "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "B48",
@@ -16050,7 +16186,8 @@ const QUESTIONS = [
    "○ 공제액의 범위."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf"
+  "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G47",
@@ -16078,7 +16215,8 @@ const QUESTIONS = [
    "× 일부·수정 재의요구는 할 수 없다(제53조 제3항)."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/헌법과-국가-인권/대통령의-법률안-거부권-mo59yy2d91vj"
+  "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/헌법과-국가-인권/대통령의-법률안-거부권-mo59yy2d91vj",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "G48",
@@ -16106,7 +16244,8 @@ const QUESTIONS = [
    "○ 제77조 제5항."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/국회-선거-정당/국회의-의사절차-다수결의-원칙-헌법-제49조-과-각종-정족수-ov59rq008063"
+  "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/국회-선거-정당/국회의-의사절차-다수결의-원칙-헌법-제49조-과-각종-정족수-ov59rq008063",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C47",
@@ -16135,7 +16274,8 @@ const QUESTIONS = [
    "○ 50% 미만 구간별 정액."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C48",
@@ -16163,7 +16303,8 @@ const QUESTIONS = [
    "○ 사업소득자 ②."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C49",
@@ -16192,7 +16333,8 @@ const QUESTIONS = [
    "× 상해 12~14급에 한한다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C50",
@@ -16221,7 +16363,8 @@ const QUESTIONS = [
    "× 중형승용차급 최저요금이 한도다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C51",
@@ -16251,7 +16394,8 @@ const QUESTIONS = [
    "× 대용품 취득 실비도 인정한다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C52",
@@ -16279,7 +16423,8 @@ const QUESTIONS = [
    "× 양자 중 많은 금액을 지급한다."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  },
  {
   "id": "C53",
@@ -16307,6 +16452,7 @@ const QUESTIONS = [
    "○ 유직자 (가)."
   ],
   "reviewedAt": "2026-11-07",
-  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+  "verifiedAt": "2026-11-07"
  }
 ];
