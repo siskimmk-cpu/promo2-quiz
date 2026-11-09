@@ -1109,14 +1109,14 @@ function bkQuizzes(c,rel){ const out=[], seed=bkHash(c.id+dayKey9());
   const sents=txt=>{ const o=[]; String(txt).split(/(?<=[가-힣)]\.)\s+/).forEach(x=>{ x=x.replace(ART,'').trim(); if(!x) return; if(o.length&&(/^(단|다만|대신|그|이|또)[,\s]/.test(x)||x.length<16)) o[o.length-1]+=' '+x; else o.push(x); }); return o; };
   const add=(sen,t,w,ans,hint)=>{ if(sen.length<14||sen.length>130||sen.split(t).length!==2) return; const [pre,post]=sen.split(t); if((pre+post).replace(/[\s.,()"·:]/g,'').length<14) return; cands.push({pre,post,a:ans||t.trim(),w,hint}); };
   const scan=(txt,early)=>sents(txt).forEach(sen=>{ if(/틀림|틀린 보기/.test(sen)) return;
-    (sen.match(TOK)||[]).filter(t=>!/^1\s?(일|회|명|점|배|주)$/.test(t.trim())).forEach(t=>add(sen,t,(imp.has(nz(t))?2:1)+(early?2:0)));
-    if(!/틀림|틀린|→/.test(sen)) for(const m of sen.matchAll(/"([^"]{1,14})"/g)) add(sen,m[0],1+(early?2:0),m[1]);
+    (sen.match(TOK)||[]).filter(t=>!/^1\s?(일|회|명|점|배|주)$/.test(t.trim())&&!(/월$/.test(t.trim())&&/\d+월 \d+일/.test(sen))).forEach(t=>add(sen,t,(imp.has(nz(t))?2:1)+(early?2:0)));
+    if(!/틀림|틀린|→|아니라/.test(sen)) for(const m of sen.matchAll(/"([^" ,]{2,10})"/g)) add(sen,m[0],1+(early?2:0),m[1]);
     for(const m of sen.matchAll(/([가-힣]{2,8})(\([a-zA-Z][a-zA-Z .-]*\))/g)) add(sen,m[1],1+(early?2:0),m[1],m[2].slice(1,-1)); });
-  scan(c.s,false); c.b.forEach((x,i)=>{ if('pkwjx'.includes(x[0])) scan(x.slice(2),i<lim); });
-  if(!cands.length) c.b.filter(x=>x[0]==='t').forEach(x=>x.slice(2).split('\n').slice(1).forEach(r=>{ const cs=r.split('|'), term=cs[0].replace(/\(.*?\)/g,'').trim(), d=cs.slice(1).filter(Boolean).join(' · ');
+  scan(c.s,false); c.b.forEach((x,i)=>{ if('pkwjxe'.includes(x[0])) scan(x.slice(2),i<lim); });
+  if(!cands.length) c.b.filter(x=>x[0]==='t').forEach(x=>x.slice(2).split('\n').slice(1).forEach(r=>{ const cs=r.split('|'), term=cs[0].replace(/\(.*?\)/g,'').trim(), d=cs.slice(1).filter(x=>x&&x.trim().length>2).join(' · ');
     if(term&&/^[가-힣·\s]{2,10}$/.test(term)&&d.length>=6&&d.length<=70&&!d.includes(term)) cands.push({pre:d+'  →  ',post:'',a:term,w:0,hint:(cs[0].match(/\((.*?)\)/)||[])[1]||''}); }));
   if(cands.length){ const top=Math.max(...cands.map(z=>z.w)), best=cands.filter(z=>z.w===top), z=best[seed%best.length], sen=z.pre+z.a+z.post, ov=a=>a.split(/[\s·]+/).filter(w=>w.length>=2&&sen.includes(w)).length,
-      ch=chips.filter(([a,b])=>(b.match(TOK)||[]).some(t=>nz(t)===nz(z.a))&&ov(a)).sort((x,y)=>ov(y[0])-ov(x[0])||(nz((y[1].match(TOK)||[''])[0])===nz(z.a))-(nz((x[1].match(TOK)||[''])[0])===nz(z.a)))[0], hz=/^\d+$/.test(z.hint||'')?'제'+z.hint+'조':z.hint||'';
+      ch=chips.filter(([a,b])=>(b.match(TOK)||[]).some(t=>nz(t)===nz(z.a))&&ov(a)).sort((x,y)=>ov(y[0])-ov(x[0])||(nz((y[1].match(TOK)||[''])[0])===nz(z.a))-(nz((x[1].match(TOK)||[''])[0])===nz(z.a)))[0], hz=/^\d+$/.test(z.hint||'')?'':z.hint||'';
     out.push({k:'f',pre:z.pre,post:z.post,a:z.a,hint:ch&&!sen.includes(ch[0].trim())?ch[0].trim():hz,full:ch?ch[0].trim()+' = '+ch[1].trim():''}); }
   else if(chips.length){ const [a,b]=chips[seed%chips.length]; out.push({k:'f',pre:c.t+' — '+a.trim()+'은(는) ',post:'',a:b.trim(),hint:'',full:''}); }
   const STM=/(옳은|옳지\s?않은|틀린|맞는|바른|바르지|잘못된)\s*(것|설명|내용)/, pairs=[];
@@ -1133,6 +1133,7 @@ function bkQuizHTML(z,n,done){ const tag=z.k==='f'?'✍️ 빈칸 채우기':'�
   return `<section class="bk-pop" data-pq="${n}"><div class="bk-pop-h"><b>${tag}</b><small>맞으면 O, 틀리면 X</small></div>${z.ctx?`<p class="bk-pop-ctx">${esc(z.ctx)}</p>`:''}<p class="bk-pop-s">${esc(z.q)}</p><div class="bk-ox"><button data-ox="1">O</button><button data-ox="0">X</button></div><div class="bk-pop-r"></div></section>`; }
 function bkBody(c,hl,rel,st){ const qs=bkQuizzes(c,rel), B=c.b, n=B.length;
   const slots=qs.length===2?[Math.max(1,Math.round(n*.4)),Math.max(2,Math.round(n*.8))]:qs.length?[Math.max(1,Math.round(n*.55))]:[];
+  slots.forEach((v,q)=>{ while(v>1&&B[v-1]&&B[v-1][0]==='h') v--; slots[q]=v; });
   let h='', depth=0, i=0, qi=0;
   const putQuiz=()=>{ const z=qs[qi], key=c.id+':'+qi, done=st.pq&&st.pq[key]; h+=bkQuizHTML(z,qi,done); h+=`<div class="bk-rest ${done?'':'locked'}" data-rest="${qi}">`; depth++; qi++; };
   while(i<n){ if(qi<slots.length&&i>=slots[qi]) putQuiz();
@@ -1142,7 +1143,7 @@ function bkBody(c,hl,rel,st){ const qs=bkQuizzes(c,rel), B=c.b, n=B.length;
       h+=items.length>1?`<div class="${cls} bk-grp rv"><i>${lab}</i><ul>${items.map(x=>`<li class="bk-b${hl.includes(x)?' hl':''}" data-bi="${x}">${bkInline(B[x].slice(2))}</li>`).join('')}</ul></div>`
         :`<div class="${cls} bk-b rv${hl.includes(i)?' hl':''}" data-bi="${i}"><i>${lab}</i><p>${bkInline(B[i].slice(2))}</p></div>`;
       i=j; continue; }
-    h+=bkBlock(B[i],i,hl).replace(/class="(bk-[a-z]+)/,'class="$1 rv'); i++; }
+    h+=bkBlock(B[i],i,hl).replace(/class="(bk-[a-z0-9]+)/,'class="$1 rv'); i++; }
   while(qi<qs.length) putQuiz();
   const chips=B.filter(x=>x[0]==='n').flatMap(x=>x.slice(2).split(';'));
   h+=`<div class="bk-recap rv"><i>📌 한눈에 복습</i><p>${bkInline(c.s)}</p>${chips.length?`<div class="bk-rchips">${chips.map(p=>{const [a,b]=p.split('=');return `<span>${esc(a)} <b class="bk-num">${esc(b||'')}</b></span>`;}).join('')}</div>`:''}</div>`;
@@ -1178,6 +1179,9 @@ function bkBindPops(id,qs,st){ st.pq=st.pq||{};
 function bkBlock(raw,i,hl){
   const k=raw.slice(0,1), x=raw.slice(2), on=hl.includes(i)?' hl':'', at=`data-bi="${i}"`;
   if(k==='p') return `<p class="bk-p bk-b${on}" ${at}>${bkInline(x)}</p>`;
+  if(k==='e') return `<div class="bk-easy bk-b${on}" ${at}><i>💬 쉽게 말하면</i><p>${bkInline(x)}</p></div>`;
+  if(k==='h') return `<h3 class="bk-h3 bk-b" ${at}>${esc(x)}</h3>`;
+  if(k==='f') return `<div class="bk-flow bk-b${on}" ${at}>${x.split('>').map((t,j)=>`<span><em>${j+1}</em>${bkInline(t.trim())}</span>`).join('<b aria-hidden="true">›</b>')}</div>`;
   const box=(cls,lab)=>`<div class="${cls} bk-b${on}" ${at}><i>${lab}</i><p>${bkInline(x)}</p></div>`;
   if(k==='k') return box('bk-key','핵심');
   if(k==='w') return box('bk-warn','⚠️ 함정');
