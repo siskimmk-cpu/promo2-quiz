@@ -12293,7 +12293,7 @@ const QUESTIONS = [
    "○ 제50조 제2항 제1호.",
    "○ 제52조 제2항."
   ],
-  "rel": "2026-12-11",
+  "rel": "2026-12-18",
   "reviewedAt": "2026-11-06",
   "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
  },
@@ -12667,7 +12667,7 @@ const QUESTIONS = [
    "× 영치 번호판 해제 시에도 가입 여부를 확인하여야 한다(제42조 제1항 제2호).",
    "× 건설기계관리법에 따른 등록 등도 대상이다(제42조 제1항 제1호)."
   ],
-  "rel": "2026-12-12",
+  "rel": "2026-12-19",
   "reviewedAt": "2026-11-06",
   "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
  },
@@ -12695,7 +12695,7 @@ const QUESTIONS = [
    "○ 제39조의17 제2항.",
    "○ 제39조의15 제6항. 열람·제공 비용은 청구인이 부담한다(제39조의17 제5항)."
   ],
-  "rel": "2026-12-12",
+  "rel": "2026-12-19",
   "reviewedAt": "2026-11-06",
   "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
  },
@@ -12752,7 +12752,7 @@ const QUESTIONS = [
    "○ 제48조 제3항 제1호.",
    "○ 제46조 제2항 제2호."
   ],
-  "rel": "2026-12-12",
+  "rel": "2026-12-19",
   "reviewedAt": "2026-11-06",
   "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
  },
@@ -22555,7 +22555,8 @@ const QUESTIONS = [
   "○ 98다30834 판결: 운행은 운전보다 넓은 개념이다."
  ],
  "sourceUrl": "https://www.nepla.ai/case/대법원/92다8101",
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "F148",
@@ -22646,7 +22647,8 @@ const QUESTIONS = [
   "○ 최대 지급의사 보험료 = 기대손실 + 위험프리미엄.",
   "○ 공정보험료에서는 전부보험이 최적이다."
  ],
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "E148",
@@ -22675,7 +22677,8 @@ const QUESTIONS = [
   "× 보상 대상은 상실 영업이익과 계속 지출되는 경상비이다.",
   "× 지출되지 않게 된 비용은 손해가 아니다."
  ],
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "D171",
@@ -22854,7 +22857,7 @@ const QUESTIONS = [
  "q": "상법상 보험가액 불변경주의에 관한 설명으로 옳지 않은 것은?",
  "opts": [
   "운송물의 보험에서는 발송한 때와 곳의 가액과 도착지까지의 운임 기타의 비용을 보험가액으로 한다.",
-  "이 보험에서도 보험기간 중 목적물의 가액이 오르면 보험가액도 그만큼 커진다.",
+  "운송보험에서도 보험기간 중 운송물의 가액이 오르면 보험가액도 그 오른 가액으로 바뀐다.",
   "선박의 보험에서는 보험자의 책임이 개시될 때의 선박가액을 보험가액으로 한다.",
   "적하의 보험에서는 선적한 때와 곳의 적하의 가액과 선적 및 보험에 관한 비용을 보험가액으로 한다."
  ],
@@ -22868,7 +22871,8 @@ const QUESTIONS = [
   "○ 제697조."
  ],
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "D175",
@@ -22899,7 +22903,8 @@ const QUESTIONS = [
   "○ 제694조의2."
  ],
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "D176",
@@ -22931,7 +22936,8 @@ const QUESTIONS = [
   "× 제739조에 따라 상해보험에도 준용된다(제732조만 제외)."
  ],
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "D177",
@@ -22962,7 +22968,8 @@ const QUESTIONS = [
   "○ 제725조의2."
  ],
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "E150",
@@ -22991,7 +22998,8 @@ const QUESTIONS = [
   "○ 제676조 제2항."
  ],
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "E151",
@@ -23020,7 +23028,8 @@ const QUESTIONS = [
   "○ 롱테일 위험.",
   "○ 요율 부족."
  ],
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "E152",
@@ -23048,7 +23057,8 @@ const QUESTIONS = [
   "○ 법정 급여 vs 약정 보험금.",
   "○ 사회적 적정성 vs 개별적 공평성."
  ],
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "A55",
@@ -23511,7 +23521,8 @@ const QUESTIONS = [
   "○ 판례."
  ],
  "reviewedAt": "2026-11-09",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1755563175340_092615.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1755563175340_092615.pdf",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "E153",
@@ -23571,7 +23582,8 @@ const QUESTIONS = [
   "○ 직접지급조항.",
   "○ 운명추종조항의 의의."
  ],
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "E155",
@@ -23599,7 +23611,8 @@ const QUESTIONS = [
   "× 예상 손실과 비례해야 좋은 위험노출단위다.",
   "○ 빈도×심도=손해액/노출단위."
  ],
- "reviewedAt": "2026-11-09"
+ "reviewedAt": "2026-11-09",
+ "verifiedAt": "2026-11-09"
 },
 {
  "id": "E156",
