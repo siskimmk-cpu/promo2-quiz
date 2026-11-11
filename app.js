@@ -6,6 +6,7 @@ const ALL_QUESTIONS=QUESTIONS.slice();
 let REL_DAY='', activeQuestions=[], HOT_IDS=[], FRESH_IDS=[];
 // 진행 중인 시험은 공개 목록이 바뀌어도 같은 문항과 답안을 유지한다.
 const byId=Object.fromEntries(ALL_QUESTIONS.map(q=>[q.id,q]));
+const PASTX=(typeof window!=='undefined'&&window.PAST)||null; if(PASTX) PASTX.qs.forEach(q=>{byId[q.id]=q;});
 function refreshRelease(){
   const day=dayKey9(); if(day===REL_DAY) return false;
   REL_DAY=day;
@@ -180,6 +181,7 @@ const ACTS={
   subj:b=>{const sub=subjOf[b.dataset.id];start(activeQuestions.filter(q=>sub.secs.includes(q.sec)).map(q=>q.id),sub.name,'practice',{mix:true});},
   chap:b=>{const x=b.dataset.id;start(activeQuestions.filter(q=>q.sec===x).map(q=>q.id),'공제약관 · '+secOf[x].name,'practice',{mix:true});},
   paper:b=>{introPaper=b.dataset.id;go('intro');},
+  past:b=>{const x=PASTX&&PASTX.sets.find(t=>t.id===b.dataset.id); if(x) start(x.ids.slice(),'기출 · '+x.name,'practice');},
   report:()=>go('report'),
   note:()=>go('note'),
   study:()=>go('study'),
@@ -233,6 +235,7 @@ function exam(){
   let h=`<header class="top-h"><div><span class="eyebrow">실전 모의고사</span><h1 class="title">실제 시험처럼<br>${EXAM.n}문항 · ${EXAM.min}분</h1></div></header>`;
   h+=paperInfo();
   h+=`<div class="papers anim">`+PAPERS.map(p=>`<button class="paper" data-act="paper" data-id="${p.id}"><span class="ic ${p.id==='pr'?'r':''}">${p.ic}</span><span class="tx"><b>${esc(p.name)}</b><span>${esc(p.desc)}</span></span><span class="best ${store.best[p.id]!=null?'':'no'}">${store.best[p.id]!=null?`최고 ${store.best[p.id]}점`:'미응시'}</span></button>`).join('')+`</div>`;
+  if(PASTX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; h+=`<div class="label">기출 회차 <small style="font-weight:500;opacity:.7">· 원본 문항·해설 그대로</small></div><div class="papers anim">`+PASTX.sets.map(x=>`<button class="paper" data-act="past" data-id="${x.id}"><span class="ic">${x.g==='L'?'⚖️':'🚕'}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항 · 출제 순서 그대로</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div>`; }
   const hs=(store.hist||[]).slice(-10);
   h+=`<div class="label">응시 기록</div>`;
   if(hs.length){
