@@ -135,5 +135,11 @@ const secOfA=q=>/상속|친권|미성년|불법행위|소멸시효|손익상계|
 const QS=[];
 A.forEach(([k,q,o,a,e])=>QS.push({id:'X'+k,sec:secOfA(q),q,opts:o,ans:a,exp:e,ref:'기출(원본 해설)',past:1}));
 L.forEach(([k,q,o,a,e])=>QS.push({id:'X'+k,sec:'D',q,opts:o,ans:a,exp:e,ref:'기출(원본 해설)',past:1}));
-window.PAST={qs:QS,sets:SETS.map((s,i)=>({id:'x'+(i+1),name:s.n,g:s.g,ids:s.keys.map(k=>'X'+k)}))};
+// 중복 제거: 회차를 순서대로 훑어 처음 나온 문항만 남긴다(사진 71장 → 자동차 69 + 상법 42 = 111문항)
+const uniq=g=>{const seen=new Set(),out=[];SETS.filter(s=>s.g===g).forEach(s=>s.keys.forEach(k=>{if(!seen.has(k)){seen.add(k);out.push('X'+k);}}));return out;};
+const chunk=(ids,n)=>{const sz=Math.ceil(ids.length/n),r=[];for(let i=0;i<ids.length;i+=sz)r.push(ids.slice(i,i+sz));return r;};
+const UA=uniq('A'), UL=uniq('L'), OUT=[];
+chunk(UA,3).forEach((ids,i,a)=>{const st=UA.indexOf(ids[0])+1;OUT.push({id:'xa'+(i+1),name:`자동차보험·자배법 ${i+1}세트`,g:'A',ids,range:`${st}~${st+ids.length-1}번`});});
+chunk(UL,2).forEach((ids,i)=>{const st=UL.indexOf(ids[0])+1;OUT.push({id:'xl'+(i+1),name:`보험계약법(상법) ${i+1}세트`,g:'L',ids,range:`${st}~${st+ids.length-1}번`});});
+window.PAST={qs:QS,sets:OUT,uniqA:UA,uniqL:UL};
 })();
