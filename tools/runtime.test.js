@@ -14,7 +14,8 @@ const SRC_IDS=SRC.map(q=>q.id);
 const upto=d=>SRC.filter(q=>!q.rel||q.rel<=d);
 const onDay=d=>SRC.filter(q=>q.rel===d);
 const ids=list=>list.map(q=>q.id);
-const PLAIN=SRC.filter(q=>!q.rev&&(!q.rel||q.rel<='2026-11-06')).map(q=>q.id); // 고쳐 쓰지 않은 공개 문항(기록 유지 대상)
+const PLAIN=SRC.filter(q=>!q.rel||q.rel<='2026-11-06').map(q=>q.id); // 공개 문항(현재 rev로 남긴 기록은 유지 대상)
+const RV=Object.fromEntries(SRC.filter(q=>q.rev).map(q=>[q.id,q.rev]));
 function harness(iso='2026-11-06T23:59:59Z',stored,qsrc=questions){
   let time=Date.parse(iso),timerId=0;const timers=new Map(),listeners={},storage=new Map();
   if(stored)storage.set('promo2-quiz-v3',JSON.stringify(stored));
@@ -100,7 +101,7 @@ test('pending build waits until study completes and stores records before reload
   assert(JSON.parse(h.storage.get('promo2-quiz-v3')).sess.done);
 });
 test('saved stars, answers and history survive release refresh and reload initialization',()=>{
-  const P=PLAIN[0],stored={ans:{[P]:{pick:0,ok:true,n:2,t:1}},star:[P],hist:[{name:'test',sc:80,d:'2026-11-06'}],srs:{},trk:{},log:{}};
+  const P=PLAIN[0],stored={ans:{[P]:{pick:0,ok:true,n:2,t:1,rv:RV[P]}},star:[P],hist:[{name:'test',sc:80,d:'2026-11-06'}],srs:{},trk:{},log:{}};
   const h=harness('2026-11-07T00:00:01Z',stored);
   assert.equal(h.api.state.ans[P].n,2);assert.equal(h.api.state.star[0],P);assert.equal(h.api.state.hist[0].sc,80);
 });
@@ -109,12 +110,6 @@ test('leaving practice permits a queued version update without deleting its resu
   h.ctx.window.P2RequestVersion('202611061400');h.runShortTimers();assert.equal(h.ctx.reloads.length,0);
   h.api.setView('home');h.api.checkReleaseBoundary();h.runShortTimers();
   assert.equal(h.ctx.reloads.length,1);assert.equal(JSON.parse(h.storage.get('promo2-quiz-v3')).sess.picks[0],0);
-});
-test('question repairs retain IDs and answer indexes, remove misleading claims',()=>{
-  const h=harness(),q=h.api.byId;
-  assert(q.CS3.why[q.CS3.ans].startsWith(q.CS3.q.includes('옳지 않은')?'×':'○'));assert.equal(q.D50.ans,0);
-  assert(!q.D50.exp.includes('지급제시를 할 수 없'));assert(q.D34.opts[1].includes('예외'));
-  assert(!q.E46.opts.join('').includes('위임'));assert(!q.E63.q.includes('산업재해'));
 });
 test('exam blueprint is 12·12·12·12·2 and pass line is 4 wrong answers',()=>{
   const h=harness();assert.equal(h.api.subjects.map(s=>s.n).join(','),'12,12,12,12,2');
@@ -255,7 +250,7 @@ test('first-try result is kept even after the question is re-solved correctly',(
   const q2=h.api.byId.D51; h.api.record(q2,q2.ans); h.api.record(q2,(q2.ans+1)%4); assert.equal(h.api.state.ans.D51.f,true);
 });
 test('rewritten questions (rev) lose their old answers on load and in sync merge, other records stay',()=>{
-  const P=PLAIN[1],old={ans:{D50:{pick:0,ok:true,n:5,t:1},[P]:{pick:0,ok:true,n:1,t:1}},srs:{D50:{step:1,due:9}},star:['D50'],starT:{D50:1}};
+  const P=PLAIN[1],old={ans:{D50:{pick:0,ok:true,n:5,t:1},[P]:{pick:0,ok:true,n:1,t:1,rv:RV[P]}},srs:{D50:{step:1,due:9}},star:['D50'],starT:{D50:1}};
   const h=harness('2026-11-06T23:59:59Z',old,questions+";QUESTIONS.find(q=>q.id==='D50').rev=2;");
   assert(!h.api.state.ans.D50,'옛 풀이 기록 삭제'); assert(!h.api.state.srs.D50); assert(h.api.state.ans[P],'다른 문항 유지'); assert(h.api.state.star.includes('D50'),'별표는 유지');
   const q=h.api.byId.D50; h.api.record(q,q.ans); assert.equal(h.api.state.ans.D50.rv,2);

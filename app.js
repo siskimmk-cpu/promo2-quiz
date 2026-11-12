@@ -2,11 +2,11 @@
 const KEY='promo2-quiz-v3';
 const EXAM={date:'2026-12-18', label:'2026. 12. 18.(금) 11:00', min:90, n:50};
 /* 매일 오전 9시(KST) 공개: rel 날짜가 오늘(UTC 기준 = KST 9시 경계)보다 뒤면 숨김 */
-const ALL_QUESTIONS=QUESTIONS.slice();
+const ALL_QUESTIONS=QUESTIONS.concat((typeof window!=='undefined'&&window.PAST&&window.PAST.qs)||[]); // 기출 원본(past.js)도 연습·통계에 포함
 let REL_DAY='', activeQuestions=[], HOT_IDS=[], FRESH_IDS=[];
 // 진행 중인 시험은 공개 목록이 바뀌어도 같은 문항과 답안을 유지한다.
 const byId=Object.fromEntries(ALL_QUESTIONS.map(q=>[q.id,q]));
-const PASTX=(typeof window!=='undefined'&&window.PAST)||null; if(PASTX) PASTX.qs.forEach(q=>{byId[q.id]=q;});
+const PASTX=(typeof window!=='undefined'&&window.PAST)||null;
 function refreshRelease(){
   const day=dayKey9(); if(day===REL_DAY) return false;
   REL_DAY=day;
