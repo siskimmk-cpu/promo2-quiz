@@ -5,6 +5,7 @@
 - `index.html` — 화면(스타일 포함). `questions.js`, `app.js`를 불러온다. 파일을 바꾸면 `?v=` 값과 `window.BUILD` 값, 그리고 `version.json`의 v 값을 모두 같은 새 날짜시각(YYYYMMDDHHmm)으로 올린다. 그래야 예전 화면이 캐시된 기기도 자동으로 최신 버전으로 새로고침된다.
 - `questions.js` — 문제 데이터 (`SECTIONS`, `SUBJECTS`, `QUESTIONS`)
 - `app.js` — 퀴즈 로직
+- `drill.js` — 연습 문제집(사용자가 보내 준 외부 연습문제·손해사정사 교재·기출 930문항, 27세트). 모의고사 탭 '연습 문제집'에서 세트로만 푼다. `drill:1`이라 연습·과목 정답률·합격 예측·간격복습·오늘의 문제에서는 빠진다. 옛 약관·법령 문항은 해설에 ※로 현행 기준을 적었다. 원문에 정답이 없던 문항은 해설 앞에 '[정답 표기 없는 원문 — 정답 작성]'.
 - `tools/validate.js` — `node tools/validate.js` 로 데이터 검사
 - `tools/runtime.test.js` — `node --test tools/runtime.test.js` 로 오전 9시 경계·앱 복귀·답안 보존·미응답 오답 기록 검사
 

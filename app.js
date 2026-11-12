@@ -3,6 +3,7 @@ const KEY='promo2-quiz-v3';
 const EXAM={date:'2026-12-18', label:'2026. 12. 18.(금) 11:00', min:90, n:50};
 /* 매일 오전 9시(KST) 공개: rel 날짜가 오늘(UTC 기준 = KST 9시 경계)보다 뒤면 숨김 */
 const ALL_QUESTIONS=QUESTIONS.concat((typeof window!=='undefined'&&window.PAST&&window.PAST.qs)||[]); // 기출 원본(past.js)도 연습·통계에 포함
+const DRILLX=(typeof window!=='undefined'&&window.DRILL)||null; if(DRILLX) DRILLX.qs.forEach(q=>ALL_QUESTIONS.push(q)); // 연습 문제집(drill.js): 세트로만 풀고 연습·통계·예측·복습에서는 제외
 let REL_DAY='', activeQuestions=[], HOT_IDS=[], FRESH_IDS=[];
 // 진행 중인 시험은 공개 목록이 바뀌어도 같은 문항과 답안을 유지한다.
 const byId=Object.fromEntries(ALL_QUESTIONS.map(q=>[q.id,q]));
@@ -10,7 +11,7 @@ const PASTX=(typeof window!=='undefined'&&window.PAST)||null;
 function refreshRelease(){
   const day=dayKey9(); if(day===REL_DAY) return false;
   REL_DAY=day;
-  activeQuestions=ALL_QUESTIONS.filter(q=>!q.rel||q.rel<=day);
+  activeQuestions=ALL_QUESTIONS.filter(q=>!q.drill&&(!q.rel||q.rel<=day));
   HOT_IDS=activeQuestions.filter(q=>q.hot&&q.hot.y/q.hot.of>=0.6).map(q=>q.id);
   FRESH_IDS=activeQuestions.filter(q=>q.rel===day).map(q=>q.id);
   return true;
@@ -46,6 +47,7 @@ function purgeStale(){let n=0;const by={};(typeof ALL_QUESTIONS!=='undefined'?AL
 function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
 if(purgeStale()) save();
 function record(q,pick){const p=store.ans[q.id]||{n:0}; const ok=isOk(q,pick); store.ans[q.id]=Object.assign({pick,ok,n:p.n+1,t:Date.now(),f:p.n?(p.f!==undefined?p.f:null):ok},q.rev?{rv:q.rev}:{}); // f: 처음 풀었을 때 정답 여부(반복 풀이로 정답률이 부풀려지는 것과 구분)
+  if(q.drill){ const d=today(); store.log[d]=store.log[d]||{n:0,o:0}; store.log[d].n++; if(ok) store.log[d].o++; return; } // 연습 문제집은 과목 정답률·복습에서 제외
   const sj=subjOfSec(q.sec).id; store.trk=store.trk||{}; store.trk[sj]=((store.trk[sj]||'')+(ok?'1':'0')).slice(-80);
   const d=today(); store.log[d]=store.log[d]||{n:0,o:0}; store.log[d].n++; if(ok) store.log[d].o++;
   const r=store.srs[q.id];
@@ -181,6 +183,7 @@ const ACTS={
   subj:b=>{const sub=subjOf[b.dataset.id];start(activeQuestions.filter(q=>sub.secs.includes(q.sec)).map(q=>q.id),sub.name,'practice',{mix:true});},
   chap:b=>{const x=b.dataset.id;start(activeQuestions.filter(q=>q.sec===x).map(q=>q.id),'공제약관 · '+secOf[x].name,'practice',{mix:true});},
   paper:b=>{introPaper=b.dataset.id;go('intro');},
+  drill:b=>{const x=DRILLX&&DRILLX.sets.find(t=>t.id===b.dataset.id); if(x) start(x.ids.slice(),'연습 문제집 · '+x.name,'practice');},
   past:b=>{const x=PASTX&&PASTX.sets.find(t=>t.id===b.dataset.id); if(x) start(x.ids.slice(),'기출 · '+x.name,'practice');},
   report:()=>go('report'),
   note:()=>go('note'),
@@ -236,6 +239,8 @@ function exam(){
   h+=paperInfo();
   h+=`<div class="papers anim">`+PAPERS.map(p=>`<button class="paper" data-act="paper" data-id="${p.id}"><span class="ic ${p.id==='pr'?'r':''}">${p.ic}</span><span class="tx"><b>${esc(p.name)}</b><span>${esc(p.desc)}</span></span><span class="best ${store.best[p.id]!=null?'':'no'}">${store.best[p.id]!=null?`최고 ${store.best[p.id]}점`:'미응시'}</span></button>`).join('')+`</div>`;
   if(PASTX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; h+=`<div class="label">기출 회차 <small style="font-weight:500;opacity:.7">· 중복 뺀 ${PASTX.uniqA.length+PASTX.uniqL.length}문항 · 원본 해설</small></div><div class="papers anim">`+PASTX.sets.map(x=>`<button class="paper" data-act="past" data-id="${x.id}"><span class="ic">${x.g==='L'?'⚖️':'🚕'}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항 · ${x.range}</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div>`; }
+  if(DRILLX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; const gs=[...new Set(DRILLX.sets.map(x=>x.g))];
+    h+=`<div class="label">연습 문제집 <small style="font-weight:500;opacity:.7">· ${DRILLX.qs.length}문항 · 정답률·복습 제외</small></div>`+gs.map(g=>{const xs=DRILLX.sets.filter(x=>x.g===g),n=xs.reduce((a,x)=>a+x.ids.length,0),done=xs.filter(x=>pr(x)!=='미응시').length;return `<details class="drill"><summary><span>${esc(g)}</span><small>${xs.length}세트 · ${n}문항${done?` · ${done}세트 풀이`:''}</small></summary><div class="papers">`+xs.map(x=>`<button class="paper" data-act="drill" data-id="${x.id}"><span class="ic">${x.ic}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항${x.range?' · '+esc(x.range):''}</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div></details>`;}).join(''); }
   const hs=(store.hist||[]).slice(-10);
   h+=`<div class="label">응시 기록</div>`;
   if(hs.length){
