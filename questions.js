@@ -12074,7 +12074,8 @@ const QUESTIONS = [
  "ref": "민법 제754조, 제755조",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c754%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c754%ec%a1%b0/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "F84",
@@ -12097,7 +12098,8 @@ const QUESTIONS = [
  "ref": "민법 제764조, 헌법재판소 1991. 4. 1. 89헌마160 결정",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/89%ed%97%8c%eb%a7%88160/"
+ "sourceUrl": "https://korea.legal/wiki/89%ed%97%8c%eb%a7%88160/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "F85",
@@ -12120,7 +12122,8 @@ const QUESTIONS = [
  "ref": "대법원 2023. 4. 27. 선고 2020도17883 판결, 자배법 제8조",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1683617028474_162348.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1683617028474_162348.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "E89",
@@ -12144,7 +12147,8 @@ const QUESTIONS = [
  "ref": "대법원 2024. 6. 20. 선고 2021다299594 전원합의체 판결, 국민연금법 제114조 제1항, 민법 제763조·제396조",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://scourt.go.kr/sjudge/1718863622291_150702.pdf"
+ "sourceUrl": "https://scourt.go.kr/sjudge/1718863622291_150702.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "E90",
@@ -12160,14 +12164,15 @@ const QUESTIONS = [
   "필요성·상당성 부존재는 보험자가 증명한다.",
   "직접청구 시 약관 지급기준에 구속되지 않는다.",
   "대차시장 형성 가액을 기준으로 산정한다.",
-  "더 새 차량을 대차하면 감액할 수 있다."
+  "낡은 차 대신 신차를 대차하면 감액할 수 있다."
  ],
  "ans": 0,
- "exp": "대차의 필요성과 대차비용의 상당성은 배상을 청구하는 피해자가 증명해야 한다.",
+ "exp": "대차의 필요성과 대차비용의 상당성은 배상을 청구하는 피해자가 증명해야 한다. 법원은 약관 지급기준에 구속되지 않고 대차시장 가액을 기준으로 산정한다.",
  "ref": "대법원 2026. 8. 13. 선고 2024다205361 판결(같은 날 2024다208865 판결 같은 취지), 민법 제763조·제393조",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1787008350584_081230.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1787008350584_081230.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "E91",
@@ -12190,7 +12195,8 @@ const QUESTIONS = [
  "ref": "대법원 2025. 7. 18. 선고 2020다263758 판결, 제조물책임법 제3조의2, 민법 제750조",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1753163987834_145947.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1753163987834_145947.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "D117",
@@ -12212,7 +12218,8 @@ const QUESTIONS = [
  "ref": "약관의 규제에 관한 법률 제5조, 대법원 2010. 7. 22. 선고 2010다28208 판결, 대법원 2010. 9. 30. 선고 2010다40543 판결",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW//precInfoP.do?precSeq=145257"
+ "sourceUrl": "https://www.law.go.kr/LSW//precInfoP.do?precSeq=145257",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "D118",
@@ -12228,14 +12235,15 @@ const QUESTIONS = [
   "실제 지급 보험금 전액",
   "지급 보험금의 50%",
   "손해액 전액",
-  "자기 분담금 중 가해자 책임비율 부분"
+  "분담금 공제액 중 가해자 책임비율 부분"
  ],
  "ans": 3,
- "exp": "자기 분담금 범위 중 가해자의 책임비율에 따른 부담 부분으로 축소된다.",
+ "exp": "지급 보험금에서 다른 보험자로부터 받은 중복보험 분담금을 공제한 금액 중 가해자의 책임비율에 따른 부담 부분으로 제한된다.",
  "ref": "대법원 2026. 5. 14. 선고 2025다220815 판결, 상법 제672조, 제682조",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1778832944433_171544.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1778832944433_171544.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "D119",
@@ -12250,15 +12258,16 @@ const QUESTIONS = [
  "opts": [
   "평균적 고객 기준으로 해석한다.",
   "순수 관리대행 손해에 적용된다.",
-  "불명확하면 공제가입자에게 유리하게 해석한다.",
+  "약관의 목적·취지와 공인중개사법을 함께 고려한다.",
   "중개행위와 결합돼 책임이 성립해도 면책된다."
  ],
  "ans": 3,
- "exp": "관리대행이 중개행위와 결합되어 공인중개사법상 책임이 성립하면 협회는 면책되지 않는다.",
+ "exp": "면책조항은 순수한 관리대행 손해에만 적용되고, 관리대행이 중개행위와 결합되어 공인중개사법상 책임이 성립하면 적용되지 않는다.",
  "ref": "대법원 2026. 8. 13. 선고 2025다217842 판결, 약관의 규제에 관한 법률 제5조",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1787008350584_081230.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1787792095712_095455.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "G46",
@@ -12273,14 +12282,15 @@ const QUESTIONS = [
   "중과실 사고로 특례 배제",
   "신호위반에 해당",
   "통행금지 안전표지가 아니어서 특례 적용 가능",
-  "종전 판례 유지"
+  "중앙선 침범에 해당"
  ],
  "ans": 2,
  "exp": "진로변경제한선은 '통행금지를 내용으로 하는 안전표지'가 아니어서 종합보험 가입 특례가 적용될 수 있다.",
  "ref": "대법원 2024. 6. 20. 선고 2022도12175 전원합의체 판결, 교통사고처리 특례법 제3조 제2항, 제4조",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://scourt.go.kr/sjudge/1718863622291_150702.pdf"
+ "sourceUrl": "https://scourt.go.kr/sjudge/1718863622291_150702.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "F86",
@@ -12303,7 +12313,8 @@ const QUESTIONS = [
  "exp": "소유자는 면책 규정이 없어 무과실책임을 진다.",
  "ref": "민법 제758조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c758%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c758%ec%a1%b0/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "F87",
@@ -12326,7 +12337,8 @@ const QUESTIONS = [
  "exp": "제760조 제2항(가해자 불명)이 적용되어 인과관계가 추정되므로 인과관계 부존재를 증명하면 면책된다(2007다76306).",
  "ref": "민법 제760조 제2항, 대법원 2008. 4. 10. 선고 2007다76306 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a476306/"
+ "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a476306/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "F88",
@@ -12349,7 +12361,8 @@ const QUESTIONS = [
  "exp": "동물 보관자도 점유자와 같은 책임을 지되 보관에 상당한 주의를 다했음을 증명하면 면책된다(제759조).",
  "ref": "민법 제759조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c759%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c759%ec%a1%b0/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "F90",
@@ -12372,7 +12385,8 @@ const QUESTIONS = [
  "exp": "통지한 지급 한도 내 진료수가는 보험회사에 청구해야 한다(제12조 제5항).",
  "ref": "자배법 제12조 제5항",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "E92",
@@ -12392,7 +12406,8 @@ const QUESTIONS = [
  "ans": 2,
  "exp": "위험분리는 노출단위를 나누어 1회 사고의 손실심도를 줄이는 효과가 있다.",
  "ref": "손해사정이론(위험관리기법)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "E93",
@@ -12412,9 +12427,10 @@ const QUESTIONS = [
  ],
  "ans": 0,
  "exp": "노동능력상실률에 참작했다면 특별한 사정이 없는 한 개호비에도 같은 기여도를 참작한다(2007다52294). 기여도는 변론에 나타난 사정으로 판단할 수 있다.",
- "ref": "손해사정이론(기왕증), 대법원 2008. 7. 24. 선고 2007다52294 판결, 대법원 2017다20159 판결",
+ "ref": "손해사정이론(기왕증), 대법원 2008. 7. 24. 선고 2007다52294 판결, 대법원 2019. 8. 9. 선고 2017다20159 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a452294/"
+ "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a452294/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "E94",
@@ -12433,10 +12449,11 @@ const QUESTIONS = [
   "사실심의 자유재량이다"
  ],
  "ans": 1,
- "exp": "의학적 장애율은 참고자료이고 자유재량은 아니며, 여러 진료과 감정은 중복 평가·누락을 심리해야 한다(2020다216240).",
- "ref": "손해사정이론(노동능력상실률), 대법원 2020다292671 판결, 대법원 2020다216240 판결",
+ "exp": "의학적 장애율은 참고자료일 뿐이고 자유재량도 아니며, 여러 진료과 감정은 중복 평가·누락을 심리해 바로잡아야 한다(2020다216240).",
+ "ref": "손해사정이론(노동능력상실률), 대법원 2023. 11. 16. 선고 2020다292671 판결, 대법원 2020. 6. 25. 선고 2020다216240 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%eb%85%b8%eb%8f%99%eb%8a%a5%eb%a0%a5%ec%83%81%ec%8b%a4%eb%a5%a0/"
+ "sourceUrl": "https://korea.legal/wiki/%eb%85%b8%eb%8f%99%eb%8a%a5%eb%a0%a5%ec%83%81%ec%8b%a4%eb%a5%a0/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "E95",
@@ -12445,21 +12462,22 @@ const QUESTIONS = [
  "tags": [
   "판례",
   "사례",
-  "과실상계"
+  "기왕증"
  ],
  "rel": "2026-11-13",
- "q": "건강보험 공단부담금이 있는 과실 있는 피해자의 기왕치료비 배상액 산정 순서는?(대법원 2022다262209)",
+ "q": "기왕증 기여도가 있는 피해자의 건강보험 기왕치료비 배상액 산정 순서는?(대법원 2022다262209)",
  "opts": [
-  "과실상계 후 공단부담금 공제",
-  "기왕증 기여도 적용 후 공단부담금 전액 공제",
-  "공단부담금 공제 후 과실상계",
-  "공단부담금 무시"
+  "기여도 적용 후 공단부담금 전액 공제",
+  "공단부담금을 빼지 않고 기여도만 적용",
+  "공단부담금 공제 후 기여도 적용",
+  "공단부담금만 공제하고 기여도 미적용"
  ],
  "ans": 2,
- "exp": "공단의 대위 범위는 가해자 책임비율 부분으로 제한되므로 공제 후 과실상계로 산정한다.",
+ "exp": "공단의 대위 범위는 가해자 책임비율 부분으로 제한되므로, 과실상계와 마찬가지로 공단부담금을 먼저 공제한 뒤 기여도를 적용한다.",
  "ref": "국민건강보험법 제58조, 대법원 2022. 12. 16. 선고 2022다262209 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4262209/"
+ "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4262209/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "D120",
@@ -12473,16 +12491,17 @@ const QUESTIONS = [
  "rel": "2026-11-13",
  "q": "보험수익자가 먼저 사망하고 계약자가 재지정 없이 사망한 경우 보험수익자는?(대법원 2022다306048)",
  "opts": [
-  "계약자의 상속인",
-  "국가",
-  "계약자 사망 시 생존한 수익자의 상속인",
-  "보험자가 정하는 자"
+  "계약자의 상속인 전원",
+  "보험자에게 귀속",
+  "수익자 상속인 중 당시 생존자",
+  "계약자의 배우자만"
  ],
  "ans": 2,
- "exp": "계약자 사망 시점에 생존한 보험수익자의 상속인(순차 상속인 포함)이 법정상속분 비율로 보험금청구권을 취득한다.",
+ "exp": "계약자 사망 당시 생존한 지정 보험수익자의 상속인(순차 상속인 포함)이 법정상속분 비율로 보험금청구권을 취득한다.",
  "ref": "상법 제733조, 대법원 2025. 2. 20. 선고 2022다306048 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4306048/"
+ "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4306048/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "D121",
@@ -12505,7 +12524,8 @@ const QUESTIONS = [
  "exp": "문구가 다의적이므로 작성자 불이익 원칙에 따라 교통재해가 보험기간 중 발생하면 족하다고 보았다.",
  "ref": "약관규제법 제5조, 대법원 2026. 4. 2. 선고 2025다211789 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4211789/"
+ "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4211789/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "D122",
@@ -12527,7 +12547,8 @@ const QUESTIONS = [
  "exp": "파산면책을 받았더라도 피보험자는 구체적 금액의 손해배상채권 존재를 확인하는 확정판결 등을 얻을 수 있다.",
  "ref": "상법 제726조의5, 채무자회생법(면책의 효력), 대법원 2026. 4. 16. 선고 2025다220126 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4220126/"
+ "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4220126/",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "G49",
@@ -12572,7 +12593,8 @@ const QUESTIONS = [
  "exp": "판결 확정, 재판상 화해, 중재, 서면 합의로 배상액이 확정된 때 청구할 수 있다. 자손공제는 사상 시 청구한다.",
  "ref": "공제약관(공제금 청구)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf"
+ "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "B48",
@@ -12593,7 +12615,8 @@ const QUESTIONS = [
  "exp": "정규 승차 장치가 아닌 곳에 탑승 중 생긴 사고는 자손공제 면책이다.",
  "ref": "공제약관(자손공제)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf"
+ "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "G47",
@@ -12662,7 +12685,8 @@ const QUESTIONS = [
  "exp": "4,500만 원 × 60% × 85% = 2,295만 원. 가정간호비 대상이면 8,000만 원 기준이며, 상실수익액 지급 시 부상 위자료가 더 많으면 그 금액을 지급한다.",
  "ref": "공제약관 26 지급기준(후유장애 위자료)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "C48",
@@ -12681,10 +12705,11 @@ const QUESTIONS = [
   "증명 소득과 증명 곤란 소득은 합산한다."
  ],
  "ans": 3,
- "exp": "증명된 소득과 증명이 곤란한 소득이 함께 있으면 합산하지 않고 증명된 소득을 기준으로 한다.",
+ "exp": "증명된 소득과 증명 곤란한 소득이 함께 있으면 합산하지 않고 인정 소득 중 많은 금액을 인정한다. 증명된 소득이 둘 이상이면 합산한다.",
  "ref": "공제약관 26 지급기준(현실소득액의 산정방법)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-12"
 },
 {
  "id": "C49",
@@ -16575,7 +16600,7 @@ const QUESTIONS = [
   "핵심숫자"
  ],
  "rel": "2026-11-18",
- "q": "공동불법행위자의 보험자 상호 간 직접 구상금채권의 소멸시효는?(판례에 의함)",
+ "q": "가해차량 보험자끼리 직접 청구하는 구상금채권의 시효기간은?(판례에 의함)",
  "opts": [
   "1년",
   "3년",
