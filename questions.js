@@ -12660,7 +12660,8 @@ const QUESTIONS = [
  "exp": "가부동수이면 부결된 것으로 본다(헌법 제49조). 의원 제명은 재적 3분의 2 이상 찬성이다.",
  "ref": "대한민국헌법 제49조, 제64조, 제77조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/국회-선거-정당/국회의-의사절차-다수결의-원칙-헌법-제49조-과-각종-정족수-ov59rq008063"
+ "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/국회-선거-정당/국회의-의사절차-다수결의-원칙-헌법-제49조-과-각종-정족수-ov59rq008063",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "C47",
@@ -12945,7 +12946,8 @@ const QUESTIONS = [
  "exp": "외출·외박 기록은 3년간 보존한다(시행령 제12조).",
  "ref": "자배법 제13조·제13조의2 / 시행령 제12조·제12조의2",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F96",
@@ -12967,7 +12969,8 @@ const QUESTIONS = [
  "exp": "진료수가 외 가불금은 사망 1억 5천만 원, 부상은 별표1, 후유장애는 별표2 한도의 범위에서 손해액의 50%다.",
  "ref": "자배법 제11조 / 시행령 제10조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F97",
@@ -12987,10 +12990,11 @@ const QUESTIONS = [
   "중요사항 불고지가 명백한 경우"
  ],
  "ans": 1,
- "exp": "사고 다발 보유자는 거부 사유가 아니며 공동계약 대상이 될 수 있다(시행령 제17조).",
+ "exp": "시행령 제17조의 거부 사유는 미검사 자동차, 운행 정지·금지 자동차, 중요사항 불고지·부실고지가 명백한 경우뿐이고 사고 다발은 해당하지 않는다.",
  "ref": "자배법 제24조 / 시행령 제17조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F98",
@@ -13009,10 +13013,11 @@ const QUESTIONS = [
   "책임보험금 지급기준으로 산정한다."
  ],
  "ans": 1,
- "exp": "보상금 지급 기한은 결정일부터 30일이 아니다.",
+ "exp": "보상금은 결정한 날부터 10일 이내에 지급한다(시행령 제20조제5항). 30일이 아니다.",
  "ref": "자배법 제30조 / 시행령 제19조·제20조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F99",
@@ -13034,7 +13039,8 @@ const QUESTIONS = [
  "exp": "시행령 제29조에 국민연금법은 열거되어 있지 않다.",
  "ref": "자배법 제36조 / 시행령 제29조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F100",
@@ -13055,9 +13061,10 @@ const QUESTIONS = [
  ],
  "ans": 2,
  "exp": "피해자의 과실은 공동불법행위자 전원에 대한 과실로 전체적으로 평가한다(2005다32999).",
- "ref": "민법 제760조 / 대법원 2005다32999·98다9205",
+ "ref": "민법 제760조 / 대법원 2005다32999·96다55631",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.nepla.ai/wiki/민사/계약/-일문일답-공동불법행위의-과실상계의-경우-가해자들-각자-평가해야-하는가-전체로-평가해야-하는가-ov59rp1m0n06"
+ "sourceUrl": "https://www.nepla.ai/wiki/민사/계약/-일문일답-공동불법행위의-과실상계의-경우-가해자들-각자-평가해야-하는가-전체로-평가해야-하는가-ov59rp1m0n06",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F101",
@@ -13081,7 +13088,8 @@ const QUESTIONS = [
  "exp": "구상권 소멸시효는 10년이며 피해자에게 현실로 지급한 때부터 진행한다. 1인에 대한 면제는 다른 자에게 효력이 없다.",
  "ref": "민법 제760조 / 대법원 96다3791·96다50896·89다카9194",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%ea%b3%b5%eb%8f%99%eb%b6%88%eb%b2%95%ed%96%89%ec%9c%84/"
+ "sourceUrl": "https://korea.legal/wiki/%ea%b3%b5%eb%8f%99%eb%b6%88%eb%b2%95%ed%96%89%ec%9c%84/",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F102",
@@ -13103,7 +13111,8 @@ const QUESTIONS = [
  "exp": "보험회사등이 지정한 자의 진단서 작성 비용은 보험회사등이 부담한다.",
  "ref": "자배법 제10조·제11조 / 시행령 제7조·제8조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D123",
@@ -13125,7 +13134,8 @@ const QUESTIONS = [
  "exp": "보험자가 위부를 승인하지 않으면 피보험자는 위부의 원인을 증명해야 보험금액을 청구할 수 있다(제717조).",
  "ref": "상법 제714조~제718조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P"
+ "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D124",
@@ -13147,7 +13157,8 @@ const QUESTIONS = [
  "exp": "제725조의2로 준용되는 제673조에 따라 다른 보험자의 권리의무에 영향이 없다.",
  "ref": "상법 제725조의2·제672조·제673조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c725%ec%a1%b0%ec%9d%982/"
+ "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c725%ec%a1%b0%ec%9d%982/",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D125",
@@ -13169,7 +13180,8 @@ const QUESTIONS = [
  "exp": "상실이익은 약정이 있어야 산입하고, 성질·하자·자연소모 손해는 면책이다(제675조·제678조).",
  "ref": "상법 제665조·제667조·제675조·제678조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P"
+ "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D126",
@@ -13192,7 +13204,8 @@ const QUESTIONS = [
  "exp": "공동면책을 얻은 보험자는 다른 공동불법행위자의 보험자에게 직접 구상할 수 있고, 상대 보험자는 사고부담금 공제를 주장할 수 없다.",
  "ref": "대법원 2026. 4. 9. 선고 2025다211106 판결 / 상법 제682조·제724조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&seqnum=11025&gubun=4&type=5"
+ "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&seqnum=11025&gubun=4&type=5",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D127",
@@ -13212,10 +13225,11 @@ const QUESTIONS = [
   "책임보험금 한도 전액"
  ],
  "ans": 1,
- "exp": "공단의 대위는 같은 성질의 손해에 한정되고, 보험급여 이후 피해자에게 지급한 손해배상금을 구상액에서 공제할 수 없다.",
- "ref": "대법원 2023다239718·2025다210218 / 상법 제682조·제724조",
+ "exp": "공단의 대위는 보험급여와 같은 성질(동일 사유)의 손해에 한정되고, 보험자가 보험급여 이후 피해자에게 지급한 손해배상금은 원칙적으로 구상액에서 공제할 수 없다.",
+ "ref": "대법원 2021다261117·2025다210218 / 상법 제682조·제724조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&seqnum=11025&gubun=4&type=5"
+ "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&seqnum=11025&gubun=4&type=5",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "E96",
@@ -13236,7 +13250,8 @@ const QUESTIONS = [
  "ans": 2,
  "exp": "동질적 위험단위가 늘면 대수의 법칙에 따라 객관적 위험은 줄어든다.",
  "ref": "손해사정이론(위험의 개념과 측정)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "E97",
@@ -13259,7 +13274,8 @@ const QUESTIONS = [
  "exp": "가동연한까지 인정하되 여명 이후 기간에는 생계비를 공제하며, 생계비는 증거로 인정한다(83다카853).",
  "ref": "손해사정이론(일실수입·생계비 공제), 대법원 83다카853·86다카565",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EC%83%9D%EA%B3%84%EB%B9%84-%EA%B3%B5%EC%A0%9C/"
+ "sourceUrl": "https://korea.legal/wiki/%EC%83%9D%EA%B3%84%EB%B9%84-%EA%B3%B5%EC%A0%9C/",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "E98",
@@ -13269,7 +13285,7 @@ const QUESTIONS = [
   "손익상계",
   "산재보험"
  ],
- "rel": "2026-11-14",
+ "rel": "2026-11-21",
  "q": "산재보험급여와 손해배상 공제에 관한 판례의 태도로 옳지 않은 것은?",
  "opts": [
   "같은 성질의 손해 항목에서만 공제한다",
@@ -13303,7 +13319,8 @@ const QUESTIONS = [
  "exp": "중대한 손상이 있으면 원상회복되지 않는 부분이 남는다고 보는 것이 경험칙이며, 중대한 손상은 이를 주장하는 피해자가 증명한다.",
  "ref": "손해사정이론(물적손해), 대법원 2017. 5. 17. 선고 2016다248806 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?gubun=4&seqnum=5691"
+ "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?gubun=4&seqnum=5691",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "E100",
@@ -13324,7 +13341,8 @@ const QUESTIONS = [
  "ans": 2,
  "exp": "손해율법은 기존 요율을 조정하는 방법이라 기존 요율이 없는 신상품에는 적합하지 않다.",
  "ref": "손해사정이론(보험요율의 산출)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "E101",
@@ -13345,7 +13363,8 @@ const QUESTIONS = [
  "ans": 3,
  "exp": "맡은 고객 차량 파손은 배상책임손실 노출이고, 인적손실은 핵심 인력의 사망·장해 등이다.",
  "ref": "손해사정이론(위험관리 - 손실노출의 확인)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "E102",
@@ -13367,7 +13386,8 @@ const QUESTIONS = [
  "exp": "변론종결 전 과거 기간은 실제로 개호를 받았어야 인정한다.",
  "ref": "손해사정이론(개호비), 대법원 86다카2626·2016다11257",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EA%B0%9C%ED%98%B8%EB%B9%84/"
+ "sourceUrl": "https://korea.legal/wiki/%EA%B0%9C%ED%98%B8%EB%B9%84/",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A41",
@@ -13392,7 +13412,8 @@ const QUESTIONS = [
  "exp": "사고점수 2점 이상이면 {27 − (사고점수 − 1)}Z이므로 27 − 2 = 25Z다. 1.5점 이하면 27Z다.",
  "ref": "공제약관 8 사고발생시 할증내용 (4) 할인·할증 적용등급의 결정",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A42",
@@ -13412,10 +13433,11 @@ const QUESTIONS = [
   "2건 이상이라도 각 기준 이하면 할인 유예만"
  ],
  "ans": 3,
- "exp": "가해자 불명사고가 2건 이상이면 할인 유예만 하지 않고 할증 대상이 될 수 있다.",
+ "exp": "가해자 불명사고가 할증 기준 설정금액을 넘거나 2건 이상이면 1점 할증한다.",
  "ref": "공제약관 8 (6) 가해자 불명사고(차량담보) 할증 적용",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A43",
@@ -13438,7 +13460,8 @@ const QUESTIONS = [
  "exp": "할증 분담금을 다 적용받지 않고 이탈했다 재가입하면 특별할증을 부가한다.",
  "ref": "공제약관 8 (7) 공제 재가입 조합원의 등급적용",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A44",
@@ -13461,7 +13484,8 @@ const QUESTIONS = [
  "exp": "양도·양수 시 계약은 승계되지 않고 양수인 명의로 11Z를 적용해 새 계약을 맺는다. 대체 자동차 승계 시에는 동일 자동차로 본다.",
  "ref": "공제약관 8 (8) 공제계약의 승계시 등급적용",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A45",
