@@ -12628,7 +12628,7 @@ const QUESTIONS = [
   "헌법"
  ],
  "rel": "2026-11-16",
- "q": "헌법상 대통령의 법률안 재의요구에 관한 설명으로 옳지 않은 것은?",
+ "q": "헌법상 법률안의 공포와 재의요구에 관한 설명으로 옳지 않은 것은?",
  "opts": [
   "이송 후 15일 이내에 공포한다",
   "공포 후 20일이 지나면 효력이 생긴다",
@@ -12639,7 +12639,8 @@ const QUESTIONS = [
  "exp": "법률안의 일부 또는 수정 재의요구는 할 수 없다(헌법 제53조 제3항).",
  "ref": "대한민국헌법 제53조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/헌법과-국가-인권/대통령의-법률안-거부권-mo59yy2d91vj"
+ "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/헌법과-국가-인권/대통령의-법률안-거부권-mo59yy2d91vj",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "G48",
@@ -14071,18 +14072,19 @@ const QUESTIONS = [
   "판례"
  ],
  "rel": "2026-11-15",
- "q": "공동불법행위자들이 각각 가입한 책임보험의 관계에 관한 판례의 태도는?",
+ "q": "피보험자가 겹치는 두 책임보험의 보험자 사이 관계에 관한 판례의 태도는?(대법원 2009다42819)",
  "opts": [
-  "중복보험 관계로 직접 분담 청구 가능",
-  "피보험자가 달라 중복보험 아님",
-  "대위로만 회수 가능",
-  "피보험자 간 문제로 보험자 간 청구 불가"
+  "중복보험으로 보아 분담 구상할 수 있다",
+  "중복보험이나 대위 구상은 할 수 없다",
+  "보험자대위로만 구상할 수 있다",
+  "보험자 사이에는 구상할 수 없다"
  ],
  "ans": 0,
- "exp": "같은 손해를 담보하면 피보험자가 달라도 중복보험 관계이며, 분담금 청구와 대위 청구를 선택·병행할 수 있으나 회수액은 지급액 한도다(2009다42819).",
+ "exp": "피보험자·피보험이익·보험사고·보험기간이 겹치는 범위에서 중복보험이 되고, 중복보험 분담 구상과 보험자대위 구상을 선택·병행할 수 있으나 회수액은 지급액을 넘지 못한다(대법원 2009. 12. 24. 선고 2009다42819).",
  "ref": "상법 제672조·제682조·제725조의2 / 대법원 2009다42819 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EA%B3%B5%EB%8F%99%EB%B6%88%EB%B2%95%ED%96%89%EC%9C%84/"
+ "sourceUrl": "https://www.nepla.ai/case/대법원/2009다42819",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D134",
@@ -14102,10 +14104,11 @@ const QUESTIONS = [
   "피해자 동의 시 소멸"
  ],
  "ans": 1,
- "exp": "집행공탁으로 직접청구권은 소멸하지 않는다. 직접청구권 지연손해금은 민사 법정이율이다.",
- "ref": "상법 제724조 제2항 / 대법원 판례(직접청구권의 법적 성질)",
+ "exp": "집행공탁은 피보험자에 대한 변제공탁의 성질만 있어 직접청구권은 소멸하지 않는다(2014다207672). 직접청구권 지연손해금은 민사 법정이율이다.",
+ "ref": "상법 제724조 / 대법원 2014. 9. 25. 선고 2014다207672 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EC%B1%85%EC%9E%84%EB%B3%B4%ED%97%98%20%ED%94%BC%ED%95%B4%EC%9E%90%20%EC%A7%81%EC%A0%91%EC%B2%AD%EA%B5%AC%EA%B6%8C%EC%9D%98%20%EB%B2%95%EC%A0%81%20%EC%84%B1%EC%A7%88/"
+ "sourceUrl": "https://korea.legal/wiki/%EC%B1%85%EC%9E%84%EB%B3%B4%ED%97%98%20%ED%94%BC%ED%95%B4%EC%9E%90%20%EC%A7%81%EC%A0%91%EC%B2%AD%EA%B5%AC%EA%B6%8C%EC%9D%98%20%EB%B2%95%EC%A0%81%20%EC%84%B1%EC%A7%88/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D135",
@@ -14120,7 +14123,7 @@ const QUESTIONS = [
  "q": "피보험자 확정과 보험자대위에 관한 판례의 태도로 옳지 않은 것은?",
  "opts": [
   "불분명하면 증권·약관·경위 등을 종합한다.",
-  "사고를 낸 보험계약자에게 대위할 수 없다.",
+  "타인을 위한 보험의 계약자에게는 대위할 수 없다.",
   "피보험이익 없는 입주자에게는 대위할 수 있다.",
   "자기 시설·집기 부분은 임차인이 피보험자다."
  ],
@@ -14128,7 +14131,8 @@ const QUESTIONS = [
  "exp": "타인을 위한 보험의 보험계약자는 피보험자가 아니므로 사고를 일으켰다면 대위의 상대방인 제3자가 된다.",
  "ref": "상법 제665조·제682조 / 대법원 판례(손해보험의 피보험자 확정)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EC%86%90%ED%95%B4%EB%B3%B4%ED%97%98%EC%9D%98%20%ED%94%BC%EB%B3%B4%ED%97%98%EC%9E%90%20%ED%99%95%EC%A0%95/"
+ "sourceUrl": "https://korea.legal/wiki/%EC%86%90%ED%95%B4%EB%B3%B4%ED%97%98%EC%9D%98%20%ED%94%BC%EB%B3%B4%ED%97%98%EC%9E%90%20%ED%99%95%EC%A0%95/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E105",
@@ -14151,7 +14155,8 @@ const QUESTIONS = [
  "exp": "월 가동일수는 경험칙의 문제로 법률에 고정되어 있지 않다.",
  "ref": "손해사정이론 / 대법원 판례(일실수입의 가동일수)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EC%9D%BC%EC%8B%A4%EC%88%98%EC%9E%85%EC%9D%98%20%EA%B0%80%EB%8F%99%EC%9D%BC%EC%88%98/"
+ "sourceUrl": "https://korea.legal/wiki/%EC%9D%BC%EC%8B%A4%EC%88%98%EC%9E%85%EC%9D%98%20%EA%B0%80%EB%8F%99%EC%9D%BC%EC%88%98/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E106",
@@ -14174,7 +14179,8 @@ const QUESTIONS = [
  "exp": "기왕장해율 공제와 기왕증 기여도는 별개 개념이다. 같은 장해가 중복 평가되면 중한 장해만 인정할 수 있다.",
  "ref": "손해사정이론 / 대법원 판례(노동능력상실률)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EB%85%B8%EB%8F%99%EB%8A%A5%EB%A0%A5%EC%83%81%EC%8B%A4%EB%A5%A0/"
+ "sourceUrl": "https://korea.legal/wiki/%EB%85%B8%EB%8F%99%EB%8A%A5%EB%A0%A5%EC%83%81%EC%8B%A4%EB%A5%A0/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E107",
@@ -14196,7 +14202,8 @@ const QUESTIONS = [
  "exp": "부모가 면한 양육비는 피해자 본인의 이익이 아니어서 공제하지 않는다.",
  "ref": "손해사정이론 / 대법원 판례(손익상계)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EC%86%90%EC%9D%B5%EC%83%81%EA%B3%84/"
+ "sourceUrl": "https://korea.legal/wiki/%EC%86%90%EC%9D%B5%EC%83%81%EA%B3%84/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E108",
@@ -14219,7 +14226,8 @@ const QUESTIONS = [
  "exp": "과속이 없었다면 회피·손해 경감이 가능했어야 과실로 참작된다. 뒷좌석 안전띠 미착용, 음주 차량 동승은 과실 사유다.",
  "ref": "손해사정이론 / 민법 제396조·제763조 / 대법원 판례(교통사고 과실상계)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EA%B5%90%ED%86%B5%EC%82%AC%EA%B3%A0%20%EA%B3%BC%EC%8B%A4%EC%83%81%EA%B3%84/"
+ "sourceUrl": "https://korea.legal/wiki/%EA%B5%90%ED%86%B5%EC%82%AC%EA%B3%A0%20%EA%B3%BC%EC%8B%A4%EC%83%81%EA%B3%84/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E109",
@@ -14235,14 +14243,15 @@ const QUESTIONS = [
  "opts": [
   "장래 치료가 필요하면 손해로 인정한다.",
   "일시금이면 중간이자를 공제한다.",
-  "사고 당시 현가 + 사고일 지연손해금이면 공제한다.",
+  "사고 당시 현가로 하면 사고일부터 지연손해금이 붙는다.",
   "성질상 중간이자를 공제하지 않는다."
  ],
  "ans": 3,
  "exp": "장래 지출될 향후치료비를 일시금으로 받으면 중간이자를 공제해야 한다.",
  "ref": "손해사정이론 / 대법원 판례(향후치료비)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%ED%96%A5%ED%9B%84%EC%B9%98%EB%A3%8C%EB%B9%84/"
+ "sourceUrl": "https://korea.legal/wiki/%ED%96%A5%ED%9B%84%EC%B9%98%EB%A3%8C%EB%B9%84/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "C58",
@@ -14265,7 +14274,8 @@ const QUESTIONS = [
  "exp": "실비변상적 성격의 대가는 보수에서 제외된다.",
  "ref": "공제약관 26 대인공제·무보험차상해공제 지급기준(용어풀이)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "C59",
@@ -14287,7 +14297,8 @@ const QUESTIONS = [
  "exp": "국내 치료비 상당액을 지급하고, 국내 치료가 불가능한 경우에만 외국 치료의 타당한 비용을 지급한다.",
  "ref": "공제약관 26 대인공제·무보험차상해공제 지급기준(부상 치료관계비)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D136",
@@ -14309,7 +14320,8 @@ const QUESTIONS = [
  "exp": "포장 방법과 중량은 운송보험증권 기재사항(제690조)이 아니다.",
  "ref": "상법 제690조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P"
+ "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D137",
@@ -14331,7 +14343,8 @@ const QUESTIONS = [
  "exp": "선적 착수 후 계약이 체결되면 계약 성립 시에 개시한다(제699조 제3항).",
  "ref": "상법 제699조·제700조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P"
+ "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D138",
@@ -14354,7 +14367,8 @@ const QUESTIONS = [
  "exp": "수선하지 않은 경우에도 그로 인한 감가액을 보상한다(제707조의2).",
  "ref": "상법 제707조의2·제708조·제709조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P"
+ "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D139",
@@ -14376,7 +14390,8 @@ const QUESTIONS = [
  "exp": "통지를 게을리하면 보험자는 안 날부터 1월 내에 해지할 수 있다(제704조).",
  "ref": "상법 제704조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P"
+ "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D141",
@@ -14399,7 +14414,8 @@ const QUESTIONS = [
  "exp": "적하보험은 선적한 때와 곳의 적하 가액에 선적·보험 비용을 더한 금액이다(제697조).",
  "ref": "상법 제695조·제696조·제697조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P"
+ "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D142",
@@ -14421,7 +14437,8 @@ const QUESTIONS = [
  "exp": "위험이 현저히 증가했다는 점은 해지하려는 보험자가 증명해야 한다.",
  "ref": "상법 제652조·제679조 / 대법원 판례(보험목적의 양도)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EB%B3%B4%ED%97%98%EB%AA%A9%EC%A0%81%EC%9D%98%20%EC%96%91%EB%8F%84/"
+ "sourceUrl": "https://korea.legal/wiki/%EB%B3%B4%ED%97%98%EB%AA%A9%EC%A0%81%EC%9D%98%20%EC%96%91%EB%8F%84/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D143",
@@ -14491,7 +14508,8 @@ const QUESTIONS = [
  "ans": 2,
  "exp": "면책사항은 보상약속의 담보 범위를 좁히고, 배서는 약관을 추가·변경·삭제한다.",
  "ref": "손해사정이론(보험계약과 보험증권의 구성)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E111",
@@ -14536,7 +14554,8 @@ const QUESTIONS = [
  "exp": "과잉배상을 막기 위해 240을 한도로 하며, 판례는 호프만식과 라이프니츠식을 모두 허용한다.",
  "ref": "손해사정이론 / 대법원 판례(중간이자 공제)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EC%A4%91%EA%B0%84%EC%9D%B4%EC%9E%90%20%EA%B3%B5%EC%A0%9C/"
+ "sourceUrl": "https://korea.legal/wiki/%EC%A4%91%EA%B0%84%EC%9D%B4%EC%9E%90%20%EA%B3%B5%EC%A0%9C/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E114",
@@ -14580,7 +14599,8 @@ const QUESTIONS = [
  "ans": 0,
  "exp": "손해경감조치 의무로 그런 수술은 받아야 하며, 수술 후 잔존 장해 기준으로 산정하고 수술비는 향후치료비로 인정한다.",
  "ref": "손해사정이론 / 대법원 판례(손해경감조치 의무)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F110",
@@ -14602,7 +14622,8 @@ const QUESTIONS = [
  "exp": "보험회사등은 징수한 달의 다음 달 말일까지 납부한다.",
  "ref": "자배법 제37조 / 시행령 제31조·제32조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F111",
@@ -14624,7 +14645,8 @@ const QUESTIONS = [
  "exp": "지원 금액은 별표 4 기준금액의 2분의 1 범위에서 가감한다.",
  "ref": "자배법 제30조 / 시행령 제21조·제22조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F112",
@@ -14647,7 +14669,8 @@ const QUESTIONS = [
  "exp": "청구서에는 보험가입자의 성명·주소도 적어야 한다.",
  "ref": "자배법 제11조·제30조 / 시행령 제20조 제7항·제9항",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F113",
@@ -14669,7 +14692,8 @@ const QUESTIONS = [
  "exp": "분과위원장은 보장위원회 위원장의 추천을 받아 국토교통부장관이 지명한다. 위촉위원 임기는 2년, 두 차례 연임 가능하다.",
  "ref": "자배법 제23조의3·제23조의4 / 시행령 제16조의3·제16조의8",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F114",
@@ -14738,7 +14762,8 @@ const QUESTIONS = [
  "exp": "이행 확보를 위해 상당한 담보의 제공을 명할 수 있다(민법 제751조 제2항).",
  "ref": "민법 제751조 / 대법원 판례(위자료 산정)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%EC%9C%84%EC%9E%90%EB%A3%8C/"
+ "sourceUrl": "https://korea.legal/wiki/%EC%9C%84%EC%9E%90%EB%A3%8C/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F117",
