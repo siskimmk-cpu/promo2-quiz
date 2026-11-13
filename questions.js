@@ -12572,7 +12572,8 @@ const QUESTIONS = [
  "exp": "사회상규상 허용되는 권리행사 방법을 넘어 보험사기방지 특별법상 기망행위에 해당한다(2024도11951).",
  "ref": "교통·보험 상식(보험사기방지 특별법), 대법원 2025. 9. 25. 선고 2024도11951 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.asiae.co.kr/en/article/2025110315065950088"
+ "sourceUrl": "https://www.asiae.co.kr/en/article/2025110315065950088",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A40",
@@ -13493,21 +13494,23 @@ const QUESTIONS = [
  "style": "기출형",
  "tags": [
   "약관",
-  "청약철회"
+  "청약철회",
+  "핵심숫자"
  ],
  "rel": "2026-11-14",
- "q": "공제증서를 3월 2일, 청약을 2월 25일에 한 경우 청약 철회 기한은?",
+ "q": "2026년 2월 10일 청약하고 3월 2일 공제증서를 받은 경우 청약 철회 기한은?(임의공제, 계약기간 1년)",
  "opts": [
   "3월 12일",
+  "3월 17일",
   "3월 27일",
-  "4월 1일",
-  "3월 17일"
+  "4월 1일"
  ],
- "ans": 3,
- "exp": "증서 수령 후 15일(3. 17.)과 청약 후 30일(3. 27.) 중 먼저 도래하는 3. 17.이 기한이다. 철회 당시 사고가 발생했다면 몰랐어도 효력이 없다.",
+ "ans": 0,
+ "exp": "증서 수령일부터 15일(3. 17.)과 청약일부터 30일(3. 12.) 중 먼저 도래하는 3. 12.이 기한이다. 의무보험과 계약기간 90일 이내 계약은 철회할 수 없다.",
  "ref": "공제약관 22 청약 철회",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "B49",
@@ -13530,7 +13533,8 @@ const QUESTIONS = [
  "exp": "타이어만의 손해는 원칙적으로 면책이나 다른 자동차의 충돌·접촉, 화재·산사태, 가해자 확정 사고는 보상한다.",
  "ref": "공제약관 16 1. (6) 차량공제 면책사항",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "C54",
@@ -13553,7 +13557,8 @@ const QUESTIONS = [
  "exp": "적법한 일시체류자는 생활 본거지인 본국 소득기준을 적용한다.",
  "ref": "공제약관 26 지급기준 【사망】 라. 취업가능월수 (5) 외국인",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "C55",
@@ -13576,7 +13581,8 @@ const QUESTIONS = [
  "exp": "소득 증명이 곤란한 기술직도 종사 사실을 증명하면 해당 직종 임금을 인정받을 수 있다.",
  "ref": "공제약관 26 지급기준 【사망】 나. 현실소득액의 산정방법 (1) 유직자",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "C56",
@@ -13591,14 +13597,15 @@ const QUESTIONS = [
  "opts": [
   "입원일수에 비례하여 산정한다.",
   "상해등급별로 정한 금액을 인정한다.",
-  "후유장애 한도 초과 시 부상 한도 안에서 지급",
-  "부상 위자료가 더 많으면 그 금액을 후유장애 위자료로"
+  "후유장애 한도 초과 시 부상 한도 안에서 지급한다.",
+  "부상 위자료가 더 많으면 후유장애 위자료로 지급한다."
  ],
  "ans": 0,
  "exp": "부상 위자료는 입원일수가 아니라 상해등급에 따라 정한다.",
  "ref": "공제약관 26 지급기준 【부상】 2. 위자료·【후유장애】 1. 위자료",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F103",
@@ -13607,21 +13614,23 @@ const QUESTIONS = [
  "tags": [
   "시행령",
   "의무보험",
-  "보상한도"
+  "보상한도",
+  "핵심숫자"
  ],
  "rel": "2026-11-15",
  "q": "운송사업용 자동차 등이 책임보험 외에 추가로 가입할 보험의 금액은?",
  "opts": [
-  "피해자 1명당 5천만 원 이상",
+  "피해자 1명당 5천만 원 이상 또는 모든 손해액",
   "피해자 1명당 1억 원 이상 또는 모든 손해액",
-  "피해자 1명당 2억 원 이상",
-  "사고 1건당 3천만 원"
+  "피해자 1명당 1억5천만 원 이상 또는 모든 손해액",
+  "피해자 1명당 2억 원 이상 또는 모든 손해액"
  ],
  "ans": 1,
  "exp": "피해자 1명당 1억 원 이상 또는 피해자에게 발생한 모든 손해액이다(시행령 제4조).",
  "ref": "자배법 제5조 / 시행령 제3조·제4조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F104",
@@ -13644,7 +13653,8 @@ const QUESTIONS = [
  "exp": "현역 입영은 면제사유이나 상근예비역은 제외된다.",
  "ref": "자배법 제5조 제4항·제5조의2 / 시행령 제5조·제5조의2",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F105",
@@ -13666,7 +13676,8 @@ const QUESTIONS = [
  "exp": "열람예정일 7일 전까지 열람청구서와 사유서를 내야 한다.",
  "ref": "자배법 제14조 제4항 / 시행령 제12조의4",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F106",
@@ -13690,7 +13701,8 @@ const QUESTIONS = [
  "exp": "지급기한을 넘기면 연 20%의 이자율을 적용한다(시행령 제16조).",
  "ref": "자배법 제12조·제19조 / 시행령 제16조·제16조의2",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F107",
@@ -13713,7 +13725,8 @@ const QUESTIONS = [
  "exp": "소비자단체에서 소비자 보호업무를 5년 이상 수행한 자이며 자동차사고 피해자도 위원이 될 수 있다(시행령 제14조).",
  "ref": "자배법 제17조 / 시행령 제14조",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F108",
@@ -13736,7 +13749,8 @@ const QUESTIONS = [
  "exp": "연도별로 대장을 작성하여 10년간 보관한다(시행령 제33조의2).",
  "ref": "자배법 제39조 제3항 / 시행령 제33조의2",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "F109",
@@ -13758,7 +13772,8 @@ const QUESTIONS = [
  "exp": "진료기록·병력은 제공 범위에 포함되지 않는다.",
  "ref": "자배법 제14조 / 시행령 제12조의5",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D128",
@@ -13781,7 +13796,8 @@ const QUESTIONS = [
  "exp": "보험자는 공동해손 분담액을 보상하되 분담가액이 보험가액을 초과하는 부분은 보상하지 않는다(제694조).",
  "ref": "상법 제694조·제703조의2",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c694%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c694%ec%a1%b0/",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D129",
@@ -13792,7 +13808,7 @@ const QUESTIONS = [
   "추정전손"
  ],
  "rel": "2026-11-15",
- "q": "선박보험의 추정전손 여부를 판단하는 기준시점은?(대법원 2000다21062)",
+ "q": "영국법을 준거법으로 한 선박보험에서 추정전손 여부를 판단하는 기준시점은?(대법원 2000다21062)",
  "opts": [
   "위부 통지 시점",
   "사고 발생 시점",
@@ -13803,7 +13819,8 @@ const QUESTIONS = [
  "exp": "보험자가 동의하지 않는 한 소송 제기 시점의 객관적 사실관계를 기준으로 하며, 수리비는 해당 사고로 생긴 손해에 한정한다.",
  "ref": "상법 제710조 / 대법원 2002. 6. 28. 선고 2000다21062 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2000%eb%8b%a421062/"
+ "sourceUrl": "https://korea.legal/wiki/2000%eb%8b%a421062/",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D131",
@@ -13826,7 +13843,8 @@ const QUESTIONS = [
  "exp": "보상 조건으로 정한 이상 사고와의 인과관계 증명은 필요 없고, 감항능력에는 인적 감항능력도 포함된다.",
  "ref": "상법 제706조 / 대법원 1995. 9. 29. 선고 93다53078 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.nepla.ai/case/대법원/93다53078"
+ "sourceUrl": "https://www.nepla.ai/case/대법원/93다53078",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "E103",
@@ -13838,7 +13856,7 @@ const QUESTIONS = [
   "공작물책임"
  ],
  "rel": "2026-11-15",
- "q": "리콜 미수리 차량 화재로 건물이 손상된 경우 공작물 점유자 책임에 관한 판례의 태도는?(대법원 2022다233713)",
+ "q": "리콜 미수리 차량 화재로 건물이 손상된 경우 자동차 소유자의 공작물책임에 관한 판례의 태도는?(대법원 2022다233713)",
  "opts": [
   "무과실책임이라 책임 제한 불가",
   "자동차보험 사고가 아니다",
@@ -13849,7 +13867,8 @@ const QUESTIONS = [
  "exp": "리콜 통지 내용, 화재의 이례성 등 책임제한 사유를 참작해야 하며 현저히 불합리하면 안 된다.",
  "ref": "손해사정이론(배상책임의 범위), 민법 제758조, 대법원 2026. 1. 8. 선고 2022다233713 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1768177774252_092934.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1768177774252_092934.pdf",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "E104",
@@ -13866,13 +13885,14 @@ const QUESTIONS = [
   "손해를 입을 수 있는 모든 제3자",
   "계약 당사자만",
   "국가만",
-  "위험을 방지할 특별한 지위에 있는 자"
+  "법익 침해를 방지할 특별한 지위에 있는 자"
  ],
  "ans": 3,
- "exp": "작위의무는 신의칙·조리로도 인정되나 위험을 방지할 특별한 지위에 있는 자에게 인정된다.",
+ "exp": "작위의무는 법령·계약·선행행위뿐 아니라 신의칙·조리로도 인정되나, 상대방의 법익 침해를 방지할 특별한 지위에 있는 자에게만 인정된다.",
  "ref": "손해사정이론(배상책임의 성립), 민법 제750조, 대법원 2026. 1. 8. 선고 2023다305516 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1768177774252_092934.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1768177774252_092934.pdf",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A46",
@@ -13895,7 +13915,8 @@ const QUESTIONS = [
  "exp": "공제조합은 납입최고기간이 끝나는 날의 10일 전까지 최고해야 한다.",
  "ref": "공제약관 4 공제분담금의 납입방법 2. 분담금의 자동이체납입",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A47",
@@ -13918,7 +13939,8 @@ const QUESTIONS = [
  "exp": "사고카드로 체결한 계약은 공제조합의 책임개시일부터 효력을 잃는다.",
  "ref": "공제약관 4 공제분담금의 납입방법 3. 분담금의 신용카드이용납입",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "A48",
@@ -13941,7 +13963,8 @@ const QUESTIONS = [
  "exp": "다른 계약이 없다고 보고 산출한 보상책임액 비율로 분담하며, 조합원이 둘 이상이면 배상책임 비율로 나눈다.",
  "ref": "공제약관 18 공제금의 분담 및 공제조합의 대위 1. 공제금의 분담",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "B50",
@@ -13964,7 +13987,8 @@ const QUESTIONS = [
  "exp": "주·정차 차만 손괴한 것이 분명한 경우의 인적사항 미제공은 제외된다. 승인 운전자의 위반도 사고부담금이 적용된다.",
  "ref": "공제약관 16 2. 음주운전, 무면허운전, 마약·약물운전 또는 사고발생시의 조치의무 위반 관련 사고부담금",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "B51",
@@ -13977,7 +14001,7 @@ const QUESTIONS = [
  "rel": "2026-11-15",
  "q": "긴급출동서비스 이용 제한에 관한 설명으로 옳지 않은 것은?",
  "opts": [
-  "도서지역은 제공하지 않는다",
+  "도서지역(제주도 등 제외)은 제공하지 않는다",
   "간접손해는 보상하지 않는다",
   "견인한도 초과 시 제공하지 않는다",
   "Ⅰ 가입 차량도 Ⅱ 서비스를 이용할 수 있다"
@@ -13986,7 +14010,8 @@ const QUESTIONS = [
  "exp": "Ⅰ과 Ⅱ는 가입대상 차량이 달라 Ⅰ 가입 차량은 Ⅱ 서비스를 이용할 수 없다.",
  "ref": "공제약관 15 긴급출동서비스 공제 1.(2)·3.",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "C57",
@@ -14008,7 +14033,8 @@ const QUESTIONS = [
  "exp": "직종 연한 이후 65세까지는 일용근로자 임금을 인정한다.",
  "ref": "공제약관 26 지급기준 【사망】 라. 취업가능월수",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D132",
@@ -14031,7 +14057,8 @@ const QUESTIONS = [
  "exp": "책임보험 한도 안에서 대위 청구를 허용하면 순환소송을 낳아 신의칙상 허용되지 않는다. 직접청구권 채무와 피보험자 채무는 연대채무 관계다.",
  "ref": "상법 제682조·제724조 제2항 / 대법원 2025. 11. 20. 선고 2024다324200 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2024%EB%8B%A4324200/"
+ "sourceUrl": "https://korea.legal/wiki/2024%EB%8B%A4324200/",
+ "verifiedAt": "2026-11-13"
 },
 {
  "id": "D133",
