@@ -265,3 +265,18 @@ test('every question has a single answer whose explanation matches the stem (옳
   const box=SRC.filter(q=>/있는 대로 고른|모두 고른|몇 개인가/.test(q.q)).map(q=>q.id);
   assert.deepEqual(box,[],'실제 시험에 없는 보기형·개수형 금지');
 });
+
+// 2026. 11. 14. 사용자 지시: 12/03 이후 공개분은 기출 비율대로(부정형·문장형 보기 위주)
+test('from 2026-12-03, each release day follows the past-exam style mix (negative stems, sentence options)',()=>{
+  const NEG=/옳지 않은|틀린|아닌|잘못된|않는|거리가 먼|다른 하나/;
+  const sentence=q=>q.opts.reduce((s,o)=>s+o.length,0)/q.opts.length>=18;
+  const days=[...new Set(SRC.filter(q=>q.rel>='2026-12-03'&&!q.drill).map(q=>q.rel))];
+  for(const d of days){
+    const qs=onDay(d).filter(q=>q.sec!=='G');
+    if(qs.length<10) continue; // 채우는 중인 날은 10문항부터 검사
+    const neg=qs.filter(q=>NEG.test(q.q)).length/qs.length;
+    const sen=qs.filter(sentence).length/qs.length;
+    assert.ok(neg>=0.5,`${d}: 부정형 발문 ${Math.round(neg*100)}% (50% 이상 필요)`);
+    assert.ok(sen>=0.55,`${d}: 문장형 보기 문항 ${Math.round(sen*100)}% (55% 이상 필요)`);
+  }
+});
