@@ -184,6 +184,8 @@ const ACTS={
   chap:b=>{const x=b.dataset.id;start(activeQuestions.filter(q=>q.sec===x).map(q=>q.id),'공제약관 · '+secOf[x].name,'practice',{mix:true});},
   paper:b=>{introPaper=b.dataset.id;go('intro');},
   drill:b=>{const x=DRILLX&&DRILLX.sets.find(t=>t.id===b.dataset.id); if(x) start(x.ids.slice(),'연습 문제집 · '+x.name,'practice');},
+  pastgo:()=>{ const ids=pastIds(), nx=ids.filter(id=>!store.ans[id]); start(nx.length?nx:shuffle(ids),'사내 기출','practice',nx.length?{}:{mix:true}); },
+  pastwrong:()=>{ const ids=pastIds().filter(id=>store.ans[id]&&!store.ans[id].ok); if(ids.length) start(shuffle(ids),'틀린 기출','practice',{mix:true,loop:true}); },
   past:b=>{const x=PASTX&&PASTX.sets.find(t=>t.id===b.dataset.id); if(x) start(x.ids.slice(),'기출 · '+x.name,'practice');},
   report:()=>go('report'),
   note:()=>go('note'),
@@ -207,11 +209,12 @@ function home(){
       :allDone?`<button class="cta warm" data-act="newround">다 풀었어요! 보기 섞어서 ${store.round+1}회독</button>`
       :`<button class="cta" data-act="go">안 푼 문제 풀기 · ${st.newIds.length}문제</button>`}</section>`;
   h+=freshCard()+releaseStatus();
+  h+=pastCard();
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
   h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀리면 1일 뒤 → 맞히면 3일 뒤 → 7일 뒤 복습</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
   h+=hotCard();
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
-  h+=dailyCard()+planCard();
+  h+=dailyCard();
   h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="exam"><span class="ic b">${ico('exam')}</span><span class="tx"><span class="nm">실전 모의고사</span><span class="meta">${EXAM.n}문항 · ${EXAM.min}분 · 제1회·제2회·랜덤</span></span>${ico('chev','chev')}</button>${isStandalone()||!isMobile?'':`<button class="row" data-act="guide"><span class="ic b">${ico('home')}</span><span class="tx"><span class="nm">홈 화면에 앱으로 추가하기</span><span class="meta">주소창 없이 앱처럼 · 그림으로 따라하기</span></span>${ico('chev','chev')}</button>`}</div>`;
   h+=`<p class="foot">${esc(EXAM.label)} 시험 · 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식) 기준 손해사정사 1차 수준 예상문제 ${st.N}문항. 풀이 기록은 이 기기에 저장되고, 로그인하면 계정과 동기화돼요.</p>`;
   app.innerHTML=h; bindActs();
@@ -223,6 +226,7 @@ function study(){
   const st=stats();
   let h=`<header class="top-h"><div><span class="eyebrow">과목별 연습</span><h1 class="title">무엇을 풀어볼까요?</h1></div></header>`;
   h+=searchBox();
+  h+=pastCard();
   h+=flashEntry();
   h+=`<div class="list anim">`+SUBJECTS.map((sub,k)=>{
     const qs=activeQuestions.filter(q=>sub.secs.includes(q.sec)), d=qs.filter(q=>store.ans[q.id]), o=d.filter(q=>store.ans[q.id].ok).length, nh=qs.filter(isHard).length;
@@ -610,11 +614,18 @@ function hl(s){ return esc(s).replace(/(제\d+조(?:의\d+)?(?:\s?제\d+항)?(?:
 function daysLeft(){ return Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); }
 function dailyQ(){ const d=dayKey9(); let h=0; for(const c of d+'promo2') h=(h*31+c.charCodeAt(0))>>>0; const list=activeQuestions.slice().sort((a,b)=>a.id<b.id?-1:1); return list[h%list.length]; }
 function HOTSRC(q){ return '손해사정사 기출 빈출 쟁점'; }
+function pastIds(){ return PASTX?(PASTX.uniqA||[]).concat(PASTX.uniqL||[]).filter(id=>byId[id]):[]; }
+function pastCard(){
+  const ids=pastIds(); if(!ids.length) return '';
+  const done=ids.filter(id=>store.ans[id]), ok=done.filter(id=>store.ans[id].ok).length, wr=done.length-ok, todo=ids.length-done.length;
+  const seg=PASTX.sets.map(x=>{const r=x.ids.filter(id=>store.ans[id]), o=r.filter(id=>store.ans[id].ok).length; return `<span class="pc-seg" style="flex:${x.ids.length}" title="${esc(x.name)}"><i class="o" style="width:${o/x.ids.length*100}%"></i><i class="x" style="width:${(r.length-o)/x.ids.length*100}%"></i></span>`;}).join('');
+  return `<div class="label">사내 기출<small>실제 시험과 가장 닮은 문제 · 원본 해설</small></div><section class="pastc anim"><span class="pc-top"><span class="pc-ic">📋</span><span class="pc-tx"><b>기출 ${ids.length}문항</b><small>${done.length?`${done.length}문항 풀이 · 정답 ${ok} · 오답 ${wr}`:'자동차보험·자배법 69 · 보험계약법 42'}</small></span><span class="pc-pct">${done.length?Math.round(ok/done.length*100)+'%':''}</span></span><span class="pc-bar">${seg}</span><span class="pc-lg">${PASTX.sets.map(x=>`<em style="flex:${x.ids.length}">${x.g==='L'?'상법':'자보'}${x.name.match(/\d+세트/)?x.name.match(/(\d+)세트/)[1]:''}</em>`).join('')}</span><span class="pc-btns"><button class="pc-b pri" data-act="pastgo">${todo?`이어 풀기 · ${todo}문항`:'섞어서 다시 풀기'}</button><button class="pc-b" data-act="pastwrong" ${wr?'':'disabled'}>틀린 기출 ${wr}</button></span></section>`;
+}
 function hotCard(){
   if(!HOT_IDS.length) return '';
   const done=HOT_IDS.filter(id=>store.ans[id]).length, ok=HOT_IDS.filter(id=>store.ans[id]&&store.ans[id].ok).length;
   const pct=Math.round(done/HOT_IDS.length*100);
-  return `<div class="label">기출 빈출 쟁점<small>손해사정사 기출에 자주 나온 주제</small></div><button class="hotc anim" data-act="hot"><span class="hc-top"><span class="hc-ic">🔥</span><span class="hc-tx"><b>빈출 ${HOT_IDS.length}문제</b><small>${done?`${done}문제 풀었어요 · 정답 ${ok}개`:'자주 나오는 쟁점부터 잡아요'}</small></span><span class="hc-go">${done>=HOT_IDS.length?'다시':'풀기'} ›</span></span><span class="hc-bar"><i style="width:${pct}%"></i></span></button>`;
+  return `<div class="label">손해사정사 빈출 쟁점<small>손해사정사 1차 기출에 자주 나온 주제</small></div><button class="hotc anim" data-act="hot"><span class="hc-top"><span class="hc-ic">🔥</span><span class="hc-tx"><b>빈출 ${HOT_IDS.length}문제</b><small>${done?`${done}문제 풀었어요 · 정답 ${ok}개`:'자주 나오는 쟁점부터 잡아요'}</small></span><span class="hc-go">${done>=HOT_IDS.length?'다시':'풀기'} ›</span></span><span class="hc-bar"><i style="width:${pct}%"></i></span></button>`;
 }
 function freshCard(){
   if(!FRESH_IDS.length) return '';
