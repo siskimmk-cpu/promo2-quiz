@@ -7604,7 +7604,8 @@ const QUESTIONS = [
  "ans": 1,
  "exp": "카니발리제이션은 자기잠식, 디마케팅은 수요를 의도적으로 줄이는 마케팅이다.",
  "ref": "시사 경제 용어",
- "reviewedAt": "2026-11-06"
+ "reviewedAt": "2026-11-06",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "G42",
@@ -15370,7 +15371,8 @@ const QUESTIONS = [
  "exp": "계약 후 알릴 사항은 지체 없이 알리고 승인을 받아야 한다.",
  "ref": "공제약관 6 조합원 등의 의무사항 1·2",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "B58",
@@ -15393,7 +15395,8 @@ const QUESTIONS = [
  "exp": "정당한 사용·관리자에 대한 권리는 취득하지 않지만, 정비·세차업 등 취급업자의 업무 중 사고와 고의·무면허·음주 사고는 예외로 대위한다.",
  "ref": "공제약관 18 공제금의 분담 및 공제조합의 대위 2.(2)",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "C65",
@@ -15418,7 +15421,8 @@ const QUESTIONS = [
  "exp": "수리 완료 후에도 부상으로 운행할 수 없었다면 사고일부터 30일을 넘지 않는 범위에서 인정한다.",
  "ref": "공제약관 27 대물공제 지급기준 4. 휴차료",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "F122",
@@ -15435,14 +15439,15 @@ const QUESTIONS = [
  "opts": [
   "전문심사기관은 건강보험심사평가원이다.",
   "외출·외박 기록은 5년간 보존한다.",
-  "외출·외박 기록에 허락·확인 의료인이 서명한다.",
-  "종합병원 입원 환자의 전원 대상은 그 밖의 의료기관"
+  "외출·외박 기록에는 허락·귀원 확인 의료인이 서명 또는 날인한다.",
+  "종합병원 입원 환자는 상급종합병원·종합병원 외 기관으로 전원한다."
  ],
  "ans": 1,
  "exp": "외출·외박 기록의 보존기간은 3년이다.",
  "ref": "자배법 시행령 제11조의4·제12조·제12조의2",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "F123",
@@ -15464,7 +15469,8 @@ const QUESTIONS = [
  "exp": "소가 제기되면 조정을 중지하고 다른 당사자에게 알린다(시행령 제16조의14).",
  "ref": "자배법 시행령 제16조의13·제16조의14·제16조의15",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "F125",
@@ -15489,7 +15495,8 @@ const QUESTIONS = [
  "exp": "감독의무 위반과 상당인과관계는 주장하는 자가 증명한다(93다13605 전원합의체). 비양육 부모는 예외적 사정이 있을 때 책임진다.",
  "ref": "민법 제750조·제755조, 대법원 1994. 2. 8. 선고 93다13605 전원합의체 판결, 대법원 2022. 4. 14. 선고 2020다240021 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.nepla.ai/case/%EB%8C%80%EB%B2%95%EC%9B%90/2020%EB%8B%A4240021"
+ "sourceUrl": "https://www.nepla.ai/case/%EB%8C%80%EB%B2%95%EC%9B%90/2020%EB%8B%A4240021",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "F126",
@@ -15514,7 +15521,8 @@ const QUESTIONS = [
  "exp": "경감청구는 손해가 고의 또는 중대한 과실에 의한 것이 아닐 때만 가능하다(제765조).",
  "ref": "민법 제761조·제765조",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c761%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c761%ec%a1%b0/",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "E123",
@@ -15527,18 +15535,19 @@ const QUESTIONS = [
   "배상액 경감"
  ],
  "rel": "2026-11-17",
- "q": "민법상 금전채무불이행 손해배상에 관한 설명으로 옳지 않은 것은?",
+ "q": "민법상 채무불이행 손해배상에 관한 설명으로 옳지 않은 것은?",
  "opts": [
-  "채무자는 과실 없음을 증명하면 면책된다",
-  "채권자는 손해를 증명할 필요가 없다",
-  "법정이율에 의하되 약정이율이 있으면 그에 의한다",
-  "손해배상자는 물건에 관해 채권자를 대위한다"
+  "금전채무 불이행은 채무자가 과실 없음을 증명하면 면책된다.",
+  "금전채무 불이행은 채권자가 손해를 증명할 필요가 없다.",
+  "금전채무 지연손해는 원칙적으로 법정이율에 의한다.",
+  "물건 가액 전부를 배상한 채무자는 그 물건에 관해 채권자를 대위한다."
  ],
  "ans": 0,
- "exp": "금전채무불이행에서 채무자는 과실 없음을 항변하지 못한다(제397조 제2항).",
- "ref": "손해사정이론(손해배상의 방법), 민법 제397조·제399조·제765조",
+ "exp": "금전채무불이행에서 채무자는 과실 없음을 항변하지 못한다(제397조 제2항). 손해배상자의 대위는 채권자가 물건·권리 가액 전부를 배상받은 때 생긴다(제399조).",
+ "ref": "손해사정이론(손해배상의 방법), 민법 제397조·제399조",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c397%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c397%ec%a1%b0/",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "E124",
@@ -15562,7 +15571,8 @@ const QUESTIONS = [
  "exp": "대인Ⅰ·Ⅱ·대물은 피해자측 과실비율, 무보험차상해는 조합원의 과실비율로 상계한다.",
  "ref": "손해사정이론(과실상계·기왕증), 공제약관 29 과실상계 등",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "E125",
@@ -15587,7 +15597,8 @@ const QUESTIONS = [
  "exp": "음주운전자 차량 동승은 40%이며 동승 과정 과실은 10~20% 가산한다. 승용차 함께 타기 실시차량은 적용하지 않는다.",
  "ref": "손해사정이론(호의동승 감액), 공제약관 29 3. 동승자에 대한 감액",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "E126",
@@ -15601,7 +15612,7 @@ const QUESTIONS = [
   "핵심숫자"
  ],
  "rel": "2026-11-17",
- "q": "사고로 어머니가 사망한 6세 아동(상해 9급, 50일 입원)의 간병비 인정일수는?",
+ "q": "같은 사고로 어머니가 사망한 6세 아동(상해 9급, 50일 입원, 증빙자료 제출)의 간병비 인정일수는?",
  "opts": [
   "인정 안 됨",
   "15일",
@@ -15612,7 +15623,8 @@ const QUESTIONS = [
  "exp": "부모 중 1인이 사망한 7세 미만 자는 최대 60일 한도로 실제 입원기간을 인정하므로 50일이다.",
  "ref": "손해사정이론(간병비), 공제약관 26 대인공제 지급기준【부상】4. 간병비",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "D148",
@@ -15637,7 +15649,8 @@ const QUESTIONS = [
  "exp": "통지의무는 보험기간 중 위험이 새롭게 변경·증가한 경우에 발생하므로 그런 사정만으로는 통지의무 위반 해지를 할 수 없다.",
  "ref": "상법 제651조·제652조, 대법원 2024. 6. 27. 선고 2024다219766 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.easylaw.go.kr/CSP/SolomonRetrieve.laf?trialNo=2304&topMenu=serviceUl6&sortType=READ"
+ "sourceUrl": "https://www.easylaw.go.kr/CSP/SolomonRetrieve.laf?trialNo=2304&topMenu=serviceUl6&sortType=READ",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "D149",
@@ -15660,10 +15673,11 @@ const QUESTIONS = [
   "보험금 전액 구상"
  ],
  "ans": 1,
- "exp": "임차인의 손해배상채무와 보험자의 책임보험금 채무가 연대채무 관계여서 대위권은 혼동과 유사하게 소멸한다(2024다324200).",
- "ref": "상법 제682조, 대법원 2024다324200 판결",
+ "exp": "임차인의 손해배상채무와 보험자의 책임보험금 채무가 연대채무 관계여서 대위권은 혼동과 유사하게 소멸한다(대법원 2025. 11. 20. 선고 2024다324200, 임차인 보험에 그 화재를 담보하는 책임보험이 포함된 경우).",
+ "ref": "상법 제682조, 대법원 2025. 11. 20. 선고 2024다324200 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.lawtimes.co.kr/news/articleView.html?idxno=214490"
+ "sourceUrl": "https://www.lawtimes.co.kr/news/articleView.html?idxno=214490",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "D150",
@@ -15684,9 +15698,10 @@ const QUESTIONS = [
  ],
  "ans": 2,
  "exp": "분담금을 받았더라도 대위권을 행사할 수 있으며 범위만 줄어든다(2025다220815).",
- "ref": "상법 제672조·제682조, 대법원 2025다220815 판결",
+ "ref": "상법 제672조·제682조, 대법원 2026. 5. 14. 선고 2025다220815 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.insweek.co.kr/news/articleView.html?idxno=71328"
+ "sourceUrl": "https://www.insweek.co.kr/news/articleView.html?idxno=71328",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "D151",
@@ -15700,18 +15715,19 @@ const QUESTIONS = [
   "사례"
  ],
  "rel": "2026-11-17",
- "q": "교통재해 사망보험에서 사고는 보험기간 중, 사망은 기간 후인 경우 보험사고 해당 요건은?(2026년 대법원)",
+ "q": "보험기간 중 교통재해를 입고 기간 종료 후 사망한 경우에 관한 판례의 태도는?(대법원 2025다211789)",
  "opts": [
-  "교통재해와 사망 사이 상당인과관계",
-  "사망도 보험기간 중이어야 한다",
-  "약관 작성자 의도",
-  "계약자의 주관적 이해"
+  "교통재해만 보험기간 중 발생하면 된다",
+  "사망도 보험기간 중 발생해야 한다",
+  "약관이 명백해 작성자 불이익 원칙은 배제",
+  "기간 종료 후 1년 내 사망만 보상"
  ],
  "ans": 0,
- "exp": "보험기간 중 교통재해가 발생하고 사망과 상당인과관계가 있으면 사망이 기간 후라도 보험사고에 해당한다.",
- "ref": "판례(대법원 2026년 선고, 교통재해 사망보험금 사건), 약관의 해석 원칙",
+ "exp": "'보험기간 중 교통재해로 사망' 문언은 객관적으로 다의적이어서 작성자 불이익 원칙에 따라 교통재해만 보험기간 중 발생하면 되고, 사망은 기간 후라도 그 재해가 직접 원인이면 보험사고다.",
+ "ref": "약관규제법 제5조 제2항, 대법원 2026. 4. 2. 선고 2025다211789 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.mt.co.kr/society/2026/05/03/2026043016013070795"
+ "sourceUrl": "https://www.mt.co.kr/society/2026/05/03/2026043016013070795",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "D152",
@@ -15734,7 +15750,8 @@ const QUESTIONS = [
  "exp": "집합보험은 가족과 사용인의 물건도 포함하며 그들을 위하여서도 체결한 것으로 본다(제686조).",
  "ref": "상법 제686조",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c686%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c686%ec%a1%b0/",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "C66",
@@ -15749,15 +15766,16 @@ const QUESTIONS = [
  "q": "상해 구분 세부지침 공통 사항에 관한 설명으로 옳지 않은 것은?",
  "opts": [
   "일반 외상과 치과보철 중복은 합산하되 1급 한도",
-  "재해 시 만 13세 미만은 소아다.",
+  "2~11급 중복 상해는 하위 3등급 이내일 때 병급한다.",
   "안면부 피판술은 1등급 상위를 적용한다.",
   "상향 요인 2개 이상이면 누적 적용한다."
  ],
  "ans": 3,
  "exp": "상향 조정 요인이 2개 이상이어도 큰 폭의 조정 1회만 적용한다.",
- "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(공통) 나~마",
+ "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(공통) 가~다·마",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "C67",
@@ -15782,7 +15800,8 @@ const QUESTIONS = [
  "exp": "만성 경막하 혈종 수술은 6급 2호이고, 두피 좌상·열창은 14급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(두부) 다~아",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "F127",
@@ -15807,7 +15826,8 @@ const QUESTIONS = [
  "exp": "손해액(과실·기왕증 부분 제외)과 진료비 해당액을 각각 산정해 손해액이 미달할 때만 단서를 적용한다.",
  "ref": "자배법 시행령 제3조 제1항 제2호, 대법원 2025. 5. 15. 선고 2022다246146 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://scourt.go.kr/supreme/news/NewsViewAction2.work?gubun=4&seqnum=10409"
+ "sourceUrl": "https://scourt.go.kr/supreme/news/NewsViewAction2.work?gubun=4&seqnum=10409",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "E127",
@@ -15829,7 +15849,8 @@ const QUESTIONS = [
  "ans": 3,
  "exp": "책임면제조항이 있으면 다른 보험이 있을 때 그 보험자는 책임을 면한다.",
  "ref": "손해사정이론(보험계약 조항 — 타보험조항의 유형)",
- "reviewedAt": "2026-11-08"
+ "reviewedAt": "2026-11-08",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "C68",
@@ -15854,7 +15875,8 @@ const QUESTIONS = [
  "exp": "만 13세 미만이며, 소아 골절은 성인보다 1급 낮게 적용하되 성장판·연부조직 손상 동반 시 성인과 같다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(상·하지 공통) 마·머·버, (공통) 라",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "C69",
@@ -15879,7 +15901,8 @@ const QUESTIONS = [
  "exp": "천골·미골 골절은 골반골 골절로 본다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(척추 가·나, 하지 나·자)",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "C70",
@@ -15903,7 +15926,8 @@ const QUESTIONS = [
  "exp": "인공관절 치환술은 해당 골절과 동일 등급이고 재치환 시 1등급 상위다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(상·하지 공통) 나·바~카",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "C71",
@@ -15926,7 +15950,8 @@ const QUESTIONS = [
  "exp": "성형수술을 한 후에도 육안으로 식별이 가능한 흔적이 있는 상태를 말한다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 비고 3·5·7·8·9",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-15"
 },
 {
  "id": "C72",
