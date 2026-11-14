@@ -278,5 +278,7 @@ test('from 2026-12-03, each release day follows the past-exam style mix (negativ
     const sen=qs.filter(sentence).length/qs.length;
     assert.ok(neg>=0.5,`${d}: 부정형 발문 ${Math.round(neg*100)}% (50% 이상 필요)`);
     assert.ok(sen>=0.55,`${d}: 문장형 보기 문항 ${Math.round(sen*100)}% (55% 이상 필요)`);
+    const hard=qs.filter(q=>q.level==='고난도').length/qs.length;
+    assert.ok(hard>=0.5,`${d}: 고난도 ${Math.round(hard*100)}% (50% 이상 필요)`);
   }
 });
