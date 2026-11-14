@@ -7583,7 +7583,8 @@ const QUESTIONS = [
  "ans": 0,
  "exp": "출구전략의 수단으로 테이퍼링·금리 인상 등이 있다.",
  "ref": "시사 경제 용어",
- "reviewedAt": "2026-11-06"
+ "reviewedAt": "2026-11-06",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "G41",
@@ -14786,7 +14787,8 @@ const QUESTIONS = [
  "exp": "특별한 사유가 없으면 요구에 따라야 한다(시행령 제33조).",
  "ref": "자배법 제39조 / 시행령 제33조·제33조의8",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F118",
@@ -14809,7 +14811,8 @@ const QUESTIONS = [
  "exp": "기피 신청 대상 위원은 그 의결에 참여하지 못한다.",
  "ref": "자배법 제23조의3 / 시행령 제16조의5",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F119",
@@ -14832,7 +14835,8 @@ const QUESTIONS = [
  "exp": "금융거래내역은 시행령 제22조의2에 열거되어 있지 않다.",
  "ref": "자배법 제30조 제3항 / 시행령 제22조의2",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0"
+ "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "B53",
@@ -14879,7 +14883,8 @@ const QUESTIONS = [
  "exp": "판정에 다툼이 있으면 최초 판정 당시 연령 기준이므로 65세 미만 4,500만 원 × 60% × 85%다.",
  "ref": "공제약관 26 지급기준【후유장애】 1. 위자료 나.(1)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "C61",
@@ -14901,7 +14906,8 @@ const QUESTIONS = [
  "exp": "안구가 겨우 물건을 쫓아가더라도 알아보지 못하면 해당한다.",
  "ref": "공제약관 26 지급기준【후유장애】 3. 가정간호비 가.(1)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "C62",
@@ -14923,7 +14929,8 @@ const QUESTIONS = [
  "exp": "제 경비가 증명되면 기준경비율 대신 증명된 경비를 공제한다.",
  "ref": "공제약관 26 지급기준【사망】 3.나. 현실소득액(사업소득자)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "B54",
@@ -14946,7 +14953,8 @@ const QUESTIONS = [
  "exp": "엔진·미션, 전기차의 모터·감속기·구동용 배터리 교환 시 기존 부분품 감가상각액을 공제한다. 운반비·임시수리비는 보상한다.",
  "ref": "공제약관 14 차량공제 1.(2)① 나~라",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "B55",
@@ -14958,18 +14966,19 @@ const QUESTIONS = [
   "사례"
  ],
  "rel": "2026-11-16",
- "q": "피해자 직접청구 시 지급 지연이자를 더하지 않는 기간은?",
+ "q": "피해자 직접청구 시 약관상 이자를 더하지 않는 기간은?",
  "opts": [
-  "청구일부터 30일 이내 기간",
-  "정기금으로 지급하는 기간",
-  "공제조합의 손해 조사 기간",
+  "정기금 지급기일 다음날부터 지급일까지",
+  "7일의 지급기일을 넘긴 다음날부터 지급일까지",
+  "30일 내 거절 사유 미통지로 지연된 기간",
   "청구권자의 책임 있는 사유로 지연된 기간"
  ],
  "ans": 3,
- "exp": "청구권자의 책임 있는 사유로 지연된 기간의 이자는 더하지 않는다. 30일 내 거절·연기 통지가 없으면 지연으로 본다.",
+ "exp": "청구권자의 책임 있는 사유로 지연된 기간의 이자는 더하지 않는다. 30일 내 거절·연기 사유를 서면 통지하지 않으면 정당한 사유 없는 지연으로 보고, 정기금은 보험계약대출이율로 이자를 더한다.",
  "ref": "공제약관 17 2. 손해배상청구권자의 직접청구 (1)·(2)⑤~⑦",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "B56",
@@ -14981,7 +14990,7 @@ const QUESTIONS = [
   "사례"
  ],
  "rel": "2026-11-16",
- "q": "무보험 전동킥보드에 다친 조합원의 무보험차상해공제 보상한도는?",
+ "q": "공제계약자동차에 탑승 중 무보험 전동킥보드(개인형이동장치)와의 사고로 다친 조합원의 무보험차상해공제 보상한도는?",
  "opts": [
   "자배법 시행령 제3조 금액",
   "2억 원",
@@ -14990,9 +14999,10 @@ const QUESTIONS = [
  ],
  "ans": 0,
  "exp": "개인형이동장치도 무보험자동차의 '자동차'에 포함되며 그 손해는 자배법 시행령 제3조 금액을 한도로 보상한다.",
- "ref": "공제약관 10 용어정의⑦, 13 무보험차상해공제 1.(2), 29 과실상계",
+ "ref": "공제약관 10 용어정의⑦, 13 무보험차상해공제 1.(1)·(2)",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "C63",
@@ -15015,7 +15025,8 @@ const QUESTIONS = [
  "exp": "하이브리드·다운사이징엔진 차량은 차량 크기를 고려하며, 운행연한 초과로 동급이 없으면 같은 규모 최저요금 차량 기준이다.",
  "ref": "공제약관 27 대물공제 지급기준 3. 대차료",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E117",
@@ -15036,7 +15047,8 @@ const QUESTIONS = [
  "ans": 0,
  "exp": "기초위험은 실제 손해와 지수에 따른 지급액이 어긋날 위험이며, 지급불능은 신용위험이다.",
  "ref": "손해사정이론(대체적 위험전가 - 지수형 보험과 기초위험)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E118",
@@ -15057,7 +15069,8 @@ const QUESTIONS = [
  "ans": 1,
  "exp": "대형 손실로 잉여금이 줄면 경성시장이 되고, 고금리기에는 투자수익을 믿고 가격경쟁이 심해진다.",
  "ref": "손해사정이론(언더라이팅과 보험시장의 주기)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E119",
@@ -15078,7 +15091,8 @@ const QUESTIONS = [
  "ans": 3,
  "exp": "무과실보험은 주로 경제적 손실을 일정 한도에서 보상하며 보상 범위가 제한된다.",
  "ref": "손해사정이론(배상책임과 무과실보험)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E120",
@@ -15099,7 +15113,8 @@ const QUESTIONS = [
  "ans": 1,
  "exp": "헤징 시장에는 기초자산이 없는 투기거래자도 참여할 수 있으며 피보험이익 같은 요건이 없다.",
  "ref": "손해사정이론(위험관리기법 - 보험과 헤징의 비교)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D145",
@@ -15116,13 +15131,14 @@ const QUESTIONS = [
   "사고 후 상속인이 추인하면 소급 유효가 된다.",
   "규약은 형식을 묻지 않는다.",
   "재해부조 일반 규정만으로는 규약이 아니다.",
-  "단체를 수익자로 하려면 서면동의가 필요하다."
+  "규약에 명시 없이 단체를 수익자로 하려면 서면동의가 필요하다."
  ],
  "ans": 0,
- "exp": "서면동의는 계약 체결 시까지 있어야 하며 사후 추인으로 유효가 되지 않는다.",
- "ref": "상법 제731조·제735조의3, 대법원 2006. 4. 27. 선고 2003다60259 판결",
+ "exp": "서면동의는 계약 체결 시까지 있어야 하며, 무효가 된 계약은 사후 추인으로 유효가 되지 않는다(2004다56677). 수익자 지정 서면동의는 상법 제735조의3 제3항.",
+ "ref": "상법 제731조·제735조의3, 대법원 2006. 4. 27. 선고 2003다60259 판결, 대법원 2006. 9. 22. 선고 2004다56677 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.nepla.ai/case/대법원/2003다60259"
+ "sourceUrl": "https://www.nepla.ai/case/대법원/2003다60259",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D146",
@@ -15146,7 +15162,8 @@ const QUESTIONS = [
  "exp": "피보험자가 피해자에게 가지는 항변으로서 손해배상채무의 성립·범위에 관한 사유를 말하며, 직접청구권도 보험자대위의 목적이 된다.",
  "ref": "상법 제682조·제724조 제2항, 대법원 2024. 7. 11. 선고 2020다246913 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2020%eb%8b%a4246913/"
+ "sourceUrl": "https://korea.legal/wiki/2020%eb%8b%a4246913/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "D147",
@@ -15169,7 +15186,8 @@ const QUESTIONS = [
  "exp": "상해보험은 제732조를 제외하고 생명보험 규정을 준용한다(제739조).",
  "ref": "상법 제737조·제739조·제739조의3",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c739%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c739%ec%a1%b0/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E121",
@@ -15190,7 +15208,8 @@ const QUESTIONS = [
  "ans": 2,
  "exp": "제750조는 과실책임주의가 원칙이고, 사용자책임은 보상책임, 공작물 소유자 책임은 위험책임에 근거한다.",
  "ref": "손해사정이론(배상책임의 귀책원리), 민법 제750조·제756조·제758조, 자배법 제3조",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "E122",
@@ -15210,7 +15229,8 @@ const QUESTIONS = [
  "ans": 3,
  "exp": "보험금 지급은 자금의 이전일 뿐 사회 전체 자원을 소모하는 비용 자체가 아니다.",
  "ref": "손해사정이론(보험의 기능과 사회적 비용)",
- "reviewedAt": "2026-11-07"
+ "reviewedAt": "2026-11-07",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F120",
@@ -15233,7 +15253,8 @@ const QUESTIONS = [
  "exp": "부상 후 치료 중 사망하면 사망과 부상의 한도를 합산한 범위에서 지급한다.",
  "ref": "자배법 시행령 제3조, 대법원 2025. 3. 13. 선고 2024다238217 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://korea.legal/wiki/2024%eb%8b%a4238217/"
+ "sourceUrl": "https://korea.legal/wiki/2024%eb%8b%a4238217/",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "F121",
@@ -15256,7 +15277,8 @@ const QUESTIONS = [
  "exp": "기사 딸린 버스를 임차한 회사는 대체버스 운행 중 사고에도 운행자책임을 진다(92다27782).",
  "ref": "자배법 제3조, 대법원 1993. 6. 8. 선고 92다27782 판결",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.nepla.ai/case/대법원/92다27782"
+ "sourceUrl": "https://www.nepla.ai/case/대법원/92다27782",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "B57",
@@ -15278,7 +15300,8 @@ const QUESTIONS = [
  "exp": "풍력에 의한 차체 손해는 보상한다. 빗물 유입은 침수가 아니고, 이물질은 물체가 아니며, 일부 부품 도난은 면책이다.",
  "ref": "공제약관 14 차량공제 1.(1), 10 용어정의⑨⑩",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "C64",
@@ -15301,7 +15324,8 @@ const QUESTIONS = [
  "exp": "27% 이상 35% 미만은 200만 원이며, 후유장애 상실수익액에도 호프만 계수 총합 240 한도가 적용된다.",
  "ref": "공제약관 26 지급기준【후유장애】 1·2",
  "reviewedAt": "2026-11-07",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "A49",
@@ -15323,7 +15347,8 @@ const QUESTIONS = [
  "exp": "응급치료·호송 등 긴급조치는 공제조합의 동의 없이 할 수 있다.",
  "ref": "공제약관 6 조합원 등의 의무사항 3. 사고발생시의 의무",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-14"
 },
 {
  "id": "A50",
