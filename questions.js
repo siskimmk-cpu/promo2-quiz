@@ -7522,7 +7522,8 @@ const QUESTIONS = [
  "ans": 0,
  "exp": "빅블러의 예로 금융과 IT가 결합한 핀테크가 있다.",
  "ref": "시사 경제 용어",
- "reviewedAt": "2026-11-06"
+ "reviewedAt": "2026-11-06",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "G38",
@@ -16586,13 +16587,14 @@ const QUESTIONS = [
   "대부금 즉시 상환",
   "담보 제공",
   "공탁금 회수청구권 양도",
-  "의무 없음"
+  "대부금 이자를 시중금리로 지급"
  ],
  "ans": 2,
  "exp": "조합원은 공탁금(이자 포함)의 회수청구권을 공제조합에 양도해야 한다.",
  "ref": "공제약관 9 분쟁, 합의, 관할법원 2.·3.",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "C76",
@@ -16617,7 +16619,8 @@ const QUESTIONS = [
  "exp": "전부손해는 사고 직전 가액 상당액을 교환가액으로 지급한다. 수리비 한도는 사고 직전 가액의 120%다.",
  "ref": "공제약관 27 대물공제 지급기준 1. 수리비용, 2. 교환가액",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "E135",
@@ -16639,7 +16642,8 @@ const QUESTIONS = [
  "ans": 1,
  "exp": "상법에 명문 규정이 없는 이론상 원칙이며 미경과보험료 반환 약정도 유효하다.",
  "ref": "손해사정이론(보험료 불가분의 원칙), 상법 제649조",
- "reviewedAt": "2026-11-08"
+ "reviewedAt": "2026-11-08",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "E136",
@@ -16663,7 +16667,8 @@ const QUESTIONS = [
  "ans": 1,
  "exp": "부주의·무관심은 정신적 위태, 부정직한 성향은 도덕적 위태다.",
  "ref": "손해사정이론(손인·위태의 개념과 분류)",
- "reviewedAt": "2026-11-08"
+ "reviewedAt": "2026-11-08",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "F135",
@@ -16686,8 +16691,9 @@ const QUESTIONS = [
  ],
  "ans": 0,
  "exp": "점유자 또는 소유자는 손해의 원인에 책임 있는 자에게 구상권을 행사할 수 있다(제758조 제3항).",
- "ref": "민법 제758조·제759조",
- "reviewedAt": "2026-11-08"
+ "ref": "민법 제758조 제3항",
+ "reviewedAt": "2026-11-08",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "D160",
@@ -16710,7 +16716,8 @@ const QUESTIONS = [
  "ans": 2,
  "exp": "자동차 양수인은 보험자의 승낙을 얻어야 승계한다(제726조의4). 일반 손해보험은 승계가 추정된다(제679조).",
  "ref": "상법 제679조·제726조의4",
- "reviewedAt": "2026-11-08"
+ "reviewedAt": "2026-11-08",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "D161",
@@ -16733,7 +16740,8 @@ const QUESTIONS = [
  "ans": 3,
  "exp": "피보험자 또는 그 상속인이 아닌 자를 수익자로 지정할 때 서면 동의가 필요하다(제735조의3).",
  "ref": "상법 제735조의3·제731조",
- "reviewedAt": "2026-11-08"
+ "reviewedAt": "2026-11-08",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "D162",
@@ -16786,7 +16794,8 @@ const QUESTIONS = [
  "exp": "이 법리는 한도액이 있는 대인배상Ⅱ에도 똑같이 적용된다.",
  "ref": "상법 제719조·제724조 / 대법원 2026. 5. 8. 선고 2025다220761 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4220761/"
+ "sourceUrl": "https://korea.legal/wiki/2025%eb%8b%a4220761/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "D164",
@@ -16811,7 +16820,8 @@ const QUESTIONS = [
  "exp": "실질적으로 일부 해지이므로 제651조 해지기간이 적용되고, 해지 의사표시는 계약자(사망 시 상속인)에게 해야 한다.",
  "ref": "상법 제651조 / 대법원 2025. 4. 24. 선고 2024다313941 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2024%eb%8b%a4313941/"
+ "sourceUrl": "https://korea.legal/wiki/2024%eb%8b%a4313941/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "D165",
@@ -16836,7 +16846,8 @@ const QUESTIONS = [
  "exp": "다수 가입만으로 위험이 현저히 증가했다고 볼 수 없다(2003다18494). 청약서 질문사항은 중요사항으로 추정된다.",
  "ref": "상법 제651조·제651조의2·제652조 / 대법원 2004. 6. 11. 선고 2003다18494 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2003%eb%8b%a418494/"
+ "sourceUrl": "https://korea.legal/wiki/2003%eb%8b%a418494/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "D166",
@@ -16853,14 +16864,15 @@ const QUESTIONS = [
  "opts": [
   "계약자가 배상한 경우 보험금 청구(제639조②단서)",
   "보증채무에 관한 민법 규정 준용",
-  "보험계약자의 고지의무",
+  "보험자의 보험증권 교부의무",
   "보험계약자의 보험료 지급의무"
  ],
  "ans": 0,
  "exp": "보증보험에는 제639조 제2항 단서를 적용하지 않으며, 피보험자 귀책이 없으면 계약자의 사기·고의로도 면책되지 않는다.",
- "ref": "상법 제726조의6·제726조의7·제639조 제2항",
+ "ref": "상법 제726조의6 제1항·제726조의7·제639조 제2항",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c726%ec%a1%b0%ec%9d%986/"
+ "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c726%ec%a1%b0%ec%9d%986/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "E137",
@@ -16884,7 +16896,8 @@ const QUESTIONS = [
  "exp": "피보험자가 남은 손해를 먼저 배상받고 보험자는 그 차액만 대위한다(차액설, 2019다216589).",
  "ref": "상법 제682조 / 대법원 2019. 11. 14. 선고 2019다216589 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2019%eb%8b%a4216589/"
+ "sourceUrl": "https://korea.legal/wiki/2019%eb%8b%a4216589/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "E138",
@@ -16906,10 +16919,11 @@ const QUESTIONS = [
   "60세로 한정"
  ],
  "ans": 0,
- "exp": "계약기간 만료로 단정한 원심을 파기했다. 일반육체노동 가동연한은 65세까지다.",
+ "exp": "가정적 재계약 만료일(만 63세)로 단정한 원심을 파기하고, 육체노동 가동연한 65세 경험칙을 전제로 심리하라고 했다.",
  "ref": "민법 제756조 / 대법원 2021. 3. 11. 선고 2018다285106 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2018%eb%8b%a4285106/"
+ "sourceUrl": "https://korea.legal/wiki/2018%eb%8b%a4285106/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "E139",
@@ -16933,7 +16947,8 @@ const QUESTIONS = [
  "exp": "즉사해도 위자료청구권은 발생·상속되며, 유족은 상속분과 고유 위자료를 함께 청구할 수 있다.",
  "ref": "민법 제751조·제752조 / 대법원 1969. 4. 15. 선고 69다268 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/69%eb%8b%a4268/"
+ "sourceUrl": "https://korea.legal/wiki/69%eb%8b%a4268/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "E140",
@@ -16954,10 +16969,11 @@ const QUESTIONS = [
   "다른 자의 채무 시효 소멸 후에도 구상 가능"
  ],
  "ans": 3,
- "exp": "부담부분을 넘어 배상하면 구상할 수 있고, 다른 자의 채무가 시효로 소멸한 뒤에도 가능하다.",
- "ref": "민법 제760조 / 대법원 2005다28426·98다5777·2010다52225·2018다248183 판결",
+ "exp": "부담부분을 넘어 배상하면 구상할 수 있고, 다른 자의 채무가 시효로 소멸한 뒤에도 가능하다(97다42830).",
+ "ref": "민법 제760조 / 대법원 1997. 12. 23. 선고 97다42830 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/%ea%b3%b5%eb%8f%99%eb%b6%88%eb%b2%95%ed%96%89%ec%9c%84%ec%9e%90-%ec%82%ac%ec%9d%b4%ec%9d%98-%ea%b5%ac%ec%83%81%ea%b3%bc-%eb%b3%b4%ed%97%98%ec%9e%90%ec%9d%98-%ec%a7%81%ec%a0%91/"
+ "sourceUrl": "https://korea.legal/wiki/%ea%b3%b5%eb%8f%99%eb%b6%88%eb%b2%95%ed%96%89%ec%9c%84%ec%9e%90-%ec%82%ac%ec%9d%b4%ec%9d%98-%ea%b5%ac%ec%83%81%ea%b3%bc-%eb%b3%b4%ed%97%98%ec%9e%90%ec%9d%98-%ec%a7%81%ec%a0%91/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "F136",
@@ -16972,18 +16988,19 @@ const QUESTIONS = [
   "사례"
  ],
  "rel": "2026-11-19",
- "q": "사고가 상대 차량의 전적인 과실로 발생해 택시 측 과실이 없는 경우 상대 공제사업자의 택시 공제사업자에 대한 구상에 관한 판례의 태도는?(대법원 2024다221257)",
+ "q": "가해차량의 무리한 진로변경으로 급정거한 피해차량(택시) 승객이 다친 비접촉사고에서 피해차량 측 과실이 없는 경우, 가해차량 공제사업자의 피해차량 공제사업자에 대한 구상은?(대법원 2024다221257)",
  "opts": [
-  "운행자책임이 있으므로 구상 가능",
+  "승객에 대한 운행자책임이 있으므로 구상 가능",
   "부담부분을 전제로 한 구상 불가",
-  "승객 기여분만큼 구상",
-  "50% 구상"
+  "피해자 측 사정 참작 비율만큼 구상",
+  "쌍방 50%씩 분담해 구상"
  ],
  "ans": 1,
  "exp": "과실 없는 상대방 측에 과실이나 부담부분을 전제로 한 구상권을 행사할 수 없다.",
  "ref": "민법 제760조 / 대법원 2024. 6. 17. 선고 2024다221257 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2024%eb%8b%a4221257/"
+ "sourceUrl": "https://korea.legal/wiki/2024%eb%8b%a4221257/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "F137",
@@ -17008,7 +17025,8 @@ const QUESTIONS = [
  "exp": "구상금 소송을 당해 자기 권리를 방어하려고 지출한 비용은 구상할 수 없다(2022다309474).",
  "ref": "민법 제760조 / 대법원 2023. 6. 29. 선고 2022다309474 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4309474/"
+ "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4309474/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "F138",
@@ -17032,7 +17050,8 @@ const QUESTIONS = [
  "exp": "객관적 관련공동성이면 족하고 과실 방조도 포함되나 상당인과관계는 필요하다(2023다202099).",
  "ref": "민법 제760조 / 대법원 2026. 2. 26. 선고 2023다202099 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1772685088965_133128.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1772685088965_133128.pdf",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "F139",
@@ -17058,7 +17077,8 @@ const QUESTIONS = [
  "exp": "피해자는 과실 유무·다과와 관계없이 진료비 해당액을 청구할 수 있다(2022다235009).",
  "ref": "자배법 시행령 제3조 제1항 제2호 / 대법원 2025. 5. 15. 선고 2022다235009 판결, 2025. 6. 26. 선고 2023다231738 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4235009/"
+ "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4235009/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "F140",
@@ -17084,7 +17104,8 @@ const QUESTIONS = [
  "exp": "지급 보험금 한도에서 단서 규정상 책임공제금 청구권을 동일성을 유지한 채 취득한다(2012다44563).",
  "ref": "자배법 시행령 제3조 제1항 제2호, 상법 제729조 / 대법원 2012. 10. 11. 선고 2012다44563 판결",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/2012%eb%8b%a444563/"
+ "sourceUrl": "https://korea.legal/wiki/2012%eb%8b%a444563/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "F141",
@@ -17109,7 +17130,8 @@ const QUESTIONS = [
  "exp": "원칙적으로 심신상실 중 행위는 책임이 없으나 고의·과실로 초래했다면 책임진다(제754조).",
  "ref": "민법 제753조·제754조·제755조",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c754%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c754%ec%a1%b0/",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "A52",
@@ -17134,7 +17156,8 @@ const QUESTIONS = [
  "exp": "양도일부터 15일째 24시까지 대인공제Ⅰ과 대물공제(의무 한도)를 일시 담보하며, 대물은 기명조합원 등 이외의 자 운전 시 제외된다.",
  "ref": "공제약관 20 공제계약의 승계 1.(4)",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "A53",
@@ -17159,7 +17182,8 @@ const QUESTIONS = [
  "exp": "증서 수령일부터 15일(3.21.)과 청약일부터 30일 중 먼저 도래하는 날까지 철회할 수 있다.",
  "ref": "공제약관 21 공제약관 등의 교부 및 설명, 22 청약 철회, 23 공제안내장 등의 효력",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "B59",
@@ -17184,7 +17208,8 @@ const QUESTIONS = [
  "exp": "비용은 공제액이 발생하지 않으면 지급하지 않는다. 가족생계비·방어비용은 실제손해액과 관계없이 지급한다.",
  "ref": "공제약관 12 자손공제 1. 보상내용, 28 자손공제 지급기준",
  "reviewedAt": "2026-11-08",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "verifiedAt": "2026-11-16"
 },
 {
  "id": "C77",
