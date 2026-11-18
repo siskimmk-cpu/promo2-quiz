@@ -13,7 +13,7 @@ const YESX=(typeof window!=='undefined'&&window.YESANG)||null; // 예상문제�
 const HIDE_RE=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
 // 기출 형식(발문 한 줄·짧은 보기·사례/<보기> 없음·판례 번호 없는 발문)에 맞지 않는 문항도 고쳐 쓰기 전까지 숨긴다(tools/fmtcheck.js와 같은 기준)
 const CASE_NO=/\d{2,4}(다|두|도|나|가합|가단)\d{2,}/;
-const offFormat=q=>!!(q.case||q.box||q.q.length>60||(q.opts||[]).join('').length/4>40||(q.opts||[]).some(o=>o.length>55)||CASE_NO.test(q.q));
+const offFormat=q=>!!(q.case||q.box||q.q.length>80||(q.opts||[]).join('').length/4>60||(q.opts||[]).some(o=>o.length>75)||CASE_NO.test(q.q));
 const isHidden=q=>!q.past&&(q.off||(q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join(''))||offFormat(q));
 function refreshRelease(){
   const day=dayKey9(); if(day===REL_DAY) return false;
