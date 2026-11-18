@@ -13,7 +13,8 @@ const SRC=new Function(questions+';return QUESTIONS;')();
 const SRC_IDS=SRC.map(q=>q.id);
 // 2026. 11. 18.: 앱은 계산·해상보험 문항을 연습·모의고사에서 뺀다(app.js isHidden과 같은 기준)
 const HIDE_RE=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
-const hidden=q=>!q.past&&((q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join('')));
+const {offFormat}=require('./fmtcheck.js');
+const hidden=q=>!q.past&&(q.off||(q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join(''))||offFormat(q));
 const upto=d=>SRC.filter(q=>!hidden(q)&&(!q.rel||q.rel<=d));
 const onDay=d=>SRC.filter(q=>!hidden(q)&&q.rel===d);
 const ids=list=>list.map(q=>q.id);
@@ -85,7 +86,7 @@ test('daily papers keep the blueprint, have no duplicates, and change each day',
     for(const sub of h.api.subjects)for(const p of [p0,p1])assert.equal(p.filter(id=>sub.secs.includes(h.api.byId[id].sec)).length,sub.n);
     if(previous)assert.notEqual(JSON.stringify(p0),previous);previous=JSON.stringify(p0);
   }
-  assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-12').length);
+  assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-12'&&!hidden(q)).length);
 });
 test('unanswered mock questions enter wrong answers and spaced review; score remains correct',()=>{
   const h=harness();h.api.start(['D50','CS3'],'test','mock',{});h.api.state.sess.picks[0]=0;h.api.finish();
@@ -291,4 +292,9 @@ test('from 2026-12-10, new questions have no calculation items and no marine-ins
     assert.ok(!(q.tags||[]).includes('계산'),`${q.id}: 계산 문항 금지`);
     assert.ok(!BAD.test(q.q+q.opts.join('')),`${q.id}: 해상·운송보험 문항 금지`);
   }
+});
+
+// 2026. 11. 18. 사용자 지시: 모든 문항은 기출 형식 — 12/10 이후 새 문항은 형식 규칙을 지켜야 한다
+test('from 2026-12-10, new questions follow the past-exam format (one-line stem, short options, no case/box/case number)',()=>{
+  for(const q of SRC.filter(q=>q.rel>='2026-12-10'&&!q.drill)) assert.ok(!offFormat(q),`${q.id}: 기출 형식 위반(node tools/fmtcheck.js 참고)`);
 });

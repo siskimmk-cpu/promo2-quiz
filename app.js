@@ -11,7 +11,10 @@ const PASTX=(typeof window!=='undefined'&&window.PAST)||null;
 const YESX=(typeof window!=='undefined'&&window.YESANG)||null; // 예상문제지(yesang.js): 과목별 세트
 // 2026. 11. 18. 개정: 실제 시험은 간결한 기본 문제 — 계산 문항·해상/운송보험 문항은 연습·모의고사·통계에서 뺀다(기록은 보존)
 const HIDE_RE=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
-const isHidden=q=>!q.past&&((q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join('')));
+// 기출 형식(발문 한 줄·짧은 보기·사례/<보기> 없음·판례 번호 없는 발문)에 맞지 않는 문항도 고쳐 쓰기 전까지 숨긴다(tools/fmtcheck.js와 같은 기준)
+const CASE_NO=/\d{2,4}(다|두|도|나|가합|가단)\d{2,}/;
+const offFormat=q=>!!(q.case||q.box||q.q.length>60||(q.opts||[]).join('').length/4>40||(q.opts||[]).some(o=>o.length>55)||CASE_NO.test(q.q));
+const isHidden=q=>!q.past&&(q.off||(q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join(''))||offFormat(q));
 function refreshRelease(){
   const day=dayKey9(); if(day===REL_DAY) return false;
   REL_DAY=day;
