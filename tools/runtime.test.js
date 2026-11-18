@@ -278,7 +278,14 @@ test('from 2026-12-03, each release day follows the past-exam style mix (negativ
     const sen=qs.filter(sentence).length/qs.length;
     assert.ok(neg>=0.5,`${d}: 부정형 발문 ${Math.round(neg*100)}% (50% 이상 필요)`);
     assert.ok(sen>=0.55,`${d}: 문장형 보기 문항 ${Math.round(sen*100)}% (55% 이상 필요)`);
-    const hard=qs.filter(q=>q.level==='고난도').length/qs.length;
-    assert.ok(hard>=0.5,`${d}: 고난도 ${Math.round(hard*100)}% (50% 이상 필요)`);
+  }
+});
+
+// 2026. 11. 18. 사용자 지시: 실제 시험은 간결한 기본 문제 — 12/10 이후 공개분은 계산·해상보험 문항 금지
+test('from 2026-12-10, new questions have no calculation items and no marine-insurance topics',()=>{
+  const BAD=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
+  for(const q of SRC.filter(q=>q.rel>='2026-12-10'&&!q.drill)){
+    assert.ok(!(q.tags||[]).includes('계산'),`${q.id}: 계산 문항 금지`);
+    assert.ok(!BAD.test(q.q+q.opts.join('')),`${q.id}: 해상·운송보험 문항 금지`);
   }
 });
