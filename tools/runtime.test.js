@@ -11,8 +11,11 @@ const sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
 // 앱과 별도로 원본 문제 파일을 직접 읽어 기대값을 만든다(고정 숫자 금지)
 const SRC=new Function(questions+';return QUESTIONS;')();
 const SRC_IDS=SRC.map(q=>q.id);
-const upto=d=>SRC.filter(q=>!q.rel||q.rel<=d);
-const onDay=d=>SRC.filter(q=>q.rel===d);
+// 2026. 11. 18.: 앱은 계산·해상보험 문항을 연습·모의고사에서 뺀다(app.js isHidden과 같은 기준)
+const HIDE_RE=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
+const hidden=q=>!q.past&&((q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join('')));
+const upto=d=>SRC.filter(q=>!hidden(q)&&(!q.rel||q.rel<=d));
+const onDay=d=>SRC.filter(q=>!hidden(q)&&q.rel===d);
 const ids=list=>list.map(q=>q.id);
 const PLAIN=SRC.filter(q=>!q.rel||q.rel<='2026-11-06').map(q=>q.id); // 공개 문항(현재 rev로 남긴 기록은 유지 대상)
 const RV=Object.fromEntries(SRC.filter(q=>q.rev).map(q=>[q.id,q.rev]));
@@ -64,7 +67,7 @@ test('release preserves in-progress mock IDs, answers, order, and deadline witho
   h.api.state.sess.picks[0]=2;h.api.state.sess.i=3;
   const snapshot=JSON.stringify(h.api.state.sess),renders=h.ctx.renders;
   h.setTime('2026-11-07T00:00:01Z');h.api.checkReleaseBoundary();
-  assert.equal(JSON.stringify(h.api.state.sess),snapshot);assert.equal(h.ctx.renders,renders);assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-07').length);
+  assert.equal(JSON.stringify(h.api.state.sess),snapshot);assert.equal(h.ctx.renders,renders);assert.equal(h.api.fresh.length,h.api.all.filter(q=>q.rel==='2026-11-07'&&!hidden(q)).length);
 });
 test('practice answer and revealed explanation stay on screen at boundary',()=>{
   const h=harness();h.api.start(['D50'],'practice','practice',{});h.api.state.sess.picks[0]=0;h.api.state.sess.rev[0]=true;

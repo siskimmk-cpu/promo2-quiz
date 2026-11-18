@@ -8,10 +8,14 @@ let REL_DAY='', activeQuestions=[], HOT_IDS=[], FRESH_IDS=[];
 // 진행 중인 시험은 공개 목록이 바뀌어도 같은 문항과 답안을 유지한다.
 const byId=Object.fromEntries(ALL_QUESTIONS.map(q=>[q.id,q]));
 const PASTX=(typeof window!=='undefined'&&window.PAST)||null;
+const YESX=(typeof window!=='undefined'&&window.YESANG)||null; // 예상문제지(yesang.js): 과목별 세트
+// 2026. 11. 18. 개정: 실제 시험은 간결한 기본 문제 — 계산 문항·해상/운송보험 문항은 연습·모의고사·통계에서 뺀다(기록은 보존)
+const HIDE_RE=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
+const isHidden=q=>!q.past&&((q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join('')));
 function refreshRelease(){
   const day=dayKey9(); if(day===REL_DAY) return false;
   REL_DAY=day;
-  activeQuestions=ALL_QUESTIONS.filter(q=>!q.drill&&(!q.rel||q.rel<=day));
+  activeQuestions=ALL_QUESTIONS.filter(q=>!q.drill&&!isHidden(q)&&(!q.rel||q.rel<=day));
   HOT_IDS=activeQuestions.filter(q=>q.hot&&q.hot.y/q.hot.of>=0.6).map(q=>q.id);
   FRESH_IDS=activeQuestions.filter(q=>q.rel===day).map(q=>q.id);
   return true;
@@ -184,6 +188,8 @@ const ACTS={
   chap:b=>{const x=b.dataset.id;start(activeQuestions.filter(q=>q.sec===x).map(q=>q.id),'공제약관 · '+secOf[x].name,'practice',{mix:true});},
   paper:b=>{introPaper=b.dataset.id;go('intro');},
   drill:b=>{const x=DRILLX&&DRILLX.sets.find(t=>t.id===b.dataset.id); if(x) start(x.ids.slice(),'연습 문제집 · '+x.name,'practice');},
+  yes:b=>{ const x=YESX&&YESX.sets.find(t=>t.id===b.dataset.id); if(!x) return; const ids=x.ids.filter(id=>byId[id]); const nx=ids.filter(id=>!store.ans[id]); start(nx.length?nx:ids.slice(),'예상문제지 · '+x.name,'practice'); },
+  yeswrong:()=>{ const ids=yesIds().filter(id=>store.ans[id]&&!store.ans[id].ok); if(ids.length) start(shuffle(ids),'예상문제지 · 틀린 문제','practice',{mix:true,loop:true}); },
   pastgo:()=>{ const ids=pastIds(), nx=ids.filter(id=>!store.ans[id]); start(nx.length?nx:shuffle(ids),'사내 기출','practice',nx.length?{}:{mix:true}); },
   pastwrong:()=>{ const ids=pastIds().filter(id=>store.ans[id]&&!store.ans[id].ok); if(ids.length) start(shuffle(ids),'틀린 기출','practice',{mix:true,loop:true}); },
   past:b=>{const x=PASTX&&PASTX.sets.find(t=>t.id===b.dataset.id); if(x) start(x.ids.slice(),'기출 · '+x.name,'practice');},
@@ -198,25 +204,28 @@ function quickGrid(st){
   const c=(act,emo,t,sub,dis,cls)=>`<button class="hcard ${cls||''}" data-act="${act}" ${dis?'disabled':''}><span class="emo">${emo}</span><b>${t}</b><span>${sub}</span></button>`;
   return `<div class="hscroll">`+c('rand','🎲','랜덤 10문제','전 과목 섞어서',0,'c1')+c('wrong','🔁','오답 정복',nw?`${nw}문제 · 맞힐 때까지`:'틀린 문제가 없어요',!nw,'c2')+c('hard','💎','고난도만',`${nh}문제`,0,'c3')+c('starq','⭐','별표 문제',ns?`${ns}문제`:'☆를 눌러 모아요',!ns,'c4')+''+`</div>`;
 }
+function practiceBlock(){
+  const best=Object.keys(store.best||{}).length?Math.max(...Object.values(store.best)):null;
+  return `<div class="label">실전 대비<small>실제 시험 형식 그대로</small></div>`+pastCard()+yesCard()+`<button class="mockc anim" data-act="exam"><span class="pc-ic">⏱️</span><span class="pc-tx"><b>실전 모의고사</b><small>${EXAM.n}문항 · ${EXAM.min}분 · 매일 오전 9시 새 시험지${best!=null?` · 최고 ${best}점`:''}</small></span><span class="hc-go">응시 ›</span></button>`;
+}
 function home(){
   clearInterval(tick); showTabs('home');
   const st=stats(), s=store.sess, resumable=s&&!s.done&&s.mode!=='mock', allDone=!st.newIds.length, pr=predict();
-  let h=`<div class="aurora"></div><header class="top-h"><div><span class="eyebrow">2급 승진자격시험</span><h1 class="title">예상 기출문제</h1></div><span class="hr"><span class="dday">${dday()}</span><button class="gear" data-act="settings" aria-label="설정">${ico('gear')}</button></span></header>`;
+  let h=`<div class="aurora"></div><header class="top-h"><div><span class="eyebrow">2급 진급시험 · ${esc(EXAM.label.split(' 11:00')[0])}</span><h1 class="title">합격까지 ${dday()}</h1></div><span class="hr"><button class="gear" data-act="settings" aria-label="설정">${ico('gear')}</button></span></header>`;
   h+=ddayCard();
   h+=`<section class="hero hero-x anim"><span class="hero-orb a"></span><span class="hero-orb b"></span>${pr.ready?`<span class="h-pill ${pr.prob>=70?'hi':pr.prob>=40?'mid':'lo'}"><i></i>${pr.prob>=70?'목표권이에요':pr.prob>=40?'조금만 더 힘내요':'집중 학습이 필요해요'}</span>`:`<span class="h-pill"><i></i>실력 분석 중</span>`}${gauge(pr.prob,pr.ready)}<p class="hero-msg">${pr.ready?`지금 실력이면 50문항 중 <b>${pr.wrong}개</b> 틀릴 것 같아요<small>목표 오답 ${maxWrong()}개 이하 · 상대평가 합격 확률은 아니에요</small>`:`문제를 <b>${20-pr.tot}개</b> 더 풀면<br>목표 달성 확률을 계산해 드려요`}</p>
     <div class="hero-stats"><div><b>${st.done}</b><span>푼 문제</span></div><div><b>${st.done?Math.round(st.ok/st.done*100):0}%</b><span>정답률</span></div><div><b>${st.wrongIds.length}</b><span>오답</span></div></div>
     ${resumable?`<button class="cta" data-act="resume">이어서 풀기 · ${esc(s.title)} ${s.i+1}/${s.ids.length}</button>`
       :allDone?`<button class="cta warm" data-act="newround">다 풀었어요! 보기 섞어서 ${store.round+1}회독</button>`
       :`<button class="cta" data-act="go">안 푼 문제 풀기 · ${st.newIds.length}문제</button>`}</section>`;
+  h+=practiceBlock();
   h+=freshCard()+releaseStatus();
-  h+=pastCard();
   const tn=(store.log[today()]||{n:0}).n, due=dueIds().length, stk=streak();
   h+=`<div class="label">오늘의 학습${stk?`<small class="streak">${ico('flame')} ${stk}일 연속</small>`:''}</div><div class="daily anim"><div class="goal"><div class="ring" style="--p:${Math.min(100,tn/store.goal*100)}"><b>${tn}</b><span>/${store.goal}</span></div><div class="gtx"><b>${tn>=store.goal?'오늘 목표 달성! 🎉':`목표까지 ${store.goal-tn}문제`}</b><span>틀리면 1일 뒤 → 맞히면 3일 뒤 → 7일 뒤 복습</span></div></div><button class="cta ${due?'':'ghost'}" data-act="review" ${due?'':'disabled'}>${due?`오늘의 복습 ${due}문제`:'오늘 복습할 문제가 없어요'}</button></div>`;
-  h+=hotCard();
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
   h+=dailyCard();
-  h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="exam"><span class="ic b">${ico('exam')}</span><span class="tx"><span class="nm">실전 모의고사</span><span class="meta">${EXAM.n}문항 · ${EXAM.min}분 · 제1회·제2회·랜덤</span></span>${ico('chev','chev')}</button>${isStandalone()||!isMobile?'':`<button class="row" data-act="guide"><span class="ic b">${ico('home')}</span><span class="tx"><span class="nm">홈 화면에 앱으로 추가하기</span><span class="meta">주소창 없이 앱처럼 · 그림으로 따라하기</span></span>${ico('chev','chev')}</button>`}</div>`;
-  h+=`<p class="foot">${esc(EXAM.label)} 시험 · 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식) 기준 손해사정사 1차 수준 예상문제 ${st.N}문항. 풀이 기록은 이 기기에 저장되고, 로그인하면 계정과 동기화돼요.</p>`;
+  if(!(isStandalone()||!isMobile)) h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="guide"><span class="ic b">${ico('home')}</span><span class="tx"><span class="nm">홈 화면에 앱으로 추가하기</span><span class="meta">주소창 없이 앱처럼 · 그림으로 따라하기</span></span>${ico('chev','chev')}</button></div>`;
+  h+=`<p class="foot">${esc(EXAM.label)} 시험 · 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식) 기준 문제 ${st.N}문항(계산·해상보험 제외). 풀이 기록은 이 기기에 저장되고, 로그인하면 계정과 동기화돼요.</p>`;
   app.innerHTML=h; bindActs();
   const fg=app.querySelector('.hero .g-fg'), gv=app.querySelector('.hero .g-v');
   if(fg&&pr.ready&&!matchMedia('(prefers-reduced-motion: reduce)').matches){ const end=fg.style.strokeDashoffset; const full=fg.style.strokeDasharray; fg.style.transition='none'; fg.style.strokeDashoffset=full; requestAnimationFrame(()=>requestAnimationFrame(()=>{ fg.style.transition=''; fg.style.strokeDashoffset=end; })); if(gv){ const to=pr.prob, t0=performance.now(); const f=t=>{const k=Math.min(1,(t-t0)/1000); gv.textContent=Math.round(to*(1-Math.pow(1-k,3)))+'%'; if(k<1) requestAnimationFrame(f);}; requestAnimationFrame(f);} }
@@ -226,7 +235,7 @@ function study(){
   const st=stats();
   let h=`<header class="top-h"><div><span class="eyebrow">과목별 연습</span><h1 class="title">무엇을 풀어볼까요?</h1></div></header>`;
   h+=searchBox();
-  h+=pastCard();
+  h+=`<div class="label">실전 대비</div>`+pastCard()+yesCard();
   h+=flashEntry();
   h+=`<div class="list anim">`+SUBJECTS.map((sub,k)=>{
     const qs=activeQuestions.filter(q=>sub.secs.includes(q.sec)), d=qs.filter(q=>store.ans[q.id]), o=d.filter(q=>store.ans[q.id].ok).length, nh=qs.filter(isHard).length;
@@ -242,6 +251,7 @@ function exam(){
   let h=`<header class="top-h"><div><span class="eyebrow">실전 모의고사</span><h1 class="title">실제 시험처럼<br>${EXAM.n}문항 · ${EXAM.min}분</h1></div></header>`;
   h+=paperInfo();
   h+=`<div class="papers anim">`+PAPERS.map(p=>`<button class="paper" data-act="paper" data-id="${p.id}"><span class="ic ${p.id==='pr'?'r':''}">${p.ic}</span><span class="tx"><b>${esc(p.name)}</b><span>${esc(p.desc)}</span></span><span class="best ${store.best[p.id]!=null?'':'no'}">${store.best[p.id]!=null?`최고 ${store.best[p.id]}점`:'미응시'}</span></button>`).join('')+`</div>`;
+  if(YESX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; h+=`<div class="label">예상문제지 <small style="font-weight:500;opacity:.7">· ${yesIds().length}문항 · <a href="${YESX.pdf}" target="_blank" rel="noopener">문제지 PDF</a> · <a href="${YESX.ans}" target="_blank" rel="noopener">정답 PDF</a></small></div><div class="papers anim">`+YESX.sets.map(x=>`<button class="paper" data-act="yes" data-id="${x.id}"><span class="ic">${x.ic}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div>`; }
   if(PASTX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; h+=`<div class="label">기출 회차 <small style="font-weight:500;opacity:.7">· 중복 뺀 ${PASTX.uniqA.length+PASTX.uniqL.length}문항 · 원본 해설</small></div><div class="papers anim">`+PASTX.sets.map(x=>`<button class="paper" data-act="past" data-id="${x.id}"><span class="ic">${x.g==='L'?'⚖️':'🚕'}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항 · ${x.range}</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div>`; }
   if(DRILLX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; const gs=[...new Set(DRILLX.sets.map(x=>x.g))];
     h+=`<div class="label">연습 문제집 <small style="font-weight:500;opacity:.7">· ${DRILLX.qs.length}문항 · 정답률·복습 제외</small></div>`+gs.map(g=>{const xs=DRILLX.sets.filter(x=>x.g===g),n=xs.reduce((a,x)=>a+x.ids.length,0),done=xs.filter(x=>pr(x)!=='미응시').length;return `<details class="drill"><summary><span>${esc(g)}</span><small>${xs.length}세트 · ${n}문항${done?` · ${done}세트 풀이`:''}</small></summary><div class="papers">`+xs.map(x=>`<button class="paper" data-act="drill" data-id="${x.id}"><span class="ic">${x.ic}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항${x.range?' · '+esc(x.range):''}</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div></details>`;}).join(''); }
@@ -614,12 +624,19 @@ function hl(s){ return esc(s).replace(/(제\d+조(?:의\d+)?(?:\s?제\d+항)?(?:
 function daysLeft(){ return Math.ceil((new Date(EXAM.date+'T00:00:00+09:00')-new Date())/86400000); }
 function dailyQ(){ const d=dayKey9(); let h=0; for(const c of d+'promo2') h=(h*31+c.charCodeAt(0))>>>0; const list=activeQuestions.slice().sort((a,b)=>a.id<b.id?-1:1); return list[h%list.length]; }
 function HOTSRC(q){ return '손해사정사 기출 빈출 쟁점'; }
+function yesIds(){ return YESX?[].concat(...YESX.sets.map(x=>x.ids)).filter(id=>byId[id]):[]; }
+function yesCard(){
+  if(!YESX) return '';
+  const ids=yesIds(), done=ids.filter(id=>store.ans[id]), ok=done.filter(id=>store.ans[id].ok).length, wr=done.length-ok;
+  const pill=x=>{const r=x.ids.filter(id=>store.ans[id]).length, p=Math.round(r/x.ids.length*100); return `<button class="yc-s" data-act="yes" data-id="${x.id}" style="--p:${p}"><span class="yc-ic">${x.ic}</span><b>${esc(x.name)}</b><small>${r}/${x.ids.length}</small></button>`;};
+  return `<section class="yesc anim"><span class="pc-top"><span class="pc-ic">📝</span><span class="pc-tx"><b>예상문제지 ${ids.length}문항</b><small>${done.length?`${done.length}문항 풀이 · 정답 ${ok} · 오답 ${wr}`:'실제 시험처럼 간결한 기본 문제 · 과목별'}</small></span><span class="pc-pct">${done.length?Math.round(ok/done.length*100)+'%':''}</span></span><span class="yc-grid">${YESX.sets.map(pill).join('')}</span><span class="pc-btns"><button class="pc-b" data-act="yeswrong" ${wr?'':'disabled'}>틀린 문제 ${wr}</button><a class="pc-b" href="${YESX.pdf}" target="_blank" rel="noopener">문제지 PDF</a><a class="pc-b" href="${YESX.ans}" target="_blank" rel="noopener">정답 PDF</a></span></section>`;
+}
 function pastIds(){ return PASTX?(PASTX.uniqA||[]).concat(PASTX.uniqL||[]).filter(id=>byId[id]):[]; }
 function pastCard(){
   const ids=pastIds(); if(!ids.length) return '';
   const done=ids.filter(id=>store.ans[id]), ok=done.filter(id=>store.ans[id].ok).length, wr=done.length-ok, todo=ids.length-done.length;
   const seg=PASTX.sets.map(x=>{const r=x.ids.filter(id=>store.ans[id]), o=r.filter(id=>store.ans[id].ok).length; return `<span class="pc-seg" style="flex:${x.ids.length}" title="${esc(x.name)}"><i class="o" style="width:${o/x.ids.length*100}%"></i><i class="x" style="width:${(r.length-o)/x.ids.length*100}%"></i></span>`;}).join('');
-  return `<div class="label">사내 기출<small>실제 시험과 가장 닮은 문제 · 원본 해설</small></div><section class="pastc anim"><span class="pc-top"><span class="pc-ic">📋</span><span class="pc-tx"><b>기출 ${ids.length}문항</b><small>${done.length?`${done.length}문항 풀이 · 정답 ${ok} · 오답 ${wr}`:'자동차보험·자배법 69 · 보험계약법 42'}</small></span><span class="pc-pct">${done.length?Math.round(ok/done.length*100)+'%':''}</span></span><span class="pc-bar">${seg}</span><span class="pc-lg">${PASTX.sets.map(x=>`<em style="flex:${x.ids.length}">${x.g==='L'?'상법':'자보'}${x.name.match(/\d+세트/)?x.name.match(/(\d+)세트/)[1]:''}</em>`).join('')}</span><span class="pc-btns"><button class="pc-b pri" data-act="pastgo">${todo?`이어 풀기 · ${todo}문항`:'섞어서 다시 풀기'}</button><button class="pc-b" data-act="pastwrong" ${wr?'':'disabled'}>틀린 기출 ${wr}</button></span></section>`;
+  return `<section class="pastc anim"><span class="pc-top"><span class="pc-ic">📋</span><span class="pc-tx"><b>사내 기출 ${ids.length}문항</b><small>${done.length?`${done.length}문항 풀이 · 정답 ${ok} · 오답 ${wr}`:'자동차보험·자배법 69 · 보험계약법 42'}</small></span><span class="pc-pct">${done.length?Math.round(ok/done.length*100)+'%':''}</span></span><span class="pc-bar">${seg}</span><span class="pc-lg">${PASTX.sets.map(x=>`<em style="flex:${x.ids.length}">${x.g==='L'?'상법':'자보'}${x.name.match(/\d+세트/)?x.name.match(/(\d+)세트/)[1]:''}</em>`).join('')}</span><span class="pc-btns"><button class="pc-b pri" data-act="pastgo">${todo?`이어 풀기 · ${todo}문항`:'섞어서 다시 풀기'}</button><button class="pc-b" data-act="pastwrong" ${wr?'':'disabled'}>틀린 기출 ${wr}</button></span></section>`;
 }
 function hotCard(){
   if(!HOT_IDS.length) return '';
