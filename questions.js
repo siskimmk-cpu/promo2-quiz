@@ -4454,7 +4454,9 @@ const QUESTIONS = [
  "ans": 3,
  "exp": "입원환자는 외출·외박 시 의료기관의 허락을 받아야 하고, 의료기관은 이를 기록·관리한다(제13조).",
  "ref": "자배법 제12조 제4항",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F38",
@@ -7209,7 +7211,9 @@ const QUESTIONS = [
  },
  "reviewedAt": "2026-11-06",
  "rev": 1,
- "verifiedAt": "2026-11-17"
+ "verifiedAt": "2026-11-17",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F62",
@@ -7232,7 +7236,9 @@ const QUESTIONS = [
  "ref": "자배법 제29조의2 등",
  "reviewedAt": "2026-11-06",
  "rev": 3,
- "verifiedAt": "2026-11-17"
+ "verifiedAt": "2026-11-17",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F63",
@@ -9554,7 +9560,9 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN04",
@@ -9577,7 +9585,9 @@ const QUESTIONS = [
  "ref": "자배법 제50조~제53조",
  "rel": "2026-12-18",
  "reviewedAt": "2026-11-06",
- "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+ "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN05",
@@ -9623,7 +9633,9 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN07",
@@ -9646,7 +9658,9 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN08",
@@ -9669,7 +9683,9 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN09",
@@ -9692,7 +9708,9 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN10",
@@ -9738,7 +9756,9 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN12",
@@ -9830,7 +9850,9 @@ const QUESTIONS = [
  "rel": "2026-11-10",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN16",
@@ -9853,7 +9875,9 @@ const QUESTIONS = [
  "rel": "2026-11-10",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN17",
@@ -9875,7 +9899,9 @@ const QUESTIONS = [
  "ref": "자배법 제42조",
  "rel": "2026-12-19",
  "reviewedAt": "2026-11-06",
- "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+ "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN18",
@@ -9897,7 +9923,9 @@ const QUESTIONS = [
  "ref": "자배법 제39조의15·제39조의17",
  "rel": "2026-12-19",
  "reviewedAt": "2026-11-06",
- "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+ "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN19",
@@ -9920,7 +9948,9 @@ const QUESTIONS = [
  "rel": "2026-11-11",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN20",
@@ -9942,7 +9972,9 @@ const QUESTIONS = [
  "ref": "자배법 제46조·제48조",
  "rel": "2026-12-19",
  "reviewedAt": "2026-11-06",
- "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법"
+ "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "FN21",
@@ -10033,7 +10065,9 @@ const QUESTIONS = [
  "rel": "2026-11-11",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "DN01",
@@ -11463,7 +11497,9 @@ const QUESTIONS = [
  "ref": "자배법 제33조, 제32조 제3항",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F76",
@@ -11579,7 +11615,9 @@ const QUESTIONS = [
  "ref": "자배법 제7조, 제9조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F81",
@@ -12185,7 +12223,9 @@ const QUESTIONS = [
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/89%ed%97%8c%eb%a7%88160/",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F85",
@@ -12957,7 +12997,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제11조의2·제11조의3",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F92",
@@ -13005,7 +13047,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제16조의13~제16조의17",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F94",
@@ -13054,7 +13098,9 @@ const QUESTIONS = [
  "ref": "자배법 제13조·제13조의2 / 시행령 제12조·제12조의2",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F96",
@@ -13124,7 +13170,9 @@ const QUESTIONS = [
  "ref": "자배법 제30조 / 시행령 제19조·제20조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F99",
@@ -13147,7 +13195,9 @@ const QUESTIONS = [
  "ref": "자배법 제36조 / 시행령 제29조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F100",
@@ -13811,7 +13861,9 @@ const QUESTIONS = [
  "ref": "자배법 제12조·제19조 / 시행령 제16조·제16조의2",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F107",
@@ -13835,7 +13887,9 @@ const QUESTIONS = [
  "ref": "자배법 제17조 / 시행령 제14조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F108",
@@ -13859,7 +13913,9 @@ const QUESTIONS = [
  "ref": "자배법 제39조 제3항 / 시행령 제33조의2",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F109",
@@ -13882,7 +13938,9 @@ const QUESTIONS = [
  "ref": "자배법 제14조 / 시행령 제12조의5",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "D128",
@@ -14744,7 +14802,9 @@ const QUESTIONS = [
  "ref": "자배법 제37조 / 시행령 제31조·제32조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F111",
@@ -14767,7 +14827,9 @@ const QUESTIONS = [
  "ref": "자배법 제30조 / 시행령 제21조·제22조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F112",
@@ -14791,7 +14853,9 @@ const QUESTIONS = [
  "ref": "자배법 제11조·제30조 / 시행령 제20조 제7항·제9항",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F113",
@@ -14814,7 +14878,9 @@ const QUESTIONS = [
  "ref": "자배법 제23조의3·제23조의4 / 시행령 제16조의3·제16조의8",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F114",
@@ -14837,7 +14903,9 @@ const QUESTIONS = [
  "ref": "자배법 제7조 / 시행령 제6조 제3항",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F115",
@@ -14861,7 +14929,9 @@ const QUESTIONS = [
  "ref": "자배법 제2조 제1호 / 시행령 제2조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F116",
@@ -14908,7 +14978,9 @@ const QUESTIONS = [
  "ref": "자배법 제39조 / 시행령 제33조·제33조의8",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F118",
@@ -14932,7 +15004,9 @@ const QUESTIONS = [
  "ref": "자배법 제23조의3 / 시행령 제16조의5",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F119",
@@ -14956,7 +15030,9 @@ const QUESTIONS = [
  "ref": "자배법 제30조 제3항 / 시행령 제22조의2",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "B53",
@@ -15571,7 +15647,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제11조의4·제12조·제12조의2",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F123",
@@ -15594,7 +15672,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제16조의13·제16조의14·제16조의15",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F125",
@@ -16137,7 +16217,9 @@ const QUESTIONS = [
  "ref": "자배법 제31조·제32조 / 시행령 제24조·제26조·제27조",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F129",
@@ -16162,7 +16244,9 @@ const QUESTIONS = [
  "ref": "자배법 제39조의14 / 시행령 제33조의12",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F130",
@@ -16188,7 +16272,9 @@ const QUESTIONS = [
  "ref": "자배법 제39조의14·제39조의17 / 시행령 제33조의13·제33조의15·제33조의16",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F131",
@@ -16212,7 +16298,9 @@ const QUESTIONS = [
  "ref": "자배법 제30조·제30조의2 / 시행령 제23조·제23조의2",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F132",
@@ -16238,7 +16326,9 @@ const QUESTIONS = [
  "ref": "자배법 제37조 / 시행령 제32조·제32조의2·제32조의3",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "E128",
@@ -16610,7 +16700,9 @@ const QUESTIONS = [
  "exp": "심의회 의결을 거쳐 위원장이 정한다(시행령 제14조 제4항).",
  "ref": "자배법 제12조·제17조·제19조 / 시행령 제14조·제16조·제16조의2",
  "reviewedAt": "2026-11-08",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F134",
@@ -16837,7 +16929,9 @@ const QUESTIONS = [
  "exp": "점유자 또는 소유자는 손해의 원인에 책임 있는 자에게 구상권을 행사할 수 있다(제758조 제3항).",
  "ref": "민법 제758조 제3항",
  "reviewedAt": "2026-11-08",
- "verifiedAt": "2026-11-16"
+ "verifiedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "D160",
@@ -17228,7 +17322,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제3조 제1항 제2호 / 대법원 2025. 5. 15. 선고 2022다235009 판결, 2025. 6. 26. 선고 2023다231738 판결",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4235009/",
- "verifiedAt": "2026-11-16"
+ "verifiedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F140",
@@ -17255,7 +17351,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제3조 제1항 제2호, 상법 제729조 / 대법원 2012. 10. 11. 선고 2012다44563 판결",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://korea.legal/wiki/2012%eb%8b%a444563/",
- "verifiedAt": "2026-11-16"
+ "verifiedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F141",
@@ -18403,7 +18501,9 @@ const QUESTIONS = [
  "ref": "자배법 제3조 / 대법원 1998. 10. 20. 선고 98다34058 판결",
  "reviewedAt": "2026-11-09",
  "sourceUrl": "https://www.nepla.ai/case/대법원/98다34058",
- "verifiedAt": "2026-11-18"
+ "verifiedAt": "2026-11-18",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F151",
@@ -18992,7 +19092,9 @@ const QUESTIONS = [
  "ref": "민법 제758조 제1항, 대법원 2025. 9. 4. 선고 2025다212812, 212813 판결",
  "reviewedAt": "2026-11-09",
  "sourceUrl": "https://www.scourt.go.kr/sjudge/1757566464539_135424.pdf",
- "verifiedAt": "2026-11-18"
+ "verifiedAt": "2026-11-18",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F156",
@@ -19066,7 +19168,9 @@ const QUESTIONS = [
  "ref": "민법 제766조, 대법원 2025. 12. 11. 선고 2025다216025 판결",
  "reviewedAt": "2026-11-09",
  "sourceUrl": "https://www.scourt.go.kr/sjudge/1767942859042_161419.pdf",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "D183",
@@ -19312,7 +19416,9 @@ const QUESTIONS = [
  "ref": "민법 제750조, 대법원 2026. 5. 8. 선고 2025다219673 판결",
  "reviewedAt": "2026-11-10",
  "sourceUrl": "https://www.scourt.go.kr/sjudge/1778545810590_093010.pdf",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "D186",
@@ -19818,7 +19924,9 @@ const QUESTIONS = [
  "exp": "사적 영역의 사안일수록 진실이라 믿을 상당한 이유를 엄격하게 심사한다.",
  "ref": "민법 제750조·제751조, 대법원 2026. 1. 29. 선고 2023다248729 판결, 대법원 2026. 1. 29. 선고 2024다316742 판결",
  "sourceUrl": "https://www.scourt.go.kr/sjudge/1770099572773_151932.pdf",
- "reviewedAt": "2026-11-10"
+ "reviewedAt": "2026-11-10",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F164",
@@ -19842,7 +19950,9 @@ const QUESTIONS = [
  "exp": "임대 가능성은 요건이 아니며 손해가 없다는 점은 점유자가 증명해야 한다(2025다217883).",
  "ref": "민법 제750조, 대법원 2026. 3. 12. 선고 2025다217883 판결",
  "sourceUrl": "https://www.scourt.go.kr/sjudge/1778201627504_095347.pdf",
- "reviewedAt": "2026-11-10"
+ "reviewedAt": "2026-11-10",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "D190",
@@ -21296,7 +21406,9 @@ const QUESTIONS = [
  "exp": "의심의 여지 없이 확실히 진실이라고 믿을 만한 객관적 확증과 근거가 있어야 한다(2020다296604).",
  "ref": "민법 제750조·제751조, 대법원 2025. 5. 15. 선고 2020다296604 판결",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.scourt.go.kr/sjudge/1747875236892_095356.pdf"
+ "sourceUrl": "https://www.scourt.go.kr/sjudge/1747875236892_095356.pdf",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F182",
@@ -21321,7 +21433,9 @@ const QUESTIONS = [
  "exp": "이혼으로 인한 손해는 이혼 시점에 확정되므로 혼인 해소 시부터 시효가 진행한다(2025므10716).",
  "ref": "민법 제760조·제766조 제1항, 대법원 2026. 1. 29. 선고 2025므10716 판결",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://korea.legal/wiki/2025%eb%af%8010716/"
+ "sourceUrl": "https://korea.legal/wiki/2025%eb%af%8010716/",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "E180",
@@ -22290,7 +22404,9 @@ const QUESTIONS = [
  "exp": "명예훼손은 사회적 평가 저하이므로 법인에 대해서도 성립한다(96다12696).",
  "ref": "민법 제750조·제751조·제764조, 대법원 1992. 10. 27. 선고 92다756 판결, 대법원 1996. 6. 28. 선고 96다12696 판결, 대법원 1996. 4. 12. 선고 93다40614 판결",
  "sourceUrl": "https://www.nepla.ai/case/대법원/96다12696",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F189",
@@ -22337,7 +22453,9 @@ const QUESTIONS = [
  "exp": "위원장 직무는 시행령 제16조의3 제1항 각 호의 순서에 따른 위원이 대행한다.",
  "ref": "자배법 제23조의3·제23조의4, 자배법 시행령 제16조의6·제16조의7·제16조의8·제16조의9·제16조의10",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F191",
@@ -22791,7 +22909,9 @@ const QUESTIONS = [
  "exp": "참을 한도는 피해의 성질·정도, 공공성, 방지조치 등을 종합해 판단한다(2022다210000).",
  "ref": "민법 제750조, 대법원 2023. 4. 13. 선고 2022다210000 판결",
  "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4210000/",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F193",
@@ -22816,7 +22936,9 @@ const QUESTIONS = [
  "exp": "초상권 침해의 위법성은 이익형량으로 판단하며 공적 인물 여부도 고려한다(2020다253423).",
  "ref": "민법 제750조, 대법원 2023. 4. 13. 선고 2020다253423 판결",
  "sourceUrl": "https://www.scourt.go.kr/sjudge/1682031331262_075531.pdf",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F194",
@@ -22841,7 +22963,9 @@ const QUESTIONS = [
  "exp": "과실은 추정되지 않고, 인과관계 추정은 다른 원인 증명으로 번복될 수 있다(2022다219427).",
  "ref": "민법 제750조, 대법원 2023. 8. 31. 선고 2022다219427 판결",
  "sourceUrl": "https://law.go.kr/LSW/precInfoP.do?precSeq=238639",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -23265,7 +23389,9 @@ const QUESTIONS = [
  "ref": "자배법 제13조의2, 자배법 시행령 제12조의2 제2항",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -23289,7 +23415,9 @@ const QUESTIONS = [
  "ref": "자배법 제30조 제2항, 자배법 시행령 제22조 제1항",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -23339,7 +23467,9 @@ const QUESTIONS = [
  "ref": "자배법 제30조, 자배법 시행령 제20조 제2항 제3호",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -23633,7 +23763,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -23658,7 +23790,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -23833,7 +23967,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해의 구분 2. 영역별 세부지침(두부) 다(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -23858,7 +23994,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해의 구분 2. 영역별 세부지침(상·하지 공통) 마(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -23884,7 +24022,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해의 구분 2. 영역별 세부지침(상·하지 공통) 타(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -24028,7 +24168,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 5급 20호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -24053,7 +24195,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 6급 24·25호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -24078,7 +24222,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해의 구분 2. 영역별 세부지침(두부) 자, 12급 1호(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -24102,7 +24248,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해의 구분 2. 영역별 세부지침(흉·복부), 6급 4호(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -24127,7 +24275,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해의 구분 2. 영역별 세부지침(척추) 다·라(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -24152,7 +24302,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 5급 28호·9급 16호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -24227,7 +24379,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 6급 8호·10급 4호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -24252,7 +24406,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 8급 7호·9급 5호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -25425,7 +25581,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제16조의15",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -25518,7 +25676,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제16조의16 제2항",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -25542,7 +25702,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제16조의17",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -25791,7 +25953,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-01",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -25814,7 +25978,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-01",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -25837,7 +26003,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-01",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -25860,7 +26028,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-01",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -26055,7 +26225,9 @@ const QUESTIONS = [
  "rel": "2026-12-01",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -26327,7 +26499,9 @@ const QUESTIONS = [
  "rel": "2026-12-02",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -26498,7 +26672,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-02",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -26547,7 +26723,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-02",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -26572,7 +26750,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-02",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27262,7 +27442,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제11조의2 제1항~제3항",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-15",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27435,7 +27617,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 2급 12호·3급 9호·11호·16호·5급 18호·6급 11호·14호·26호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-15",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27460,7 +27644,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 1급 9호·12호·2급 8호·13호·3급 10호·12호·14호·4급 13호·22호·5급 12호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-15",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27485,7 +27671,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 3급 5호·4급 4호·5호·6급 7호·8급 6호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-15",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27642,7 +27830,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 1급 11호·2급 9호·10호·11호·4급 20호·5급 14호·16호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-15",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27895,7 +28085,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 1급 5호·2급 5호·3급 8호·7급 4호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-15",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27920,7 +28112,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 1급 2호·3급 3호·4급 3호·6급 3호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-15",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27945,7 +28139,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 5급 32호·8급 25호·10급 9호·11급 5호·12급 7호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-15",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -27970,7 +28166,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임) 1급 1호·2급 1호·5급 1호·6급 2호·8급 1호",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-15",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "style": "기출형",
@@ -28457,7 +28655,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-04",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "D274",
@@ -28710,7 +28910,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-05",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F249",
@@ -28736,7 +28938,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-05",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F250",
@@ -28762,7 +28966,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-05",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "C136",
@@ -29302,7 +29508,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F254",
@@ -29328,7 +29536,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F255",
@@ -29354,7 +29564,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F256",
@@ -29380,7 +29592,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F257",
@@ -29406,7 +29620,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F258",
@@ -29432,7 +29648,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-16",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "C139",
@@ -31466,7 +31684,9 @@ const QUESTIONS = [
  "ref": "자배법 제30조 제2항, 자배법 시행령 제21조 제1항, 제22조 제1항",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-18",
- "verifiedAt": "2026-11-18"
+ "verifiedAt": "2026-11-18",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F276",
@@ -31490,7 +31710,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제16조의13 제3항·제4항, 제16조의14 제1항",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-18",
- "verifiedAt": "2026-11-18"
+ "verifiedAt": "2026-11-18",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "E282",
@@ -32080,7 +32302,9 @@ const QUESTIONS = [
  "exp": "운행자는 운행 중 일어난 모든 사고가 아니라 운행으로 말미암은 사고에 책임지며, 불도저 적재 중 전복은 트레일러 운행으로 인한 사고가 아니다(96다42314).",
  "ref": "자배법 제2조 제2호·제3조, 판례 대법원 1997. 1. 21. 선고 96다42314",
  "sourceUrl": "https://www.nepla.ai/case/대법원/96다42314",
- "reviewedAt": "2026-11-18"
+ "reviewedAt": "2026-11-18",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "G65",
@@ -32264,7 +32488,9 @@ const QUESTIONS = [
  "ref": "자배법 제12조 제4항, 자배법 시행령 제16조",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-18",
- "verifiedAt": "2026-11-18"
+ "verifiedAt": "2026-11-18",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "E288",
@@ -32897,7 +33123,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제11조의3",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-19",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F288",
@@ -32920,7 +33148,9 @@ const QUESTIONS = [
  "ref": "자배법 제12조의2, 자배법 시행령 제11조의4",
  "sourceUrl": "https://korea.legal/wiki/%ec%9e%90%eb%8f%99%ec%b0%a8%ec%86%90%ed%95%b4%eb%b0%b0%ec%83%81-%eb%b3%b4%ec%9e%a5%eb%b2%95-%ec%a0%9c12%ec%a1%b0%ec%9d%982/",
  "reviewedAt": "2026-11-19",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F289",
@@ -33317,7 +33547,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제16조의2",
  "reviewedAt": "2026-11-19",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F295",
@@ -33340,7 +33572,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 제8조",
  "reviewedAt": "2026-11-19",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "G67",
@@ -33662,7 +33896,9 @@ const QUESTIONS = [
  "ref": "자배법 제13조의2, 자배법 시행령 제12조의2",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-19",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "F297",
@@ -33685,7 +33921,9 @@ const QUESTIONS = [
  "ref": "자배법 제13조, 자배법 시행령 제12조",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-19",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(위원회·기관 운영, 행정 절차·기간 세부, 재활·자율주행·피해자지원, 상해구분 세부지침·별표 개별 항목, 민법 비교통 판례)"
 },
 {
  "id": "G68",
