@@ -569,7 +569,9 @@ const QUESTIONS = [
  "ans": 1,
  "exp": "휘발유·경유차량 연료 소진 시 3리터 한도로 비상급유한다. 서비스는 계약기간 중 6회 제공하면 종료하고, 동시에 제공한 서비스는 각각 1회로 산정한다.",
  "ref": "약관 15 2·5",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "B14",
@@ -3325,7 +3327,9 @@ const QUESTIONS = [
  "ans": 1,
  "exp": "특별요율은 대인공제Ⅰ에는 적용하지 않는다.",
  "ref": "자동차공제약관(25.8.12.) 7 1.",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "A23",
@@ -3676,7 +3680,9 @@ const QUESTIONS = [
  "ans": 2,
  "exp": "외제차량 또는 배기량 2,700cc 이상 차량, 2.5t 초과 구난차, 구난차 2대 이상, 30분 초과 작업 등이 특수한 구난이다.",
  "ref": "자동차공제약관(25.8.12.) 15 2.(1)",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "B29",
@@ -6837,7 +6843,9 @@ const QUESTIONS = [
  "ref": "공제약관 24 공제계약 정보의 제공",
  "reviewedAt": "2026-11-06",
  "rev": 1,
- "verifiedAt": "2026-11-16"
+ "verifiedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C33",
@@ -10985,7 +10993,9 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "AN02",
@@ -11147,7 +11157,9 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "AN09",
@@ -11985,7 +11997,9 @@ const QUESTIONS = [
  "ref": "공제약관 8 보상처리 절차 및 사고할증",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "B44",
@@ -12054,7 +12068,9 @@ const QUESTIONS = [
  "ref": "공제약관 15 긴급출동서비스",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 2
+ "rev": 2,
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "B47",
@@ -14013,7 +14029,9 @@ const QUESTIONS = [
  "ref": "공제약관 4 공제분담금의 납입방법 2. 분담금의 자동이체납입",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "A47",
@@ -14037,7 +14055,9 @@ const QUESTIONS = [
  "ref": "공제약관 4 공제분담금의 납입방법 3. 분담금의 신용카드이용납입",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "A48",
@@ -14984,7 +15004,9 @@ const QUESTIONS = [
  "ref": "공제약관 26 지급기준【후유장애】 1. 위자료 나.(1)",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C61",
@@ -15126,7 +15148,9 @@ const QUESTIONS = [
  "ref": "공제약관 27 대물공제 지급기준 3. 대차료",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-14"
+ "verifiedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "E117",
@@ -15877,7 +15901,9 @@ const QUESTIONS = [
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(공통) 가~다·마",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C67",
@@ -15903,7 +15929,9 @@ const QUESTIONS = [
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(두부) 다~아",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "F127",
@@ -15979,7 +16007,9 @@ const QUESTIONS = [
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(상·하지 공통) 마·머·버, (공통) 라",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C69",
@@ -16005,7 +16035,9 @@ const QUESTIONS = [
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(척추 가·나, 하지 나·자)",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C70",
@@ -16030,7 +16062,9 @@ const QUESTIONS = [
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(상·하지 공통) 나·바~카",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-15"
+ "verifiedAt": "2026-11-15",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C71",
@@ -16702,7 +16736,9 @@ const QUESTIONS = [
  "ref": "공제약관 9 분쟁, 합의, 관할법원 2.·3.",
  "reviewedAt": "2026-11-08",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-16"
+ "verifiedAt": "2026-11-16",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C76",
@@ -17734,7 +17770,9 @@ const QUESTIONS = [
  "ref": "공제약관 24 공제계약 정보의 제공, 25 기타사항",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-09",
- "verifiedAt": "2026-11-17"
+ "verifiedAt": "2026-11-17",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "F145",
@@ -19553,7 +19591,9 @@ const QUESTIONS = [
  "exp": "고도·48시간 미만은 수술 3급, 비수술 4급이다. 고도·48시간 이상은 1급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 1. 상해 구분별 한도금액(1급 1·2급 1·3급 1~2·4급 1·8급 1)",
  "reviewedAt": "2026-11-10",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C85",
@@ -19577,7 +19617,9 @@ const QUESTIONS = [
  "exp": "족관절 탈구는 수술 5급·비수술 7급이고, 슬관절 탈구는 수술 4급·비수술 6급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 1. 상해 구분별 한도금액(4급 21·5급 15·22·6급 10·23·7급 21·23·8급 9)",
  "reviewedAt": "2026-11-10",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C86",
@@ -19649,7 +19691,9 @@ const QUESTIONS = [
  "exp": "비골 골절은 수술 9급·비수술 11급이다. 3cm 이상 안면부 열상은 10급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 1. 상해 구분별 한도금액(8급 2·5·9급 1·10급 1·11급 2·12급 2·13급 2)",
  "reviewedAt": "2026-11-10",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C89",
@@ -19673,7 +19717,9 @@ const QUESTIONS = [
  "exp": "다발성 중수골 골절 7급, 단일 중수골 골절 8급이다. 거골·종골 골절은 4급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 1. 상해 구분별 한도금액(4급 23·5급 23·7급 17·8급 12·18)",
  "reviewedAt": "2026-11-10",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C90",
@@ -19721,7 +19767,9 @@ const QUESTIONS = [
  "exp": "사지 열상 창상 봉합은 길이에 관계없이 12급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 1. 상해 구분별 한도금액(5급 28·6급 8·30·9급 16·10급 4·12급 5)",
  "reviewedAt": "2026-11-10",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C92",
@@ -19744,7 +19792,9 @@ const QUESTIONS = [
  "exp": "9% 이상 1급, 약 4.5% 이상 4급이다. 뇌진탕은 11급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표1 1. 상해 구분별 한도금액(1급 14·4급 26·5급 32·6급 31·11급 1·12급 1·2·4)",
  "reviewedAt": "2026-11-10",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "F163",
@@ -19866,7 +19916,9 @@ const QUESTIONS = [
  "exp": "14개 이상 10급, 10개 이상 11급, 7개 이상 12급, 5개 이상 13급, 3개 이상 14급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(7급 12·8급 5·11·10급 3·8·11급 11·12급 13·13급 9)",
  "reviewedAt": "2026-11-10",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C94",
@@ -19916,7 +19968,9 @@ const QUESTIONS = [
  "exp": "한쪽 눈 0.6 이하 13급, 두 눈 각각 0.6 이하 9급, 한쪽 눈 0.1 이하 10급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(4급 1·3·6급 1·8급 1·9급 1·9·10급 1·13급 1)",
  "reviewedAt": "2026-11-10",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "F165",
@@ -20933,7 +20987,9 @@ const QUESTIONS = [
  "exp": "1개 관절 기능 장애 12급, 뚜렷한 장애 10급, 제대로 못씀 8급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(6급 6·7, 7급 9·10, 8급 6~9, 10급 10·11, 12급 6·7)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C97",
@@ -20959,7 +21015,9 @@ const QUESTIONS = [
  "exp": "한쪽 다리 무릎관절 이상 4급, 발목관절 이상 5급이다. 두 다리 무릎관절 이상은 1급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(1급 6·8, 2급 3·4, 4급 4·5·7, 5급 2·3, 7급 8)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C98",
@@ -20983,7 +21041,9 @@ const QUESTIONS = [
  "exp": "엄지 상실 9급, 둘째손가락 상실 10급, 엄지 포함 2개 상실 8급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(3급 5, 4급 6, 7급 6, 8급 3, 9급 10, 10급 6, 11급 7, 13급 5)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C99",
@@ -21008,7 +21068,9 @@ const QUESTIONS = [
  "exp": "두 눈 뚜렷한 결손 9급, 한쪽 눈 뚜렷한 결손 11급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(9급 4, 11급 1~3, 12급 1·2, 13급 3, 14급 1)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C100",
@@ -21033,7 +21095,9 @@ const QUESTIONS = [
  "exp": "1m 이상 불가 9급, 알아듣는 데 지장 10급, 40cm 이상 불가 7급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(7급 2, 9급 7, 10급 5, 11급 4·5, 12급 4, 14급 3)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C101",
@@ -21058,7 +21122,9 @@ const QUESTIONS = [
  "exp": "신경계통과 흉복부 장기 모두 노무 상당 제한은 9급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(1급 4, 2급 6, 5급 7, 7급 4·5, 9급 15·16, 11급 10)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C102",
@@ -21082,7 +21148,9 @@ const QUESTIONS = [
  "exp": "엄지 포함 2개 이상 상실 9급, 같은 범위 제대로 못씀 11급, 한쪽 발 발가락 모두 상실 8급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(5급 6, 7급 11, 8급 10, 9급 12·13, 11급 9, 12급 10, 13급 10)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C103",
@@ -21108,7 +21176,9 @@ const QUESTIONS = [
  "exp": "코 결손 기능 장애는 9급이다. 말하는 기능과 씹는 기능 완전 상실은 1급이다.",
  "ref": "공제약관 [붙임] 자배법 시행령 별표2 후유장애의 구분(1급 2, 3급 2, 4급 2, 6급 2, 9급 5·6, 10급 2)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "G50",
@@ -21536,7 +21606,9 @@ const QUESTIONS = [
  "exp": "연료 완전소진은 차종 불문 1일 1회 10km 견인 대상이며, 비상급유는 휘발유·경유 차량에 한한다.",
  "ref": "공제약관 15 긴급출동서비스 공제 2.(2)·(3), 3.(1)",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "B69",
@@ -21770,7 +21842,9 @@ const QUESTIONS = [
  "exp": "26F는 한 등급 위 Z인 27Z를 적용한다.",
  "ref": "공제약관 8 2.(4)나.2) 사고가 없는 경우의 갱신계약 적용등급",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "A62",
@@ -21816,7 +21890,9 @@ const QUESTIONS = [
  "exp": "2월 초과 3월까지는 30%이며, 임의해지는 조합원에게 책임 있는 사유로 보아 단기요율을 적용한다.",
  "ref": "공제약관 19 2.(3) 공제계약이 해지된 경우·단기요율표",
  "reviewedAt": "2026-11-11",
- "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116"
+ "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "A64",
@@ -22406,7 +22482,9 @@ const QUESTIONS = [
  "exp": "각 계약 한도가 낮아도 합계액이 더 많으면 무보험자동차가 아니다.",
  "ref": "공제약관 10 용어정의 7 무보험자동차",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "B74",
@@ -22474,7 +22552,9 @@ const QUESTIONS = [
  "exp": "신장 파열 수술 2급, 심장 파열 수술 1급, 비구 골절 수술 1급이다.",
  "ref": "공제약관 26 대인공제 지급기준 [붙임] 자배법 시행령 별표1 1. 상해 구분(1~4급)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C105",
@@ -22497,7 +22577,9 @@ const QUESTIONS = [
  "exp": "별도 등급이 없는 2~11급 사지 골절에 도수 정복·경피적 핀고정술을 하면 1급 낮게 적용한다.",
  "ref": "공제약관 26 대인공제 지급기준 [붙임] 자배법 시행령 별표1 2. 영역별 세부지침(상·하지 공통 가·타·파·하)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C106",
@@ -22520,7 +22602,9 @@ const QUESTIONS = [
  "exp": "절제술 외 개흉·흉강경 수술은 3급이나 진단적 목적이면 4급이다.",
  "ref": "공제약관 26 대인공제 지급기준 [붙임] 자배법 시행령 별표1 1. 상해 구분(3·4급)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "G53",
@@ -23347,7 +23431,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-12",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -24189,7 +24275,9 @@ const QUESTIONS = [
  "ref": "공제약관 15 긴급출동서비스 공제 2.(1)① 비상구난서비스",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-13",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -25382,7 +25470,9 @@ const QUESTIONS = [
  "ref": "공제약관 15 긴급출동서비스 공제 1.(1)·(2), 2.",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -25888,7 +25978,9 @@ const QUESTIONS = [
  "rel": "2026-12-01",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -25912,7 +26004,9 @@ const QUESTIONS = [
  "rel": "2026-12-01",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -25935,7 +26029,9 @@ const QUESTIONS = [
  "rel": "2026-12-01",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -26125,7 +26221,9 @@ const QUESTIONS = [
  "rel": "2026-12-02",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -26149,7 +26247,9 @@ const QUESTIONS = [
  "rel": "2026-12-02",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -26174,7 +26274,9 @@ const QUESTIONS = [
  "rel": "2026-12-02",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -26294,7 +26396,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-02",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -26318,7 +26422,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-02",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -26342,7 +26448,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "verifiedAt": "2026-11-14",
  "rel": "2026-12-02",
- "reviewedAt": "2026-11-14"
+ "reviewedAt": "2026-11-14",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "style": "기출형",
@@ -32926,7 +33034,9 @@ const QUESTIONS = [
  "ref": "공제약관 8 자동차 사고시 보상처리 흐름도",
  "reviewedAt": "2026-11-19",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-19"
+ "verifiedAt": "2026-11-19",
+ "off": 1,
+ "offReason": "2026-11-19 기본성 정비: 지엽(긴급출동 세부·요율·납입방법·정보제공·상해구분 세부지침·등급표 개별 항목·계산형)"
 },
 {
  "id": "C152",
