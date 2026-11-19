@@ -288,7 +288,7 @@ test('from 2026-12-03, each release day follows the past-exam style mix (negativ
 // 2026. 11. 18. 사용자 지시: 실제 시험은 간결한 기본 문제 — 12/10 이후 공개분은 계산·해상보험 문항 금지
 test('from 2026-12-10, new questions have no calculation items and no marine-insurance topics',()=>{
   const BAD=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
-  for(const q of SRC.filter(q=>q.rel>='2026-12-10'&&!q.drill)){
+  for(const q of SRC.filter(q=>(q.rel>='2026-12-10'||(q.reviewedAt||'')>='2026-11-20')&&!q.drill&&!q.off)){
     assert.ok(!(q.tags||[]).includes('계산'),`${q.id}: 계산 문항 금지`);
     assert.ok(!BAD.test(q.q+q.opts.join('')),`${q.id}: 해상·운송보험 문항 금지`);
   }
@@ -296,11 +296,11 @@ test('from 2026-12-10, new questions have no calculation items and no marine-ins
 
 // 2026. 11. 18. 사용자 지시: 모든 문항은 기출 형식 — 12/10 이후 새 문항은 형식 규칙을 지켜야 한다
 test('from 2026-12-10, new questions follow the past-exam format (one-line stem, short options, no case/box/case number)',()=>{
-  for(const q of SRC.filter(q=>q.rel>='2026-12-10'&&!q.drill)) assert.ok(!offFormat(q),`${q.id}: 기출 형식 위반(node tools/fmtcheck.js 참고)`);
+  for(const q of SRC.filter(q=>(q.rel>='2026-12-10'||(q.reviewedAt||'')>='2026-11-20')&&!q.drill&&!q.off)) assert.ok(!offFormat(q),`${q.id}: 기출 형식 위반(node tools/fmtcheck.js 참고)`);
 });
 
 // 2026. 11. 19. 사용자 지시: 새로 만드는 문제도 기본성 기준 적용 — 12/10 이후 공개분에 지엽 쟁점 금지
 test('from 2026-12-10, new questions avoid the trivia topics removed on 11/19',()=>{
   const TRIV=/위원회|위원의? (수|임기)|임기|분과위원|심의회 위원|결손처분|보존기간|보존한다|재활시설|재활사업|자율주행|피해자 지원|유자녀|지원사업|피해예방|세부지침|글라스고우|긴급출동|비상급유|비상구난|요율|재보험|지급준비금|IBNR|IFRS|합산비율|보험수요|확실성등가|위험프리미엄|대재해채권|ART|단체보험|보증보험|암보험|실손|연금보험|명예훼손|초상권|소음|분양/;
-  for(const q of SRC.filter(q=>q.rel>='2026-12-10'&&!q.drill&&!q.off)) assert.ok(!TRIV.test(q.q+q.opts.join('')),`${q.id}: 11/19 기본성 기준상 지엽 쟁점(README 출제 형식 참고)`);
+  for(const q of SRC.filter(q=>(q.rel>='2026-12-10'||(q.reviewedAt||'')>='2026-11-20')&&!q.drill&&!q.off)) assert.ok(!TRIV.test(q.q+q.opts.join('')),`${q.id}: 11/19 기본성 기준상 지엽 쟁점(README 출제 형식 참고)`);
 });
