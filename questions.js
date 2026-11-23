@@ -7290,11 +7290,11 @@ const QUESTIONS = [
   "사망·생존에 관한 사고 시 보험금을 지급한다.",
   "손해보험이므로 일부보험 규정이 적용된다.",
   "보험금은 약정에 따라 분할 지급할 수 있다.",
-  "옛 제735조·제735조의2는 삭제되었다."
+  "보험계약자는 보험수익자를 지정하거나 변경할 수 있다."
  ],
  "ans": 1,
  "exp": "생명보험은 정액보험인 인보험이므로 보험가액·일부보험 규정이 적용되지 않는다.",
- "ref": "상법 제727조·제730조 (옛 제735조·제735조의2 삭제)",
+ "ref": "상법 제727조·제730조·제733조",
  "hot": {
   "t": "생명보험·피보험자 동의",
   "y": 10,
@@ -7302,7 +7302,8 @@ const QUESTIONS = [
  },
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
- "rev": 2
+ "rev": 2,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "D68",
@@ -10029,7 +10030,9 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-23 검증: 복제(F90과 정답 쟁점 동일)"
 },
 {
  "id": "FN06",
@@ -10152,7 +10155,8 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "FN11",
@@ -10200,7 +10204,8 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 2
+ "rev": 2,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "FN13",
@@ -10223,7 +10228,8 @@ const QUESTIONS = [
  "rel": "2026-11-10",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "FN14",
@@ -10246,7 +10252,9 @@ const QUESTIONS = [
  "rel": "2026-11-10",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/자동차손해배상보장법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-23 검증: 복제(F44와 정답 쟁점 동일)"
 },
 {
  "id": "FN15",
@@ -10512,7 +10520,8 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "DN02",
@@ -10585,7 +10594,8 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "DN05",
@@ -10655,7 +10665,8 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "rev": 2
+ "rev": 2,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "DN08",
@@ -10726,7 +10737,8 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "rev": 2
+ "rev": 2,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "DN11",
@@ -10750,7 +10762,9 @@ const QUESTIONS = [
  "rel": "2026-11-10",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.law.go.kr/법령/상법",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-23 검증: 복제(D262·D06과 정답 쟁점 동일, 제655조)"
 },
 {
  "id": "DN12",
@@ -10774,7 +10788,9 @@ const QUESTIONS = [
  "rel": "2026-11-10",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.nepla.ai/case/대법원/2013다66966",
- "rev": 1
+ "rev": 1,
+ "off": 1,
+ "offReason": "2026-11-23 검증: 지엽(개인택시 공제약관에 없는 가족운전자 한정특약 판례, 판결 원문 확인 불가)"
 },
 {
  "id": "DN13",
@@ -11495,7 +11511,8 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "AN03",
@@ -11518,7 +11535,8 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 2
+ "rev": 2,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "AN04",
@@ -11541,7 +11559,8 @@ const QUESTIONS = [
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "AN05",
@@ -11553,18 +11572,19 @@ const QUESTIONS = [
  ],
  "q": "공제계약자동차 양도 시 일시 담보에서 보상하지 않는 손해는?",
  "opts": [
-  "양도 다음 날의 대인 사고",
-  "양수인 명의 이전등록 이후의 손해",
-  "양도 10일째 대물 사고",
-  "의무 대물 한도 내 손해"
+  "양도 다음 날 생긴 대인 사고",
+  "양수인 명의로 이전등록된 이후의 손해",
+  "양도일부터 15일째 되는 날 생긴 대인 사고",
+  "양수인 명의 의무보험 가입 전의 대인 사고"
  ],
  "ans": 1,
- "exp": "이전등록 이후나 양수인 명의 의무보험 가입 이후의 손해는 보상하지 않는다.",
+ "exp": "양수인 명의 이전등록 이후나 양수인 명의 의무보험 가입 이후의 손해는 보상하지 않는다. 대물은 기명조합원 등 외의 사람이 운전한 사고를 보상하지 않는다.",
  "ref": "공제약관(2025. 8. 12.) 20 1.",
  "rel": "2026-11-08",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "AN06",
@@ -11574,7 +11594,7 @@ const QUESTIONS = [
   "해제",
   "의무보험"
  ],
- "q": "다른 의무보험에 이중 가입한 사실을 모르고 의무보험 공제계약을 맺은 경우 조합원의 권리는?",
+ "q": "의무보험만 맺은 공제계약 전에 의무보험이 포함된 다른 계약이 유효하게 맺어져 있는 경우 조합원의 권리는?",
  "opts": [
   "해지만 할 수 있다",
   "다른 계약 종료 후에만 해제할 수 있다",
@@ -11587,7 +11607,8 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 2
+ "rev": 2,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "AN07",
@@ -11610,7 +11631,8 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "AN08",
@@ -11658,7 +11680,8 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "BN01",
@@ -11681,7 +11704,8 @@ const QUESTIONS = [
  "rel": "2026-11-09",
  "reviewedAt": "2026-11-06",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "rev": 1
+ "rev": 1,
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "BN02",
@@ -22930,14 +22954,15 @@ const QUESTIONS = [
  "opts": [
   "피보험자 아닌 자에 대한 소송 비용은 제외된다.",
   "책임이 부정됐어도 필요 방어비용은 부담한다.",
-  "사전 동의 조항은 설명했으면 유효하다.",
+  "사전 동의 없으면 전혀 보상 않는다는 조항도 유효하다.",
   "지출이 명백히 예상되면 선급을 청구할 수 있다."
  ],
  "ans": 2,
- "exp": "사전 동의 없으면 방어비용을 보상하지 않는다는 조항은 제663조에 반해 무효다(2002다22106).",
+ "exp": "사전 동의가 없으면 방어비용을 전면 부정하는 약관 조항은 그 한도에서 제663조에 반해 무효다(2002다22106). 피해자가 피보험자에게 청구조차 하지 않은 제3자 상대 소송 비용은 방어비용이 아니다(94다27076).",
  "ref": "상법 제663조·제720조 제1항, 대법원 2002. 6. 28. 선고 2002다22106 판결, 대법원 94다27076 판결",
  "sourceUrl": "https://korea.legal/wiki/2002%eb%8b%a422106/",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "D214",
@@ -22987,7 +23012,8 @@ const QUESTIONS = [
  "exp": "보험자가 피보험자의 손해배상채무를 병존적으로 인수한 것이다(99다37856).",
  "ref": "상법 제724조 제2항, 민법 제741조, 대법원 2000. 12. 8. 선고 99다37856 판결",
  "sourceUrl": "https://www.nepla.ai/case/대법원/99다37856",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "D216",
@@ -23003,13 +23029,14 @@ const QUESTIONS = [
   "피보험자에 포함된 고용 운전사에게는 대위 불가",
   "지급 전 피보험자가 받은 부분도 전부 대위한다.",
   "일부 지급 시 피보험자 권리를 해치지 않는 범위",
-  "대위 후 다른 자의 상속인 지급은 영향이 없다."
+  "지급한 보험금의 한도에서 제3자에 대한 권리를 취득한다."
  ],
  "ans": 1,
  "exp": "보험금 지급 전에 피보험자가 권리를 행사해 변제받은 부분은 대위할 수 없다(80다1643).",
- "ref": "상법 제682조 제1항, 대법원 1981. 7. 7. 선고 80다1643 판결, 대법원 1991. 11. 26. 선고 90다10063 판결, 대법원 1995. 7. 14. 선고 94다36698 판결",
+ "ref": "상법 제682조 제1항, 대법원 1981. 7. 7. 선고 80다1643 판결, 대법원 1991. 11. 26. 선고 90다10063 판결",
  "sourceUrl": "https://korea.legal/wiki/80%eb%8b%a41643/",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "D217",
@@ -23059,7 +23086,8 @@ const QUESTIONS = [
  "exp": "채권을 현실적으로 만족시키는 변제·공탁·상계만 절대적 효력이 있고, 이행청구 등은 상대적 효력이다(2008다97218).",
  "ref": "민법 제760조, 대법원 2010. 9. 16. 선고 2008다97218 전원합의체 판결, 대법원 2011. 4. 14. 선고 2010다91886 판결, 대법원 1993. 5. 27. 선고 93다6560 판결",
  "sourceUrl": "https://www.nepla.ai/wiki/민사/계약/부진정연대채무의-법률관계-1509xgdgmnol",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "F188",
@@ -23109,7 +23137,8 @@ const QUESTIONS = [
  "exp": "운행자는 운행으로 말미암아 일어난 사고에만 책임진다(93다59595).",
  "ref": "자배법 제2조 제2호·제3조, 대법원 1994. 8. 23. 선고 93다59595 판결, 대법원 1993. 11. 23. 선고 93다25127 판결",
  "sourceUrl": "https://www.nepla.ai/case/대법원/93다59595",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "F190",
@@ -23210,7 +23239,8 @@ const QUESTIONS = [
  "exp": "예상 밖으로 확대된 손해의 시효는 그 사유가 판명된 때부터 진행한다(99다42797).",
  "ref": "민법 제750조·제766조 제1항, 대법원 2001. 9. 14. 선고 99다42797 판결",
  "sourceUrl": "https://korea.legal/wiki/99%eb%8b%a442797/",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "E193",
@@ -23255,10 +23285,11 @@ const QUESTIONS = [
   "계약 자동 해지"
  ],
  "ans": 1,
- "exp": "반환도 양도에 포함되며 판 사람(빌려준 사람)을 양수인으로 본다. 양도 시 권리·의무는 양수인에게 승계되지 않는다.",
+ "exp": "반환도 양도에 포함되며 판 사람(대차계약은 빌려준 사람)을 양수인으로 본다. 양도 시 권리·의무는 양수인에게 승계되지 않는다.",
  "ref": "공제약관 20 1.(1)~(3)·2.(3) 공제계약의 승계",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "B73",
@@ -23306,7 +23337,8 @@ const QUESTIONS = [
  "exp": "대인공제Ⅱ는 판결 확정, 재판상 화해, 중재 또는 서면 합의로 배상액이 확정된 때 청구한다.",
  "ref": "공제약관 17 공제금 또는 손해배상의 청구 1.(1)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "A66",
@@ -23328,7 +23360,8 @@ const QUESTIONS = [
  "exp": "서면·전자우편·문자 등을 발송한 때 효력이 생긴다.",
  "ref": "공제약관 22 청약 철회",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "reviewedAt": "2026-11-12"
+ "reviewedAt": "2026-11-12",
+ "verifiedAt": "2026-11-23"
 },
 {
  "id": "C104",
@@ -37002,7 +37035,9 @@ const QUESTIONS = [
  "ans": 1,
  "exp": "일부보험은 원칙적으로 보험금액의 보험가액에 대한 비율로 보상하지만, 다른 약정이 있으면 보험금액 한도에서 손해 전부를 보상하는데 이를 제1차위험보험(실손보상계약)이라 한다.",
  "ref": "손해사정이론(재물보험 손해사정이론 — 일부보험과 비례보상) / 상법 제674조 단서",
- "reviewedAt": "2026-11-22"
+ "reviewedAt": "2026-11-22",
+ "off": 1,
+ "offReason": "2026-11-23 검증: 복제(E295와 정답 쟁점 동일, 제674조 단서)"
 },
 {
  "id": "C168",
