@@ -14,7 +14,8 @@ const HIDE_RE=/해상|운송보험|운송인|선박|적하|공동해손|선하�
 // 기출 형식(발문 한 줄·짧은 보기·사례/<보기> 없음·판례 번호 없는 발문)에 맞지 않는 문항도 고쳐 쓰기 전까지 숨긴다(tools/fmtcheck.js와 같은 기준)
 const CASE_NO=/\d{2,4}(다|두|도|나|가합|가단)\d{2,}/;
 const offFormat=q=>!!(q.case||q.box||q.q.length>80||(q.opts||[]).join('').length/4>60||(q.opts||[]).some(o=>o.length>75)||CASE_NO.test(q.q));
-const isHidden=q=>!q.past&&(q.off||(q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join(''))||offFormat(q));
+// 2026. 11. 24.: 사용자가 보내 준 예상문제(user:1, drill.js)는 숨김 규칙 예외로 전부 노출
+const isHidden=q=>!q.past&&!q.user&&(q.off||(q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join(''))||offFormat(q));
 function refreshRelease(){
   const day=dayKey9(); if(day===REL_DAY) return false;
   REL_DAY=day;
@@ -228,7 +229,7 @@ function home(){
   h+=`<div class="label">빠르게 풀기</div>`+quickGrid(st);
   h+=dailyCard();
   if(!(isStandalone()||!isMobile)) h+=`<div class="label">바로가기</div><div class="list"><button class="row" data-act="guide"><span class="ic b">${ico('home')}</span><span class="tx"><span class="nm">홈 화면에 앱으로 추가하기</span><span class="meta">주소창 없이 앱처럼 · 그림으로 따라하기</span></span>${ico('chev','chev')}</button></div>`;
-  h+=`<p class="foot">${esc(EXAM.label)} 시험 · 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식) 기준 문제 ${st.N}문항(계산·해상보험 제외). 풀이 기록은 이 기기에 저장되고, 로그인하면 계정과 동기화돼요.</p>`;
+  h+=`<p class="foot">${esc(EXAM.label)} 시험 · 공고 과목(자배법·손해사정이론·보험계약법·공제약관·상식) 기준 문제 ${st.N}문항(보내준 예상문제 포함). 풀이 기록은 이 기기에 저장되고, 로그인하면 계정과 동기화돼요.</p>`;
   app.innerHTML=h; bindActs();
   const fg=app.querySelector('.hero .g-fg'), gv=app.querySelector('.hero .g-v');
   if(fg&&pr.ready&&!matchMedia('(prefers-reduced-motion: reduce)').matches){ const end=fg.style.strokeDashoffset; const full=fg.style.strokeDasharray; fg.style.transition='none'; fg.style.strokeDashoffset=full; requestAnimationFrame(()=>requestAnimationFrame(()=>{ fg.style.transition=''; fg.style.strokeDashoffset=end; })); if(gv){ const to=pr.prob, t0=performance.now(); const f=t=>{const k=Math.min(1,(t-t0)/1000); gv.textContent=Math.round(to*(1-Math.pow(1-k,3)))+'%'; if(k<1) requestAnimationFrame(f);}; requestAnimationFrame(f);} }

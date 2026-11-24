@@ -14,7 +14,7 @@ const SRC_IDS=SRC.map(q=>q.id);
 // 2026. 11. 18.: 앱은 계산·해상보험 문항을 연습·모의고사에서 뺀다(app.js isHidden과 같은 기준)
 const HIDE_RE=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
 const {offFormat}=require('./fmtcheck.js');
-const hidden=q=>!q.past&&(q.off||(q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join(''))||offFormat(q));
+const hidden=q=>!q.past&&!q.user&&(q.off||(q.tags||[]).includes('계산')||HIDE_RE.test(q.q+(q.opts||[]).join(''))||offFormat(q));
 const upto=d=>SRC.filter(q=>!hidden(q)&&(!q.rel||q.rel<=d));
 const onDay=d=>SRC.filter(q=>!hidden(q)&&q.rel===d);
 const ids=list=>list.map(q=>q.id);
