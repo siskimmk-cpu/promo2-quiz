@@ -17802,7 +17802,8 @@ const QUESTIONS = [
  "exp": "보장사업 보상금은 약관 지급기준으로만 산정하므로 피해자 과실이 있으면 상실수익액뿐 아니라 장례비·위자료에도 과실상계를 한다(2008다93964).",
  "ref": "자배법 제30조, 자배법 시행령 제19조·제20조 / 대법원 2009. 3. 26. 선고 2008다93964 판결",
  "sourceUrl": "https://www.nepla.ai/case/대법원/2008다93964",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "verifiedAt": "2026-11-24"
 },
 {
  "style": "기출형",
@@ -17851,7 +17852,8 @@ const QUESTIONS = [
  "exp": "렌터카 회사가 차량을 지입 형태로 운영하게 한 사실은 통상의 대여와 크게 다르지 않아 중요한 사항이나 현저한 위험 증가로 볼 수 없다고 하여 해지를 부정했다(95다25268).",
  "ref": "상법 제651조·제652조·제653조 / 대법원 1997. 9. 5. 선고 95다25268 판결",
  "sourceUrl": "https://www.nepla.ai/case/대법원/95다25268",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "verifiedAt": "2026-11-24"
 },
 {
  "style": "기출형",
@@ -17874,7 +17876,8 @@ const QUESTIONS = [
  "exp": "제655조 단서는 고지의무 위반뿐 아니라 위험이 현저하게 변경·증가된 사실이 사고 발생에 영향을 미치지 않았음이 증명된 경우에도 보험금 지급책임을 인정한다. 제653조는 보험수익자의 고의·중과실도 포함.",
  "ref": "상법 제652조·제653조·제655조",
  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c655%ec%a1%b0/",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "verifiedAt": "2026-11-24"
 },
 {
  "style": "기출형",
@@ -17898,7 +17901,8 @@ const QUESTIONS = [
  "exp": "담보 제공·공탁은 보험금액의 한도 내에서 보험자에게 청구할 수 있다(제720조 제2항). 다만 보험자 지시에 의한 경우에는 손해액과 합해 보험금액을 넘어도 보험자가 부담한다.",
  "ref": "상법 제680조·제720조",
  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c720%ec%a1%b0/",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "verifiedAt": "2026-11-24"
 },
 {
  "style": "기출형",
@@ -18070,7 +18074,8 @@ const QUESTIONS = [
  "exp": "유동성 함정에서는 금리를 더 내려도(통화를 풀어도) 경기 부양 효과가 없어 재정정책이 대안으로 거론된다. 금리 인상은 오히려 긴축 수단이다.",
  "ref": "시사상식(경제 용어: 유동성 함정)",
  "sourceUrl": "https://sgsg.hankyung.com/article/2024062878761",
- "reviewedAt": "2026-11-15"
+ "reviewedAt": "2026-11-15",
+ "verifiedAt": "2026-11-24"
 },
 {
  "style": "기출형",
@@ -18145,7 +18150,8 @@ const QUESTIONS = [
  "ref": "상법 제662조 / 대법원 2005. 12. 23. 선고 2005다59383, 59390 판결",
  "sourceUrl": "https://korea.legal/wiki/2005%eb%8b%a459383/",
  "rel": "2026-12-04",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "verifiedAt": "2026-11-24"
 },
 {
  "style": "기출형",
@@ -18170,7 +18176,8 @@ const QUESTIONS = [
  "ref": "상법 제638조의3·제659조 / 대법원 2006. 1. 26. 선고 2005다60017 판결",
  "sourceUrl": "https://www.nepla.ai/case/대법원/2005다60017",
  "rel": "2026-12-04",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "verifiedAt": "2026-11-24"
 },
 {
  "style": "기출형",
@@ -18195,7 +18202,8 @@ const QUESTIONS = [
  "ref": "상법 제726조의4 / 대법원 2007. 2. 23. 선고 2005다65463 판결",
  "sourceUrl": "https://korea.legal/wiki/2005%eb%8b%a465463/",
  "rel": "2026-12-04",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "verifiedAt": "2026-11-24"
 },
 {
  "style": "기출형",
@@ -18349,7 +18357,8 @@ const QUESTIONS = [
  "ref": "상법 제651조, 대법원 2020다247268 판결",
  "sourceUrl": "https://korea.legal/wiki/2020%eb%8b%a4247268/",
  "rel": "2026-12-05",
- "reviewedAt": "2026-11-16"
+ "reviewedAt": "2026-11-16",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "F247",
@@ -18662,7 +18671,8 @@ const QUESTIONS = [
  "ref": "대법원 1998. 6. 23. 선고 98다14191 판결, 약관규제법 제3조·제7조",
  "sourceUrl": "https://www.nepla.ai/case/대법원/98다14191",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D281",
@@ -18687,7 +18697,8 @@ const QUESTIONS = [
  "ref": "상법 제662조, 대법원 2023. 7. 13. 선고 2019다214248, 214255 판결",
  "sourceUrl": "https://www.law.go.kr/LSW//precInfoP.do?precSeq=240283",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D282",
@@ -18709,10 +18720,11 @@ const QUESTIONS = [
  ],
  "ans": 3,
  "exp": "고지의무 위반 해지는 계약 당사자인 보험계약자나 그 상속인(또는 그 대리인)에게 해야 하고, 타인을 위한 보험이라도 보험수익자에게 한 해지 의사표시는 약관상 별도 기재 등 특별한 사정이 없으면 효력이 없다(87다카2973). 보험금 청구권자(수익자)와 해지 상대방(계약자)을 혼동시키는 함정.",
- "ref": "상법 제651조, 대법원 1989. 2. 14. 선고 87다카2973 판결",
+ "ref": "상법 제651조, 대법원 1989. 2. 14. 선고 87다카2973 판결, 대법원 2025. 4. 24. 선고 2024다313941 판결",
  "sourceUrl": "https://korea.legal/wiki/87%eb%8b%a4%ec%b9%b42973/",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D284",
@@ -18737,7 +18749,8 @@ const QUESTIONS = [
  "ref": "대법원 1996. 9. 20. 선고 95다53942 판결, 상법 제719조",
  "sourceUrl": "https://korea.legal/wiki/95%eb%8b%a453942/",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D286",
@@ -18762,7 +18775,8 @@ const QUESTIONS = [
  "ref": "상법 제64조·제662조, 대법원 2021. 7. 22. 선고 2019다277812 전원합의체 판결",
  "sourceUrl": "https://scourt.go.kr/sjudge/1626942858241_173418.pdf",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "E265",
@@ -18785,7 +18799,8 @@ const QUESTIONS = [
  "exp": "향후치료비는 장래에 지출할 비용이어도 사고로 새로 부담하는 지출이므로 적극적 손해다. 소극적 손해는 휴업손해·일실수입·일실퇴직금처럼 얻지 못하게 된 이익.",
  "ref": "손해사정이론(손해의 분류: 적극적 손해·소극적 손해·정신적 손해), 민법 제750조·제751조",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "B101",
@@ -18837,7 +18852,8 @@ const QUESTIONS = [
  "ref": "민법 제750조·제763조, 대법원 2000. 5. 12. 선고 99다68577 판결, 대법원 1999. 6. 11. 선고 99다7091 판결",
  "sourceUrl": "https://korea.legal/wiki/99%eb%8b%a468577/",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "F260",
@@ -18855,7 +18871,7 @@ const QUESTIONS = [
   "오토바이를 본 이상 신뢰의 원칙이 배제되어 과실이 인정된다.",
   "특별한 사정이 없으면 오토바이도 정지하리라 신뢰하면 족하다.",
   "진행신호가 켜져도 출발하지 않고 오토바이의 동태를 살필 의무가 있다.",
-  "후방 차량 확인은 일반적 의무여서 양쪽 과실이 같다."
+  "오토바이가 법규를 위반했더라도 출발한 운전자에게 일부 과실이 인정된다."
  ],
  "ans": 1,
  "exp": "신호대기 중인 운전자는 뒤에서 오는 오토바이를 보았더라도 특별한 사정이 없으면 그 오토바이도 정지하리라 신뢰하면 족하고, 갑작스러운 진로 변경까지 예상해 출발을 미룰 의무는 없다(2003다3607). 신뢰의 원칙은 상대방이 법규를 지키리라 신뢰할 수 없는 특별한 사정이 있을 때만 배제된다.",
@@ -18863,7 +18879,8 @@ const QUESTIONS = [
  "sourceUrl": "https://korea.legal/wiki/2003%eb%8b%a43607/",
  "rel": "2026-12-07",
  "reviewedAt": "2026-11-17",
- "fmtAt": "2026-11-18"
+ "fmtAt": "2026-11-18",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "F261",
@@ -18888,7 +18905,8 @@ const QUESTIONS = [
  "sourceUrl": "https://www.nepla.ai/case/대법원/99다19957",
  "rel": "2026-12-07",
  "reviewedAt": "2026-11-17",
- "fmtAt": "2026-11-18"
+ "fmtAt": "2026-11-18",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "F262",
@@ -19044,7 +19062,8 @@ const QUESTIONS = [
  "ref": "손해사정이론(보험계약의 소멸), 상법 제649조·제650조·제654조",
  "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
  "rel": "2026-12-07",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "A85",
@@ -19143,7 +19162,8 @@ const QUESTIONS = [
  "ref": "손해사정이론(일부보험과 비례보상), 상법 제674조",
  "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
  "rel": "2026-12-07",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D294",
@@ -19168,7 +19188,8 @@ const QUESTIONS = [
  "ref": "대법원 2014. 7. 24. 선고 2013다217108 판결, 상법 제638조의3·제652조",
  "sourceUrl": "https://korea.legal/wiki/2013%eb%8b%a4217108/",
  "rel": "2026-12-07",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "F268",
@@ -19192,7 +19213,8 @@ const QUESTIONS = [
  "ref": "대법원 2005. 10. 7. 선고 2005다32197 판결, 민법 제763조·제396조",
  "sourceUrl": "https://www.nepla.ai/case/대법원/2005다32197",
  "rel": "2026-12-08",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "F269",
@@ -19217,7 +19239,8 @@ const QUESTIONS = [
  "ref": "대법원 2008. 1. 18. 선고 2006다41471 판결, 민법 제756조",
  "sourceUrl": "https://www.nepla.ai/case/대법원/2006다41471",
  "rel": "2026-12-08",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "F270",
@@ -19242,7 +19265,8 @@ const QUESTIONS = [
  "ref": "대법원 2021. 8. 19. 선고 2019다297137 판결, 민법 제766조",
  "sourceUrl": "https://www.nepla.ai/case/%EB%8C%80%EB%B2%95%EC%9B%90/2019%EB%8B%A4297137",
  "rel": "2026-12-08",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D296",
@@ -19267,7 +19291,8 @@ const QUESTIONS = [
  "ref": "대법원 1995. 9. 26. 선고 94다28093 판결, 상법 제724조",
  "sourceUrl": "https://www.nepla.ai/case/대법원/94다28093",
  "rel": "2026-12-08",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D297",
@@ -19292,7 +19317,8 @@ const QUESTIONS = [
  "ref": "대법원 1998. 3. 27. 선고 97다6308 판결, 상법 제663조·제726조의2",
  "sourceUrl": "https://www.nepla.ai/case/대법원/97다6308",
  "rel": "2026-12-08",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D298",
@@ -19317,7 +19343,8 @@ const QUESTIONS = [
  "ref": "대법원 1997. 7. 25. 선고 96다46613 판결, 상법 제726조의2, 자배법 제3조",
  "sourceUrl": "https://www.nepla.ai/case/대법원/96다46613",
  "rel": "2026-12-08",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D299",
@@ -19342,7 +19369,8 @@ const QUESTIONS = [
  "ref": "대법원 2001. 6. 1. 선고 2000다33089 판결, 상법 제682조",
  "sourceUrl": "https://www.nepla.ai/case/대법원/2000다33089",
  "rel": "2026-12-08",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D300",
@@ -19368,7 +19396,8 @@ const QUESTIONS = [
  "ref": "대법원 1996. 12. 10. 선고 96다37848 판결, 상법 제650조·제663조·제664조",
  "sourceUrl": "https://www.nepla.ai/case/대법원/96다37848",
  "rel": "2026-12-08",
- "reviewedAt": "2026-11-17"
+ "reviewedAt": "2026-11-17",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "D301",
@@ -26033,7 +26062,8 @@ const QUESTIONS = [
  "ans": 3,
  "exp": "손실통제는 사고 발생 빈도를 줄이는 손실예방(안전교육·정기점검·휴식 등)과 사고 후 손실 심도를 줄이는 손실감소(에어백·스프링클러 등)로 나뉜다.",
  "ref": "손해사정이론(위험관리 기법 — 손실통제: 손실예방·손실감소)",
- "reviewedAt": "2026-11-24"
+ "reviewedAt": "2026-11-24",
+ "verifiedAt": "2026-11-24"
 },
 {
  "id": "F346",
