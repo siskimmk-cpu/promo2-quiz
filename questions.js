@@ -19401,6 +19401,7 @@ const QUESTIONS = [
 },
 {
  "id": "D301",
+ "verifiedAt": "2026-11-25",
  "sec": "D",
  "style": "기출형",
  "level": "고난도",
@@ -19427,6 +19428,7 @@ const QUESTIONS = [
 },
 {
  "id": "D302",
+ "verifiedAt": "2026-11-25",
  "sec": "D",
  "style": "기출형",
  "level": "고난도",
@@ -19452,6 +19454,7 @@ const QUESTIONS = [
 },
 {
  "id": "E276",
+ "verifiedAt": "2026-11-25",
  "sec": "E",
  "style": "기출형",
  "level": "고난도",
@@ -19751,6 +19754,7 @@ const QUESTIONS = [
 },
 {
  "id": "D304",
+ "verifiedAt": "2026-11-25",
  "sec": "D",
  "style": "기출형",
  "level": "고난도",
@@ -19776,6 +19780,7 @@ const QUESTIONS = [
 },
 {
  "id": "D310",
+ "verifiedAt": "2026-11-25",
  "sec": "D",
  "style": "기출형",
  "level": "고난도",
@@ -19800,6 +19805,7 @@ const QUESTIONS = [
 },
 {
  "id": "E285",
+ "verifiedAt": "2026-11-25",
  "sec": "E",
  "style": "기출형",
  "level": "고난도",
@@ -19824,6 +19830,7 @@ const QUESTIONS = [
 },
 {
  "id": "F277",
+ "verifiedAt": "2026-11-25",
  "sec": "F",
  "style": "기출형",
  "level": "고난도",
@@ -19848,6 +19855,7 @@ const QUESTIONS = [
 },
 {
  "id": "F278",
+ "verifiedAt": "2026-11-25",
  "sec": "F",
  "style": "기출형",
  "level": "고난도",
@@ -19862,7 +19870,7 @@ const QUESTIONS = [
   "운행에 사실상 이해관계가 없어도 운행을 지휘·감독할 지위에 있어 운행자이다.",
   "차를 인도하여 운행지배를 상실하였으므로 운행자가 아니다.",
   "운행에 사실상 이해관계가 없으므로 운행이익이 없어 운행자가 아니다.",
-  "을이 할부금을 연체한 때에 한하여 운행지배를 회복하여 운행자가 된다."
+  "매수인이 할부금을 연체한 때에 한하여 운행지배를 회복하여 운행자가 된다."
  ],
  "ans": 0,
  "exp": "매도인은 운행에 사실상 이해관계가 없더라도 매수인과 함께 운행을 지휘·감독할 책임이 있어 자기를 위하여 운행하는 자에 해당한다(88다카24752).",
@@ -19873,6 +19881,7 @@ const QUESTIONS = [
 },
 {
  "id": "F279",
+ "verifiedAt": "2026-11-25",
  "sec": "F",
  "style": "기출형",
  "tags": [
@@ -19895,6 +19904,7 @@ const QUESTIONS = [
 },
 {
  "id": "F280",
+ "verifiedAt": "2026-11-25",
  "sec": "F",
  "style": "기출형",
  "level": "고난도",
@@ -19920,6 +19930,7 @@ const QUESTIONS = [
 },
 {
  "id": "G65",
+ "verifiedAt": "2026-11-25",
  "sec": "G",
  "style": "기출형",
  "tags": [
@@ -20492,6 +20503,7 @@ const QUESTIONS = [
 },
 {
  "id": "D314",
+ "verifiedAt": "2026-11-25",
  "sec": "D",
  "style": "기출형",
  "tags": [
@@ -20536,6 +20548,7 @@ const QUESTIONS = [
 },
 {
  "id": "D316",
+ "verifiedAt": "2026-11-25",
  "sec": "D",
  "style": "기출형",
  "tags": [
@@ -20580,6 +20593,7 @@ const QUESTIONS = [
 },
 {
  "id": "D318",
+ "verifiedAt": "2026-11-25",
  "sec": "D",
  "style": "기출형",
  "tags": [
@@ -20602,6 +20616,7 @@ const QUESTIONS = [
 },
 {
  "id": "E292",
+ "verifiedAt": "2026-11-25",
  "sec": "E",
  "style": "기출형",
  "tags": [
@@ -20646,6 +20661,7 @@ const QUESTIONS = [
 },
 {
  "id": "E294",
+ "verifiedAt": "2026-11-25",
  "sec": "E",
  "style": "기출형",
  "tags": [
@@ -20737,6 +20753,7 @@ const QUESTIONS = [
 },
 {
  "id": "G66",
+ "verifiedAt": "2026-11-25",
  "sec": "G",
  "style": "기출형",
  "tags": [
@@ -21268,6 +21285,7 @@ const QUESTIONS = [
 },
 {
  "id": "G68",
+ "verifiedAt": "2026-11-25",
  "sec": "G",
  "style": "기출형",
  "tags": [
@@ -26392,6 +26410,7 @@ const QUESTIONS = [
 },
 {
  "id": "E371",
+ "verifiedAt": "2026-11-25",
  "sec": "E",
  "style": "기출형",
  "tags": [
