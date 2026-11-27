@@ -352,7 +352,7 @@
     load();
   }
   var SC_SUBJ = [['F', '자배법'], ['E', '손해사정이론'], ['D', '보험계약법'], ['Y', '공제약관'], ['G', '상식']];
-  var SC_SRC = [['site', '사이트 문제', '매일 추가되는 문제은행'], ['user', '보내준 예상문제', '민기가 보내준 예상문제·교재 문제'], ['past', '사내 기출', '작년 기출 원본']];
+  var SC_SRC = [['site', '사이트 문제', '매일 추가되는 문제은행'], ['user', '보내준 예상문제', '민기가 보내준 예상문제·교재 문제'], ['past', '사내 기출', '작년 기출 원본'], ['adj', '손해사정사 기출', '손해사정사 시험 기출 원문만(보내준 문제 중 368문제)']];
   function scopeLabel(v) {
     if (!v) return '전체';
     if (v.block) return '오류 화면(접속 차단)';
@@ -370,7 +370,8 @@
     var hid = function (q) { return !q.past && !q.user && (q.off || (q.tags || []).indexOf('계산') >= 0 || HIDE.test(q.q + (q.opts || []).join('')) || fmt(q)); };
     var all = [].concat(typeof QUESTIONS !== 'undefined' ? QUESTIONS : [], (window.PAST && window.PAST.qs) || [], (window.DRILL && window.DRILL.qs) || []);
     var sj = function (sec) { return sec === 'A' || sec === 'B' || sec === 'C' ? 'Y' : sec; };
-    PICK = all.filter(function (q) { return !hid(q); }).map(function (q) { return { id: q.id, s: sj(q.sec), src: q.past ? 'past' : q.user ? 'user' : 'site', q: q.q }; });
+    var adj = {}; ((window.DRILL && window.DRILL.sets) || []).filter(function (x) { return /회\(\d{4}\) 기출/.test(x.name); }).forEach(function (x) { x.ids.forEach(function (i) { adj[i] = 1; }); });
+    PICK = all.filter(function (q) { return !hid(q); }).map(function (q) { return { id: q.id, s: sj(q.sec), src: q.past ? 'past' : q.user ? 'user' : 'site', adj: !!(adj[q.id] || (q.user && /제\s*\d+\s*회[^)]*기출/.test(q.q))), q: q.q }; });
     return PICK;
   }
   function scopeSheet(email, name, cur, done) {
@@ -380,7 +381,7 @@
     var mode = cur && cur.block ? 'block' : cur && cur.ids ? 'pick' : 'grp';
     var sel = {}; ((cur && cur.ids) || []).forEach(function (id) { sel[id] = 1; });
     var f = { s: '', src: '', t: '', only: false };
-    var SN = { F: '자배법', E: '손해사정', D: '보험계약법', Y: '공제약관', G: '상식' }, RN = { site: '사이트', user: '보내준', past: '기출' };
+    var SN = { F: '자배법', E: '손해사정', D: '보험계약법', Y: '공제약관', G: '상식' }, RN = { site: '사이트', user: '보내준', past: '사내 기출', adj: '손해사정사 기출' };
     var o = sheet('<h2>문제 범위</h2><p class="p2g-p">' + esc(name || '') + ' <small>' + esc(email) + '</small><br>고른 것만 이 사람 화면(연습·모의고사·통계·검색·예상문제지)에 나와요.</p>' +
       '<div class="p2sc-mode"><button type="button" data-m="grp">과목·종류로</button><button type="button" data-m="pick">문제 직접 고르기</button><button type="button" data-m="block">오류 화면</button></div>' + '<div id="p2ScB"><p class="p2g-p">이 사람이 앱을 열면 문제 대신 <b>「일시적인 서버 오류」</b> 화면이 나와요. 「다시 시도」를 눌러도 계속 오류로 보이고, 계정 해제 표시는 나오지 않아요. 풀이 기록은 그대로 두고, 「전체로 되돌리기」하면 다시 정상으로 열려요.</p></div>' +
       '<div id="p2ScG"><div class="label">과목</div><div class="p2sc-g">' + box('subj', SC_SUBJ, cur && cur.subj) + '</div>' +
@@ -391,7 +392,7 @@
       '<p class="p2g-small">저장하면 그 사람이 앱을 다시 열 때 바로 바뀌어요. 풀이 기록은 지워지지 않아요. 직접 고른 문제는 공개일(매일 오전 9시)이 지난 것부터 보여요.</p>', true);
     var chips = function (el, key, map) { el.innerHTML = '<button type="button" data-v="">전체</button>' + Object.keys(map).map(function (k) { return '<button type="button" data-v="' + k + '">' + map[k] + '</button>'; }).join(''); el.querySelectorAll('button').forEach(function (b) { b.onclick = function () { f[key] = b.dataset.v; draw(); }; }); };
     chips($('#p2PkS', o), 's', SN); chips($('#p2PkR', o), 'src', RN);
-    function list() { var t = f.t.trim(); return pickPool().filter(function (x) { return (!f.s || x.s === f.s) && (!f.src || x.src === f.src) && (!t || x.q.indexOf(t) >= 0 || x.id === t) && (!f.only || sel[x.id]); }); }
+    function list() { var t = f.t.trim(); return pickPool().filter(function (x) { return (!f.s || x.s === f.s) && (!f.src || x.src === f.src || (f.src === 'adj' && x.adj)) && (!t || x.q.indexOf(t) >= 0 || x.id === t) && (!f.only || sel[x.id]); }); }
     function draw() {
       o.querySelectorAll('[data-m]').forEach(function (b) { b.classList.toggle('on', b.dataset.m === mode); });
       $('#p2ScG', o).hidden = mode !== 'grp'; $('#p2ScP', o).hidden = mode !== 'pick'; $('#p2ScB', o).hidden = mode !== 'block';
@@ -402,7 +403,7 @@
       var L = list(), n = Object.keys(sel).length;
       $('#p2PkN', o).textContent = '고른 문제 ' + n + '개 · 목록 ' + L.length + '개';
       var show = L.slice(0, 300);
-      $('#p2PkL', o).innerHTML = show.map(function (x) { return '<label class="p2pk"><input type="checkbox" value="' + esc(x.id) + '"' + (sel[x.id] ? ' checked' : '') + '><span><small>' + SN[x.s] + ' · ' + RN[x.src] + '</small>' + esc(x.q) + '</span></label>'; }).join('') + (L.length > show.length ? '<p class="p2a-e">' + (L.length - show.length) + '개 더 있어요 — 검색이나 과목으로 좁혀 보세요. (「보이는 것 모두 선택」은 목록 전체에 적용돼요)</p>' : '') + (L.length ? '' : '<p class="p2a-e">맞는 문제가 없어요.</p>');
+      $('#p2PkL', o).innerHTML = show.map(function (x) { return '<label class="p2pk"><input type="checkbox" value="' + esc(x.id) + '"' + (sel[x.id] ? ' checked' : '') + '><span><small>' + SN[x.s] + ' · ' + RN[x.src] + (x.adj && x.src !== 'adj' ? ' · 손해사정사 기출' : '') + '</small>' + esc(x.q) + '</span></label>'; }).join('') + (L.length > show.length ? '<p class="p2a-e">' + (L.length - show.length) + '개 더 있어요 — 검색이나 과목으로 좁혀 보세요. (「보이는 것 모두 선택」은 목록 전체에 적용돼요)</p>' : '') + (L.length ? '' : '<p class="p2a-e">맞는 문제가 없어요.</p>');
     }
     $('#p2PkL', o).addEventListener('change', function (e) { var i = e.target; if (!i.value) return; if (i.checked) sel[i.value] = 1; else delete sel[i.value]; $('#p2PkN', o).textContent = '고른 문제 ' + Object.keys(sel).length + '개 · 목록 ' + list().length + '개'; });
     var tt = 0; $('#p2PkT', o).oninput = function (e) { clearTimeout(tt); tt = setTimeout(function () { f.t = e.target.value; draw(); }, 200); };

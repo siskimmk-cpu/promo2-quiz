@@ -7,9 +7,11 @@ const DRILLX=(typeof window!=='undefined'&&window.DRILL)||null; if(DRILLX) DRILL
 // 2026. 11. 27. 사용자별 문제 범위: 관리자가 사용자 관리에서 지정(auth.js → window.P2SCOPE = {subj:[F,E,D,Y,G], src:[site,user,past]}). 없으면 전부.
 let SCOPE=(typeof window!=='undefined'&&window.P2SCOPE)||null;
 const srcOf=q=>q.past?'past':q.user?'user':'site';
+// 손해사정사 시험 기출 원문: 보내준 문제 중 「제N회(연도) 기출」 세트 + 발문에 (제N회 기출) 표시가 있는 문제
+const ADJ=new Set(); if(DRILLX){ (DRILLX.sets||[]).filter(x=>/회\(\d{4}\) 기출/.test(x.name)).forEach(x=>x.ids.forEach(i=>ADJ.add(i))); DRILLX.qs.filter(q=>/제\s*\d+\s*회[^)]*기출/.test(q.q)).forEach(q=>ADJ.add(q.id)); }
 const SCOPE_IDS=SCOPE&&Array.isArray(SCOPE.ids)?new Set(SCOPE.ids):null; // 관리자가 직접 고른 문제만
 const inScope=q=>{ if(!SCOPE) return true; if(SCOPE_IDS) return SCOPE_IDS.has(q.id); const sj=(SUBJECTS.find(x=>x.secs.includes(q.sec))||{}).id;
-  return (!Array.isArray(SCOPE.subj)||SCOPE.subj.includes(sj))&&(!Array.isArray(SCOPE.src)||SCOPE.src.includes(srcOf(q))); };
+  return (!Array.isArray(SCOPE.subj)||SCOPE.subj.includes(sj))&&(!Array.isArray(SCOPE.src)||SCOPE.src.includes(srcOf(q))||(SCOPE.src.includes('adj')&&ADJ.has(q.id))); };
 if(SCOPE&&!ALL0.some(inScope)) SCOPE=null; // 범위에 맞는 문제가 하나도 없으면 전체로
 const ALL_QUESTIONS=SCOPE?ALL0.filter(inScope):ALL0;
 if(SCOPE){ for(let i=SUBJECTS.length-1;i>=0;i--){ const sub=SUBJECTS[i]; if(!ALL_QUESTIONS.some(q=>sub.secs.includes(q.sec))) SUBJECTS.splice(i,1); } if(SUBJECTS.length) EXAM.n=SUBJECTS.reduce((a,x)=>a+x.n,0); } // 범위 밖(문제 0개) 과목은 목록·모의고사·통계에서도 뺀다
