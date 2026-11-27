@@ -22,6 +22,7 @@
 ## 2026. 11. 27. 사용자별 문제 범위
 - 관리자: 설정 → 사용자 관리 → 사람마다 「범위」 버튼 → 과목(자배법·손해사정이론·보험계약법·공제약관·상식)과 문제 종류(사이트 문제·보내준 예상문제·사내 기출)를 체크해 저장. 「전체로 되돌리기」 = 제한 없음.
 - 저장 위치: `quiz_members.scope`(jsonb). SQL: `tools/supabase_quiz_scope.sql`(Supabase SQL Editor에서 한 번 실행). RPC `quiz_my_scope`·`quiz_admin_scopes`·`quiz_admin_set_scope`.
+- 범위 방식 3가지: ① 과목·종류(`subj`·`src`) ② 문제 직접 고르기(`ids`, 검색·과목·종류 필터로 체크) ③ 오류 화면(`block:true`, 앱 대신 「일시적인 서버 오류」 화면, 다시 시도해도 유지, 기록 보존). 관리자 확인은 새 함수에서 `public.is_admin()`이 false로 나와 `quiz_admin_users()` 호출로 대신한다.
 - 앱: auth.js가 이 기기에 저장해 둔 범위(`promo2-scope`)를 `window.P2SCOPE`로 넘겨 바로 시작하고, 서버 값이 바뀌었으면 저장 후 새로고침. app.js는 범위 밖 문항을 ALL_QUESTIONS에서 빼고(연습·모의고사·통계·검색·예상문제지 전부), 문제 0개 과목은 SUBJECTS에서 빼며 모의고사 문항 수(EXAM.n)를 남은 과목 합으로 맞춘다. 범위에 맞는 문제가 0개면 전체로 연다. 풀이 기록은 지우지 않는다.
 
 ## 2026. 11. 24. 시험범위 밖 문항 삭제

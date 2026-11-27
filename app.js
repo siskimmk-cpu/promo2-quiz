@@ -7,7 +7,8 @@ const DRILLX=(typeof window!=='undefined'&&window.DRILL)||null; if(DRILLX) DRILL
 // 2026. 11. 27. 사용자별 문제 범위: 관리자가 사용자 관리에서 지정(auth.js → window.P2SCOPE = {subj:[F,E,D,Y,G], src:[site,user,past]}). 없으면 전부.
 let SCOPE=(typeof window!=='undefined'&&window.P2SCOPE)||null;
 const srcOf=q=>q.past?'past':q.user?'user':'site';
-const inScope=q=>{ if(!SCOPE) return true; const sj=(SUBJECTS.find(x=>x.secs.includes(q.sec))||{}).id;
+const SCOPE_IDS=SCOPE&&Array.isArray(SCOPE.ids)?new Set(SCOPE.ids):null; // 관리자가 직접 고른 문제만
+const inScope=q=>{ if(!SCOPE) return true; if(SCOPE_IDS) return SCOPE_IDS.has(q.id); const sj=(SUBJECTS.find(x=>x.secs.includes(q.sec))||{}).id;
   return (!Array.isArray(SCOPE.subj)||SCOPE.subj.includes(sj))&&(!Array.isArray(SCOPE.src)||SCOPE.src.includes(srcOf(q))); };
 if(SCOPE&&!ALL0.some(inScope)) SCOPE=null; // 범위에 맞는 문제가 하나도 없으면 전체로
 const ALL_QUESTIONS=SCOPE?ALL0.filter(inScope):ALL0;
