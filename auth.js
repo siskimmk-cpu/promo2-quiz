@@ -96,12 +96,28 @@
     enter();
   }
   function cachedAuth() { try { return JSON.parse(rd(AUTHC, 'null')); } catch (e) { return null; } }
+  /* 사용자별 문제 범위(관리자 지정): 이 기기에 저장해 두고 바로 쓰고, 서버 값이 바뀌었으면 저장 후 새로고침 */
+  var SCOPEK = 'promo2-scope';
+  function normScope(v) { if (!v || typeof v !== 'object') return null; var o = {}; if (Array.isArray(v.subj) && v.subj.length) o.subj = v.subj.slice().sort(); if (Array.isArray(v.src) && v.src.length) o.src = v.src.slice().sort(); return (o.subj || o.src) ? o : null; }
+  function cachedScope() { try { return normScope(JSON.parse(rd(SCOPEK, 'null'))); } catch (e) { return null; } }
+  function syncScope() {
+    st.sb.rpc('quiz_my_scope').then(function (r) {
+      if (r.error) return; // 서버 SQL 적용 전이면 조용히 전체 범위
+      var sv = normScope(r.data), a = JSON.stringify(sv), b = JSON.stringify(cachedScope());
+      if (a === b) return;
+      if (sv) wr(SCOPEK, a); else rm(SCOPEK);
+      if (st.timer) { clearTimeout(st.timer); push(); }
+      setTimeout(function () { location.reload(); }, 400);
+    }).catch(function () { });
+  }
 
   var entered = false;
   function enter() {
     if (entered) { closeGate(); return; } entered = true;
     if (/access_token|type=signup|type=recovery/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
     closeGate(); window.P2A.me = st.me;
+    window.P2SCOPE = cachedScope();
+    syncScope();
     var s = document.createElement('script'); s.src = 'app.js?v=' + (window.BUILD || ''); document.body.appendChild(s);
     hookSave();
     setTimeout(function () { var ov = document.getElementById('ov'); if (ov && !ov.hidden) { setTimeout(function () { guide(); }, 4000); } else guide(); }, 1400);
@@ -258,6 +274,7 @@
   async function finishLogout(clear) {
     try { await st.sb.auth.signOut(); } catch (e) { }
     if (clear) { rm(KEY); rm(CHG); rm(SYNCED); rm(OWNER); }
+    rm('promo2-scope');
     // clear=false: 기록과 소유자 표시는 남겨, 같은 계정으로 다시 로그인하면 서버와 합쳐서 올린다
     rm(AUTHC); location.reload();
   }
@@ -288,13 +305,15 @@
       var r = await st.sb.rpc('quiz_admin_users');
       if (r.error) { L.textContent = '불러오지 못했어요: ' + r.error.message; return; }
       var rows = r.data || [], me = (st.user.email || '').toLowerCase();
+      var sc = {}; try { var rs = await st.sb.rpc('quiz_admin_scopes'); if (!rs.error) (rs.data || []).forEach(function (x) { sc[x.email] = normScope(x.scope); }); else st.noScope = true; } catch (e) { st.noScope = true; }
+      rows.forEach(function (x) { x.scope = sc[x.email] || null; });
       var P = rows.filter(function (x) { return x.status === 'pending'; }), A = rows.filter(function (x) { return x.status === 'approved'; }).sort(function (a, b) { return Date.parse(b.synced_at || 0) - Date.parse(a.synced_at || 0); }), R = rows.filter(function (x) { return x.status === 'revoked'; });
       var tot = A.reduce(function (s, x) { return s + ((x.stats || {}).done || 0); }, 0);
       var card = function (x) {
         var s = x.stats || {}, self = x.email === me;
         var act = x.status === 'pending' ? '<button class="p2a-b ok" data-ap="' + esc(x.email) + '">승인</button><button class="p2a-b" data-rj="' + esc(x.email) + '">거절</button>'
           : x.status === 'revoked' ? '<button class="p2a-b ok" data-ap="' + esc(x.email) + '">다시 승인</button>'
-          : self ? '<span class="p2a-tag">나</span>' : '<button class="p2a-b" data-tp="' + esc(x.email) + '">임시 비밀번호</button><button class="p2a-b warn" data-rv="' + esc(x.email) + '">해제</button>';
+          : self ? '<button class="p2a-b" data-sc="' + esc(x.email) + '">범위</button><span class="p2a-tag">나</span>' : '<button class="p2a-b" data-sc="' + esc(x.email) + '">범위</button><button class="p2a-b" data-tp="' + esc(x.email) + '">임시 비밀번호</button><button class="p2a-b warn" data-rv="' + esc(x.email) + '">해제</button>';
         var SN = { F: '자배법', E: '손해사정', D: '보험계약법', Y: '공제약관', G: '상식' };
         var live = x.synced_at && Date.now() - Date.parse(x.synced_at) < 5 * 60000;
         var prog = s.total ? Math.min(100, Math.round((s.done || 0) / s.total * 100)) : 0;
@@ -302,10 +321,10 @@
         var stat = x.status === 'approved' ? (live ? '<div class="p2a-live"><i></i>최근 5분 내 활동' + (s.live ? ' · 마지막 기록: ' + (s.live.mock ? '모의고사 ' : '') + esc(s.live.t) + ' ' + s.live.i + '/' + s.live.n + '번' : '') + '</div>' : '') +
           '<div class="p2a-pg"><span>진도 ' + prog + '%</span><i><b style="width:' + prog + '%"></b></i><small>' + (s.done || 0) + '/' + (s.total || '–') + '</small></div>' +
           '<div class="p2a-st"><span><b>' + (s.today || 0) + '</b>오늘 푼 문제</span><span><b>' + (s.pct || 0) + '%</b>정답률(최종)</span><span><b>' + (s.first == null ? '–' : s.first + '%') + '</b>첫 풀이 정답률' + (s.firstN ? ' (' + s.firstN + '문항)' : '') + '</span><span><b>' + (s.days7 || 0) + '일</b>최근 7일</span><span><b>' + (s.lastMock ? s.lastMock.sc + '점' : '–') + '</b>최근 모의고사' + (s.bestMock ? ' (최고 ' + s.bestMock + ')' : '') + '</span></div>' + subj : '';
-        return '<div class="p2a-r"><div class="p2a-h"><div><b>' + esc(x.name || '(이름 없음)') + '</b><small>' + esc(x.email) + '</small></div><div class="p2a-act">' + act + '</div></div>' + stat +
+        return '<div class="p2a-r"><div class="p2a-h"><div><b>' + esc(x.name || '(이름 없음)') + '</b><small>' + esc(x.email) + '</small>' + (x.status === 'approved' ? '<small class="p2a-scope' + (x.scope ? ' on' : '') + '">문제 범위: ' + esc(scopeLabel(x.scope)) + '</small>' : '') + '</div><div class="p2a-act">' + act + '</div></div>' + stat +
           '<div class="p2a-m">' + (x.status === 'pending' ? '가입 ' + ago(x.created_at) : '마지막 학습 ' + ago(x.synced_at) + ' · 접속 ' + ago(x.last_seen || x.last_sign_in)) + '</div></div>';
       };
-      L.className = '';
+      st.adminRows = rows; L.className = '';
       L.innerHTML = '<p class="p2a-rt">15초마다 자동 새로고침 · ' + new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' }) + ' 기준</p><div class="p2a-sum"><span><b>' + A.length + '</b>사용 중</span><span><b>' + P.length + '</b>승인 대기</span><span><b>' + tot.toLocaleString() + '</b>전체 풀이</span></div>' +
         (P.length ? '<h3>승인 대기 ' + P.length + '</h3>' + P.map(card).join('') : '') +
         '<h3>사용 중 ' + A.length + '</h3>' + (A.length ? A.map(card).join('') : '<p class="p2a-e">아직 없어요.</p>') +
@@ -321,9 +340,43 @@
         r = b.dataset.rv ? await st.sb.rpc('quiz_admin_set', { p_email: b.dataset.rv, p_status: 'revoked' }) : await st.sb.rpc('quiz_admin_reject', { p_email: b.dataset.rj });
         M(r.error ? '실패: ' + r.error.message : (b.dataset.rv ? b.dataset.rv + ' 사용을 해제했어요.' : b.dataset.rj + ' 가입을 거절했어요.'), !r.error);
       } else if (b.dataset.tp) { tempPw(b.dataset.tp); return; }
+      else if (b.dataset.sc) { var row = (st.adminRows || []).filter(function (x) { return x.email === b.dataset.sc; })[0]; scopeSheet(b.dataset.sc, row ? row.name : '', row ? row.scope : null, load); return; }
       load();
     }
     load();
+  }
+  var SC_SUBJ = [['F', '자배법'], ['E', '손해사정이론'], ['D', '보험계약법'], ['Y', '공제약관'], ['G', '상식']];
+  var SC_SRC = [['site', '사이트 문제', '매일 추가되는 문제은행'], ['user', '보내준 예상문제', '민기가 보내준 예상문제·교재 문제'], ['past', '사내 기출', '작년 기출 원본']];
+  function scopeLabel(v) {
+    if (!v) return '전체';
+    var a = v.subj ? SC_SUBJ.filter(function (x) { return v.subj.indexOf(x[0]) >= 0; }).map(function (x) { return x[1]; }).join('·') : '전 과목';
+    var b = v.src ? SC_SRC.filter(function (x) { return v.src.indexOf(x[0]) >= 0; }).map(function (x) { return x[1]; }).join('·') : '모든 문제';
+    return a + ' / ' + b;
+  }
+  function scopeSheet(email, name, cur, done) {
+    if (st.noScope) { sheet('<h2>문제 범위</h2><p class="p2g-p">서버에 범위 기능(SQL)이 아직 적용되지 않았어요. <b>tools/supabase_quiz_scope.sql</b>을 Supabase → SQL Editor에서 한 번 실행해 주세요.</p>'); return; }
+    var on = function (list, k) { return !list || list.indexOf(k) >= 0; };
+    var box = function (g, arr, list) { return arr.map(function (x) { return '<label class="p2sc"><input type="checkbox" data-g="' + g + '" value="' + x[0] + '"' + (on(list, x[0]) ? ' checked' : '') + '><span><b>' + x[1] + '</b>' + (x[2] ? '<small>' + x[2] + '</small>' : '') + '</span></label>'; }).join(''); };
+    var o = sheet('<h2>문제 범위</h2><p class="p2g-p">' + esc(name || '') + ' <small>' + esc(email) + '</small><br>체크한 것만 이 사람 화면(연습·모의고사·통계·검색·예상문제지)에 나와요.</p>' +
+      '<div class="label">과목</div><div class="p2sc-g">' + box('subj', SC_SUBJ, cur && cur.subj) + '</div>' +
+      '<div class="label">문제 종류</div><div class="p2sc-g">' + box('src', SC_SRC, cur && cur.src) + '</div>' +
+      '<button class="p2g-btn pri" id="p2ScS">저장</button><button class="p2g-btn" id="p2ScA">전체로 되돌리기</button><div class="p2g-msg" id="p2M"></div>' +
+      '<p class="p2g-small">저장하면 그 사람이 앱을 다시 열 때(또는 다음 접속 때) 바로 바뀌어요. 풀이 기록은 지워지지 않아요.</p>');
+    async function save(v) {
+      msg(o, '저장 중…', true);
+      var r = await st.sb.rpc('quiz_admin_set_scope', { p_email: email, p_scope: v });
+      if (r.error) { msg(o, '저장 실패: ' + r.error.message); return; }
+      msg(o, '저장했어요: ' + scopeLabel(v), true);
+      if (email === (st.user.email || '').toLowerCase()) { if (v) wr(SCOPEK, JSON.stringify(v)); else rm(SCOPEK); setTimeout(function () { location.reload(); }, 700); return; }
+      setTimeout(function () { o.close(); done && done(); }, 600);
+    }
+    $('#p2ScS', o).onclick = function () {
+      var pick = function (g, all) { var v = [].slice.call(o.querySelectorAll('input[data-g="' + g + '"]:checked')).map(function (i) { return i.value; }); return v.length === all.length ? null : v; };
+      var sj = pick('subj', SC_SUBJ), sr = pick('src', SC_SRC);
+      if ((sj && !sj.length) || (sr && !sr.length)) { msg(o, '과목과 문제 종류는 하나 이상 골라 주세요.'); return; }
+      save(normScope({ subj: sj, src: sr }));
+    };
+    $('#p2ScA', o).onclick = function () { save(null); };
   }
   function tempPw(email) {
     var o = sheet('<h2>임시 비밀번호</h2><p class="p2g-p">' + esc(email) + '</p><form id="p2TF"><label>임시 비밀번호 <small>10자 이상</small><input id="p2T1" type="text" autocomplete="off" minlength="10" required></label><button class="p2g-btn pri" type="submit">정하기</button></form><div class="p2g-msg" id="p2M"></div><p class="p2g-small">본인에게 직접 알려 주고, 로그인 후 설정 → 「비밀번호 바꾸기」를 하게 하세요.</p>');

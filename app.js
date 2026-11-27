@@ -2,13 +2,22 @@
 const KEY='promo2-quiz-v3';
 const EXAM={date:'2026-12-18', label:'2026. 12. 18.(금) 11:00', min:90, n:50};
 /* 매일 오전 9시(KST) 공개: rel 날짜가 오늘(UTC 기준 = KST 9시 경계)보다 뒤면 숨김 */
-const ALL_QUESTIONS=QUESTIONS.concat((typeof window!=='undefined'&&window.PAST&&window.PAST.qs)||[]); // 기출 원본(past.js)도 연습·통계에 포함
-const DRILLX=(typeof window!=='undefined'&&window.DRILL)||null; if(DRILLX) DRILLX.qs.forEach(q=>ALL_QUESTIONS.push(q)); // 연습 문제집(drill.js): 세트로만 풀고 연습·통계·예측·복습에서는 제외
+const ALL0=QUESTIONS.concat((typeof window!=='undefined'&&window.PAST&&window.PAST.qs)||[]); // 기출 원본(past.js)도 연습·통계에 포함
+const DRILLX=(typeof window!=='undefined'&&window.DRILL)||null; if(DRILLX) DRILLX.qs.forEach(q=>ALL0.push(q)); // 보내준 예상문제(drill.js, user:1)
+// 2026. 11. 27. 사용자별 문제 범위: 관리자가 사용자 관리에서 지정(auth.js → window.P2SCOPE = {subj:[F,E,D,Y,G], src:[site,user,past]}). 없으면 전부.
+let SCOPE=(typeof window!=='undefined'&&window.P2SCOPE)||null;
+const srcOf=q=>q.past?'past':q.user?'user':'site';
+const inScope=q=>{ if(!SCOPE) return true; const sj=(SUBJECTS.find(x=>x.secs.includes(q.sec))||{}).id;
+  return (!Array.isArray(SCOPE.subj)||SCOPE.subj.includes(sj))&&(!Array.isArray(SCOPE.src)||SCOPE.src.includes(srcOf(q))); };
+if(SCOPE&&!ALL0.some(inScope)) SCOPE=null; // 범위에 맞는 문제가 하나도 없으면 전체로
+const ALL_QUESTIONS=SCOPE?ALL0.filter(inScope):ALL0;
+if(SCOPE){ for(let i=SUBJECTS.length-1;i>=0;i--){ const sub=SUBJECTS[i]; if(!ALL_QUESTIONS.some(q=>sub.secs.includes(q.sec))) SUBJECTS.splice(i,1); } if(SUBJECTS.length) EXAM.n=SUBJECTS.reduce((a,x)=>a+x.n,0); } // 범위 밖(문제 0개) 과목은 목록·모의고사·통계에서도 뺀다
 let REL_DAY='', activeQuestions=[], HOT_IDS=[], FRESH_IDS=[];
 // 진행 중인 시험은 공개 목록이 바뀌어도 같은 문항과 답안을 유지한다.
 const byId=Object.fromEntries(ALL_QUESTIONS.map(q=>[q.id,q]));
 const PASTX=(typeof window!=='undefined'&&window.PAST)||null;
-const YESX=(typeof window!=='undefined'&&window.YESANG)||null; // 예상문제지(yesang.js): 과목별 세트
+const YESX=(()=>{ const y=(typeof window!=='undefined'&&window.YESANG)||null; if(!y||!SCOPE) return y; // 예상문제지(yesang.js): 과목별 세트 — 범위 밖 문항·빈 세트는 뺀다
+  const sets=y.sets.map(x=>Object.assign({},x,{ids:x.ids.filter(id=>byId[id])})).filter(x=>x.ids.length); return sets.length?Object.assign({},y,{sets}):null; })();
 // 2026. 11. 18. 개정: 실제 시험은 간결한 기본 문제 — 계산 문항·해상/운송보험 문항은 연습·모의고사·통계에서 뺀다(기록은 보존)
 const HIDE_RE=/해상|운송보험|운송인|선박|적하|공동해손|선하증권/;
 // 기출 형식(발문 한 줄·짧은 보기·사례/<보기> 없음·판례 번호 없는 발문)에 맞지 않는 문항도 고쳐 쓰기 전까지 숨긴다(tools/fmtcheck.js와 같은 기준)
