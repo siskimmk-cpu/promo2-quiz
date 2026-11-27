@@ -14,11 +14,13 @@ const inScope=q=>{ if(!SCOPE) return true; if(SCOPE_IDS) return SCOPE_IDS.has(q.
   return (!Array.isArray(SCOPE.subj)||SCOPE.subj.includes(sj))&&(!Array.isArray(SCOPE.src)||SCOPE.src.includes(srcOf(q))||(SCOPE.src.includes('adj')&&ADJ.has(q.id))); };
 if(SCOPE&&!ALL0.some(inScope)) SCOPE=null; // 범위에 맞는 문제가 하나도 없으면 전체로
 const ALL_QUESTIONS=SCOPE?ALL0.filter(inScope):ALL0;
-if(SCOPE){ for(let i=SUBJECTS.length-1;i>=0;i--){ const sub=SUBJECTS[i]; if(!ALL_QUESTIONS.some(q=>sub.secs.includes(q.sec))) SUBJECTS.splice(i,1); } if(SUBJECTS.length) EXAM.n=SUBJECTS.reduce((a,x)=>a+x.n,0); } // 범위 밖(문제 0개) 과목은 목록·모의고사·통계에서도 뺀다
+if(SCOPE){ for(let i=SUBJECTS.length-1;i>=0;i--){ const sub=SUBJECTS[i]; if(!ALL_QUESTIONS.some(q=>sub.secs.includes(q.sec))) SUBJECTS.splice(i,1); } SUBJECTS.forEach(sub=>{ sub.n=Math.min(sub.n,ALL_QUESTIONS.filter(q=>sub.secs.includes(q.sec)).length); }); if(SUBJECTS.length){ EXAM.n=SUBJECTS.reduce((a,x)=>a+x.n,0); EXAM.min=Math.max(10,Math.round(90*EXAM.n/50)); } } // 범위 밖(문제 0개) 과목은 목록·모의고사·통계에서도 뺀다
 let REL_DAY='', activeQuestions=[], HOT_IDS=[], FRESH_IDS=[];
 // 진행 중인 시험은 공개 목록이 바뀌어도 같은 문항과 답안을 유지한다.
 const byId=Object.fromEntries(ALL_QUESTIONS.map(q=>[q.id,q]));
-const PASTX=(typeof window!=='undefined'&&window.PAST)||null;
+if(SCOPE&&DRILLX){ DRILLX.sets=DRILLX.sets.map(x=>Object.assign({},x,{ids:x.ids.filter(id=>byId[id])})).filter(x=>x.ids.length); } // 연습 문제집 세트도 범위 안 문항만
+const PASTX=(()=>{ const p=(typeof window!=='undefined'&&window.PAST)||null; if(!p||!SCOPE) return p; // 사내 기출: 범위 밖 문항·빈 회차는 뺀다
+  const f=a=>(a||[]).filter(id=>byId[id]); const sets=(p.sets||[]).map(x=>Object.assign({},x,{ids:f(x.ids)})).filter(x=>x.ids.length); return sets.length?Object.assign({},p,{sets,uniqA:f(p.uniqA),uniqL:f(p.uniqL)}):null; })();
 const YESX=(()=>{ const y=(typeof window!=='undefined'&&window.YESANG)||null; if(!y||!SCOPE) return y; // 예상문제지(yesang.js): 과목별 세트 — 범위 밖 문항·빈 세트는 뺀다
   const sets=y.sets.map(x=>Object.assign({},x,{ids:x.ids.filter(id=>byId[id])})).filter(x=>x.ids.length); return sets.length?Object.assign({},y,{sets}):null; })();
 // 2026. 11. 18. 개정: 실제 시험은 간결한 기본 문제 — 계산 문항·해상/운송보험 문항은 연습·모의고사·통계에서 뺀다(기록은 보존)
@@ -269,8 +271,8 @@ function exam(){
   h+=`<div class="papers anim">`+PAPERS.map(p=>`<button class="paper" data-act="paper" data-id="${p.id}"><span class="ic ${p.id==='pr'?'r':''}">${p.ic}</span><span class="tx"><b>${esc(p.name)}</b><span>${esc(p.desc)}</span></span><span class="best ${store.best[p.id]!=null?'':'no'}">${store.best[p.id]!=null?`최고 ${store.best[p.id]}점`:'미응시'}</span></button>`).join('')+`</div>`;
   if(YESX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; h+=`<div class="label">예상문제지 <small style="font-weight:500;opacity:.7">· ${yesIds().length}문항 · <a href="${YESX.pdf}" target="_blank" rel="noopener">문제지 PDF</a> · <a href="${YESX.ans}" target="_blank" rel="noopener">정답 PDF</a></small></div><div class="papers anim">`+YESX.sets.map(x=>`<button class="paper" data-act="yes" data-id="${x.id}"><span class="ic">${x.ic}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div>`; }
   if(PASTX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; h+=`<div class="label">기출 회차 <small style="font-weight:500;opacity:.7">· 중복 뺀 ${PASTX.uniqA.length+PASTX.uniqL.length}문항 · 원본 해설</small></div><div class="papers anim">`+PASTX.sets.map(x=>`<button class="paper" data-act="past" data-id="${x.id}"><span class="ic">${x.g==='L'?'⚖️':'🚕'}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항 · ${x.range}</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div>`; }
-  if(DRILLX){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; const gs=[...new Set(DRILLX.sets.map(x=>x.g))];
-    h+=`<div class="label">연습 문제집 <small style="font-weight:500;opacity:.7">· ${DRILLX.qs.length}문항 · 정답률·복습 제외</small></div>`+gs.map(g=>{const xs=DRILLX.sets.filter(x=>x.g===g),n=xs.reduce((a,x)=>a+x.ids.length,0),done=xs.filter(x=>pr(x)!=='미응시').length;return `<details class="drill"><summary><span>${esc(g)}</span><small>${xs.length}세트 · ${n}문항${done?` · ${done}세트 풀이`:''}</small></summary><div class="papers">`+xs.map(x=>`<button class="paper" data-act="drill" data-id="${x.id}"><span class="ic">${x.ic}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항${x.range?' · '+esc(x.range):''}</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div></details>`;}).join(''); }
+  if(DRILLX&&DRILLX.sets.length){ const pr=x=>{const r=x.ids.map(id=>store.ans[id]).filter(Boolean);return r.length?`${r.filter(a=>a.ok).length}/${x.ids.length}`:'미응시';}; const gs=[...new Set(DRILLX.sets.map(x=>x.g))];
+    h+=`<div class="label">연습 문제집 <small style="font-weight:500;opacity:.7">· ${new Set([].concat(...DRILLX.sets.map(x=>x.ids))).size}문항 · 정답률·복습 제외</small></div>`+gs.map(g=>{const xs=DRILLX.sets.filter(x=>x.g===g),n=xs.reduce((a,x)=>a+x.ids.length,0),done=xs.filter(x=>pr(x)!=='미응시').length;return `<details class="drill"><summary><span>${esc(g)}</span><small>${xs.length}세트 · ${n}문항${done?` · ${done}세트 풀이`:''}</small></summary><div class="papers">`+xs.map(x=>`<button class="paper" data-act="drill" data-id="${x.id}"><span class="ic">${x.ic}</span><span class="tx"><b>${esc(x.name)}</b><span>${x.ids.length}문항${x.range?' · '+esc(x.range):''}</span></span><span class="best ${pr(x)==='미응시'?'no':''}">${pr(x)}</span></button>`).join('')+`</div></details>`;}).join(''); }
   const hs=(store.hist||[]).slice(-10);
   h+=`<div class="label">응시 기록</div>`;
   if(hs.length){
@@ -291,7 +293,7 @@ function intro(){
   hideTabs(); dock.hidden=false; dock.classList.remove('fbd','ok','no');
   const p=PAPERS.find(x=>x.id===introPaper);
   let h=`<div class="bk-row"><button class="back" id="back">‹ 모의고사</button><button class="back hm" id="ihome">${ico('home')}<span>홈</span></button></div><h1 class="title">${esc(p.name)}</h1><p class="sub">객관식 ${EXAM.n}문항 · ${EXAM.min}분 · 문항당 2점</p>`;
-  h+=`<div class="list"><table class="tbl"><thead><tr><th>과목</th><th>문항</th><th>배점</th></tr></thead><tbody>`+SUBJECTS.map(s=>`<tr><td>${esc(s.name)}</td><td>${s.n}</td><td>${s.n*2}</td></tr>`).join('')+`<tr class="sum"><td>합계</td><td>${EXAM.n}</td><td>100</td></tr></tbody></table></div>`;
+  h+=`<div class="list"><table class="tbl"><thead><tr><th>과목</th><th>문항</th><th>배점</th></tr></thead><tbody>`+SUBJECTS.map(s=>`<tr><td>${esc(s.name)}</td><td>${s.n}</td><td>${s.n*2}</td></tr>`).join('')+`<tr class="sum"><td>합계</td><td>${EXAM.n}</td><td>${EXAM.n*2}</td></tr></tbody></table></div>`;
   h+=`<div class="label">응시 안내</div><div class="qcard notes"><p>시작하면 ${EXAM.min}분 타이머가 돌고, 시간이 끝나면 자동으로 제출돼요.</p><p>문항을 오가며 답을 바꿀 수 있어요. 아래 <b>답안지</b>에서 빈 문항을 확인하세요.</p><p>과목마다 손해사정사 1차 수준의 고난도 문항이 포함돼요.</p><p>제출하면 과목별 점수와 해설을 보여줘요.</p></div>`;
   app.innerHTML=h;
   dockIn.innerHTML=`<button class="cta" id="begin">시험 시작하기</button>`;
@@ -386,7 +388,7 @@ function cpSheet(lab){
   let d=0,o=0,blank=0; for(let k=0;k<upto;k++){ const p=s.picks[k]; if(p==null){ if(mock&&k<s.i) blank++; continue; } d++; if(isOk(byId[s.ids[k]],p)) o++; }
   const mw=maxWrong(), r=d?o/d:0, estW=d?Math.round((1-r)*50):null;
   const tone=estW==null?'':estW<=mw?'ok':estW<=mw+3?'mid':'no';
-  const msg=estW==null?'아직 푼 문제가 없어요.':estW<=mw?`이 페이스면 50문항 중 약 ${estW}개 틀려요. 목표(오답 ${mw}개 이하) 안이에요.`:`이 페이스면 50문항 중 약 ${estW}개 틀려요. 목표는 오답 ${mw}개 이하라 ${estW-mw}개 더 줄여야 해요.`;
+  const msg=estW==null?'아직 푼 문제가 없어요.':estW<=mw?`이 페이스면 ${EXAM.n}문항 중 약 ${estW}개 틀려요. 목표(오답 ${mw}개 이하) 안이에요.`:`이 페이스면 ${EXAM.n}문항 중 약 ${estW}개 틀려요. 목표는 오답 ${mw}개 이하라 ${estW-mw}개 더 줄여야 해요.`;
   let tm='';
   if(mock&&s.end){ const fc=s.picks.filter(p=>p!=null).length, used=Math.round((EXAM.min*60000-(s.end-Date.now()))/60000), want=Math.round(EXAM.min*fc/n); tm=`<p class="cp-tm">${used}분 썼어요 · ${fc}문항 표기 기준 권장 ${want}분 · ${used<=want?'시간 여유 있어요':'조금 서둘러요'}${blank?` · 건너뛴 문항 ${blank}개`:''}</p>`; }
   sheet(`<div class="upd cp"><span class="upd-ic">${ico('chart')}</span><b>${lab?lab+' 지점 중간 점수':'지금까지 점수'}</b><p>${mock?'채점 결과만 보여줘요. 어떤 문제가 틀렸는지는 제출 후에 확인해요.':'지금까지 푼 문제 기준이에요.'}</p></div>
@@ -449,7 +451,7 @@ function report(){
   h+=`<div class="stat3"><div><b>${all.d}</b><span>푼 문항</span></div><div><b>${all.r==null?'–':all.r+'%'}</b><span>정답률</span></div><div><b>${streak()}일</b><span>연속 학습</span></div></div>`;
   {const fa=Object.values(store.ans).filter(a=>a.f===true||a.f===false||a.n===1),fo=fa.filter(a=>a.f===true||(a.f===undefined&&a.ok)).length; if(fa.length>=10) h+=`<p class="foot" style="margin:-4px 0 12px">처음 풀었을 때 정답률 <b>${Math.round(fo/fa.length*100)}%</b> (${fa.length}문항) — 같은 문제를 다시 맞힌 것은 빼고 본 값이라 실제 시험 실력에 더 가까워요.</p>`;}
   const pr=predict();
-  h+=`<div class="label">목표 달성 예측<small>50문항 중 오답 ${maxWrong()}개 이하일 추정 확률</small></div><div class="qcard predbox">`+(pr.ready?`<div class="pbig ${pr.prob>=70?'hi':pr.prob>=40?'mid':'lo'}">${pr.prob}%</div><p class="psub">지금 실력으로 50문항을 보면 <b>${pr.wrong}개</b> 정도 틀릴 것 같아요.</p><table class="tbl" style="margin-top:8px"><thead><tr><th>과목</th><th>최근 정답률</th><th>예상 오답</th></tr></thead><tbody>`+pr.per.map(x=>`<tr><td>${esc(x.sub.name)}</td><td>${x.n?Math.round(x.p*100)+'%':'–'}<small style="color:var(--muted)"> (${x.n}문항)</small></td><td>${x.n?Math.round(x.sub.n*(1-x.p)):'–'}/${x.sub.n}</td></tr>`).join('')+`</tbody></table><p class="foot" style="margin:12px 0 0">과목별로 최근 푼 서로 다른 문제 80개의 마지막 답안으로 정답률을 잡고(같은 문제를 여러 번 맞혀도 1개로 셈), 시험 문항 수대로 합산해 계산해요. 적게 푼 과목은 보수적으로 잡혀요. 실제 합격은 42명 중 상위 30% 상대평가라 다른 응시자 점수에 따라 달라지므로, 이 값은 합격 확률이 아니라 목표 점수 달성 가능성이에요.</p>`:`<p class="psub">문제를 ${20-pr.tot}개 더 풀면 목표 달성 확률을 계산해 드려요.</p>`)+`<div class="seg" style="margin-top:12px">${[[92,4],[90,5],[88,6]].map(([g,w])=>`<button data-pass="${g}" aria-pressed="${(store.pass||92)===g}">오답 ${w}개 이하</button>`).join('')}</div></div>`;
+  h+=`<div class="label">목표 달성 예측<small>${EXAM.n}문항 중 오답 ${maxWrong()}개 이하일 추정 확률</small></div><div class="qcard predbox">`+(pr.ready?`<div class="pbig ${pr.prob>=70?'hi':pr.prob>=40?'mid':'lo'}">${pr.prob}%</div><p class="psub">지금 실력으로 50문항을 보면 <b>${pr.wrong}개</b> 정도 틀릴 것 같아요.</p><table class="tbl" style="margin-top:8px"><thead><tr><th>과목</th><th>최근 정답률</th><th>예상 오답</th></tr></thead><tbody>`+pr.per.map(x=>`<tr><td>${esc(x.sub.name)}</td><td>${x.n?Math.round(x.p*100)+'%':'–'}<small style="color:var(--muted)"> (${x.n}문항)</small></td><td>${x.n?Math.round(x.sub.n*(1-x.p)):'–'}/${x.sub.n}</td></tr>`).join('')+`</tbody></table><p class="foot" style="margin:12px 0 0">과목별로 최근 푼 서로 다른 문제 80개의 마지막 답안으로 정답률을 잡고(같은 문제를 여러 번 맞혀도 1개로 셈), 시험 문항 수대로 합산해 계산해요. 적게 푼 과목은 보수적으로 잡혀요. 실제 합격은 42명 중 상위 30% 상대평가라 다른 응시자 점수에 따라 달라지므로, 이 값은 합격 확률이 아니라 목표 점수 달성 가능성이에요.</p>`:`<p class="psub">문제를 ${20-pr.tot}개 더 풀면 목표 달성 확률을 계산해 드려요.</p>`)+`<div class="seg" style="margin-top:12px">${[[92,4],[90,5],[88,6]].map(([g,w])=>`<button data-pass="${g}" aria-pressed="${(store.pass||92)===g}">오답 ${w}개 이하</button>`).join('')}</div></div>`;
   h+=`<div class="list" style="margin-top:12px"><button class="row" id="gonote"><span class="ic y">${ico('note')}</span><span class="tx"><span class="nm">오답·별표 노트</span><span class="meta">틀린 문제와 보기별 해설 모아보기</span></span>${ico('chev','chev')}</button><button class="row" id="goset"><span class="ic">${ico('gear')}</span><span class="tx"><span class="nm">설정</span><span class="meta">테마·효과음·진동·하루 목표·목표 점수</span></span>${ico('chev','chev')}</button></div>`;
   h+=`<div class="label">과목별 정답률</div><div class="qcard bars">`+SUBJECTS.map(sub=>{const r=rate(activeQuestions.filter(q=>sub.secs.includes(q.sec)));return `<div class="bar"><span class="bn">${esc(sname(sub.name))}</span><span class="bt"><i style="width:${r.r||0}%" class="${r.r!=null&&r.r<60?'lo':''}"></i></span><span class="bv">${r.r==null?'–':r.r+'%'}<small>${r.d}/${r.t}</small></span></div>`;}).join('')+`</div>`;
   const secs=SECTIONS.map(s=>({s,...rate(activeQuestions.filter(q=>q.sec===s.id))})).filter(x=>x.d>=3).sort((a,b)=>a.r-b.r).slice(0,3);
@@ -791,7 +793,7 @@ function planCard(){
     ${p.left&&p.d>7&&store.goal!==Math.min(50,Math.max(10,p.need))?`<button class="cta ghost sm" data-act="setgoal">하루 목표를 ${Math.min(50,Math.max(10,p.need))}문제로 맞추기</button>`:''}
   </section>`;
 }
-const FL=(typeof FLASH!=='undefined'?FLASH:[]);
+const FL=(typeof FLASH!=='undefined'?FLASH:[]).filter(c=>!SCOPE||SUBJECTS.some(s=>s.secs.includes(c.sec))); // 범위 밖 과목 카드는 뺀다
 const flKnown=()=>store.fk||(store.fk={});
 function flashEntry(){ const nw=stats().wrongIds.length, kn=FL.filter(c=>flKnown()[c.id]).length;
   return `<div class="list anim" style="margin-bottom:14px"><button class="row" data-act="flash"><span class="ic y" style="font-size:22px">🃏</span><span class="tx"><span class="nm">암기 카드</span><span class="meta">핵심 개념 ${FL.length}장 · 외운 카드 ${kn}장 · 오답 ${nw}장</span></span>${ico('chev','chev')}</button></div>`; }
@@ -1132,7 +1134,7 @@ try{ const s1=store.sess; if(DSK.matches&&(!tabbar.hidden||(s1&&s1.mode==='mock'
 
 // 화면을 켜 둔 경우와 백그라운드 복귀 모두 공개 날짜를 확인한다.
 /* ── 교재(e북): 목차·이어읽기·검색·북마크·형광펜·가리개(암기)·듣기·확인 문제 ── */
-const BK=(typeof BOOK!=='undefined'?BOOK:[]);
+const BK=(typeof BOOK!=='undefined'?BOOK:[]).filter(b=>!SCOPE||SUBJECTS.some(s=>s.id===b.sub)); // 범위 밖 과목 교재는 뺀다
 const BKALL=BK.flatMap(b=>b.ch.map((c,i)=>Object.assign({},c,{bsub:b.sub,bname:b.name,bic:b.ic,bno:i+1})));
 const BKMAP=Object.fromEntries(BKALL.map(c=>[c.id,c]));
 IC.book='<path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/>';

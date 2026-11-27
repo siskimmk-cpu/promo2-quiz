@@ -100,10 +100,10 @@
   var SCOPEK = 'promo2-scope';
   function normScope(v) { if (!v || typeof v !== 'object') return null; if (v.block) return { block: true }; var o = {}; if (Array.isArray(v.subj) && v.subj.length) o.subj = v.subj.slice().sort(); if (Array.isArray(v.src) && v.src.length) o.src = v.src.slice().sort(); if (Array.isArray(v.ids) && v.ids.length) { o = { ids: v.ids.slice().sort() }; } return (o.subj || o.src || o.ids) ? o : null; }
   function cachedScope() { try { return normScope(JSON.parse(rd(SCOPEK, 'null'))); } catch (e) { return null; } }
-  /* 관리자가 「오류 화면」으로 지정한 사용자: 앱 대신 서버 오류처럼 보이는 화면. 다시 시도하면 서버 값을 다시 확인 */
+  /* 관리자가 「이용 중지」로 지정한 사용자: 앱 대신 중립적인 이용 불가 안내. 다시 확인하면 서버 값을 다시 읽음 */
   function fakeError() {
-    var w = screen('<div class="p2g-err"><h1>일시적인 서버 오류</h1><p class="p2g-p">서버에서 데이터를 불러오지 못했어요.<br>잠시 후 다시 시도해 주세요.</p><p class="p2g-small">오류 코드: 503 Service Unavailable (PGRST' + (100 + (Date.now() % 900)) + ')</p><button class="p2g-btn pri" id="p2Re">다시 시도</button><div class="p2g-msg" id="p2M"></div></div>');
-    $('#p2Re', w).onclick = function () { msg(w, '연결 중…', true); setTimeout(function () { syncScope(); msg(w, '서버에 연결하지 못했어요. 잠시 후 다시 시도해 주세요.'); }, 1500); };
+    var w = screen('<div class="p2g-err"><h1>서비스 이용 불가</h1><p class="p2g-p">현재 이 계정은 서비스를 이용할 수 없어요.<br>문의는 관리자에게 해 주세요.</p><button class="p2g-btn pri" id="p2Re">다시 확인</button><div class="p2g-msg" id="p2M"></div></div>');
+    $('#p2Re', w).onclick = function () { msg(w, '확인 중…', true); setTimeout(function () { syncScope(); msg(w, '아직 이용할 수 없어요.'); }, 1200); };
   }
   function syncScope() {
     st.sb.rpc('quiz_my_scope').then(function (r) {
@@ -355,7 +355,7 @@
   var SC_SRC = [['site', '사이트 문제', '매일 추가되는 문제은행'], ['user', '보내준 예상문제', '민기가 보내준 예상문제·교재 문제'], ['past', '사내 기출', '작년 기출 원본'], ['adj', '손해사정사 기출', '손해사정사 시험 기출 원문만(보내준 문제 중 368문제)']];
   function scopeLabel(v) {
     if (!v) return '전체';
-    if (v.block) return '오류 화면(접속 차단)';
+    if (v.block) return '이용 중지';
     if (v.ids) return '직접 고른 문제 ' + v.ids.length + '개';
     var a = v.subj ? SC_SUBJ.filter(function (x) { return v.subj.indexOf(x[0]) >= 0; }).map(function (x) { return x[1]; }).join('·') : '전 과목';
     var b = v.src ? SC_SRC.filter(function (x) { return v.src.indexOf(x[0]) >= 0; }).map(function (x) { return x[1]; }).join('·') : '모든 문제';
@@ -383,7 +383,7 @@
     var f = { s: '', src: '', t: '', only: false };
     var SN = { F: '자배법', E: '손해사정', D: '보험계약법', Y: '공제약관', G: '상식' }, RN = { site: '사이트', user: '보내준', past: '사내 기출', adj: '손해사정사 기출' };
     var o = sheet('<h2>문제 범위</h2><p class="p2g-p">' + esc(name || '') + ' <small>' + esc(email) + '</small><br>고른 것만 이 사람 화면(연습·모의고사·통계·검색·예상문제지)에 나와요.</p>' +
-      '<div class="p2sc-mode"><button type="button" data-m="grp">과목·종류로</button><button type="button" data-m="pick">문제 직접 고르기</button><button type="button" data-m="block">오류 화면</button></div>' + '<div id="p2ScB"><p class="p2g-p">이 사람이 앱을 열면 문제 대신 <b>「일시적인 서버 오류」</b> 화면이 나와요. 「다시 시도」를 눌러도 계속 오류로 보이고, 계정 해제 표시는 나오지 않아요. 풀이 기록은 그대로 두고, 「전체로 되돌리기」하면 다시 정상으로 열려요.</p></div>' +
+      '<div class="p2sc-mode"><button type="button" data-m="grp">과목·종류로</button><button type="button" data-m="pick">문제 직접 고르기</button><button type="button" data-m="block">이용 중지</button></div>' + '<div id="p2ScB"><p class="p2g-p">이 사람이 앱을 열면 문제 대신 <b>「서비스 이용 불가 — 문의는 관리자에게」</b> 안내가 나와요. 풀이 기록은 그대로 두고, 「전체로 되돌리기」하면 다시 정상으로 열려요.</p></div>' +
       '<div id="p2ScG"><div class="label">과목</div><div class="p2sc-g">' + box('subj', SC_SUBJ, cur && cur.subj) + '</div>' +
       '<div class="label">문제 종류</div><div class="p2sc-g">' + box('src', SC_SRC, cur && cur.src) + '</div></div>' +
       '<div id="p2ScP"><div class="p2pk-f"><input id="p2PkT" type="search" placeholder="문제 검색 (예: 대차료, 고지의무)"><div class="p2pk-c" id="p2PkS"></div><div class="p2pk-c" id="p2PkR"></div></div>' +
