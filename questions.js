@@ -10486,7 +10486,7 @@ const QUESTIONS = [
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c754%ec%a1%b0/",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "E90",
@@ -10510,7 +10510,7 @@ const QUESTIONS = [
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.scourt.go.kr/sjudge/1787008350584_081230.pdf",
- "verifiedAt": "2026-11-12",
+ "verifiedAt": "2026-11-27",
  "fmtAt": "2026-11-18"
 },
 {
@@ -10529,12 +10529,12 @@ const QUESTIONS = [
   "암 직접치료 수술에 후유증 수술도 포함된다."
  ],
  "ans": 1,
- "exp": "약관은 평균적 고객 기준으로 해석하며 불명확하면 고객에게 유리하게 해석한다.",
+ "exp": "약관은 평균적 고객 기준으로 해석하고 불명확하면 고객에게 유리하게 해석한다. 약관에 수술의 정의가 없으면 색전술도 수술에 포함될 수 있으나(2010다28208), 암의 직접치료 수술에 후유증 완화·합병증 치료 수술은 포함되지 않는다(2010다40543).",
  "ref": "약관의 규제에 관한 법률 제5조, 대법원 2010. 7. 22. 선고 2010다28208 판결, 대법원 2010. 9. 30. 선고 2010다40543 판결",
  "rel": "2026-11-13",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW//precInfoP.do?precSeq=145257",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "F86",
@@ -10558,7 +10558,7 @@ const QUESTIONS = [
  "ref": "민법 제758조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c758%ec%a1%b0/",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "F87",
@@ -10582,7 +10582,7 @@ const QUESTIONS = [
  "ref": "민법 제760조 제2항, 대법원 2008. 4. 10. 선고 2007다76306 판결",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a476306/",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "F88",
@@ -10606,7 +10606,7 @@ const QUESTIONS = [
  "ref": "민법 제759조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c759%ec%a1%b0/",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "F90",
@@ -10630,7 +10630,7 @@ const QUESTIONS = [
  "ref": "자배법 제12조 제5항",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "E93",
@@ -10653,7 +10653,7 @@ const QUESTIONS = [
  "ref": "손해사정이론(기왕증), 대법원 2008. 7. 24. 선고 2007다52294 판결, 대법원 2019. 8. 9. 선고 2017다20159 판결",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/2007%eb%8b%a452294/",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "E94",
@@ -10676,7 +10676,7 @@ const QUESTIONS = [
  "ref": "손해사정이론(노동능력상실률), 대법원 2023. 11. 16. 선고 2020다292671 판결, 대법원 2020. 6. 25. 선고 2020다216240 판결",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/%eb%85%b8%eb%8f%99%eb%8a%a5%eb%a0%a5%ec%83%81%ec%8b%a4%eb%a5%a0/",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "E95",
@@ -10700,7 +10700,7 @@ const QUESTIONS = [
  "ref": "국민건강보험법 제58조, 대법원 2022. 12. 16. 선고 2022다262209 판결",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4262209/",
- "verifiedAt": "2026-11-12",
+ "verifiedAt": "2026-11-27",
  "fmtAt": "2026-11-18"
 },
 {
@@ -10725,7 +10725,7 @@ const QUESTIONS = [
  "ref": "상법 제733조, 대법원 2025. 2. 20. 선고 2022다306048 판결",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/2022%eb%8b%a4306048/",
- "verifiedAt": "2026-11-12",
+ "verifiedAt": "2026-11-27",
  "fmtAt": "2026-11-18"
 },
 {
@@ -10773,7 +10773,7 @@ const QUESTIONS = [
  "ref": "공제약관(공제금 청구)",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "B48",
@@ -10795,7 +10795,7 @@ const QUESTIONS = [
  "ref": "공제약관(자손공제)",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/image/pdf/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%EC%A0%9C%EC%95%BD%EA%B4%80%2825.8.12%29.pdf",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "G47",
@@ -10864,7 +10864,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 지급기준(현실소득액의 산정방법)",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "id": "C49",
@@ -16092,7 +16092,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 대인공제·무보험차상해공제 지급기준【사망】2.나.(1)(가) 산정대상기간",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16115,7 +16115,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 지급기준【사망】2.나. 현실소득액 산정방법 〈용어풀이〉③",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16138,7 +16138,7 @@ const QUESTIONS = [
  "ref": "공제약관 21 공제약관 등의 교부 및 설명",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16162,7 +16162,7 @@ const QUESTIONS = [
  "ref": "공제약관 20 공제계약의 승계 1.(4) 대인공제Ⅰ, 대물공제 일시 담보",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16186,7 +16186,7 @@ const QUESTIONS = [
  "ref": "자배법 제10조·제11조, 자배법 시행령 제7조·제8조",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16209,7 +16209,7 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16232,7 +16232,7 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16255,7 +16255,7 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16278,7 +16278,7 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16302,7 +16302,7 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -16327,7 +16327,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27",
+ "off": 1,
+ "offReason": "2026-11-27 검증: 지엽(별표2 개별 장해등급 맞히기 — 다리 단축 길이별 등급)"
 },
 {
  "style": "기출형",
@@ -16352,7 +16354,9 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27",
+ "off": 1,
+ "offReason": "2026-11-27 검증: 지엽(별표2 개별 장해 항목 한도 맞히기 — 비장·신장 상실)"
 },
 {
  "style": "기출형",
@@ -16377,7 +16381,7 @@ const QUESTIONS = [
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-12",
- "verifiedAt": "2026-11-12"
+ "verifiedAt": "2026-11-27"
 },
 {
  "style": "기출형",
@@ -26715,6 +26719,7 @@ const QUESTIONS = [
   "exp": "최후조건설은 시간적으로 손해에 가장 가까운(마지막) 조건을 원인으로 본다. 우리 판례·통설은 상당인과관계설을 따른다.",
   "ref": "손해사정이론(보험사고 — 손인과 손해의 인과관계)",
   "rel": "2026-12-04",
-  "reviewedAt": "2026-11-27"
+  "reviewedAt": "2026-11-27",
+  "verifiedAt": "2026-11-27"
  }
 ];
