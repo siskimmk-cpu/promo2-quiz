@@ -18,7 +18,8 @@ create or replace function public.quiz_admin_scopes()
 returns table (email text, scope jsonb)
 language plpgsql stable security definer set search_path = '' as $$
 begin
-  if auth.uid() is null or not public.is_admin() then raise exception 'admin only' using errcode = '42501'; end if;
+  -- 관리자 확인은 기존 quiz_admin_users()에 맡긴다(관리자가 아니면 거기서 'admin only'로 막힘). 2026. 11. 27. is_admin() 직접 호출이 새 함수에서 false로 나와 변경
+  perform 1 from public.quiz_admin_users() limit 1;
   return query select m.email, m.scope from public.quiz_members m;
 end $$;
 revoke all on function public.quiz_admin_scopes() from public, anon;
@@ -29,7 +30,8 @@ create or replace function public.quiz_admin_set_scope(p_email text, p_scope jso
 returns void language plpgsql security definer set search_path = '' as $$
 declare e text := lower(trim(p_email));
 begin
-  if auth.uid() is null or not public.is_admin() then raise exception 'admin only' using errcode = '42501'; end if;
+  -- 관리자 확인은 기존 quiz_admin_users()에 맡긴다(관리자가 아니면 거기서 'admin only'로 막힘). 2026. 11. 27. is_admin() 직접 호출이 새 함수에서 false로 나와 변경
+  perform 1 from public.quiz_admin_users() limit 1;
   if p_scope is not null and jsonb_typeof(p_scope) <> 'object' then raise exception 'bad scope'; end if;
   update public.quiz_members set scope = case when p_scope = '{}'::jsonb then null else p_scope end where email = e;
   if not found then raise exception 'no such member'; end if;
