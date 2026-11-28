@@ -10751,7 +10751,7 @@ const QUESTIONS = [
  "ref": "교통·보험 상식(보험사기방지 특별법), 대법원 2025. 9. 25. 선고 2024도11951 판결",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.asiae.co.kr/en/article/2025110315065950088",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "A40",
@@ -10841,7 +10841,7 @@ const QUESTIONS = [
  "ref": "대한민국헌법 제49조, 제64조, 제77조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.nepla.ai/wiki/국가와-민주주의/국회-선거-정당/국회의-의사절차-다수결의-원칙-헌법-제49조-과-각종-정족수-ov59rq008063",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "C48",
@@ -11057,7 +11057,7 @@ const QUESTIONS = [
  "ref": "자배법 제11조 / 시행령 제10조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "F97",
@@ -11081,7 +11081,7 @@ const QUESTIONS = [
  "ref": "자배법 제24조 / 시행령 제17조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "F100",
@@ -11105,7 +11105,7 @@ const QUESTIONS = [
  "ref": "민법 제760조 / 대법원 2005다32999·96다55631",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.nepla.ai/wiki/민사/계약/-일문일답-공동불법행위의-과실상계의-경우-가해자들-각자-평가해야-하는가-전체로-평가해야-하는가-ov59rp1m0n06",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "F101",
@@ -11130,7 +11130,7 @@ const QUESTIONS = [
  "ref": "민법 제760조 / 대법원 96다3791·96다50896·89다카9194",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/%ea%b3%b5%eb%8f%99%eb%b6%88%eb%b2%95%ed%96%89%ec%9c%84/",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "F102",
@@ -11153,7 +11153,7 @@ const QUESTIONS = [
  "ref": "자배법 제10조·제11조 / 시행령 제7조·제8조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "D124",
@@ -11176,7 +11176,9 @@ const QUESTIONS = [
  "ref": "상법 제725조의2·제672조·제673조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c725%ec%a1%b0%ec%9d%982/",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28",
+ "off": 1,
+ "offReason": "2026-11-28 검증: 중복(D59와 정답 쟁점 동일 — 보험자 1인에 대한 권리 포기는 다른 보험자에 영향 없음, 상법 제673조)"
 },
 {
  "id": "D125",
@@ -11191,15 +11193,15 @@ const QUESTIONS = [
  "opts": [
   "상실이익은 약정 없어도 손해액에 넣는다.",
   "정신적 손해도 보상한다.",
-  "이미 생긴 손해는 이후 비담보 사고 멸실에도 보상",
+  "이미 생긴 손해는 그 후 비담보 사고로 멸실되어도 보상한다.",
   "목적의 하자·자연소모 손해도 보상한다."
  ],
  "ans": 2,
- "exp": "상실이익은 약정이 있어야 산입하고, 성질·하자·자연소모 손해는 면책이다(제675조·제678조).",
+ "exp": "사고 후 목적이 보험자가 부담하지 않는 사고로 멸실되어도 이미 생긴 손해는 보상한다(제675조). 상실이익은 약정이 있어야 산입하고(제667조), 손해보험은 재산상 손해를 보상하며, 성질·하자·자연소모 손해는 면책이다(제678조).",
  "ref": "상법 제665조·제667조·제675조·제678조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://m.cafe.daum.net/insuranceprofit/Bo3P/215?listURI=%2Finsuranceprofit%2FBo3P",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "D126",
@@ -11223,7 +11225,7 @@ const QUESTIONS = [
  "ref": "대법원 2026. 4. 9. 선고 2025다211106 판결 / 상법 제682조·제724조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?pageIndex=1&searchWord=&searchOption=&seqnum=11025&gubun=4&type=5",
- "verifiedAt": "2026-11-13",
+ "verifiedAt": "2026-11-28",
  "fmtAt": "2026-11-18"
 },
 {
@@ -11246,7 +11248,7 @@ const QUESTIONS = [
  "exp": "동질적 위험단위가 늘면 대수의 법칙에 따라 객관적 위험은 줄어든다.",
  "ref": "손해사정이론(위험의 개념과 측정)",
  "reviewedAt": "2026-11-07",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E97",
@@ -11270,7 +11272,7 @@ const QUESTIONS = [
  "ref": "손해사정이론(일실수입·생계비 공제), 대법원 83다카853·86다카565",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/%EC%83%9D%EA%B3%84%EB%B9%84-%EA%B3%B5%EC%A0%9C/",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E98",
@@ -11316,7 +11318,7 @@ const QUESTIONS = [
  "ref": "손해사정이론(물적손해), 대법원 2017. 5. 17. 선고 2016다248806 판결",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.scourt.go.kr/portal/news/NewsViewAction.work?gubun=4&seqnum=5691",
- "verifiedAt": "2026-11-13",
+ "verifiedAt": "2026-11-28",
  "fmtAt": "2026-11-18"
 },
 {
@@ -11340,7 +11342,7 @@ const QUESTIONS = [
  "ref": "손해사정이론(개호비), 대법원 86다카2626·2016다11257",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://korea.legal/wiki/%EA%B0%9C%ED%98%B8%EB%B9%84/",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "A42",
@@ -11364,7 +11366,7 @@ const QUESTIONS = [
  "ref": "공제약관 8 (6) 가해자 불명사고(차량담보) 할증 적용",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "A43",
@@ -11388,7 +11390,7 @@ const QUESTIONS = [
  "ref": "공제약관 8 (7) 공제 재가입 조합원의 등급적용",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "A44",
@@ -11412,7 +11414,7 @@ const QUESTIONS = [
  "ref": "공제약관 8 (8) 공제계약의 승계시 등급적용",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "A45",
@@ -11436,7 +11438,7 @@ const QUESTIONS = [
  "ref": "공제약관 22 청약 철회",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "B49",
@@ -11460,7 +11462,7 @@ const QUESTIONS = [
  "ref": "공제약관 16 1. (6) 차량공제 면책사항",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "C54",
@@ -11484,7 +11486,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 지급기준 【사망】 라. 취업가능월수 (5) 외국인",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "C55",
@@ -11508,7 +11510,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 지급기준 【사망】 나. 현실소득액의 산정방법 (1) 유직자",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "C56",
@@ -11523,7 +11525,7 @@ const QUESTIONS = [
  "opts": [
   "입원일수에 비례하여 산정한다.",
   "상해등급별로 정한 금액을 인정한다.",
-  "후유장애 한도 초과 시 부상 한도 안에서 지급한다.",
+  "후유장애 상실수익액 등이 그 한도를 넘으면 부상 한도 안에서 지급한다.",
   "부상 위자료가 더 많으면 후유장애 위자료로 지급한다."
  ],
  "ans": 0,
@@ -11531,7 +11533,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 지급기준 【부상】 2. 위자료·【후유장애】 1. 위자료",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "F103",
@@ -11556,7 +11558,7 @@ const QUESTIONS = [
  "ref": "자배법 제5조 / 시행령 제3조·제4조",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "F104",
@@ -11580,7 +11582,7 @@ const QUESTIONS = [
  "ref": "자배법 제5조 제4항·제5조의2 / 시행령 제5조·제5조의2",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.law.go.kr/LSW/lsInfoR.do?lsiSeq=290659&efYd=20261002&chrClsCd=010202&ancYnChk=0",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "A48",
@@ -11604,7 +11606,7 @@ const QUESTIONS = [
  "ref": "공제약관 18 공제금의 분담 및 공제조합의 대위 1. 공제금의 분담",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "B50",
@@ -26742,7 +26744,8 @@ const QUESTIONS = [
  "ref": "자배법 제2조 제3호·제4호, 제3조, 민법 제750조·제756조 · 레벨-업 교재 p.224 변형",
  "rel": "2026-11-28",
  "reviewedAt": "2026-11-28",
- "sourceUrl": "https://korea.legal/wiki/%ec%9e%90%eb%8f%99%ec%b0%a8%ec%86%90%ed%95%b4%eb%b0%b0%ec%83%81-%eb%b3%b4%ec%9e%a5%eb%b2%95-%ec%a0%9c2%ec%a1%b0/"
+ "sourceUrl": "https://korea.legal/wiki/%ec%9e%90%eb%8f%99%ec%b0%a8%ec%86%90%ed%95%b4%eb%b0%b0%ec%83%81-%eb%b3%b4%ec%9e%a5%eb%b2%95-%ec%a0%9c2%ec%a1%b0/",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "F359",
@@ -26788,7 +26791,8 @@ const QUESTIONS = [
  "ref": "손해사정이론(손해배상청구권자 — 상속) · 민법 제1000조·제1001조·제1003조·제1009조, 공제약관 26 지급기준 【사망】 2. 위자료(민법 상속규정) · 레벨-업 교재 p.226 변형",
  "rel": "2026-12-04",
  "reviewedAt": "2026-11-28",
- "sourceUrl": "https://korea.legal/wiki/%EB%AF%BC%EB%B2%95-%EC%A0%9C1009%EC%A1%B0/"
+ "sourceUrl": "https://korea.legal/wiki/%EB%AF%BC%EB%B2%95-%EC%A0%9C1009%EC%A1%B0/",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E377",
@@ -26811,7 +26815,8 @@ const QUESTIONS = [
  "ref": "손해사정이론(손해배상청구권자 — 상속) · 민법 제1000조 제3항·제1003조, 판례(대법원 1976. 9. 14. 선고 76다1365 판결), 공제약관 26 지급기준 【사망】 2. 위자료(민법 상속규정) · 레벨-업 교재 p.226 변형",
  "rel": "2026-12-04",
  "reviewedAt": "2026-11-28",
- "sourceUrl": "https://korea.legal/wiki/%ed%83%9c%ec%95%84%ec%9d%98-%ec%83%81%ec%86%8d/"
+ "sourceUrl": "https://korea.legal/wiki/%ed%83%9c%ec%95%84%ec%9d%98-%ec%83%81%ec%86%8d/",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E378",
@@ -26833,7 +26838,8 @@ const QUESTIONS = [
  "ref": "손해사정이론(손해배상청구권자 — 법정대리인) · 민법 제826조의2·제909조·제909조의2 · 레벨-업 교재 p.227 변형",
  "rel": "2026-12-04",
  "reviewedAt": "2026-11-28",
- "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c909%ec%a1%b0%ec%9d%982/"
+ "sourceUrl": "https://korea.legal/wiki/%eb%af%bc%eb%b2%95-%ec%a0%9c909%ec%a1%b0%ec%9d%982/",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E379",
@@ -26903,6 +26909,7 @@ const QUESTIONS = [
  "ref": "상법 제662조·제64조, 판례(대법원 2006. 11. 10. 선고 2005다35516 판결) · 레벨-업 교재 p.227 변형",
  "rel": "2026-12-04",
  "reviewedAt": "2026-11-28",
- "sourceUrl": "https://www.nepla.ai/case/대법원/2005다35516"
+ "sourceUrl": "https://www.nepla.ai/case/대법원/2005다35516",
+ "verifiedAt": "2026-11-28"
 }
 ];
