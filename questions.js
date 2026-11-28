@@ -11630,7 +11630,7 @@ const QUESTIONS = [
  "ref": "공제약관 16 2. 음주운전, 무면허운전, 마약·약물운전 또는 사고발생시의 조치의무 위반 관련 사고부담금",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "B51",
@@ -11653,7 +11653,7 @@ const QUESTIONS = [
  "ref": "공제약관 15 긴급출동서비스 공제 1.(2)·3.",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "C57",
@@ -11676,7 +11676,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 지급기준 【사망】 라. 취업가능월수",
  "reviewedAt": "2026-11-07",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "D135",
@@ -16431,7 +16431,7 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표1 상해 구분별 한도금액(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16454,7 +16454,7 @@ const QUESTIONS = [
  "ref": "공제약관 13 무보험차상해공제 2. 조합원의 범위 (2)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16477,7 +16477,7 @@ const QUESTIONS = [
  "ref": "공제약관 12 자손공제 1.(6)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16525,7 +16525,7 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표2 후유장애의 구분과 한도금액(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16550,7 +16550,9 @@ const QUESTIONS = [
  "ref": "자배법 시행령 별표2 후유장애의 구분 3급 5호·4급 6호(공제약관 붙임)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28",
+ "off": 1,
+ "offReason": "2026-11-28 검증: 지엽(별표2 개별 장해 등급 맞히기)"
 },
 {
  "style": "기출형",
@@ -16573,7 +16575,7 @@ const QUESTIONS = [
  "ref": "공제약관 11 배상책임 1.(2)③",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16596,7 +16598,7 @@ const QUESTIONS = [
  "ref": "공제약관 8 자동차 사고시 보상처리 흐름도 및 사고할증 2.(5) 특별할증율의 결정",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16619,7 +16621,7 @@ const QUESTIONS = [
  "ref": "공제약관 27 대물공제 지급기준 3. 대차료 나.(1)(나)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16642,7 +16644,7 @@ const QUESTIONS = [
  "ref": "공제약관 9 분쟁, 합의, 관할법원 2.(1)·(2)·(4)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16665,7 +16667,7 @@ const QUESTIONS = [
  "ref": "상법 제640조",
  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c640%ec%a1%b0/",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16689,7 +16691,7 @@ const QUESTIONS = [
  "ref": "상법 제648조",
  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c648%ec%a1%b0/",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16713,7 +16715,7 @@ const QUESTIONS = [
  "ref": "상법 제653조",
  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c653%ec%a1%b0/",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16736,7 +16738,7 @@ const QUESTIONS = [
  "ref": "상법 제666조",
  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c666%ec%a1%b0/",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16760,7 +16762,7 @@ const QUESTIONS = [
  "ref": "상법 제722조 제2항·제657조 제1항",
  "sourceUrl": "https://korea.legal/wiki/%ec%83%81%eb%b2%95-%ec%a0%9c722%ec%a1%b0/",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16783,7 +16785,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 대인공제·무보험차상해공제 지급기준 사망 3.나.(1)(나)1)나)②",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16807,7 +16809,7 @@ const QUESTIONS = [
  "ref": "공제약관 26 대인공제 지급기준 부상 1.나. 치료관계비 단서",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -16831,7 +16833,7 @@ const QUESTIONS = [
  "ref": "공제약관 29 과실상계 등 1.가.(3)",
  "sourceUrl": "https://www.kodt.or.kr/boards/guide_view/1116",
  "reviewedAt": "2026-11-13",
- "verifiedAt": "2026-11-13"
+ "verifiedAt": "2026-11-28"
 },
 {
  "style": "기출형",
@@ -27002,7 +27004,8 @@ const QUESTIONS = [
  "exp": "다른 의사표시가 없으면 손해는 금전으로 배상한다(제763조에 의한 제394조 준용). 제751조는 재산 이외 손해 배상과 정기금 담보를 정한다.",
  "ref": "민법 제751조·제763조(제394조·제396조 준용)",
  "rel": "2026-12-04",
- "reviewedAt": "2026-11-28"
+ "reviewedAt": "2026-11-28",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E381",
@@ -27047,7 +27050,8 @@ const QUESTIONS = [
  "ref": "손해사정이론(손해배상청구권자 — 상속) · 민법 제1000조·제1003조 제1항·제1009조 제2항, 공제약관 26 지급기준 【사망】 2. 위자료(민법 상속규정) · 레벨-업 교재 p.226 변형",
  "rel": "2026-12-05",
  "reviewedAt": "2026-11-28",
- "sourceUrl": "https://korea.legal/wiki/%EB%AF%BC%EB%B2%95-%EC%A0%9C1003%EC%A1%B0/"
+ "sourceUrl": "https://korea.legal/wiki/%EB%AF%BC%EB%B2%95-%EC%A0%9C1003%EC%A1%B0/",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E383",
@@ -27068,7 +27072,8 @@ const QUESTIONS = [
  "exp": "부모가 혼인 중인 때에는 친권을 부모가 공동으로 행사한다(민법 제909조 제2항). 한쪽이 행사할 수 없으면 다른 한쪽이 행사한다.",
  "ref": "손해사정이론(손해배상청구권자 — 법정대리인) · 민법 제909조 제2항 · 레벨-업 교재 p.227 변형",
  "rel": "2026-12-05",
- "reviewedAt": "2026-11-28"
+ "reviewedAt": "2026-11-28",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E384",
@@ -27089,7 +27094,8 @@ const QUESTIONS = [
  "exp": "사무처리 능력이 지속적으로 결여된 사람은 성년후견개시 심판을 받아 가정법원이 선임한 성년후견인이 법정대리인이 된다(민법 제9조·제938조).",
  "ref": "손해사정이론(손해배상청구권자 — 법정대리인) · 민법 제9조·제929조·제938조 · 레벨-업 교재 p.227 변형",
  "rel": "2026-12-05",
- "reviewedAt": "2026-11-28"
+ "reviewedAt": "2026-11-28",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "E385",
@@ -27181,7 +27187,8 @@ const QUESTIONS = [
  "exp": "탄소중립은 온실가스 배출량과 흡수·제거량을 같게 해 순배출량을 0으로 만드는 것이다. 배출량에 과세하는 것은 탄소세다.",
  "ref": "시사상식(환경 — 탄소중립)",
  "rel": "2026-12-05",
- "reviewedAt": "2026-11-28"
+ "reviewedAt": "2026-11-28",
+ "verifiedAt": "2026-11-28"
 },
 {
  "id": "G72",
@@ -27201,6 +27208,7 @@ const QUESTIONS = [
  "exp": "중과실(12개 예외)·도주·사망이 아닌 업무상과실치상죄는 반의사불벌죄로, 피해자의 명시적인 의사에 반하여 공소를 제기할 수 없다(친고죄 아님).",
  "ref": "교통사고처리 특례법 제3조 제2항·제4조",
  "rel": "2026-12-06",
- "reviewedAt": "2026-11-28"
+ "reviewedAt": "2026-11-28",
+ "verifiedAt": "2026-11-28"
 }
 ];
